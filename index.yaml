@@ -376,6 +376,23 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/forecastle-1.0.0/forecastle-1.0.0.tgz
     version: 1.0.0
+  home-assistant:
+  - apiVersion: v2
+    appVersion: 5.4.4
+    created: "2021-01-31T23:18:03.296490084Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 3df9a2605935fdfdfafb5563d4e303ad695c7459990189002d0d93fcabddba94
+    name: home-assistant
+    sources:
+    - https://k8s-at-home.com/charts/
+    - https://github.com/home-assistant/home-assistant
+    - https://github.com/home-assistant/home-assistant
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/home-assistant-1.6.0/home-assistant-1.6.0.tgz
+    version: 1.6.0
   konfigurator:
   - apiVersion: v2
     appVersion: v0.0.26
@@ -724,4 +741,4 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/reloader-1.0.0/reloader-1.0.0.tgz
     version: 1.0.0
-generated: "2021-01-31T23:14:34.889499260Z"
+generated: "2021-01-31T23:14:34.88949926Z"
