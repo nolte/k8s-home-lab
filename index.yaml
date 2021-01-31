@@ -81,6 +81,17 @@ entries:
     version: 1.0.1
   argocd-image-updater:
   - apiVersion: v2
+    created: "2021-01-31T20:24:59.658003634Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 4dbc7a15e0466c127ee15b8ec85385f51281cee2da2372557ecf916c3c4c6881
+    name: argocd-image-updater
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-image-updater-1.2.2/argocd-image-updater-1.2.2.tgz
+    version: 1.2.2
+  - apiVersion: v2
     created: "2021-01-31T17:31:42.443441253Z"
     dependencies:
     - name: common-app
