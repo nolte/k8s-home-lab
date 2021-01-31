@@ -217,6 +217,20 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/common-app-1.0.1/common-app-1.0.1.tgz
     version: 1.0.1
+  forecastle:
+  - apiVersion: v2
+    created: "2021-01-31T21:09:01.976726379Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 7ef9be630aa86b4d4308ea6a7d2e914599da864bdcea4f15942c83ab4a84170f
+    name: forecastle
+    sources:
+    - https://github.com/stakater/Forecastle
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/forecastle-1.0.0/forecastle-1.0.0.tgz
+    version: 1.0.0
   minio:
   - apiVersion: v2
     created: "2021-01-31T17:31:42.622974639Z"
@@ -352,4 +366,18 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/project-contour-1.0.1/project-contour-1.0.1.tgz
     version: 1.0.1
-generated: "2021-01-31T20:25:15.313105330Z"
+  reloader:
+  - apiVersion: v2
+    created: "2021-01-31T21:09:02.207739268Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 583f4c73a551949ac6434fecf6ac8d03b8ec9f9b6cfc78365ecd7dfff6fb7130
+    name: reloader
+    sources:
+    - https://github.com/stakater/Reloader
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/reloader-1.0.0/reloader-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-01-31T20:25:15.31310533Z"
