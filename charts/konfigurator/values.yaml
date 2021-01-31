@@ -1,0 +1,7 @@
+# https://github.com/stakater/Reloader/blob/master/deployments/kubernetes/chart/reloader/values.yaml
+destination:
+  namespace: argocd
+source:
+  path: deployments/kubernetes/chart/konfigurator
+  repoURL: https://github.com/stakater/Konfigurator.git
+  targetRevision: v0.0.26
