@@ -30,8 +30,8 @@ spec:
   {{- with .Values.syncPolicy }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  ignoreDifferences:
   {{- with .Values.ignoreDifferences }}
+  ignoreDifferences:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 {{- end }}
