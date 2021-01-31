@@ -8,3 +8,4 @@ excluded-charts:
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
   - k8s-at-home=https://k8s-at-home.com/charts
+  - argo-apps=https://nolte.github.io/argo-charts/
