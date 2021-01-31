@@ -1,6 +1,6 @@
 apiVersion: v2
 name: minio
-version: 1.0.0
+version: 1.0.1
 dependencies:
   - name: common-app
     repository: https://nolte.github.io/argo-charts/
