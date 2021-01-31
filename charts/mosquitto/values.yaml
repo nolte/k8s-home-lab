@@ -1,6 +1,7 @@
 # https://github.com/stakater/Reloader/blob/master/deployments/kubernetes/chart/reloader/values.yaml
 destination:
-  namespace: operators
+  namespace: mosquitto
+
 source:
-  path: deployments/kubernetes/chart/reloader
-  repoURL: https://github.com/stakater/Reloader.git
+  chart: mosquitto
+  repoURL: https://halkeye.github.io/helm-charts/

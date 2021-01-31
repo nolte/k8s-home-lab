@@ -4,7 +4,6 @@ destination:
 source:
   chart: contour
   repoURL: https://charts.bitnami.com/bitnami
-  targetRevision: 4.1.0
   helm:
     values: |
       prometheus:

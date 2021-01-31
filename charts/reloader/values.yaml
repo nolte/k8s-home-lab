@@ -4,4 +4,3 @@ destination:
 source:
   path: deployments/kubernetes/chart/forecastle
   repoURL: https://github.com/stakater/Forecastle.git
-  targetRevision: v1.0.62

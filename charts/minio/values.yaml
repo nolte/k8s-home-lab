@@ -5,7 +5,6 @@ source:
   # https://github.com/minio/charts/blob/master/minio/values.yaml
   chart: minio
   repoURL: https://helm.min.io/
-  targetRevision: 8.0.9
   helm:
     version: v3
     values: |

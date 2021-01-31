@@ -1,8 +1,9 @@
 apiVersion: v2
 name: project-contour
-version: 1.5.0
+version: 1.6.0
+appVersion: 4.1.0
 dependencies:
   - name: common-app
     #repository: file://../common-app
     repository: https://nolte.github.io/argo-charts/
-    version: 1.1.1
+    version: 1.2.0
