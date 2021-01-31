@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   argo-cd:
   - apiVersion: v2
+    created: "2021-01-31T21:22:58.662300739Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 5bece9ce5089f7550a263cdc7200b8cc1c468bb2c248fe0da303f5aa210edfca
+    name: argo-cd
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argo-cd-1.5.0/argo-cd-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2021-01-31T19:47:11.09704037Z"
     dependencies:
     - name: common-app
@@ -13,6 +24,17 @@ entries:
     - https://github.com/nolte/argo-charts/releases/download/argo-cd-1.3.0/argo-cd-1.3.0.tgz
     version: 1.3.0
   argo-workflow:
+  - apiVersion: v2
+    created: "2021-01-31T21:22:58.761175319Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 3939dfd61963c18c9da5fbe6be323958a766101e2c16a2118573bcbe74a085f5
+    name: argo-workflow
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argo-workflow-1.5.0/argo-workflow-1.5.0.tgz
+    version: 1.5.0
   - apiVersion: v2
     created: "2021-01-31T19:47:11.189399193Z"
     dependencies:
@@ -81,6 +103,17 @@ entries:
     version: 1.0.1
   argocd-image-updater:
   - apiVersion: v2
+    created: "2021-01-31T21:22:58.838693043Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 77590774e590ffcf3e3c598b79f71eae013b6472ce0d592a9b2e1ef9ac08851e
+    name: argocd-image-updater
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-image-updater-1.5.0/argocd-image-updater-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2021-01-31T20:24:59.658003634Z"
     dependencies:
     - name: common-app
@@ -136,6 +169,17 @@ entries:
     - https://github.com/nolte/argo-charts/releases/download/argocd-image-updater-1.0.1/argocd-image-updater-1.0.1.tgz
     version: 1.0.1
   cert-manager:
+  - apiVersion: v2
+    created: "2021-01-31T21:22:58.921716834Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 9fff186a55663f80f60628738caccaf193807236d71e8433a162cce92df444cc
+    name: cert-manager
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/cert-manager-1.5.0/cert-manager-1.5.0.tgz
+    version: 1.5.0
   - apiVersion: v2
     created: "2021-01-31T17:31:42.537674471Z"
     dependencies:
@@ -219,6 +263,19 @@ entries:
     version: 1.0.1
   forecastle:
   - apiVersion: v2
+    created: "2021-01-31T21:22:59.01699387Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 3937c83ff211136425e4fb59a709dbdf86372c92a1b7d5615f57cdc8fdb21ba8
+    name: forecastle
+    sources:
+    - https://github.com/stakater/Forecastle
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/forecastle-1.5.0/forecastle-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2021-01-31T21:09:01.976726379Z"
     dependencies:
     - name: common-app
@@ -231,7 +288,32 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/forecastle-1.0.0/forecastle-1.0.0.tgz
     version: 1.0.0
+  konfigurator:
+  - apiVersion: v2
+    created: "2021-01-31T21:22:59.090737123Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: ef456dec10c69f27a052c4f6fb6d73aeb6e76a2bc87797891915fbbb39e983de
+    name: konfigurator
+    sources:
+    - https://github.com/stakater/Konfigurator
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/konfigurator-1.5.0/konfigurator-1.5.0.tgz
+    version: 1.5.0
   minio:
+  - apiVersion: v2
+    created: "2021-01-31T21:22:59.168615223Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 6422919bf22eee0c256e81da261f58ae7ffa101b5e3b852ed9a9342478580378
+    name: minio
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/minio-1.5.0/minio-1.5.0.tgz
+    version: 1.5.0
   - apiVersion: v2
     created: "2021-01-31T17:31:42.622974639Z"
     dependencies:
@@ -278,6 +360,17 @@ entries:
     version: 1.0.1
   monitoring:
   - apiVersion: v2
+    created: "2021-01-31T21:22:59.255195323Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 2cab5cd3f547ebef290b8840cc3da7288d60a027d7a22ac44e0a13809147810d
+    name: monitoring
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/monitoring-1.5.0/monitoring-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2021-01-31T17:31:42.702637177Z"
     dependencies:
     - name: common-app
@@ -323,6 +416,17 @@ entries:
     version: 1.0.1
   project-contour:
   - apiVersion: v2
+    created: "2021-01-31T21:22:59.332446116Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 23e71c1fd49620bc7587060239c93fab59d5a853adf422c97811e12e3eebd9ea
+    name: project-contour
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/project-contour-1.5.0/project-contour-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2021-01-31T16:59:26.644257771Z"
     dependencies:
     - name: common-app
@@ -367,6 +471,19 @@ entries:
     - https://github.com/nolte/argo-charts/releases/download/project-contour-1.0.1/project-contour-1.0.1.tgz
     version: 1.0.1
   reloader:
+  - apiVersion: v2
+    created: "2021-01-31T21:22:59.465943859Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 2df2a4e188389b14b2b19d2fc1850ae2df6cac40e763323be21aa7e5ffcbf399
+    name: reloader
+    sources:
+    - https://github.com/stakater/Reloader
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/reloader-1.5.0/reloader-1.5.0.tgz
+    version: 1.5.0
   - apiVersion: v2
     created: "2021-01-31T21:09:02.207739268Z"
     dependencies:
