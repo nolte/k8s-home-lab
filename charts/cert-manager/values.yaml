@@ -1,0 +1,10 @@
+source:
+  chart: cert-manager
+  repoURL: https://charts.jetstack.io
+  targetRevision: v1.1.0
+  helm:
+    values: |
+      prometheus:
+        enabled: true
+        servicemonitor:
+          enabled: true

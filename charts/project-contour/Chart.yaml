@@ -1,5 +1,5 @@
 apiVersion: v2
-name: argocd-image-updater
+name: project-contour
 version: 1.0.0
 dependencies:
   - name: common-app
