@@ -6,5 +6,5 @@ source:
   repoURL: https://github.com/stakater/Konfigurator.git
   helm:
     values: |
-    konfigurator:
-      deployCRD: true
+      konfigurator:
+        deployCRD: true
