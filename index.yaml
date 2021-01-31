@@ -1,0 +1,16 @@
+apiVersion: v1
+entries:
+  common-app:
+  - apiVersion: v2
+    created: "2021-01-31T14:52:00.683172056Z"
+    digest: 05486ffd309c903d6feb2be7317c02569f90c1e258f536fe71d1c06216793f3b
+    home: https://github.com/nolte/argo-charts/tree/master/charts/common-app
+    keywords:
+    - argocd
+    - common
+    name: common-app
+    type: library
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/common-app-1.0.1/common-app-1.0.1.tgz
+    version: 1.0.1
+generated: "2021-01-31T14:52:00.565495726Z"
