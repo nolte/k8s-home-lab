@@ -1,0 +1,12 @@
+destination:
+  namespace: monitoring
+
+source:
+  chart: kube-prometheus-stack
+  repoURL: https://prometheus-community.github.io/helm-charts
+  targetRevision: 13.4.1
+  helm:
+    releaseName: monitoring
+    values: |
+      grafana:
+        enabled: false

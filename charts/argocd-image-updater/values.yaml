@@ -1,0 +1,6 @@
+destination:
+  namespace: argocd
+source:
+  path: apps/argocd-image-updater/
+  repoURL: https://github.com/nolte/argo-bootstrap.git
+  targetRevision: HEAD  
