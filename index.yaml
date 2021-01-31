@@ -319,6 +319,22 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/common-app-1.0.1/common-app-1.0.1.tgz
     version: 1.0.1
+  esphome:
+  - apiVersion: v2
+    appVersion: 4.3.1
+    created: "2021-01-31T23:11:35.033980714Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: cd86848a0ed45e93df1b0bf7661c59db06da9291b7cc34a7ffd31c93d984bb59
+    name: esphome
+    sources:
+    - https://k8s-at-home.com/charts/
+    - https://esphome.io/
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/esphome-1.6.0/esphome-1.6.0.tgz
+    version: 1.6.0
   forecastle:
   - apiVersion: v2
     appVersion: v0.0.79
@@ -566,6 +582,22 @@ entries:
     - https://github.com/stakater/Forecastle
     urls:
     - https://github.com/nolte/argo-charts/releases/download/mosquitto-1.6.0/mosquitto-1.6.0.tgz
+    version: 1.6.0
+  node-red:
+  - apiVersion: v2
+    appVersion: 5.3.1
+    created: "2021-01-31T23:11:35.128173086Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: d84a806e9fa07cfd4803b076409b765a3fe99b22174d89051b5217f3bc89f03f
+    name: node-red
+    sources:
+    - https://k8s-at-home.com/charts/
+    - https://nodered.org/
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/node-red-1.6.0/node-red-1.6.0.tgz
     version: 1.6.0
   project-contour:
   - apiVersion: v2
