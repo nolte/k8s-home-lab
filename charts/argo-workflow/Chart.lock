@@ -1,6 +1,0 @@
-dependencies:
-- name: common-app
-  repository: https://nolte.github.io/argo-charts/
-  version: 1.0.1
-digest: sha256:38a528e06378fc5be178e3d72a6866de16c529dc6732eaf53c73a759b500385b
-generated: "2021-01-31T15:54:29.567162147+01:00"
