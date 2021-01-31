@@ -1,3 +1,5 @@
+destination:
+  namespace: cert-manager
 source:
   chart: cert-manager
   repoURL: https://charts.jetstack.io

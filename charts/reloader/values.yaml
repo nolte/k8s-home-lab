@@ -1,6 +1,6 @@
 # https://github.com/stakater/Forecastle/blob/master/deployments/kubernetes/chart/forecastle/values.yaml
 destination:
-  namespace: argocd
+  namespace: operators
 source:
   path: deployments/kubernetes/chart/forecastle
   repoURL: https://github.com/stakater/Forecastle.git

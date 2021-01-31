@@ -1,6 +1,6 @@
 # https://github.com/stakater/Reloader/blob/master/deployments/kubernetes/chart/reloader/values.yaml
 destination:
-  namespace: argocd
+  namespace: operators
 source:
   path: deployments/kubernetes/chart/konfigurator
   repoURL: https://github.com/stakater/Konfigurator.git
