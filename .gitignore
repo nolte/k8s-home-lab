@@ -1,2 +1,5 @@
-charts/**/charts
+# Helm resources
+charts/*/Chart.lock
+charts/*/charts
+
 .back

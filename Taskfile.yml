@@ -1,0 +1,15 @@
+---
+version: '3'
+
+vars:
+  GIT_ROOT:
+    sh: git rev-parse --show-toplevel
+
+includes:
+  chart: .taskfiles/Taskfile_chart.yml
+
+tasks:
+  default:
+    cmds:
+    - task -l
+    silent: true
