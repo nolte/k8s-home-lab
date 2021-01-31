@@ -363,6 +363,20 @@ entries:
   konfigurator:
   - apiVersion: v2
     appVersion: v0.0.26
+    created: "2021-01-31T22:58:51.985375759Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: b72a2224e3406ebf7c856bd720858bb5bde922b3ddf1a6a210cadbe2fa45af15
+    name: konfigurator
+    sources:
+    - https://github.com/stakater/Konfigurator
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/konfigurator-1.6.2/konfigurator-1.6.2.tgz
+    version: 1.6.2
+  - apiVersion: v2
+    appVersion: v0.0.26
     created: "2021-01-31T22:53:56.17566688Z"
     dependencies:
     - name: common-app
