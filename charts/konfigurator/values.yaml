@@ -4,3 +4,7 @@ destination:
 source:
   path: deployments/kubernetes/chart/konfigurator
   repoURL: https://github.com/stakater/Konfigurator.git
+  helm:
+    values: |
+    konfigurator:
+      deployCRD: true
