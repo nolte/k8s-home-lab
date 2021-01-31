@@ -2,18 +2,18 @@
 Common labels shared across objects.
 */}}
 {{- define "common.labels" -}}
-helm.sh/chart: {{ include "common.names.chart" . }}
+argo.just-mfg.de/chart: {{ include "common.names.chart" . }}
 {{ include "common.labels.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+argo.just-mfg.de/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+argo.just-mfg.de/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
 Selector labels shared across objects.
 */}}
 {{- define "common.labels.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "common.names.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+argo.just-mfg.de/name: {{ include "common.names.name" . }}
+argo.just-mfg.de/instance: {{ .Release.Name }}
 {{- end }}

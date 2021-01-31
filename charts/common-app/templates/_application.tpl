@@ -25,7 +25,7 @@ spec:
   {{- end }}
   project: {{ .Values.project }}
   source:
-{{- toYaml .Values.source | nindent 4 }}
+  {{- include "common.classes.source" . | nindent 4 }}
   syncPolicy:
   {{- with .Values.syncPolicy }}
   {{- toYaml . | nindent 4 }}
