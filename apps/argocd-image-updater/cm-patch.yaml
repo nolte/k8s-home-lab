@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingored
+data:
+  registries.conf: |
+    registries:
+    - name: Docker Hub
+      api_url: https://registry-1.docker.io
+      ping: yes
+      defaultns: library
