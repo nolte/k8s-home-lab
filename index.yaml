@@ -599,6 +599,22 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/node-red-1.6.0/node-red-1.6.0.tgz
     version: 1.6.0
+  pihole:
+  - apiVersion: v2
+    appVersion: 1.8.29
+    created: "2021-01-31T23:14:18.213143932Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 0873d4bb3dd92b468c6201901974705e51aa1be3d1daf8e5646298d60bd3ae9e
+    name: pihole
+    sources:
+    - https://k8s-at-home.com/charts/
+    - https://nodered.org/
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/pihole-1.6.0/pihole-1.6.0.tgz
+    version: 1.6.0
   project-contour:
   - apiVersion: v2
     appVersion: 4.1.0
