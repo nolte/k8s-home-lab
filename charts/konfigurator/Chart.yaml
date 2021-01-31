@@ -1,6 +1,6 @@
 apiVersion: v2
 name: konfigurator
-version: 1.0.0
+version: 1.5.0
 sources:
   - https://github.com/stakater/Konfigurator
 dependencies:

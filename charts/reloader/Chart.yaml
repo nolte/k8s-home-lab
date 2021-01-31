@@ -1,9 +1,8 @@
 apiVersion: v2
 name: reloader
-version: 1.4.0
+version: 1.5.0
 sources:
   - https://github.com/stakater/Reloader
-
 dependencies:
   - name: common-app
     repository: https://nolte.github.io/argo-charts/
