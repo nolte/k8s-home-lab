@@ -1,0 +1,15 @@
+source:
+  chart: contour
+  repoURL: https://charts.bitnami.com/bitnami
+  targetRevision: 4.1.0
+  helm:
+    values: |
+      prometheus:
+        serviceMonitor:
+          enabled: true
+      envoy:
+        service:
+          type: NodePort
+      contour:
+        manageCRDs: true
+    version: v3
