@@ -220,6 +220,17 @@ entries:
     version: 1.0.1
   project-contour:
   - apiVersion: v2
+    created: "2021-01-31T16:59:26.644257771Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.1.1
+    digest: 00ab3ac85eeccb117c8f20e73c3d794aa813f6f5e01f7fd55038430234b40abe
+    name: project-contour
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/project-contour-1.2.1/project-contour-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
     created: "2021-01-31T16:50:30.214485929Z"
     dependencies:
     - name: common-app
