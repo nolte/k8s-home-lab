@@ -205,6 +205,18 @@ entries:
   cert-manager:
   - apiVersion: v2
     appVersion: v1.1.0
+    created: "2021-02-01T20:48:11.378450118Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 59362e1371fadde1d6b77fbbee767978cdb2c282f817079f300ed76a2b485728
+    name: cert-manager
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/cert-manager-1.6.1/cert-manager-1.6.1.tgz
+    version: 1.6.1
+  - apiVersion: v2
+    appVersion: v1.1.0
     created: "2021-01-31T22:42:11.283698562Z"
     dependencies:
     - name: common-app
