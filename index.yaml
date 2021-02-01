@@ -482,6 +482,23 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/konfigurator-1.5.0/konfigurator-1.5.0.tgz
     version: 1.5.0
+  metallb:
+  - apiVersion: v2
+    appVersion: 2.2.0
+    created: "2021-02-01T18:06:23.538237764Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 5b6d2863b107cb7a49941d01d87a2fc1ee6a966994c1a4c600e13e7fe33b120c
+    name: metallb
+    sources:
+    - https://github.com/metallb/metallb
+    - https://github.com/bitnami/bitnami-docker-metallb
+    - https://metallb.universe.tf
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/metallb-1.6.0/metallb-1.6.0.tgz
+    version: 1.6.0
   minio:
   - apiVersion: v2
     appVersion: 8.0.9
