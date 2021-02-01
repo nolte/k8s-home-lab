@@ -270,6 +270,21 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/cert-manager-1.0.1/cert-manager-1.0.1.tgz
     version: 1.0.1
+  cert-manager-issuer:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-02-01T20:30:52.040293704Z"
+    dependencies:
+    - name: common
+      repository: https://k8s-at-home.com/charts/
+      version: 2.2.1
+    description: A Helm chart for Kubernetes
+    digest: 13cbc0b07349928c174d52354321f21d5cd99737b2b7d0909d9b245e754e9257
+    name: cert-manager-issuer
+    type: application
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/cert-manager-issuer-0.1.0/cert-manager-issuer-0.1.0.tgz
+    version: 0.1.0
   common-app:
   - apiVersion: v2
     created: "2021-01-31T22:32:27.49554971Z"
