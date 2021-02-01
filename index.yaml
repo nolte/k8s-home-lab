@@ -741,4 +741,21 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/reloader-1.0.0/reloader-1.0.0.tgz
     version: 1.0.0
+  vault-operator:
+  - apiVersion: v2
+    appVersion: 1.11.0
+    created: "2021-02-01T17:24:55.397157282Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: ab6e8f4bb350a3614bfaef35f4d28ff79e559d992ba4a55a71533d3050ba6acf
+    name: vault-operator
+    sources:
+    - https://github.com/hashicorp/vault
+    - https://github.com/banzaicloud/bank-vaults
+    - https://github.com/banzaicloud/banzai-charts
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/vault-operator-1.6.0/vault-operator-1.6.0.tgz
+    version: 1.6.0
 generated: "2021-01-31T23:18:19.499289249Z"
