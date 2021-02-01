@@ -390,6 +390,20 @@ entries:
   forecastle:
   - apiVersion: v2
     appVersion: 1.0.62
+    created: "2021-02-01T21:30:13.782824811Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: d721a6533eb1a1ca55789448a3d1a3f323f096e69220c23554f0533b87593637
+    name: forecastle
+    sources:
+    - https://github.com/stakater/Forecastle
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/forecastle-1.6.2/forecastle-1.6.2.tgz
+    version: 1.6.2
+  - apiVersion: v2
+    appVersion: 1.0.62
     created: "2021-02-01T21:24:02.529599122Z"
     dependencies:
     - name: common-app
