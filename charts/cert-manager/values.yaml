@@ -5,6 +5,7 @@ source:
   repoURL: https://charts.jetstack.io
   helm:
     values: |
+      installCRDs: true
       prometheus:
         enabled: true
         servicemonitor:
