@@ -4,5 +4,9 @@ source:
   chart: cert-manager
   repoURL: https://charts.jetstack.io
   helm:
-    valueFiles:
-    - chart-values.yaml
+    values: |
+      installCRDs: true
+      prometheus:
+        enabled: true
+        servicemonitor:
+          enabled: true
