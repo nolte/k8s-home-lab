@@ -2,5 +2,5 @@
 destination:
   namespace: operators
 source:
-  path: deployments/kubernetes/chart/forecastle
-  repoURL: https://github.com/stakater/Forecastle.git
+  path: deployments/kubernetes/chart/reloader
+  repoURL: https://github.com/stakater/Reloader.git

@@ -1,3 +1,5 @@
+fullnameOverride: "argocd"
+
 destination:
   namespace: argocd
 
