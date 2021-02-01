@@ -682,6 +682,22 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/pihole-1.6.0/pihole-1.6.0.tgz
     version: 1.6.0
+  powerdns:
+  - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2021-02-01T18:57:18.047669106Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 416c4b571dafc9273ca142f56c7410df90e541610c2b05e2e81f85fa8469af50
+    name: powerdns
+    sources:
+    - https://github.com/halkeye-helm-charts/powerdns
+    - http://www.github.com/PowerDNS/
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/powerdns-1.6.0/powerdns-1.6.0.tgz
+    version: 1.6.0
   project-contour:
   - apiVersion: v2
     appVersion: 4.1.0
