@@ -376,6 +376,22 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/forecastle-1.0.0/forecastle-1.0.0.tgz
     version: 1.0.0
+  harbor:
+  - apiVersion: v2
+    appVersion: v1.5.3
+    created: "2021-02-01T17:29:27.67769234Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 0552f452c09328a33ea5f65b7e2f47237acbd47d5e842c54585c5be97d525262
+    name: harbor
+    sources:
+    - https://github.com/goharbor/harbor
+    - https://github.com/goharbor/harbor-helm
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/harbor-1.6.0/harbor-1.6.0.tgz
+    version: 1.6.0
   home-assistant:
   - apiVersion: v2
     appVersion: 5.4.4
