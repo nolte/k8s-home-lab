@@ -953,6 +953,19 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/reloader-1.0.0/reloader-1.0.0.tgz
     version: 1.0.0
+  vault:
+  - apiVersion: v2
+    appVersion: 0.9.1
+    created: "2021-02-05T22:33:20.738427489Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 6443349e0171890db97417897b3e32fe078f0e9d5034f53e85721b37b0451f4e
+    name: vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/vault-1.6.0/vault-1.6.0.tgz
+    version: 1.6.0
   vault-operator:
   - apiVersion: v2
     appVersion: 1.11.0
@@ -986,4 +999,4 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/velero-1.6.0/velero-1.6.0.tgz
     version: 1.6.0
-generated: "2021-02-01T22:31:14.420260220Z"
+generated: "2021-02-01T22:31:14.42026022Z"
