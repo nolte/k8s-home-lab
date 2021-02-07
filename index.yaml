@@ -1123,6 +1123,18 @@ entries:
   vault:
   - apiVersion: v2
     appVersion: 0.9.1
+    created: "2021-02-07T22:31:39.896306132Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.9.1
+    digest: 91b7fe2a798b92e5be38d131af9252b8fc2e796508ed64ba0b6077da2ed038f5
+    name: vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/vault-1.8.0/vault-1.8.0.tgz
+    version: 1.8.0
+  - apiVersion: v2
+    appVersion: 0.9.1
     created: "2021-02-07T17:02:46.830376438Z"
     dependencies:
     - name: vault
