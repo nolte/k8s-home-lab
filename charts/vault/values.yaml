@@ -1,26 +1,29 @@
 workflow:
   namespace: argo-workflow
 
-injector:
-  certs:
-    # secretName is the name of the secret that has the TLS certificate and
-    # private key to serve the injector webhook. If this is null, then the
-    # injector will default to its automatic management mode that will assign
-    # a service account to the injector to generate its own certificates.
-    secretName: vault-cert-tls
-    dnsNames: []
-    issuerRef: 
-      name: cluster-issuer
-      kind: ClusterIssuer
-      # - vault.test.de
+vault:
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        ingress.kubernetes.io/force-ssl-redirect: "true"
+      tls:
+        - hosts:
+            - vault.172-17-0-1.sslip.io
+          secretName: vault-cert-tls
+      hosts:
+        - host: vault.172-17-0-1.sslip.io
+          paths: []
 
-    # caBundle is a base64-encoded PEM-encoded certificate bundle for the
-    # CA that signed the TLS certificate that the webhook serves. This must
-    # be set if secretName is non-null.
-    #caBundle: ""
-
-    # certName and keyName are the names of the files within the secret for
-    # the TLS cert and private key, respectively. These have reasonable
-    # defaults but can be customized if necessary.
-    #certName: tls.crt
-    #keyName: tls.key
+  injector:
+    certs:
+      # secretName is the name of the secret that has the TLS certificate and
+      # private key to serve the injector webhook. If this is null, then the
+      # injector will default to its automatic management mode that will assign
+      # a service account to the injector to generate its own certificates.
+      secretName: vault-cert-tls
+      dnsNames: []
+      issuerRef: 
+        name: cluster-issuer
+        kind: ClusterIssuer
+        # - vault.test.de
