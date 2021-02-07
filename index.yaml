@@ -161,6 +161,18 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-argo-workflow-1.6.1/argocd-argo-workflow-1.6.1.tgz
     version: 1.6.1
+  argocd-argocd-image-updater:
+  - apiVersion: v2
+    created: "2021-02-07T16:38:32.048154885Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: ddf5ce67cf15cef125935324b0e3c4c226dedba7f55dc3c2cbde8aad3ba6b60d
+    name: argocd-argocd-image-updater
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-argocd-image-updater-1.7.0/argocd-argocd-image-updater-1.7.0.tgz
+    version: 1.7.0
   argocd-image-updater:
   - apiVersion: v2
     created: "2021-01-31T22:42:11.200552468Z"
