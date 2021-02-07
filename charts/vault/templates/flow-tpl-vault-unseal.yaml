@@ -90,8 +90,7 @@ spec:
       script:
         image: bitnami/kubectl
         command: [bash]
-        source: |
-           "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json" }}"
+        source: "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json" }}"
 
     - name: vault-status-parse
       inputs:
@@ -100,8 +99,7 @@ spec:
       script:
         image: unguiculus/docker-jq
         command: [sh]
-        source: |
-          "{{ printf "jq -n '{{inputs.parameters.status}}|.sealed'" }}"
+        source: "{{ printf "jq -n '{{inputs.parameters.status}}|.sealed'" }}"
 
     - name: unseal-keys
       inputs:
@@ -111,8 +109,7 @@ spec:
       script:
         image: bitnami/kubectl
         command: [bash]
-        source: |
-           {{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}" }}
+        source: "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}" }}"
     
     - name: extract-pods
       inputs:
