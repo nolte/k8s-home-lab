@@ -135,6 +135,32 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argo-workflow-1.0.1/argo-workflow-1.0.1.tgz
     version: 1.0.1
+  argocd-argo-events:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-02-07T15:41:41.35034124Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 5f1797cbc8cad367d72dbfbef276f201fe2debdf71a96df0e2e47da485d3be18
+    name: argocd-argo-events
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-argo-events-1.6.1/argocd-argo-events-1.6.1.tgz
+    version: 1.6.1
+  argocd-argo-workflow:
+  - apiVersion: v2
+    appVersion: 0.15.4
+    created: "2021-02-07T15:41:41.441999957Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: e93cac576664eb6c0e79b56aa2723f4d46eeb2dc6cf751626c8ef89273e247ef
+    name: argocd-argo-workflow
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-argo-workflow-1.6.1/argocd-argo-workflow-1.6.1.tgz
+    version: 1.6.1
   argocd-image-updater:
   - apiVersion: v2
     created: "2021-01-31T22:42:11.200552468Z"
@@ -213,6 +239,34 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-image-updater-1.0.1/argocd-image-updater-1.0.1.tgz
     version: 1.0.1
+  argocd-monitoring:
+  - apiVersion: v2
+    appVersion: 13.4.1
+    created: "2021-02-07T15:41:41.551382254Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 6a249050212597cfaba058cc0164934bbe5939e18832c195b52921bf5458f876
+    name: argocd-monitoring
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-monitoring-1.6.1/argocd-monitoring-1.6.1.tgz
+    version: 1.6.1
+  argocd-reloader:
+  - apiVersion: v2
+    appVersion: v0.0.79
+    created: "2021-02-07T15:41:41.644678178Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 52c5e6aaa57a1668195a410608d3859939103f9e31f1d24443f5a43467ea8e0f
+    name: argocd-reloader
+    sources:
+    - https://github.com/stakater/Reloader
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-reloader-1.6.3/argocd-reloader-1.6.3.tgz
+    version: 1.6.3
   cert-manager:
   - apiVersion: v2
     appVersion: v1.1.0
@@ -955,6 +1009,18 @@ entries:
     version: 1.0.0
   vault:
   - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2021-02-07T15:41:41.846142994Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 9d82ea455a190276625273734601a7924b27fdb8cae21e62390490d714fd6df9
+    name: vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/vault-1.6.1/vault-1.6.1.tgz
+    version: 1.6.1
+  - apiVersion: v2
     appVersion: 0.9.1
     created: "2021-02-05T22:33:20.738427489Z"
     dependencies:
@@ -966,6 +1032,18 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/vault-1.6.0/vault-1.6.0.tgz
     version: 1.6.0
+  - apiVersion: v2
+    appVersion: 0.9.1
+    created: "2021-02-07T15:41:41.75292177Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.9.1
+    digest: 26de44c4dafa4d91a5d0b808cc999b3c2458761a9939471b556a9de97d64e990
+    name: vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/vault-1.1.1/vault-1.1.1.tgz
+    version: 1.1.1
   - apiVersion: v2
     appVersion: 0.9.1
     created: "2021-02-07T15:27:22.505323409Z"
