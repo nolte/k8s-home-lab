@@ -242,6 +242,18 @@ entries:
   argocd-minio:
   - apiVersion: v2
     appVersion: 8.0.9
+    created: "2021-02-07T16:37:28.313646158Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 92d52cd679b18d90fea0e00e6142e292b4f2f083e32e41b518b148423cb18bfe
+    name: argocd-minio
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-minio-1.7.0/argocd-minio-1.7.0.tgz
+    version: 1.7.0
+  - apiVersion: v2
+    appVersion: 8.0.9
     created: "2021-02-07T16:03:54.678414483Z"
     dependencies:
     - name: common-app
@@ -1163,4 +1175,4 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/velero-1.6.0/velero-1.6.0.tgz
     version: 1.6.0
-generated: "2021-02-07T16:32:21.779118430Z"
+generated: "2021-02-07T16:32:21.77911843Z"
