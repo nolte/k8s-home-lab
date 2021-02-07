@@ -9,6 +9,9 @@ injector:
     # a service account to the injector to generate its own certificates.
     secretName: vault-cert-tls
     dnsNames: []
+    issuerRef: 
+      name: cluster-issuer
+      kind: ClusterIssuer
       # - vault.test.de
 
     # caBundle is a base64-encoded PEM-encoded certificate bundle for the
