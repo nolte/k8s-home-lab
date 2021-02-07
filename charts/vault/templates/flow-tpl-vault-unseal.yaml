@@ -11,9 +11,9 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     component: workflow
 spec:
-  entrypoint: unseal
+  entrypoint: unseal-flow
   templates:
-    - name: unseal
+    - name: unseal-flow
       steps:    
         - - name: select-pods
             template: get-pods
@@ -24,6 +24,7 @@ spec:
               parameters:
               - name: pods
                 value: "{{ printf "{{steps.select-pods.outputs.result}}" }}"
+        
         - - name: unseal
             arguments:
               parameters:
