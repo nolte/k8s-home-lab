@@ -1,0 +1,11 @@
+# https://github.com/banzaicloud/bank-vaults/tree/master/charts/vault-operator
+destination:
+  namespace: argocd-vault
+source:
+  chart: vault
+  repoURL: https://helm.releases.hashicorp.com
+  helm:
+    releaseName: vault
+    parameters:
+      - name: server.ha.replicas
+        value: "1"

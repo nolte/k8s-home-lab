@@ -1,0 +1,8 @@
+apiVersion: v2
+name: argocd-cert-manager
+version: 1.6.3
+appVersion: v1.1.0
+dependencies:
+  - name: common-app
+    repository: https://nolte.github.io/argo-charts/
+    version: 1.2.0
