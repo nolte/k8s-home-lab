@@ -1,2 +1,2 @@
 workflow:
-  namespace: argocd-workflow
+  namespace: argo-workflow
