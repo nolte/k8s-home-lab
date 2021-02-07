@@ -1,6 +1,6 @@
 # https://github.com/banzaicloud/bank-vaults/tree/master/charts/vault-operator
 destination:
-  namespace: argocd-vault
+  namespace: vault
 source:
   chart: vault
   repoURL: https://nolte.github.io/argo-charts/
