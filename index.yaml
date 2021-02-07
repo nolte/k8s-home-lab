@@ -239,6 +239,19 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-image-updater-1.0.1/argocd-image-updater-1.0.1.tgz
     version: 1.0.1
+  argocd-minio:
+  - apiVersion: v2
+    appVersion: 8.0.9
+    created: "2021-02-07T16:03:54.678414483Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 1b6f52f348b87467472655d21daa85a5f32d29ef8221459b1b26a08c83f272b9
+    name: argocd-minio
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-minio-1.6.1/argocd-minio-1.6.1.tgz
+    version: 1.6.1
   argocd-monitoring:
   - apiVersion: v2
     appVersion: 13.4.1
