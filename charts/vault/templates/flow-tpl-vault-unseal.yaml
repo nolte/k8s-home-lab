@@ -79,15 +79,15 @@ spec:
         - name: keys
         - name: pod
       steps:  
-       -  name: unseal-pod-keys
-          template: unseal-keys
-          arguments:
-            parameters:
-            - name: pod
-              value: "{{ printf "{{inputs.parameters.pod}}" }}"
-            - name: key
-              value: "{{ printf "{{item}}" }}"
-          withParam: "{{ printf "{{inputs.parameters.keys}}" }}"
+       - - name: unseal-pod-keys
+           template: unseal-keys
+           arguments:
+             parameters:
+             - name: pod
+               value: "{{ printf "{{inputs.parameters.pod}}" }}"
+             - name: key
+               value: "{{ printf "{{item}}" }}"
+           withParam: "{{ printf "{{inputs.parameters.keys}}" }}"
 
     - name: vault-extract-unseal-keys
       inputs:
