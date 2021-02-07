@@ -1,0 +1,155 @@
+# https://www.vaultproject.io/docs/commands/operator/unseal
+# https://www.vaultproject.io/docs/platform/k8s/helm/run
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: {{ template "vault.fullname" . }}-flow-unseal
+  namespace: {{ default .Release.Namespace .Values.workflow.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "vault.name" . }}-vault-unseal
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    component: workflow
+spec:
+  entrypoint: unseal-flow
+  templates:
+    - name: unseal-flow
+      steps:    
+        - - name: select-pods
+            template: get-pods
+
+        - - name: extract-vault-pod
+            template: extract-pods
+            arguments:
+              parameters:
+              - name: pods
+                value: "{{ printf "{{steps.select-pods.outputs.result}}" }}"
+        
+        - - name: unseal
+            arguments:
+              parameters:
+              - name: pod
+                value: "{{ printf "{{item}}" }}"
+            withParam: "{{ printf "{{steps.extract-vault-pod.outputs.result}}" }}"
+            template: unseal-pod
+
+    - name: unseal-pod
+      inputs:
+        parameters:
+        - name: pod    
+      steps:
+        - - name: statuscheck
+            template: vault-status
+            continueOn:
+               failed: true
+            arguments:
+                parameters:
+                - name: pod
+                  value: "{{ printf "{{inputs.parameters.pod}}" }}"
+
+        - - name: operator-init
+            template: vault-operator-init
+            arguments:
+                parameters:
+                - name: pod
+                  value: "{{ printf "{{inputs.parameters.pod}}" }}"
+            when: "{{ printf "{{steps.statuscheck.exitCode}} == 2" }}"
+
+        - - name: extract-unseal-keys
+            template: vault-extract-unseal-keys
+            arguments:
+              parameters:
+              - name: operatorinit
+                value: "{{ printf "{{steps.operator-init.outputs.result}}" }}"
+            when: "{{ printf "{{steps.operator-init.status}} == Succeeded" }}"
+        
+        - - name: unseal-keys-from-pod
+            template: unseal-keys-pod
+            arguments:
+              parameters:
+              - name: pod
+                value: "{{ printf "{{inputs.parameters.pod}}" }}"
+              - name: keys
+                value: "{{ printf "{{steps.extract-unseal-keys.outputs.result}}" }}"
+            when: "{{ printf "{{steps.extract-unseal-keys.status}} == Succeeded" }}"
+
+    - name: unseal-keys-pod
+      inputs:
+        parameters:
+        - name: keys
+        - name: pod
+      steps:  
+       - - name: unseal-pod-keys
+           template: unseal-keys
+           arguments:
+             parameters:
+             - name: pod
+               value: "{{ printf "{{inputs.parameters.pod}}" }}"
+             - name: key
+               value: "{{ printf "{{item}}" }}"
+           withParam: "{{ printf "{{inputs.parameters.keys}}" }}"
+
+    - name: vault-extract-unseal-keys
+      inputs:
+        parameters:
+        - name: operatorinit
+      script:
+        image: unguiculus/docker-jq
+        command: [sh]
+        source: "{{ printf "jq -n '{{inputs.parameters.operatorinit}}|.unseal_keys_b64[0:3]'" }}"
+
+    - name: vault-status
+      inputs:
+        parameters:
+        - name: pod
+      script:
+        image: bitnami/kubectl
+        command: [bash]
+        source: "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json" }}"
+
+    - name: vault-status-parse
+      inputs:
+        parameters:
+        - name: status
+      script:
+        image: unguiculus/docker-jq
+        command: [sh]
+        source: "{{ printf "jq -n '{{inputs.parameters.status}}|.sealed'" }}"
+
+    - name: unseal-keys
+      inputs:
+        parameters:
+        - name: key
+        - name: pod
+      script:
+        image: bitnami/kubectl
+        command: [bash]
+        source: "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}" }}"
+    
+    - name: extract-pods
+      inputs:
+        parameters:
+        - name: pods
+      script:
+        image: unguiculus/docker-jq
+        command: [sh]
+        source: |
+          {{ printf "jq -n '{{inputs.parameters.pods}}|.items[].metadata.name|[.]'" }}
+
+    - name: get-pods
+      script:
+         image: bitnami/kubectl
+         command: [bash]
+         source: |
+          kubectl get pods -n vault -l component=server -ojson
+
+    - name: vault-operator-init
+      inputs:
+        parameters:
+        - name: pod
+      script:
+         image: bitnami/kubectl
+         command: [bash]
+         source: |
+           {{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator init -format=json" }}
+  

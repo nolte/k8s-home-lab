@@ -1,8 +1,8 @@
 apiVersion: v2
 name: vault
-version: 1.6.0
+version: 1.0.0
 appVersion: 0.9.1
 dependencies:
-  - name: common-app
-    repository: https://nolte.github.io/argo-charts/
-    version: 1.2.0
+  - name: vault
+    repository: https://helm.releases.hashicorp.com
+    version: 0.9.1

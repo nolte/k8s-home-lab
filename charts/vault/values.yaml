@@ -1,11 +1,5 @@
-# https://github.com/banzaicloud/bank-vaults/tree/master/charts/vault-operator
-destination:
-  namespace: vault
-source:
-  chart: vault
-  repoURL: https://helm.releases.hashicorp.com
-  helm:
-    releaseName: vault
-    parameters:
-      - name: server.ha.replicas
-        value: "1"
+workflow: 
+  namespace: "argo-workflow"
+server:
+  ha:
+    replicas: "1"
