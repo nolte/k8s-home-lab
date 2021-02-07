@@ -64,15 +64,28 @@ spec:
             when: "{{ printf "{{steps.operator-init.status}} == Succeeded" }}"
         
         - - name: unseal-keys
-            template: unseal-keys
+            template: unseal-keys-pod
             arguments:
               parameters:
               - name: pod
                 value: "{{ printf "{{inputs.parameters.pod}}" }}"
-              - name: key
-                value: "{{ printf "{{item}}" }}"
+              - name: keys
+                value: "{{ printf "{{steps.extract-unseal-keys.outputs.result}}" }}"
             when: "{{ printf "{{steps.extract-unseal-keys.status}} == Succeeded" }}"
-            withParam: "{{ printf "{{steps.extract-unseal-keys.outputs.result}}" }}"
+
+    - name: unseal-keys-pod
+      inputs:
+        parameters:
+        - name: keys
+        - name: pod
+      template: unseal-keys
+      arguments:
+        parameters:
+        - name: pod
+          value: "{{ printf "{{inputs.parameters.pod}}" }}"
+        - name: key
+          value: "{{ printf "{{item}}" }}"
+      withParam: "{{ printf "{{inputs.parameters.keys}}" }}"
 
     - name: vault-extract-unseal-keys
       inputs:
