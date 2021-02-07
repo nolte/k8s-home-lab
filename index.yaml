@@ -267,6 +267,19 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-reloader-1.6.3/argocd-reloader-1.6.3.tgz
     version: 1.6.3
+  argocd-vault:
+  - apiVersion: v2
+    appVersion: 1.1.1
+    created: "2021-02-07T15:52:51.935764333Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 86621befdd6ec2380034e9a3e5ebd9c0d2d96a425ff8afe5990aa4fa329f33ee
+    name: argocd-vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-vault-1.6.2/argocd-vault-1.6.2.tgz
+    version: 1.6.2
   cert-manager:
   - apiVersion: v2
     appVersion: v1.1.0
