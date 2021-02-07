@@ -3,7 +3,7 @@ destination:
   namespace: argocd-vault
 source:
   chart: vault
-  repoURL: https://helm.releases.hashicorp.com
+  repoURL: https://nolte.github.io/argo-charts/
   helm:
     releaseName: vault
     parameters:
