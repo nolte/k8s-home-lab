@@ -1,6 +1,6 @@
 apiVersion: v2
 name: argocd-reloader
-version: 1.6.2
+version: 1.6.3
 appVersion: v0.0.79
 sources:
   - https://github.com/stakater/Reloader

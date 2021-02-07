@@ -1,5 +1,17 @@
 destination:
-  namespace: argo
+  namespace: argo-workflow
+
 source:
-  path: manifests/cluster-install
-  repoURL: https://github.com/argoproj/argo/
+  repoURL: https://argoproj.github.io/argo-helm
+  chart: argo
+  helm:
+    releaseName: argo
+    parameters:
+      - name: workflow.namespace
+        value: "argo-workflow"
+      - name: workflow.rbac.create
+        value: "true"
+      - name: workflow.serviceAccount.create
+        value: "true"
+      - name: controller.containerRuntimeExecutor
+        value: "k8sapi"

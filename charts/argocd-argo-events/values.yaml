@@ -1,0 +1,8 @@
+destination:
+  namespace: argo-events
+
+source:
+  repoURL: https://argoproj.github.io/argo-helm
+  chart: argo-events
+  helm:
+    releaseName: argo-events

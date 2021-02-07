@@ -1,7 +1,7 @@
 apiVersion: v2
-name: argocd-argo-workflow
+name: argocd-argo-events
 version: 1.6.1
-appVersion: 0.15.4
+appVersion: 1.0.0
 dependencies:
   - name: common-app
     repository: https://nolte.github.io/argo-charts/
