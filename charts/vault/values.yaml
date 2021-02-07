@@ -1,0 +1,5 @@
+workflow: 
+  namespace: "argo-workflow"
+server:
+  ha:
+    replicas: "1"

@@ -1,11 +1,17 @@
 # https://www.vaultproject.io/docs/commands/operator/unseal
 # https://www.vaultproject.io/docs/platform/k8s/helm/run
 apiVersion: argoproj.io/v1alpha1
-kind: Workflow
+kind: WorkflowTemplate
 metadata:
-  generateName: vault-unseal-  # Name of this Workflow
+  name: {{ template "vault.fullname" . }}-flow-unseal
+  namespace: {{ default .Release.Namespace .Values.workflow.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "vault.name" . }}-vault-unseal
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    component: workflow
 spec:
-  entrypoint: unseal       # Defines "whalesay" as the "main" template
+  entrypoint: unseal
   templates:
     - name: unseal
       steps:    
@@ -17,13 +23,13 @@ spec:
             arguments:
               parameters:
               - name: pods
-                value: "{{steps.select-pods.outputs.result}}"
+                value: "{{ printf "{{steps.select-pods.outputs.result}}" }}"
         - - name: unseal
             arguments:
               parameters:
               - name: pod
-                value: "{{item}}"
-            withParam: "{{steps.extract-vault-pod.outputs.result}}"
+                value: "{{ printf "{{item}}" }}"
+            withParam: "{{ printf "{{steps.extract-vault-pod.outputs.result}}" }}"
             template: unseal-pod
 
     - name: unseal-pod
@@ -38,34 +44,34 @@ spec:
             arguments:
                 parameters:
                 - name: pod
-                  value: "{{inputs.parameters.pod}}"
+                  value: "{{ printf "{{inputs.parameters.pod}}" }}"
 
         - - name: operator-init
             template: vault-operator-init
             arguments:
                 parameters:
                 - name: pod
-                  value: "{{inputs.parameters.pod}}"
-            when: "{{steps.statuscheck.exitCode}} == 2"
+                  value: "{{ printf "{{inputs.parameters.pod}}" }}"
+            when: "{{ printf "{{steps.statuscheck.exitCode}} == 2" }}"
 
         - - name: extract-unseal-keys
             template: vault-extract-unseal-keys
             arguments:
               parameters:
               - name: operatorinit
-                value: "{{steps.operator-init.outputs.result}}"
-            when: "{{steps.operator-init.status}} == Succeeded"
+                value: "{{ printf "{{steps.operator-init.outputs.result}}" }}"
+            when: "{{ printf "{{steps.operator-init.status}} == Succeeded" }}"
         
         - - name: unseal-keys
             template: unseal-keys
             arguments:
               parameters:
               - name: pod
-                value: "{{inputs.parameters.pod}}"
+                value: "{{ printf "{{inputs.parameters.pod}}" }}"
               - name: key
-                value: "{{item}}"
-            when: "{{steps.extract-unseal-keys.status}} == Succeeded"
-            withParam: "{{steps.extract-unseal-keys.outputs.result}}"
+                value: "{{ printf "{{item}}" }}"
+            when: "{{ printf "{{steps.extract-unseal-keys.status}} == Succeeded" }}"
+            withParam: "{{ printf "{{steps.extract-unseal-keys.outputs.result}}" }}"
 
     - name: vault-extract-unseal-keys
       inputs:
@@ -74,7 +80,7 @@ spec:
       script:
         image: unguiculus/docker-jq
         command: [sh]
-        source: "jq -n '{{inputs.parameters.operatorinit}}|.unseal_keys_b64[0:3]'"
+        source: "{{ printf "jq -n '{{inputs.parameters.operatorinit}}|.unseal_keys_b64[0:3]'" }}"
 
     - name: vault-status
       inputs:
@@ -84,7 +90,7 @@ spec:
         image: bitnami/kubectl
         command: [bash]
         source: |
-           kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json
+           "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json" }}"
 
     - name: vault-status-parse
       inputs:
@@ -93,7 +99,8 @@ spec:
       script:
         image: unguiculus/docker-jq
         command: [sh]
-        source: "jq -n '{{inputs.parameters.status}}|.sealed'"
+        source: |
+          "{{ printf "jq -n '{{inputs.parameters.status}}|.sealed'" }}"
 
     - name: unseal-keys
       inputs:
@@ -104,7 +111,7 @@ spec:
         image: bitnami/kubectl
         command: [bash]
         source: |
-           kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}
+           {{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}" }}
     
     - name: extract-pods
       inputs:
@@ -113,13 +120,15 @@ spec:
       script:
         image: unguiculus/docker-jq
         command: [sh]
-        source: "jq -n '{{inputs.parameters.pods}}|.items[].metadata.name|[.]'"
+        source: |
+          {{ printf "jq -n '{{inputs.parameters.pods}}|.items[].metadata.name|[.]'" }}
 
     - name: get-pods
       script:
          image: bitnami/kubectl
          command: [bash]
-         source: kubectl get pods -n vault -l component=server -ojson
+         source: |
+          kubectl get pods -n vault -l component=server -ojson
 
     - name: vault-operator-init
       inputs:
@@ -129,15 +138,5 @@ spec:
          image: bitnami/kubectl
          command: [bash]
          source: |
-           kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator init -format=json
-    
-#  - name: whalesay2
-#    inputs:
-#      parameters:
-#      - name: namespace
-#    script:
-#       image: bitnami/kubectl
-#       command: [bash]
-#       source: |
-#          cat /tmp/folder/hello_world.txt
+           {{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator init -format=json" }}
   

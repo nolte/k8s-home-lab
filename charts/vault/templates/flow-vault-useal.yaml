@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: {{ template "vault.fullname" . }}-flow-unseal
+  namespace: {{ default .Release.Namespace .Values.workflow.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "vault.name" . }}-vault-unseal
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    component: workflow
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  entrypoint: whalesay
+  templates:
+  - name: whalesay
+    steps:
+      - - name: call-whalesay-template
+          templateRef:
+            name: workflow-template-1
+            template: {{ template "vault.fullname" . }}-flow-unseal
