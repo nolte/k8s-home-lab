@@ -966,6 +966,18 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/vault-1.6.0/vault-1.6.0.tgz
     version: 1.6.0
+  - apiVersion: v2
+    appVersion: 0.9.1
+    created: "2021-02-07T15:27:22.505323409Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.9.1
+    digest: 37db9cc04ff14611acf5c88aee2ca481cd8023043bcfb38f6474803dfb677729
+    name: vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/vault-1.1.0/vault-1.1.0.tgz
+    version: 1.1.0
   vault-operator:
   - apiVersion: v2
     appVersion: 1.11.0
