@@ -1,6 +1,6 @@
 apiVersion: v2
 name: argocd-minio
-version: 1.6.1
+version: 1.7.0
 appVersion: 8.0.9
 dependencies:
   - name: common-app
