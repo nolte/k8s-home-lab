@@ -1,0 +1,143 @@
+# https://www.vaultproject.io/docs/commands/operator/unseal
+# https://www.vaultproject.io/docs/platform/k8s/helm/run
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: vault-unseal-  # Name of this Workflow
+spec:
+  entrypoint: unseal       # Defines "whalesay" as the "main" template
+  templates:
+    - name: unseal
+      steps:    
+        - - name: select-pods
+            template: get-pods
+
+        - - name: extract-vault-pod
+            template: extract-pods
+            arguments:
+              parameters:
+              - name: pods
+                value: "{{steps.select-pods.outputs.result}}"
+        - - name: unseal
+            arguments:
+              parameters:
+              - name: pod
+                value: "{{item}}"
+            withParam: "{{steps.extract-vault-pod.outputs.result}}"
+            template: unseal-pod
+
+    - name: unseal-pod
+      inputs:
+        parameters:
+        - name: pod    
+      steps:
+        - - name: statuscheck
+            template: vault-status
+            continueOn:
+               failed: true
+            arguments:
+                parameters:
+                - name: pod
+                  value: "{{inputs.parameters.pod}}"
+
+        - - name: operator-init
+            template: vault-operator-init
+            arguments:
+                parameters:
+                - name: pod
+                  value: "{{inputs.parameters.pod}}"
+            when: "{{steps.statuscheck.exitCode}} == 2"
+
+        - - name: extract-unseal-keys
+            template: vault-extract-unseal-keys
+            arguments:
+              parameters:
+              - name: operatorinit
+                value: "{{steps.operator-init.outputs.result}}"
+            when: "{{steps.operator-init.status}} == Succeeded"
+        
+        - - name: unseal-keys
+            template: unseal-keys
+            arguments:
+              parameters:
+              - name: pod
+                value: "{{inputs.parameters.pod}}"
+              - name: key
+                value: "{{item}}"
+            when: "{{steps.extract-unseal-keys.status}} == Succeeded"
+            withParam: "{{steps.extract-unseal-keys.outputs.result}}"
+
+    - name: vault-extract-unseal-keys
+      inputs:
+        parameters:
+        - name: operatorinit
+      script:
+        image: unguiculus/docker-jq
+        command: [sh]
+        source: "jq -n '{{inputs.parameters.operatorinit}}|.unseal_keys_b64[0:3]'"
+
+    - name: vault-status
+      inputs:
+        parameters:
+        - name: pod
+      script:
+        image: bitnami/kubectl
+        command: [bash]
+        source: |
+           kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json
+
+    - name: vault-status-parse
+      inputs:
+        parameters:
+        - name: status
+      script:
+        image: unguiculus/docker-jq
+        command: [sh]
+        source: "jq -n '{{inputs.parameters.status}}|.sealed'"
+
+    - name: unseal-keys
+      inputs:
+        parameters:
+        - name: key
+        - name: pod
+      script:
+        image: bitnami/kubectl
+        command: [bash]
+        source: |
+           kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}
+    
+    - name: extract-pods
+      inputs:
+        parameters:
+        - name: pods
+      script:
+        image: unguiculus/docker-jq
+        command: [sh]
+        source: "jq -n '{{inputs.parameters.pods}}|.items[].metadata.name|[.]'"
+
+    - name: get-pods
+      script:
+         image: bitnami/kubectl
+         command: [bash]
+         source: kubectl get pods -n vault -l component=server -ojson
+
+    - name: vault-operator-init
+      inputs:
+        parameters:
+        - name: pod
+      script:
+         image: bitnami/kubectl
+         command: [bash]
+         source: |
+           kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator init -format=json
+    
+#  - name: whalesay2
+#    inputs:
+#      parameters:
+#      - name: namespace
+#    script:
+#       image: bitnami/kubectl
+#       command: [bash]
+#       source: |
+#          cat /tmp/folder/hello_world.txt
+  
