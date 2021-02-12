@@ -22,7 +22,8 @@ vault:
       # injector will default to its automatic management mode that will assign
       # a service account to the injector to generate its own certificates.
       secretName: vault-cert-tls
-      dnsNames: []
+      dnsNames: 
+        - vault.172-17-0-1.sslip.io
       issuerRef: 
         name: cluster-issuer
         kind: ClusterIssuer

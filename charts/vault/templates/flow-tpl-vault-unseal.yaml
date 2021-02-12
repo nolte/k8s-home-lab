@@ -12,144 +12,124 @@ metadata:
     component: workflow
 spec:
   entrypoint: unseal-flow
+  arguments:
+    parameters:
+      - name: labelSelector
+        value: "component=server"
+      - name: namespace
+        value: "vault"
   templates:
     - name: unseal-flow
-      steps:    
+      steps:
         - - name: select-pods
-            template: get-pods
-
-        - - name: extract-vault-pod
-            template: extract-pods
             arguments:
               parameters:
-              - name: pods
-                value: "{{ printf "{{steps.select-pods.outputs.result}}" }}"
-        
+                - name: labelSelector
+                  value: "component=server"
+                - name: namespace
+                  value: "vault"
+            templateRef:
+              name: k8s-list
+              template: get
+        - - name: extract-names
+            templateRef:
+              name: jq-exec
+              template: exec 
+            arguments:
+              parameters:
+              - name: jsonExpression
+                value: "{{ printf "{{steps.select-pods.outputs.parameters.pods}}|.items[].metadata.name|[.]" }}"
+            
         - - name: unseal
+            template: unseal-pod
             arguments:
               parameters:
-              - name: pod
+              - name: podName
                 value: "{{ printf "{{item}}" }}"
-            withParam: "{{ printf "{{steps.extract-vault-pod.outputs.result}}" }}"
-            template: unseal-pod
+              - name: namespace
+                value: "vault"
+            withParam: "{{ printf "{{steps.extract-names.outputs.parameters.result}}" }}"
+
 
     - name: unseal-pod
       inputs:
         parameters:
-        - name: pod    
-      steps:
-        - - name: statuscheck
-            template: vault-status
-            continueOn:
-               failed: true
-            arguments:
-                parameters:
-                - name: pod
-                  value: "{{ printf "{{inputs.parameters.pod}}" }}"
-
-        - - name: operator-init
-            template: vault-operator-init
-            arguments:
-                parameters:
-                - name: pod
-                  value: "{{ printf "{{inputs.parameters.pod}}" }}"
-            when: "{{ printf "{{steps.statuscheck.exitCode}} == 2" }}"
-
-        - - name: extract-unseal-keys
-            template: vault-extract-unseal-keys
-            arguments:
-              parameters:
-              - name: operatorinit
-                value: "{{ printf "{{steps.operator-init.outputs.result}}" }}"
-            when: "{{ printf "{{steps.operator-init.status}} == Succeeded" }}"
-        
-        - - name: unseal-keys-from-pod
-            template: unseal-keys-pod
-            arguments:
-              parameters:
-              - name: pod
-                value: "{{ printf "{{inputs.parameters.pod}}" }}"
-              - name: keys
-                value: "{{ printf "{{steps.extract-unseal-keys.outputs.result}}" }}"
-            when: "{{ printf "{{steps.extract-unseal-keys.status}} == Succeeded" }}"
-
-    - name: unseal-keys-pod
-      inputs:
-        parameters:
-        - name: keys
-        - name: pod
+          - name: podName
+          - name: namespace
       steps:  
        - - name: unseal-pod-keys
-           template: unseal-keys
+           templateRef:
+             name: k8s-exec
+             template: exec
+           continueOn:
+              failed: true
            arguments:
              parameters:
-             - name: pod
-               value: "{{ printf "{{inputs.parameters.pod}}" }}"
-             - name: key
-               value: "{{ printf "{{item}}" }}"
-           withParam: "{{ printf "{{inputs.parameters.keys}}" }}"
+             - name: podName
+               value: "{{ printf "{{inputs.parameters.podName}}" }}"
+             - name: namespace
+               value: "{{ printf "{{inputs.parameters.namespace}}" }}"
+             - name: execCommand
+               value: "vault status -format=json"
 
-    - name: vault-extract-unseal-keys
+       - - name: vault-status-parse
+           templateRef:
+             name: jq-exec
+             template: exec
+           arguments:
+             parameters:
+             - name: jsonExpression
+               value: "{{ printf "{{steps.unseal-pod-keys.outputs.parameters.result}}|.sealed" }}"
+
+
+       - - name: operator-init
+           when: "{{ printf "{{steps.unseal-pod-keys.exitCode}} == 2" }}"
+           template: unseal-token
+           arguments:
+             parameters:
+             - name: podName
+               value: "{{ printf "{{inputs.parameters.podName}}" }}"
+             - name: namespace
+               value: "{{ printf "{{inputs.parameters.namespace}}" }}"
+
+    - name: unseal-token
       inputs:
         parameters:
-        - name: operatorinit
-      script:
-        image: unguiculus/docker-jq
-        command: [sh]
-        source: "{{ printf "jq -n '{{inputs.parameters.operatorinit}}|.unseal_keys_b64[0:3]'" }}"
+          - name: podName
+          - name: namespace
+      steps:
+       - - name: operator-init
+           templateRef:
+             name: k8s-exec
+             template: exec        
+           arguments:
+             parameters:
+             - name: podName
+               value: "{{ printf "{{inputs.parameters.podName}}" }}"
+             - name: namespace
+               value: "{{ printf "{{inputs.parameters.namespace}}" }}"
+             - name: execCommand
+               value: "vault operator init -format=json"
+      
+       - - name: vault-extract-unseal-keys
+           templateRef:
+             name: jq-exec
+             template: exec
+           arguments:
+             parameters:
+             - name: jsonExpression
+               value: "{{ printf "{{steps.operator-init.outputs.parameters.result}}|.unseal_keys_b64[0:3]" }}"
 
-    - name: vault-status
-      inputs:
-        parameters:
-        - name: pod
-      script:
-        image: bitnami/kubectl
-        command: [bash]
-        source: "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault status -format=json" }}"
-
-    - name: vault-status-parse
-      inputs:
-        parameters:
-        - name: status
-      script:
-        image: unguiculus/docker-jq
-        command: [sh]
-        source: "{{ printf "jq -n '{{inputs.parameters.status}}|.sealed'" }}"
-
-    - name: unseal-keys
-      inputs:
-        parameters:
-        - name: key
-        - name: pod
-      script:
-        image: bitnami/kubectl
-        command: [bash]
-        source: "{{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator unseal {{inputs.parameters.key}}" }}"
-    
-    - name: extract-pods
-      inputs:
-        parameters:
-        - name: pods
-      script:
-        image: unguiculus/docker-jq
-        command: [sh]
-        source: |
-          {{ printf "jq -n '{{inputs.parameters.pods}}|.items[].metadata.name|[.]'" }}
-
-    - name: get-pods
-      script:
-         image: bitnami/kubectl
-         command: [bash]
-         source: |
-          kubectl get pods -n vault -l component=server -ojson
-
-    - name: vault-operator-init
-      inputs:
-        parameters:
-        - name: pod
-      script:
-         image: bitnami/kubectl
-         command: [bash]
-         source: |
-           {{ printf "kubectl -n vault exec -t {{inputs.parameters.pod}} -- vault operator init -format=json" }}
-  
+       - - name: unseal-token
+           templateRef:
+             name: k8s-exec
+             template: exec
+           withParam: "{{ printf "{{steps.vault-extract-unseal-keys.outputs.parameters.result}}" }}"  
+           arguments:
+             parameters:
+             - name: podName
+               value: "{{ printf "{{inputs.parameters.podName}}" }}"
+             - name: namespace
+               value: "{{ printf "{{inputs.parameters.namespace}}" }}"
+             - name: execCommand
+               value: "vault operator unseal {{ printf "{{item}}" }}"
