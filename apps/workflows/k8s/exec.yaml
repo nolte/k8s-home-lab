@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: exec
+spec:
+  entrypoint: exec
+  arguments:
+    parameters:
+    - name: podName
+    - name: namespace
+    - name: execCommand
+  templates:  
+  - name: exec
+    inputs:
+      parameters:
+      - name: podName
+      - name: namespace
+      - name: execCommand
+    container:
+      image: bitnami/kubectl
+      command: [sh, -c]
+      args: ["kubectl -n {{inputs.parameters.namespace}} exec -t {{inputs.parameters.podName}} -- {{inputs.parameters.execCommand}} > /mnt/out/result.json"]
+      volumeMounts:
+        - name: out
+          mountPath: /mnt/out
+    volumes:
+      - name: out
+        emptyDir: { }
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /mnt/out/result.json

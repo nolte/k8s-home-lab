@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: exec
+spec:
+  entrypoint: exec
+  arguments:
+    parameters:
+    - name: jsonExpression
+  templates:  
+  - name: exec
+    inputs:
+      parameters:
+      - name: jsonExpression
+    container:
+      image: unguiculus/docker-jq
+      command: [sh, -c]
+      args: ["jq -n '{{inputs.parameters.jsonExpression}}' > /mnt/out/result.json"]
+      volumeMounts:
+        - name: out
+          mountPath: /mnt/out
+    volumes:
+      - name: out
+        emptyDir: { }
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /mnt/out/result.json
