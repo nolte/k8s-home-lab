@@ -1,0 +1,9 @@
+# https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
+releaseName: tp-baseline
+
+destination:
+  namespace: argpcd
+  name: in-cluster  
+source:
+  chart: collection-argocd-baseline
+  repoURL: https://nolte.github.io/argo-charts/
