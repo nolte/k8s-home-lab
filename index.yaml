@@ -294,6 +294,21 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-image-updater-1.0.1/argocd-image-updater-1.0.1.tgz
     version: 1.0.1
+  argocd-konfigurator:
+  - apiVersion: v2
+    appVersion: v0.0.26
+    created: "2021-02-13T22:29:13.169468834Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: f76358e03cf134938aadc2dac2648a90175e2cf652f57b2ac50fc8115092b0dc
+    name: argocd-konfigurator
+    sources:
+    - https://github.com/stakater/Konfigurator
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-konfigurator-1.6.3/argocd-konfigurator-1.6.3.tgz
+    version: 1.6.3
   argocd-minio:
   - apiVersion: v2
     appVersion: 8.0.9
