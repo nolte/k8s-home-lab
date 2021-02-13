@@ -1,5 +1,7 @@
 # Helm resources
 charts/*/Chart.lock
 charts/*/charts
+seeds/*/Chart.lock
+seeds/*/charts
 
 .back

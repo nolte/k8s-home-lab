@@ -15,7 +15,7 @@ metadata:
   {{- end }}
 spec:
   destination:
-  {{- with .Values.destination }}
+  {{- with .Values.global.destination }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
 
@@ -28,9 +28,15 @@ spec:
         argocd-project-contour:
           enabled: {{.Values.projectContour.enabled}}
           project: {{.Values.global.project}}
+          {{- $destination := dict "name" "in-cluster" "namespace" "project-contour" -}}
+          {{- include "argoapp.destination" $destination | nindent 10 }}
+          {{- include "argoapp.syncPolicy" . | nindent 10 }}          
         argocd-cert-manager:
           enabled: {{.Values.certManager.enabled}}
           project: {{.Values.global.project}}
+          {{- $destination := dict "name" "in-cluster" "namespace" "cert-manager" -}}
+          {{- include "argoapp.destination" $destination | nindent 10 }}
+          {{- include "argoapp.syncPolicy" . | nindent 10 }}          
           source:
             helm:        
               values: |
@@ -42,10 +48,9 @@ spec:
         argocd-forecastle:
           enabled: {{.Values.certManager.enabled}}
           project: {{.Values.global.project}}
-          syncPolicy:
-            automated: {}
-            syncOptions:
-              - CreateNamespace=true          
+          {{- $destination := dict "name" "in-cluster" "namespace" "forecastle" -}}
+          {{- include "argoapp.destination" $destination | nindent 10 }}
+          {{- include "argoapp.syncPolicy" . | nindent 10 }}
           source:
             helm:
               values: |
@@ -66,12 +71,21 @@ spec:
         argocd-monitoring:
           enabled: {{.Values.certManager.enabled}}
           project: {{.Values.global.project}}
+          {{- $destination := dict "name" "in-cluster" "namespace" "monitoring" -}}
+          {{- include "argoapp.destination" $destination | nindent 10 }}
+          {{- include "argoapp.syncPolicy" . | nindent 10 }}    
         argocd-reloader:
           enabled: {{.Values.reloader.enabled}}
           project: {{.Values.global.project}}
+          {{- $destination := dict "name" "in-cluster" "namespace" "operators" -}}
+          {{- include "argoapp.destination" $destination | nindent 10 }}
+          {{- include "argoapp.syncPolicy" . | nindent 10 }}              
         argocd-konfigurator:
           enabled: {{.Values.konfigurator.enabled}}
           project: {{.Values.global.project}}
+          {{- $destination := dict "name" "in-cluster" "namespace" "operators" -}}
+          {{- include "argoapp.destination" $destination | nindent 10 }}
+          {{- include "argoapp.syncPolicy" . | nindent 10 }}              
   syncPolicy:
   {{- with .Values.global.syncPolicy }}
   {{- toYaml . | nindent 4 }}

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: argocd-forecastle
-version: 1.6.3
+version: 1.6.4
 appVersion: v1.0.62
 sources:
   - https://github.com/stakater/Forecastle

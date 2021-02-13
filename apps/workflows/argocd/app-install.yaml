@@ -12,6 +12,8 @@ spec:
      - name: appRepo
      - name: appPath
      - name: appNamespace
+     - name: appRevision
+     - name: appCreateExtraArgs
   templates:  
     - name: install
       inputs:
@@ -20,6 +22,8 @@ spec:
           - name: appRepo
           - name: appPath
           - name: appNamespace
+          - name: appRevision
+          - name: appCreateExtraArgs
       steps:
       - - name: get
           arguments:
@@ -43,7 +47,11 @@ spec:
               - name: appPath
                 value: "{{inputs.parameters.appPath}}"
               - name: appNamespace
-                value: "{{inputs.parameters.appNamespace}}"                                                
+                value: "{{inputs.parameters.appNamespace}}"
+              - name: appRevision
+                value: "{{inputs.parameters.appRevision}}"
+              - name: appCreateExtraArgs
+                value: "{{inputs.parameters.appCreateExtraArgs}}" 
           templateRef:
             name: argocd-create
             template: create
