@@ -173,6 +173,19 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-argocd-image-updater-1.7.0/argocd-argocd-image-updater-1.7.0.tgz
     version: 1.7.0
+  argocd-cert-manager:
+  - apiVersion: v2
+    appVersion: v1.1.0
+    created: "2021-02-13T01:52:09.433069558Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: f722d01db266fb86dd8d84523b2ce0e7815cc43731d5e9c64ff3caeb48d0cab1
+    name: argocd-cert-manager
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-cert-manager-1.6.4/argocd-cert-manager-1.6.4.tgz
+    version: 1.6.4
   argocd-gitea:
   - apiVersion: v2
     appVersion: 2.1.11
@@ -526,7 +539,46 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/cert-manager-issuer-0.1.0/cert-manager-issuer-0.1.0.tgz
     version: 0.1.0
+  collection-argocd-baseline:
+  - apiVersion: v2
+    created: "2021-02-13T01:52:09.529562979Z"
+    dependencies:
+    - condition: argocd-project-contour.enabled
+      name: argocd-project-contour
+      repository: file://../argocd-project-contour
+    - condition: argocd-cert-manager.enabled
+      name: argocd-cert-manager
+      repository: file://../argocd-cert-manager
+    - condition: argocd-monitoring.enabled
+      name: argocd-monitoring
+      repository: file://../argocd-monitoring
+    - condition: argocd-reloader.enabled
+      name: argocd-reloader
+      repository: file://../argocd-reloader
+    - condition: argocd-forecastle.enabled
+      name: argocd-forecastle
+      repository: file://../argocd-forecastle
+    - condition: argocd-konfigurator.enabled
+      name: argocd-konfigurator
+      repository: file://../argocd-konfigurator
+    digest: 816ac2ac456842055181200d7e9e83f3c22148e46777a26a9c1782e536cf33a6
+    name: collection-argocd-baseline
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/collection-argocd-baseline-1.0.1/collection-argocd-baseline-1.0.1.tgz
+    version: 1.0.1
   common-app:
+  - apiVersion: v2
+    created: "2021-02-13T01:52:09.623677294Z"
+    digest: 20b097762e2f5b87d22d4ceb715d6b9789fcd40ccdcd023d5e8ea24f3d4340a7
+    home: https://github.com/nolte/argo-charts/tree/master/charts/common-app
+    keywords:
+    - argocd
+    - common
+    name: common-app
+    type: library
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/common-app-1.2.1/common-app-1.2.1.tgz
+    version: 1.2.1
   - apiVersion: v2
     created: "2021-01-31T22:32:27.49554971Z"
     digest: f35516c6cf98558ce556d693e6b8633868b46bac5a93b6527ba59602bf307cec
@@ -1133,6 +1185,22 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/reloader-1.0.0/reloader-1.0.0.tgz
     version: 1.0.0
+  tpl-argocd-baseline:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2021-02-13T01:52:09.764933417Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: b1f9dca7f28abc4a063ae19b840d4fa86735b45b29a62a519511f3da54bbec2a
+    name: tpl-argocd-baseline
+    sources:
+    - https://github.com/goharbor/harbor
+    - https://github.com/goharbor/harbor-helm
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/tpl-argocd-baseline-1.1.0/tpl-argocd-baseline-1.1.0.tgz
+    version: 1.1.0
   vault:
   - apiVersion: v2
     appVersion: 0.9.1
