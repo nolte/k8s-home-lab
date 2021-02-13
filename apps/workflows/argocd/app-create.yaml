@@ -14,6 +14,7 @@ spec:
     - name: appNamespace
     - name: appRevision
     - name: appCreateExtraArgs
+    - name: destName
   templates:  
   - name: create
     inputs:
@@ -30,12 +31,14 @@ spec:
         value: "{{workflow.parameters.appRevision}}"
       - name: appCreateExtraArgs
         value: "{{workflow.parameters.appCreateExtraArgs}}"
+      - name: destName
+        value: "{{workflow.parameters.destName}}"        
         
     container:
       image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
       command: [sh, -c]
       #args: ["argocd app get {{inputs.parameters.appName}} --insecure -ojson > /mnt/out/app.json"]
-      args: ["argocd app create {{inputs.parameters.appName}} --repo {{inputs.parameters.appRepo}} --path {{inputs.parameters.appPath}} --dest-namespace {{inputs.parameters.appNamespace}} {{inputs.parameters.appCreateExtraArgs}} --revision {{inputs.parameters.appRevision}} --dest-server https://kubernetes.default.svc --insecure"]
+      args: ["argocd app create {{inputs.parameters.appName}} --repo {{inputs.parameters.appRepo}} --path {{inputs.parameters.appPath}} --dest-namespace {{inputs.parameters.appNamespace}} {{inputs.parameters.appCreateExtraArgs}} --revision {{inputs.parameters.appRevision}} --dest-name {{inputs.parameters.destName}} --insecure"]
       envFrom:
       - configMapRef:
           name: argocd-auth-info

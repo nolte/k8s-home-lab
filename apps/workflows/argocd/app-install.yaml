@@ -14,6 +14,7 @@ spec:
      - name: appNamespace
      - name: appRevision
      - name: appCreateExtraArgs
+     - name: destName
   templates:  
     - name: install
       inputs:
@@ -24,6 +25,7 @@ spec:
           - name: appNamespace
           - name: appRevision
           - name: appCreateExtraArgs
+          - name: destName
       steps:
       - - name: get
           arguments:
@@ -52,6 +54,8 @@ spec:
                 value: "{{inputs.parameters.appRevision}}"
               - name: appCreateExtraArgs
                 value: "{{inputs.parameters.appCreateExtraArgs}}" 
+              - name: destName
+                value: "{{inputs.parameters.destName}}"                 
           templateRef:
             name: argocd-create
             template: create
