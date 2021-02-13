@@ -27,17 +27,42 @@ spec:
     releaseName:  {{ .Values.releaseName }}
     values: |
       argocd-project-contour:
-        enabled: false
+        enabled: {{.Values.projectContour}}
       argocd-cert-manager:
-        enabled: false
-      argocd-monitoring:
-        enabled: false
-      argocd-reloader:
-        enabled: false
+        enabled: {{.Values.certManager}}
+        source:
+          helm:        
+            values: |
+              installCRDs: true
+              prometheus:
+                enabled: true
+                servicemonitor:
+                  enabled: true
       argocd-forecastle:
-        enabled: false  
+        enabled: {{.Values.certManager}}
+        source:
+          helm:
+            values: |
+              forecastle:
+                ingress:
+                  enabled: {{.Values.forecastle.ingress}}
+                  annotations:
+                    ingress.kubernetes.io/force-ssl-redirect: "true"
+                    cert-manager.io/cluster-issuer: {{.Values.clusterIssuer}}
+                  tls:
+                    - hosts:
+                        - forecastle.{{.Values.domain}}
+                      secretName: forecastle-cert
+                  hosts:
+                    - host: forecastle.{{.Values.domain}}
+                      paths:
+                      - /        
+      argocd-monitoring:
+        enabled: {{.Values.certManager}}
+      argocd-reloader:
+        enabled: {{.Values.reloader}}
       argocd-konfigurator:
-        enabled: false 
+        enabled: {{.Values.konfigurator}}
   project: {{ .Values.project }}
   source:
   {{- include "common.classes.source" . | nindent 4 }}

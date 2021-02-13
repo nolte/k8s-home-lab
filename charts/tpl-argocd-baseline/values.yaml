@@ -1,5 +1,27 @@
 # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
 releaseName: tp-baseline
+domain: 172-17-0-1.sslip.io
+clusterIssuer: cluster-issuer
+
+projectContour:
+  enabled: true
+
+certManager:
+  enabled: true
+
+reloader:
+  enabled: true
+
+monitoring:
+  enabled: true
+
+forecastle:
+  enabled: true
+  ingress:
+    enabled: true
+
+konfigurator:
+  enabled: true
 
 destination:
   namespace: argpcd
