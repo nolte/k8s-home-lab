@@ -18,49 +18,50 @@ spec:
   {{- with .Values.destination }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  helm:
-    releaseName:  {{ .Values.releaseName }}
-    values: |
-      argocd-project-contour:
-        enabled: {{.Values.projectContour.enabled}}
-      argocd-cert-manager:
-        enabled: {{.Values.certManager.enabled}}
-        source:
-          helm:        
-            values: |
-              installCRDs: true
-              prometheus:
-                enabled: true
-                servicemonitor:
-                  enabled: true
-      argocd-forecastle:
-        enabled: {{.Values.certManager.enabled}}
-        source:
-          helm:
-            values: |
-              forecastle:
-                ingress:
-                  enabled: {{.Values.forecastle.ingress.enabled}}
-                  annotations:
-                    ingress.kubernetes.io/force-ssl-redirect: "true"
-                    cert-manager.io/cluster-issuer: {{.Values.clusterIssuer}}
-                  tls:
-                    - hosts:
-                        - forecastle.{{.Values.domain}}
-                      secretName: forecastle-cert
-                  hosts:
-                    - host: forecastle.{{.Values.domain}}
-                      paths:
-                      - /        
-      argocd-monitoring:
-        enabled: {{.Values.certManager.enabled}}
-      argocd-reloader:
-        enabled: {{.Values.reloader.enabled}}
-      argocd-konfigurator:
-        enabled: {{.Values.konfigurator.enabled}}
+
   project: {{ .Values.project }}
   source:
   {{- include "common.classes.source" . | nindent 4 }}
+    helm:
+      releaseName:  {{ .Values.releaseName }}
+      values: |
+        argocd-project-contour:
+          enabled: {{.Values.projectContour.enabled}}
+        argocd-cert-manager:
+          enabled: {{.Values.certManager.enabled}}
+          source:
+            helm:        
+              values: |
+                installCRDs: true
+                prometheus:
+                  enabled: true
+                  servicemonitor:
+                    enabled: true
+        argocd-forecastle:
+          enabled: {{.Values.certManager.enabled}}
+          source:
+            helm:
+              values: |
+                forecastle:
+                  ingress:
+                    enabled: {{.Values.forecastle.ingress.enabled}}
+                    annotations:
+                      ingress.kubernetes.io/force-ssl-redirect: "true"
+                      cert-manager.io/cluster-issuer: {{.Values.clusterIssuer}}
+                    tls:
+                      - hosts:
+                          - forecastle.{{.Values.domain}}
+                        secretName: forecastle-cert
+                    hosts:
+                      - host: forecastle.{{.Values.domain}}
+                        paths:
+                        - /        
+        argocd-monitoring:
+          enabled: {{.Values.certManager.enabled}}
+        argocd-reloader:
+          enabled: {{.Values.reloader.enabled}}
+        argocd-konfigurator:
+          enabled: {{.Values.konfigurator.enabled}}  
   syncPolicy:
   {{- with .Values.syncPolicy }}
   {{- toYaml . | nindent 4 }}
