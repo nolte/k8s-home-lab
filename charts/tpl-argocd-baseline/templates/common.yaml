@@ -15,7 +15,7 @@ metadata:
   {{- end }}
 spec:
   destination:
-  {{- with .Values.destination }}
+  {{- with .Values.global.destination }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
 
