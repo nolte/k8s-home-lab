@@ -42,6 +42,9 @@ spec:
         argocd-forecastle:
           enabled: {{.Values.certManager.enabled}}
           project: {{.Values.global.project}}
+          destination:
+            namespace: forecastle
+            name: in-cluster         
           syncPolicy:
             automated: {}
             syncOptions:
