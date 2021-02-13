@@ -30,5 +30,7 @@ spec:
       #args: ["argocd app get {{inputs.parameters.appName}} --insecure -ojson > /mnt/out/app.json"]
       args: ["argocd app create {{inputs.parameters.appName}} --repo {{inputs.parameters.appRepo}} --path {{inputs.parameters.appPath}} --dest-namespace {{inputs.parameters.appNamespace}} --dest-server https://kubernetes.default.svc --insecure"]
       envFrom:
+      - configMapRef:
+          name: auth-info      
       - secretRef:
           name: argocd-auth

@@ -23,5 +23,7 @@ spec:
       command: [sh, -c]
       args: ["argocd app set {{inputs.parameters.appName}} --sync-option {{inputs.parameters.syncOption}} --insecure"]
       envFrom:
+      - configMapRef:
+          name: auth-info
       - secretRef:
           name: argocd-auth
