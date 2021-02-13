@@ -16,12 +16,12 @@ spec:
       - name: appName
         value: "{{workflow.parameters.appName}}"
     container:
-      image: argoproj/argocd:v1.7.12 #TODO: switch to smaller one
+      image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
       command: [sh, -c]
       args: ["argocd app get {{inputs.parameters.appName}} --insecure -ojson > /mnt/out/app.json"]
       envFrom:
       - configMapRef:
-          name: auth-info      
+          name: argocd-auth-info
       - secretRef:
           name: argocd-auth
       volumeMounts:
