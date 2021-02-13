@@ -1,0 +1,17 @@
+source:
+  helm:
+    values: |
+      forecastle:
+        ingress:
+          enabled: true
+          annotations:
+            ingress.kubernetes.io/force-ssl-redirect: "true"
+            cert-manager.io/cluster-issuer: cluster-issuer
+          tls:
+            - hosts:
+                - forecastle.172-17-0-1.sslip.io
+              secretName: forecastle-cert
+          hosts:
+            - host: forecastle.172-17-0-1.sslip.io
+              paths:
+              - /   
