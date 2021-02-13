@@ -186,6 +186,21 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-cert-manager-1.6.4/argocd-cert-manager-1.6.4.tgz
     version: 1.6.4
+  argocd-forecastle:
+  - apiVersion: v2
+    appVersion: v1.0.62
+    created: "2021-02-13T14:11:44.832712122Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: c89283369bcd19ead4438437baa99c111e4ddef936ffd662ac672a0fbe6902e8
+    name: argocd-forecastle
+    sources:
+    - https://github.com/stakater/Forecastle
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-forecastle-1.6.4/argocd-forecastle-1.6.4.tgz
+    version: 1.6.4
   argocd-gitea:
   - apiVersion: v2
     appVersion: 2.1.11
@@ -511,6 +526,20 @@ entries:
     - https://github.com/nolte/argo-charts/releases/download/cert-manager-1.0.1/cert-manager-1.0.1.tgz
     version: 1.0.1
   cert-manager-issuer:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-02-13T14:11:44.938429935Z"
+    dependencies:
+    - name: common
+      repository: https://k8s-at-home.com/charts/
+      version: 2.2.1
+    description: A Helm chart for Kubernetes
+    digest: 1358ba0dbc9deb17c0ac98f2b89d82e82056249d0b0d4c2344ab26d23ce2478f
+    name: cert-manager-issuer
+    type: application
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/cert-manager-issuer-0.2.1/cert-manager-issuer-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2021-02-01T20:54:33.217973317Z"
@@ -1185,7 +1214,40 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/reloader-1.0.0/reloader-1.0.0.tgz
     version: 1.0.0
+  seed-baseline:
+  - apiVersion: v2
+    appVersion: v0.0.2
+    created: "2021-02-13T14:11:45.021610131Z"
+    dependencies:
+    - condition: tpl-argocd-baseline.enabled
+      name: tpl-argocd-baseline
+      repository: file://../tpl-argocd-baseline
+    - condition: cert-manager-issuer.enabled
+      name: cert-manager-issuer
+      repository: file://../cert-manager-issuer
+    digest: 5f30d6851fd88e71f4627563adac89817dcfb88f8d141cbfcb331a394bf73064
+    name: seed-baseline
+    sources:
+    - https://github.com/stakater/Forecastle
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/seed-baseline-1.0.0/seed-baseline-1.0.0.tgz
+    version: 1.0.0
   tpl-argocd-baseline:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2021-02-13T14:11:45.137024135Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 5aba0d31007a596d9c0b94a96b79ca2fb992fc2420ce26509708d0cfbac09b54
+    name: tpl-argocd-baseline
+    sources:
+    - https://github.com/goharbor/harbor
+    - https://github.com/goharbor/harbor-helm
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/tpl-argocd-baseline-1.1.3/tpl-argocd-baseline-1.1.3.tgz
+    version: 1.1.3
   - apiVersion: v2
     appVersion: 1.0.1
     created: "2021-02-13T11:25:04.824988489Z"
