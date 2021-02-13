@@ -304,6 +304,19 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/argocd-monitoring-1.6.1/argocd-monitoring-1.6.1.tgz
     version: 1.6.1
+  argocd-project-contour:
+  - apiVersion: v2
+    appVersion: 4.1.0
+    created: "2021-02-13T01:22:25.433572082Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 83fc2b4a6f778776d33d76de88845a22dc8f1e77e2c1f8c3259beab6ae07157a
+    name: argocd-project-contour
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-project-contour-1.6.1/argocd-project-contour-1.6.1.tgz
+    version: 1.6.1
   argocd-reloader:
   - apiVersion: v2
     appVersion: v0.0.79
@@ -1274,4 +1287,4 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/velero-1.6.0/velero-1.6.0.tgz
     version: 1.6.0
-generated: "2021-02-12T20:01:20.803884610Z"
+generated: "2021-02-12T20:01:20.80388461Z"
