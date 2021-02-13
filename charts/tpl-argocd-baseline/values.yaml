@@ -1,7 +1,19 @@
 # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
+global:
+  domain: 172-17-0-1.sslip.io
+  clusterIssuer: cluster-issuer
+  project: seed
+
+  destination:
+    namespace: argocd
+    name: in-cluster
+
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+
 releaseName: tp-baseline
-domain: 172-17-0-1.sslip.io
-clusterIssuer: cluster-issuer
 
 projectContour:
   enabled: true
@@ -23,16 +35,10 @@ forecastle:
 konfigurator:
   enabled: true
 
-destination:
-  namespace: argpcd
-  name: in-cluster  
+
 source:
   chart: collection-argocd-baseline
   repoURL: https://nolte.github.io/argo-charts/
 
 
 project: cicd
-syncPolicy:
-  automated: {}
-  syncOptions:
-    - CreateNamespace=true

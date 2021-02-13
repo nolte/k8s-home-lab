@@ -27,8 +27,10 @@ spec:
       values: |
         argocd-project-contour:
           enabled: {{.Values.projectContour.enabled}}
+          project: {{.Values.global.project}}
         argocd-cert-manager:
           enabled: {{.Values.certManager.enabled}}
+          project: {{.Values.global.project}}
           source:
             helm:        
               values: |
@@ -39,6 +41,11 @@ spec:
                     enabled: true
         argocd-forecastle:
           enabled: {{.Values.certManager.enabled}}
+          project: {{.Values.global.project}}
+          syncPolicy:
+            automated: {}
+            syncOptions:
+              - CreateNamespace=true          
           source:
             helm:
               values: |
@@ -47,23 +54,26 @@ spec:
                     enabled: {{.Values.forecastle.ingress.enabled}}
                     annotations:
                       ingress.kubernetes.io/force-ssl-redirect: "true"
-                      cert-manager.io/cluster-issuer: {{.Values.clusterIssuer}}
+                      cert-manager.io/cluster-issuer: {{.Values.global.clusterIssuer}}
                     tls:
                       - hosts:
-                          - forecastle.{{.Values.domain}}
+                          - forecastle.{{.Values.global.domain}}
                         secretName: forecastle-cert
                     hosts:
-                      - host: forecastle.{{.Values.domain}}
+                      - host: forecastle.{{.Values.global.domain}}
                         paths:
                         - /        
         argocd-monitoring:
           enabled: {{.Values.certManager.enabled}}
+          project: {{.Values.global.project}}
         argocd-reloader:
           enabled: {{.Values.reloader.enabled}}
+          project: {{.Values.global.project}}
         argocd-konfigurator:
-          enabled: {{.Values.konfigurator.enabled}}  
+          enabled: {{.Values.konfigurator.enabled}}
+          project: {{.Values.global.project}}
   syncPolicy:
-  {{- with .Values.syncPolicy }}
+  {{- with .Values.global.syncPolicy }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.ignoreDifferences }}
