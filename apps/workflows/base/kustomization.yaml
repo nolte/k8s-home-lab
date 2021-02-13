@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - crb-admin.yaml
+  - base64.yaml

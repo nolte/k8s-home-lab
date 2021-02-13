@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: base64-encode
+spec:
+  entrypoint: encode
+  arguments:
+    parameters:
+    - name: input
+  templates:  
+  - name: encode
+    inputs:
+      parameters:
+      - name: input
+    container:
+      image: bitnami/kubectl
+      command: [sh, -c]
+      args: ["echo \"{{inputs.parameters.input}}\" | base64 --wrap=0 > /mnt/out/result"]
+      volumeMounts:
+        - name: out
+          mountPath: /mnt/out
+    volumes:
+      - name: out
+        emptyDir: { }
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /mnt/out/result
