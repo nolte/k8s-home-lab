@@ -3,22 +3,22 @@ name: collection-argocd-baseline
 version: 1.0.1
 dependencies:
   - name: argocd-project-contour
-    repository: file://../argocd-project-contour
+    repository: file://../../charts/argocd-project-contour
     condition: argocd-project-contour.enabled
   - name: argocd-cert-manager
-    repository: file://../argocd-cert-manager
+    repository: file://../../charts/argocd-cert-manager
     condition: argocd-cert-manager.enabled
   - name: argocd-monitoring
-    repository: file://../argocd-monitoring
+    repository: file://../../charts/argocd-monitoring
     condition: argocd-monitoring.enabled
   - name: argocd-reloader
-    repository: file://../argocd-reloader
+    repository: file://../../charts/argocd-reloader
     condition: argocd-reloader.enabled
   - name: argocd-forecastle
-    repository: file://../argocd-forecastle
+    repository: file://../../charts/argocd-forecastle
     condition: argocd-forecastle.enabled
   - name: argocd-konfigurator
-    repository: file://../argocd-konfigurator
+    repository: file://../../charts/argocd-konfigurator
     condition: argocd-konfigurator.enabled
 #  - name: velero
 #    repository: https://nolte.github.io/argo-charts/

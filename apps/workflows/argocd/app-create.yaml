@@ -38,7 +38,7 @@ spec:
       image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
       command: [sh, -c]
       #args: ["argocd app get {{inputs.parameters.appName}} --insecure -ojson > /mnt/out/app.json"]
-      args: ["argocd app create {{inputs.parameters.appName}} --repo {{inputs.parameters.appRepo}} --path {{inputs.parameters.appPath}} --dest-namespace {{inputs.parameters.appNamespace}} {{inputs.parameters.appCreateExtraArgs}} --revision {{inputs.parameters.appRevision}} --dest-name {{inputs.parameters.destName}} --insecure"]
+      args: ["argocd app create {{inputs.parameters.appName}} --auth-token $ARGOCD_AUTH_TOKEN --server $ARGOCD_SERVER --insecure --repo {{inputs.parameters.appRepo}} --path {{inputs.parameters.appPath}} --dest-namespace {{inputs.parameters.appNamespace}} {{inputs.parameters.appCreateExtraArgs}} --revision {{inputs.parameters.appRevision}} --dest-name {{inputs.parameters.destName}}"]
       envFrom:
       - configMapRef:
           name: argocd-auth-info

@@ -18,7 +18,7 @@ spec:
     container:
       image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
       command: [sh, -c]
-      args: ["argocd app sync {{inputs.parameters.appName}} --insecure"]
+      args: ["argocd app sync {{inputs.parameters.appName}} --auth-token $ARGOCD_AUTH_TOKEN --server $ARGOCD_SERVER --insecure"]
       envFrom:
       - configMapRef:
           name: argocd-auth-info
