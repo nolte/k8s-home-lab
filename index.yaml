@@ -1188,6 +1188,21 @@ entries:
   tpl-argocd-baseline:
   - apiVersion: v2
     appVersion: 1.0.1
+    created: "2021-02-13T02:02:53.975208896Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: fbdce7e91964e932c20cb6b7846d86e763b94b1e4fb7f87bfd149e3bf1764ecb
+    name: tpl-argocd-baseline
+    sources:
+    - https://github.com/goharbor/harbor
+    - https://github.com/goharbor/harbor-helm
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/tpl-argocd-baseline-1.1.1/tpl-argocd-baseline-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 1.0.1
     created: "2021-02-13T01:52:09.764933417Z"
     dependencies:
     - name: common-app
