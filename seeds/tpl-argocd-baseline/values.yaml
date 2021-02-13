@@ -37,8 +37,9 @@ konfigurator:
 
 
 source:
-  chart: collection-argocd-baseline
-  repoURL: https://nolte.github.io/argo-charts/
+  repoURL: 'https://github.com/nolte/argo-charts.git'
+  path: seeds/collection-argocd-baseline/
+  targetRevision: master
 
 
 project: cicd
