@@ -5,7 +5,7 @@ dependencies:
     repository: file://../tpl-argocd-baseline
     condition: tpl-argocd-baseline.enabled
   - name: cert-manager-issuer
-    repository: file://../cert-manager-issuer
+    repository: file://../../charts/cert-manager-issuer
     condition: cert-manager-issuer.enabled
 name: seed-baseline
 sources:
