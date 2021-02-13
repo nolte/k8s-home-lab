@@ -14,11 +14,6 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  project: default
-  source:
-    repoURL: https://nolte.github.io/argo-charts/
-    targetRevision: 1.0.0
-    chart: collection-argocd-baseline
   destination:
   {{- with .Values.destination }}
   {{- toYaml . | nindent 4 }}
@@ -27,9 +22,9 @@ spec:
     releaseName:  {{ .Values.releaseName }}
     values: |
       argocd-project-contour:
-        enabled: {{.Values.projectContour}}
+        enabled: {{.Values.projectContour.enabled}}
       argocd-cert-manager:
-        enabled: {{.Values.certManager}}
+        enabled: {{.Values.certManager.enabled}}
         source:
           helm:        
             values: |
@@ -39,13 +34,13 @@ spec:
                 servicemonitor:
                   enabled: true
       argocd-forecastle:
-        enabled: {{.Values.certManager}}
+        enabled: {{.Values.certManager.enabled}}
         source:
           helm:
             values: |
               forecastle:
                 ingress:
-                  enabled: {{.Values.forecastle.ingress}}
+                  enabled: {{.Values.forecastle.ingress.enabled}}
                   annotations:
                     ingress.kubernetes.io/force-ssl-redirect: "true"
                     cert-manager.io/cluster-issuer: {{.Values.clusterIssuer}}
@@ -58,11 +53,11 @@ spec:
                       paths:
                       - /        
       argocd-monitoring:
-        enabled: {{.Values.certManager}}
+        enabled: {{.Values.certManager.enabled}}
       argocd-reloader:
-        enabled: {{.Values.reloader}}
+        enabled: {{.Values.reloader.enabled}}
       argocd-konfigurator:
-        enabled: {{.Values.konfigurator}}
+        enabled: {{.Values.konfigurator.enabled}}
   project: {{ .Values.project }}
   source:
   {{- include "common.classes.source" . | nindent 4 }}

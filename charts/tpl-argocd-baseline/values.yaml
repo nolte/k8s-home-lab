@@ -29,3 +29,10 @@ destination:
 source:
   chart: collection-argocd-baseline
   repoURL: https://nolte.github.io/argo-charts/
+
+
+project: cicd
+syncPolicy:
+  automated: {}
+  syncOptions:
+    - CreateNamespace=true
