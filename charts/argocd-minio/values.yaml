@@ -6,6 +6,7 @@ source:
   chart: minio
   repoURL: https://helm.min.io/
   helm:
+    releaseName: minio
     version: v3
     values: |
       metrics:
