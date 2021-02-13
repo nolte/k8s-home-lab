@@ -1,6 +1,6 @@
 apiVersion: v2
 name: collection-argocd-baseline
-version: 1.0.0
+version: 1.0.1
 dependencies:
   - name: argocd-project-contour
     repository: file://../argocd-project-contour
