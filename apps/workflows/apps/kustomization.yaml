@@ -2,12 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: argo-workflow
+namePrefix: apps-
 
 resources:
-  - k8s
-  - base
-  - jq
-  - argocd
-  - vault
-  - apps
-  - app
+  - minio.yaml
+  - vault.yaml
+
