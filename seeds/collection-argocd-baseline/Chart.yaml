@@ -8,7 +8,7 @@ dependencies:
     #repository: file://../../charts/argocd-project-contour
     condition: argocd-project-contour.enabled
   - name: argocd-cert-manager
-    version: 1.6.4
+    version: 1.6.5
     repository: https://nolte.github.io/argo-charts/
     #repository: file://../../charts/argocd-cert-manager
     condition: argocd-cert-manager.enabled
