@@ -6,26 +6,40 @@ metadata:
   name: minio
 spec:
   entrypoint: install
-  arguments:
+  inputs:
     parameters:
     - name: destName
     - name: appRevision
-  templates:
-  - name: install
-    templateRef:
-       name: app-install
-       template: install  
-    inputs:
-      parameters:
-        - name: appName
-          value: "seed-minio"
-        - name: appPath
-          value: "charts/argocd-minio/"
-        - name: "releaseName"
-          value: "minio"
-        - name: "destName"
-          value: "{{workflow.parameters.destName}}"
-        - name: "appRevision"
-          value: "{{workflow.parameters.appRevision}}"
-        - name: "appCreateExtraArgs"
-          value: ""
+    - name: rootAccessKey
+    - name: rootSecretKey
+  templates:  
+    - name: install
+      inputs:
+        parameters:
+        - name: destName
+        - name: appRevision
+        - name: rootAccessKey
+        - name: rootSecretKey
+      steps:
+      - - name: mini
+          arguments:
+            parameters:
+              - name: appName
+                value: "seed-minio"
+              - name: appPath
+                value: "charts/argocd-minio/"
+              - name: "releaseName"
+                value: "minio"
+              - name: "destName"
+                value: "{{inputs.parameters.destName}}"
+              - name: "appRevision"
+                value: "{{inputs.parameters.appRevision}}"
+              - name: appRepo
+                value: "https://github.com/nolte/argo-charts.git"
+              - name: appNamespace 
+                value: minio
+              - name: "appCreateExtraArgs"
+                value: "--helm-set accessKey={{inputs.parameters.rootAccessKey}} --helm-set secretKey={{inputs.parameters.rootSecretKey}}"
+          templateRef:
+             name: app-create
+             template: install  

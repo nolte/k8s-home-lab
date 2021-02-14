@@ -6,7 +6,7 @@ metadata:
   name: install
 spec:
   entrypoint: install
-  arguments:
+  inputs:
      parameters:
      - name: appName
      - name: appRepo
@@ -20,11 +20,17 @@ spec:
       inputs:
         parameters:
           - name: appName
+            value: "{{inputs.parameters.appName}}"
           - name: appRepo
+            value: "{{inputs.parameters.appRepo}}"
           - name: appPath
+            value: "{{inputs.parameters.appPath}}"
           - name: appNamespace
+            value: "{{inputs.parameters.appNamespace}}"
           - name: appRevision
+            value: "{{inputs.parameters.appRevision}}"
           - name: appCreateExtraArgs
+            value: "{{inputs.parameters.appCreateExtraArgs}}"
           - name: destName
       steps:
       - - name: get

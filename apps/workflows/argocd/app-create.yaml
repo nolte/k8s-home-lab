@@ -6,7 +6,7 @@ metadata:
   name: create
 spec:
   entrypoint: create
-  arguments:
+  inputs:
     parameters:
     - name: appName
     - name: appRepo

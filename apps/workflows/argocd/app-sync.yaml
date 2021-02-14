@@ -6,7 +6,7 @@ metadata:
   name: sync
 spec:
   entrypoint: sync
-  arguments:
+  inputs:
     parameters:
     - name: appName
   templates:  
@@ -14,7 +14,7 @@ spec:
     inputs:
       parameters:
       - name: appName
-        value: "{{workflow.parameters.appName}}"
+        value: "{{inputs.parameters.appName}}"
     container:
       image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
       command: [sh, -c]

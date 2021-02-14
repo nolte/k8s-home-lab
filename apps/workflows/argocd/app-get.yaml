@@ -6,7 +6,7 @@ metadata:
   name: get
 spec:
   entrypoint: get
-  arguments:
+  inputs:
     parameters:
     - name: appName
   templates:  

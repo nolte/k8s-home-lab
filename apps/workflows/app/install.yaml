@@ -3,10 +3,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: install
+  name: create
 spec:
   entrypoint: install
-  arguments:
+  inputs:
     parameters:
     - name: appName
     - name: appPath
@@ -16,24 +16,24 @@ spec:
     - name: appRevision
   templates:  
   - name: install
-    templateRef:
-       name: argocd-install
-       template: install  
-    inputs:
+    arguments:
       parameters:
         - name: appName
-          value: "{{workflow.parameters.appName}}"
+          value: "{{inputs.parameters.appName}}"
         - name: appPath
-          value: "{{workflow.parameters.appPath}}"
+          value: "{{inputs.parameters.appPath}}"
         - name: appCreateExtraArgs
-          value: "--helm-version 3.5.1 --release-name {{workflow.parameters.releaseName}} {{workflow.parameters.appCreateExtraArgs}}"
+          value: "--helm-version 3.5.1 --release-name {{inputs.parameters.releaseName}} {{workflow.parameters.appCreateExtraArgs}}"
         - name: destName
-          value: "{{workflow.parameters.destName}}"
+          value: "{{inputs.parameters.destName}}"
         - name: releaseName
-          value: "{{workflow.parameters.releaseName}}"
+          value: "{{inputs.parameters.releaseName}}"
         - name: appRepo
           value: "https://github.com/nolte/argo-charts.git"          
         - name: appNamespace
           value: "argocd"
         - name: appRevision
-          value: "{{workflow.parameters.appRevision}}"
+          value: "{{inputs.parameters.appRevision}}"
+    templateRef:
+       name: argocd-install
+       template: install            

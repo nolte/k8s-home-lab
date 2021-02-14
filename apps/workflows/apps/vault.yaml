@@ -6,26 +6,32 @@ metadata:
   name: vault
 spec:
   entrypoint: install
-  arguments:
+  inputs:
     parameters:
     - name: destName
     - name: appRevision
-  templates:
-  - name: install
-    templateRef:
-       name: app-install
-       template: install  
-    inputs:
-      parameters:
-        - name: appName
-          value: "seed-vault"
-        - name: appPath
-          value: "charts/argocd-vault/"
-        - name: "releaseName"
-          value: "vault"
-        - name: "destName"
-          value: "{{workflow.parameters.destName}}"
-        - name: "appRevision"
-          value: "{{workflow.parameters.appRevision}}"
-        - name: "appCreateExtraArgs"
-          value: ""
+  templates:  
+    - name: install
+      inputs:
+        parameters:
+        - name: destName
+        - name: appRevision
+      steps:
+      - - name: vault
+          arguments:
+            parameters:
+              - name: appName
+                value: "seed-vault"
+              - name: appPath
+                value: "charts/argocd-vault/"
+              - name: "releaseName"
+                value: "vault"
+              - name: "destName"
+                value: "{{inputs.parameters.destName}}"
+              - name: "appRevision"
+                value: "{{inputs.parameters.appRevision}}"
+              - name: "appCreateExtraArgs"
+                value: ""
+          templateRef:
+             name: app-create
+             template: install  
