@@ -4,6 +4,3 @@ global:
 
 tpl-argocd-baseline:
   enabled: true
-
-cert-manager-issuer:
-  enabled: true
