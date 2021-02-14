@@ -48,4 +48,25 @@ spec:
                 value:  ""
           templateRef:
              name: app-create
-             template: install  
+             template: install
+
+      - - name: wait-for-vault
+          template: wait-vault
+
+      - - name: vault-unseal
+          templateRef:
+            name: vault-flow-unseal
+            template: unseal-flow      
+
+    - name: wait-vault
+      resource:
+        action: get
+        successCondition: status.readyReplicas > 0
+        failureCondition: status.currentReplicas = 0
+        manifest: |
+          apiVersion: apps/v1
+          kind: StatefulSet
+          metadata:
+            namespace: vault
+            name: vault
+

@@ -58,3 +58,18 @@ spec:
           templateRef:
              name: app-create
              template: install  
+
+      - - name: wait-for-minio
+          template: wait-minio
+
+    - name: wait-minio
+      resource:
+        action: get
+        successCondition: status.readyReplicas > 0
+        failureCondition: status.availableReplicas == 0
+        manifest: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            namespace: minio
+            name: minio
