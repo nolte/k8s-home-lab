@@ -390,6 +390,18 @@ entries:
   argocd-vault:
   - apiVersion: v2
     appVersion: 1.8.4
+    created: "2021-02-14T14:01:23.079979449Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 4518f9c1a3318b86a0c1e03b35fbda6938c4e5bbcb61687507e061ac6d736580
+    name: argocd-vault
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-vault-1.6.8/argocd-vault-1.6.8.tgz
+    version: 1.6.8
+  - apiVersion: v2
+    appVersion: 1.8.4
     created: "2021-02-14T14:00:36.270255043Z"
     dependencies:
     - name: common-app
