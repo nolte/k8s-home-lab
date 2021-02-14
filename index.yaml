@@ -176,6 +176,18 @@ entries:
   argocd-cert-manager:
   - apiVersion: v2
     appVersion: v1.1.0
+    created: "2021-02-14T13:24:40.960827042Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 977f687c783246dc4907d77d851a1739d89694508009f201033abf6a09e2d3b2
+    name: argocd-cert-manager
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-cert-manager-1.6.5/argocd-cert-manager-1.6.5.tgz
+    version: 1.6.5
+  - apiVersion: v2
+    appVersion: v1.1.0
     created: "2021-02-13T01:52:09.433069558Z"
     dependencies:
     - name: common-app
@@ -1474,4 +1486,4 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/velero-1.6.0/velero-1.6.0.tgz
     version: 1.6.0
-generated: "2021-02-14T12:27:56.305999430Z"
+generated: "2021-02-14T12:27:56.30599943Z"
