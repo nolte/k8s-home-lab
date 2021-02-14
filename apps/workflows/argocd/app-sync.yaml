@@ -6,7 +6,7 @@ metadata:
   name: sync
 spec:
   entrypoint: sync
-  inputs:
+  arguments:
     parameters:
     - name: appName
   templates:  

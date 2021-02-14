@@ -6,15 +6,19 @@ metadata:
   name: install
 spec:
   entrypoint: install
-  inputs:
+  arguments:
      parameters:
      - name: appName
      - name: appRepo
+       value: "https://github.com/nolte/argo-charts.git"
      - name: appPath
      - name: appNamespace
+       value: "argocd"
      - name: appRevision
+       value: "master"
      - name: appCreateExtraArgs
      - name: destName
+       value: "in-cluster"
   templates:  
     - name: install
       inputs:

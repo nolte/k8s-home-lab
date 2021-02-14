@@ -6,7 +6,7 @@ metadata:
   name: vault
 spec:
   entrypoint: install
-  inputs:
+  arguments:
     parameters:
     - name: destName
     - name: appRevision
@@ -14,24 +14,38 @@ spec:
     - name: install
       inputs:
         parameters:
-        - name: destName
-        - name: appRevision
+        - name: appName
+          value: "seed-vault"
+        - name: appPath
+          value: "charts/argocd-vault/"
+        - name: "releaseName"
+          value: "vault"
+        - name: "destName"
+          value: "{{arguments.parameters.destName}}"
+        - name: "appRevision"
+          value: "{{arguments.parameters.appRevision}}"
+        #- name: "appCreateExtraArgs"
+        #  value: ""
       steps:
       - - name: vault
           arguments:
             parameters:
               - name: appName
-                value: "seed-vault"
+                value: "{{inputs.parameters.appName}}"
               - name: appPath
-                value: "charts/argocd-vault/"
+                value: "{{inputs.parameters.appPath}}"
               - name: "releaseName"
-                value: "vault"
+                value: "{{inputs.parameters.releaseName}}"
               - name: "destName"
-                value: "{{inputs.parameters.destName}}"
+                value: "{{inputs.parameters.destName}}"              
               - name: "appRevision"
                 value: "{{inputs.parameters.appRevision}}"
+              #- name: appRepo
+              #  value: "{{inputs.parameters.appRepo}}"
+              #- name: appNamespace 
+              #  value: "{{inputs.parameters.appNamespace}}"
               - name: "appCreateExtraArgs"
-                value: ""
+                value:  ""
           templateRef:
              name: app-create
              template: install  

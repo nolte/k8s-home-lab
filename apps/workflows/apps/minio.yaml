@@ -6,7 +6,7 @@ metadata:
   name: minio
 spec:
   entrypoint: install
-  inputs:
+  arguments:
     parameters:
     - name: destName
     - name: appRevision
@@ -16,30 +16,45 @@ spec:
     - name: install
       inputs:
         parameters:
-        - name: destName
-        - name: appRevision
+        #- name: destName
+        #- name: appRevision
         - name: rootAccessKey
+          value: "{{inputs.parameters.rootAccessKey}}"
         - name: rootSecretKey
+          value: "{{inputs.parameters.rootSecretKey}}"
+        - name: appName
+          value: "seed-minio"
+        - name: appPath
+          value: "charts/argocd-minio/"
+        - name: "releaseName"
+          value: "minio"
+        - name: "destName"
+          value: "{{inputs.parameters.destName}}"
+        - name: "appRevision"
+          value: "{{inputs.parameters.appRevision}}"       
       steps:
       - - name: mini
           arguments:
             parameters:
               - name: appName
-                value: "seed-minio"
+                value: "{{inputs.parameters.appName}}"
+              #  value: "seed-minio"
               - name: appPath
-                value: "charts/argocd-minio/"
+                value: "{{inputs.parameters.appPath}}"
+              #  value: "charts/argocd-minio/"
               - name: "releaseName"
-                value: "minio"
+                value: "{{inputs.parameters.releaseName}}"
+              #  value: "minio"
               - name: "destName"
-                value: "{{inputs.parameters.destName}}"
+                value: "{{inputs.parameters.destName}}"              
+              #  value: "{{inputs.parameters.destName}}"
               - name: "appRevision"
                 value: "{{inputs.parameters.appRevision}}"
-              - name: appRepo
-                value: "https://github.com/nolte/argo-charts.git"
-              - name: appNamespace 
-                value: minio
+              #  value: "{{inputs.parameters.appRevision}}"
+
+              #  value: minio
               - name: "appCreateExtraArgs"
-                value: "--helm-set accessKey={{inputs.parameters.rootAccessKey}} --helm-set secretKey={{inputs.parameters.rootSecretKey}}"
+                value: "--helm-set accessKey={{inputs.parameters.rootAccessKey}} --helm-set secretKey={{inputs.parameters.rootSecretKey}}"        
           templateRef:
              name: app-create
              template: install  

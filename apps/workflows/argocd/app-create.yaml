@@ -6,7 +6,7 @@ metadata:
   name: create
 spec:
   entrypoint: create
-  inputs:
+  arguments:
     parameters:
     - name: appName
     - name: appRepo
@@ -20,19 +20,19 @@ spec:
     inputs:
       parameters:
       - name: appName
-        value: "{{workflow.parameters.appName}}"
+        value: "{{inputs.parameters.appName}}"
       - name: appRepo
-        value: "{{workflow.parameters.appRepo}}"
+        value: "{{inputs.parameters.appRepo}}"
       - name: appPath
-        value: "{{workflow.parameters.appPath}}"
+        value: "{{inputs.parameters.appPath}}"
       - name: appNamespace
-        value: "{{workflow.parameters.appNamespace}}"
+        value: "{{inputs.parameters.appNamespace}}"
       - name: appRevision
-        value: "{{workflow.parameters.appRevision}}"
+        value: "{{inputs.parameters.appRevision}}"
       - name: appCreateExtraArgs
-        value: "{{workflow.parameters.appCreateExtraArgs}}"
+        value: "{{inputs.parameters.appCreateExtraArgs}}"
       - name: destName
-        value: "{{workflow.parameters.destName}}"        
+        value: "{{inputs.parameters.destName}}"        
         
     container:
       image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
