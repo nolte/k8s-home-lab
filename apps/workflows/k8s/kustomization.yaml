@@ -7,3 +7,4 @@ namePrefix: k8s-
 resources:
   - list.yaml
   - exec.yaml
+  - secret.yaml

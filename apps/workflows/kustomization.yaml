@@ -12,3 +12,4 @@ resources:
   - apps
   - app
   - argocd-init
+  - terraform

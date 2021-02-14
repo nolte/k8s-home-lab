@@ -6,5 +6,6 @@ namePrefix: apps-
 
 resources:
   - minio.yaml
+  - minio-bootstrap.yaml
   - vault.yaml
 

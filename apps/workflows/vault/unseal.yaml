@@ -13,8 +13,14 @@ spec:
         value: "component=server"
       - name: namespace
         value: "vault"
+      - name: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY           
   templates:
     - name: unseal-flow
+      inputs:
+        parameters:
+          - name: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY                 
       steps:
         - - name: select-pods
             arguments:
@@ -43,6 +49,10 @@ spec:
                 value: "{{item}}"
               - name: namespace
                 value: "vault"
+              - name: AWS_ACCESS_KEY_ID
+                value: "{{inputs.parameters.AWS_ACCESS_KEY_ID}}"
+              - name: AWS_SECRET_ACCESS_KEY   
+                value: "{{inputs.parameters.AWS_SECRET_ACCESS_KEY}}"
             withParam: "{{steps.extract-names.outputs.parameters.result}}"
 
 
@@ -51,6 +61,8 @@ spec:
         parameters:
           - name: podName
           - name: namespace
+          - name: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY          
       steps:  
        - - name: unseal-pod-keys
            templateRef:
@@ -86,12 +98,19 @@ spec:
                value: "{{inputs.parameters.podName}}"
              - name: namespace
                value: "{{inputs.parameters.namespace}}"
+             - name: AWS_SECRET_ACCESS_KEY
+               value: "{{inputs.parameters.AWS_SECRET_ACCESS_KEY}}"
+             - name: AWS_ACCESS_KEY_ID
+               value: "{{inputs.parameters.AWS_ACCESS_KEY_ID}}"
+
 
     - name: unseal-token
       inputs:
         parameters:
           - name: podName
           - name: namespace
+          - name: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY
       steps:
        - - name: operator-init
            templateRef:
@@ -105,7 +124,20 @@ spec:
                value: "{{inputs.parameters.namespace}}"
              - name: execCommand
                value: "vault operator init -format=json"
-      
+
+       - - name: vault-save-keys
+           templateRef:
+             name: k8s-secret
+             template: write
+           arguments:
+             parameters:
+             - name: content
+               value: "{{steps.operator-init.outputs.parameters.result}}"
+             - name: namespace
+               value: vault
+             - name: secretName
+               value: vault-init-tokens
+
        - - name: vault-extract-unseal-keys
            templateRef:
              name: jq-exec
@@ -128,3 +160,40 @@ spec:
                value: "{{inputs.parameters.namespace}}"
              - name: execCommand
                value: "vault operator unseal {{item}}"
+
+       - - name: wait-for-vault
+           template: wait-vault
+
+
+       - - name: vault-extract-root-token
+           templateRef:
+             name: jq-exec
+             template: exec
+           arguments:
+             parameters:
+             - name: jsonExpression
+               value: "{{steps.operator-init.outputs.parameters.result}}|.root_token"
+
+       - - name: vault-bootstrap
+           templateRef:
+             name: vault-bootstrap
+             template: bootstrap
+           arguments:
+             parameters:
+             - name: AWS_ACCESS_KEY_ID
+               value: "{{inputs.parameters.AWS_ACCESS_KEY_ID}}"
+             - name: AWS_SECRET_ACCESS_KEY
+               value: "{{inputs.parameters.AWS_SECRET_ACCESS_KEY}}"
+             - name: VAULT_TOKEN
+               value: "{{steps.vault-extract-root-token.outputs.parameters.result}}" 
+    - name: wait-vault
+      resource:
+        action: get
+        successCondition: status.readyReplicas > 0
+        failureCondition: status.currentReplicas = 0
+        manifest: |
+          apiVersion: apps/v1
+          kind: StatefulSet
+          metadata:
+            namespace: vault
+            name: vault

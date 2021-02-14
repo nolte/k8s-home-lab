@@ -10,6 +10,8 @@ spec:
     parameters:
     - name: destName
     - name: appRevision
+    - name: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY      
   templates:  
     - name: install
       inputs:
@@ -24,6 +26,8 @@ spec:
           value: "{{arguments.parameters.destName}}"
         - name: "appRevision"
           value: "{{arguments.parameters.appRevision}}"
+        - name: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY            
         #- name: "appCreateExtraArgs"
         #  value: ""
       steps:
@@ -54,6 +58,12 @@ spec:
           template: wait-vault
 
       - - name: vault-unseal
+          arguments:
+            parameters:
+            - name: AWS_ACCESS_KEY_ID
+              value: "{{inputs.parameters.AWS_ACCESS_KEY_ID}}"
+            - name: AWS_SECRET_ACCESS_KEY   
+              value: "{{inputs.parameters.AWS_SECRET_ACCESS_KEY}}"
           templateRef:
             name: vault-flow-unseal
             template: unseal-flow      
@@ -61,7 +71,7 @@ spec:
     - name: wait-vault
       resource:
         action: get
-        successCondition: status.readyReplicas > 0
+        successCondition: status.currentReplicas > 0
         failureCondition: status.currentReplicas = 0
         manifest: |
           apiVersion: apps/v1

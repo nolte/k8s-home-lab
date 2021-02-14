@@ -6,3 +6,4 @@ namePrefix: vault-
 
 resources:
   - unseal.yaml
+  - bootstrap.yaml

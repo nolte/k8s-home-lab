@@ -54,13 +54,34 @@ spec:
 
               #  value: minio
               - name: "appCreateExtraArgs"
-                value: "--helm-set accessKey={{inputs.parameters.rootAccessKey}} --helm-set secretKey={{inputs.parameters.rootSecretKey}}"        
+                value: "--helm-set source.helm.parameters[0].name=accessKey --helm-set source.helm.parameters[0].value={{inputs.parameters.rootAccessKey}} --helm-set source.helm.parameters[1].name=secretKey --helm-set source.helm.parameters[1].value={{inputs.parameters.rootSecretKey}}"        
           templateRef:
              name: app-create
              template: install  
 
       - - name: wait-for-minio
           template: wait-minio
+
+      #- - name: bootstrap-the-minio
+      #    template: bootstrap-minio
+      #    arguments:
+      #      parameters:
+      #        - name: AWS_ACCESS_KEY_ID
+      #          value: "{{inputs.parameters.rootAccessKey}}"
+      #        - name: AWS_SECRET_ACCESS_KEY
+      #          value: "{{inputs.parameters.rootAccessKey}}"
+
+
+    - name: bootstrap-minio
+      templateRef:
+         name: apps-minio-bootstrap
+         template: bootstrap  
+      arguments:
+        parameters:
+          - name: AWS_ACCESS_KEY_ID
+            value: "{{inputs.parameters.rootAccessKey}}"
+          - name: AWS_SECRET_ACCESS_KEY
+            value: "{{inputs.parameters.rootAccessKey}}"
 
     - name: wait-minio
       resource:
