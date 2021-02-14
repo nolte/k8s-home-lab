@@ -1,7 +1,7 @@
 apiVersion: v2
 name: argocd-vault
-version: 1.6.6
-appVersion: 1.7.1
+version: 1.6.7
+appVersion: 1.8.4
 dependencies:
   - name: common-app
     repository: https://nolte.github.io/argo-charts/
