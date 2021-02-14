@@ -1,6 +1,3 @@
-workflow:
-  namespace: argo-workflow
-
 vault:
   server:
     ingress:
