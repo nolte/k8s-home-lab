@@ -1,0 +1,30 @@
+# This example demonstrates the use of a git repo as a hard-wired input artifact.
+# The argo repo is cloned to its target destination at '/src' for the main container to consume.
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: delete-token
+spec:
+  entrypoint: token
+  arguments:
+    parameters:
+    - name: account
+    - name: config
+    - name: id
+  templates:  
+  - name: token
+    inputs:
+      parameters:
+      - name: account
+        value: "{{workflow.parameters.username}}"
+      - name: id
+        value: "{{workflow.parameters.id}}"        
+      - name: config
+        value: "{{workflow.parameters.config}}"
+    container:
+      image: argoproj/argocd:v1.8.4 #TODO: switch to smaller one
+      command: [sh, -c]
+      args: ["echo \"{{inputs.parameters.config}}\" > /tmp/argo-auth.yaml && argocd account delete-token  {{inputs.parameters.id}} --account  {{inputs.parameters.account}}  --config /tmp/argo-auth.yaml"]
+      envFrom:
+      - configMapRef:
+          name: argocd-auth-info

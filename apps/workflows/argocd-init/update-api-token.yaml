@@ -1,0 +1,79 @@
+# This example demonstrates the use of a git repo as a hard-wired input artifact.
+# The argo repo is cloned to its target destination at '/src' for the main container to consume.
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: workflow-user
+spec:
+  entrypoint: login
+  arguments:
+    parameters:
+    - name: username
+    - name: password
+  templates:  
+    - name: login
+      inputs:
+        parameters:
+        - name: username
+        - name: password    
+      steps:
+        - - name: user-login
+            arguments:
+              parameters:
+                - name: username
+                  value: "{{inputs.parameters.username}}"
+                - name: password
+                  value: "{{inputs.parameters.password}}"     
+            templateRef:
+              name: argocd-login
+              template: login
+
+        - - name: delete-user-token
+            arguments:
+              parameters:
+                - name: account
+                  value: "argo-workflow"
+                - name: id
+                  value: "workflow"                  
+                - name: config
+                  value: "{{steps.user-login.outputs.parameters.config}}"     
+            continueOn:
+                failed: true
+            templateRef:
+              name: argocd-delete-token
+              template: token
+
+        - - name: user-token
+            arguments:
+              parameters:
+                - name: account
+                  value: "argo-workflow"
+                - name: id
+                  value: "workflow"
+                - name: config
+                  value: "{{steps.user-login.outputs.parameters.config}}"     
+            templateRef:
+              name: argocd-user-token
+              template: token
+
+        - - name: encode-token
+            arguments:
+              parameters:
+                - name: input
+                  value: "{{steps.user-token.outputs.parameters.token}}"     
+            templateRef:
+              name: base64-encode
+              template: encode     
+
+        - - name: set-token
+            arguments:
+              parameters:
+                - name: secretName
+                  value: "argocd-auth"
+                - name: namespace
+                  value: "argo-workflow"
+                - name: token
+                  value: "{{steps.encode-token.outputs.parameters.result}}"     
+            templateRef:
+              name: argocd-set-token
+              template: token              

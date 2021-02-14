@@ -11,3 +11,4 @@ resources:
   - vault
   - apps
   - app
+  - argocd-init
