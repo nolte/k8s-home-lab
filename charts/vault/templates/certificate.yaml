@@ -1,3 +1,4 @@
+{{- if .Values.cert.generate }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -22,3 +23,4 @@ spec:
     # The default value is Issuer (i.e. a locally namespaced Issuer)
     kind: {{ .Values.vault.injector.certs.issuerRef.kind | quote }}
     group: cert-manager.io
+{{- end }}
