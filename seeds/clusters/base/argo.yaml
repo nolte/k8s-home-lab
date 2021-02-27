@@ -12,4 +12,5 @@ spec:
     targetRevision: 1.6.1
     chart: argocd-argo-workflow
     helm:
+      releaseName: argo
       version: v3.5.1
