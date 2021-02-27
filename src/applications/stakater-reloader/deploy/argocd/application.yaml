@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: reloader
+spec:
+  destination:
+    name: in-cluster
+    namespace: operators
+  project: cicd
+  source:
+    helm:
+      valueFiles: []
+      values: |
+        deployment:
+          serviceMonitor:
+            # Deprecated: Service monitor will be removed in future releases of reloader in favour of Pod monitor
+            # Enabling this requires service to be enabled as well, or no endpoints will be found
+            enabled: true
+            labels:
+              release: monitoring
+            # Set the namespace the ServiceMonitor should be deployed
+            # namespace: monitoring
+    path: deployments/kubernetes/chart/reloader
+    repoURL: https://github.com/stakater/Reloader.git
+    targetRevision: v0.0.99

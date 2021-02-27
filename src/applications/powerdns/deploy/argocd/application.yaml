@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: powerdns
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "10"
+spec:
+  destination:
+    name: in-cluster
+    namespace: powerdns
+    
+  project: default
+  source:
+    path: src/applications/powerdns/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures
+    helm:
+      valueFiles: []
+      parameters:
+        - name: powerdns.powerdns.api_key
+          value: "supersecretpw"
+        - name: powerdns.powerdns.domain
+          value: "k8sservices.local"
+      values: |
+        powerdns:
+          strategyType: RollingUpdate
+          deployment:
+            annotations:
+              reloader.stakater.com/auto: "true"
+          service:
+            annotations:
+              metallb.universe.tf/allow-shared-ip: powerdns

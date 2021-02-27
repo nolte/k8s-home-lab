@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: forecastle
+spec:
+  destination:
+    name: in-cluster
+    namespace: forecastle
+  project: cicd
+  source:
+    helm:
+      parameters:
+        - name: httpProxy.create
+          value: 'false'
+      valueFiles: []
+      values: |
+        forecastle:
+          forecastle:
+            config:
+              namespaceSelector:
+                any: true
+    path: src/applications/stakater-forecastle/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures

@@ -1,0 +1,20 @@
+{{- if .Values.httpProxy.create }}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: argo-workflows
+  labels:
+    app.kubernetes.io/name: {{ include "argo-workflows.name" . }}
+    helm.sh/chart: {{ include "argo-workflows.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  virtualhost:
+    fqdn: {{ tpl .Values.httpProxy.fqdn . }}
+    tls:
+      secretName: {{ tpl .Values.httpProxy.tls.secretName . }}
+  routes:
+  - services:
+    - name: argo-workflows-server
+      port: 2746
+{{- end }}

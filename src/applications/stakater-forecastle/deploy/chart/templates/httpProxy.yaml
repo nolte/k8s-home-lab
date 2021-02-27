@@ -1,0 +1,21 @@
+{{- if .Values.httpProxy.create }}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: {{ template "forecastle.name" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+    version: "{{ .Values.forecastle.forecastle.labels.version }}"
+
+spec:
+  virtualhost:
+    fqdn: {{ tpl .Values.httpProxy.fqdn . }}
+    tls:
+      secretName: {{ tpl .Values.httpProxy.tls.secretName . }}
+  routes:
+  - services:
+    - name: {{ template "forecastle.name" . }}
+      port: 80
+{{- end }}

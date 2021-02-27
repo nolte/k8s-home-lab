@@ -1,0 +1,5 @@
+httpProxy:
+  create: false
+  fqdn:  esphome.smart-home.k8sservices.local
+  tls:
+    secretName: cert-manager/wildcard-duckdns-org-tls

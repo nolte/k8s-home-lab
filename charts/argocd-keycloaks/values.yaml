@@ -1,6 +1,0 @@
-# https://github.com/codecentric/helm-charts/blob/master/charts/keycloak/values.yaml
-destination:
-  namespace: keycloak
-source:
-  chart: keycloak
-  repoURL: https://codecentric.github.io/helm-charts

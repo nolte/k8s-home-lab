@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+generatorOptions:
+  disableNameSuffixHash: true
+kind: Kustomization
+namespace: argocd
+resources:
+  - es-test.yaml
+  - sensor-test.yaml
+  - bus.yaml

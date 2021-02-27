@@ -1,7 +1,17 @@
 # Helm resources
-charts/*/Chart.lock
-charts/*/charts
-seeds/*/Chart.lock
-seeds/*/charts
+src/applications/*/deploy/chart/charts
+*.tgz
+Chart.lock
+
 
 .back
+
+packer_cache
+
+hack/packer/output-*
+hack/packer/builds/*.box
+
+*.gen.tf
+.terraform
+*.tfvars.json
+.terragrunt-cache

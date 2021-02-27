@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pihole
+spec:
+  destination:
+    name: in-cluster
+    namespace: pihole
+  project: default
+  source:
+    chart: pihole
+    repoURL: https://mojo2600.github.io/pihole-kubernetes/
+    targetRevision: 2.1.2
+    helm:
+      releaseName: pihole

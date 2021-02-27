@@ -1,0 +1,34 @@
+site_name: Argo Cluster Bootstrapping
+theme:
+  name: 'material'
+#docs_dir: .
+repo_name: 'nolte/argo-charts'
+repo_url: 'https://github.com/nolte/argo-charts'
+docs_dir: docs/
+plugins:
+  - include-markdown
+
+markdown_extensions:
+  - attr_list
+  - def_list
+  - meta
+  - footnotes
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.betterem
+  - pymdownx.magiclink
+  - pymdownx.extra
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: True
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+extra_css:
+  - docs/css/overwrite.css

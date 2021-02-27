@@ -1,0 +1,24 @@
+cmTfStaticEndpoints:
+  create: false
+  s3: http://minio.minio.svc
+  vaultEndpoint: http://vault.vault.svc:8200
+fullnameOverride: ''
+nameOverride: ''
+role:
+  tfState:
+    create: false
+    name: argo-workflows-execution
+  type: ClusterRole
+  vaultInjector:
+    create: false
+    name: argo-workflows-execution
+roleBinding:
+  tfState:
+    create: false
+  type: Role
+  vaultInjector:
+    create: false
+serviceAccount:
+  annotations: {}
+  create: false
+  name: argo-workflows-executer

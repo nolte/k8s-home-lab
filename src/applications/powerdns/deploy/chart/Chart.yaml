@@ -1,0 +1,16 @@
+apiVersion: v2
+name: powerdns
+description: extendet powerdns chart
+type: application
+version: 0.0.1
+sources:
+  - https://github.com/k8s-at-home/charts/tree/master/charts/stable/powerdns
+
+dependencies:
+  - name: powerdns
+    version: 3.3.2
+    repository: https://k8s-at-home.com/charts
+
+  - name: argo-workflows-execution
+    version: 0.0.1
+    repository: "file://../../../argo-workflow-templates/deploy/chart"

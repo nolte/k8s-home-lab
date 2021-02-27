@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio-operator
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-10"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: operators
+  project: default
+  source:
+    chart: minio-operator
+    helm:
+      releaseName: minio-operator
+      values: |
+        tenants: []
+        console:
+          ingress:
+            enabled: false
+            labels: {}
+            annotations: 
+              ingress.kubernetes.io/force-ssl-redirect: "true"
+              kubernetes.io/tls-acme: "true"      
+            tls: 
+              - hosts:
+                  - minio-console.smart-home.k8sservices.local
+                secretName: minio-tls
+            host: minio-console.smart-home.k8sservices.local
+            path: /  
+
+
+    repoURL: https://operator.min.io/
+    targetRevision: 4.1.8

@@ -1,0 +1,4 @@
+certmanagerwebhookduckdns:
+  secret:
+    existingSecret: true
+    existingSecretName: duckdns-token

@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-red
+spec:
+  destination:
+    name: in-cluster
+    namespace: node-red
+  project: default
+  source:
+    chart: node-red
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 9.0.0
+    helm:
+      releaseName: node-red

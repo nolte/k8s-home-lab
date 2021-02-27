@@ -1,0 +1,13 @@
+apiVersion: v2
+dependencies:
+  - name: cert-manager-webhook-duckdns
+    repository: https://ebrianne.github.io/helm-charts
+    version: 1.2.3
+    alias: certmanagerwebhookduckdns
+description: Preconfigured Certmanager Duckdns Deployment
+name: cert-manager-webhook-duckdns
+sources:
+  - https://github.com/ebrianne/helm-charts/tree/master/charts/cert-manager-webhook-duckdns
+  - https://github.com/ebrianne/cert-manager-webhook-duckdns
+type: application
+version: 0.2.2

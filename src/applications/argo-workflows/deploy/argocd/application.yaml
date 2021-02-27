@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+spec:
+  destination:
+    name: in-cluster
+    namespace: argo
+  project: cicd
+  source:
+    helm:
+      parameters:
+        - name: argoworkflows.fullnameOverride
+          value: argo-workflows
+        - name: argoworkflows.controller.containerRuntimeExecutor
+          value: k8sapi
+        - name: argoworkflows.controller.workflowNamespaces[0]
+          value: argo
+        - name: argoworkflows.server.clusterWorkflowTemplates.enabled
+          value: 'true'
+        - name: argoworkflows.controller.workflowDefaults.spec.serviceAccountName
+          value: argo-workflows-executer
+        - name: argoworkflows.server.extraArgs[0]
+          value: '--auth-mode=server'
+      releaseName: argo-workflows
+    path: src/applications/argo-workflows/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures

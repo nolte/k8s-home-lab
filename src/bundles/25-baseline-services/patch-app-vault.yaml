@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/source/helm/parameters/-
+  value:
+    name: vault.server.dev.enabled
+    value: 'true'
+- op: add
+  path: /spec/source/helm/parameters/-
+  value:
+    name: vault.injector.enabled
+    value: 'true'

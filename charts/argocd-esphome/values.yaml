@@ -1,7 +1,0 @@
-# https://github.com/k8s-at-home/charts/blob/master/charts/esphome/values.yaml
-destination:
-  namespace: esphome
-
-source:
-  chart: esphome
-  repoURL: https://k8s-at-home.com/charts/

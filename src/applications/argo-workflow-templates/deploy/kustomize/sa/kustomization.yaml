@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+configMapGenerator:
+  - literals:
+      - AWS_S3_ENDPOINT=http://minio.minio.svc
+      - VAULT_ADDR=http://vault.vault.svc:8200
+      - KUBE_IN_CLUSTER_CONFIG="true"
+    name: tf-static-endpoints
+generatorOptions:
+  disableNameSuffixHash: true
+kind: Kustomization
+resources:
+  - sa.yaml
+  - role-tf-state.yaml
+  - rb-tf-state.yaml
+  - rb-workflows-executer.yaml
+  - role-workflows-executer.yaml

@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argo-event-sensor
+roleRef:
+  apiGroup: ''
+  kind: Role
+  name: argo-event-sensor
+subjects:
+  - apiGroup: ''
+    kind: ServiceAccount
+    name: argo-event-sensor

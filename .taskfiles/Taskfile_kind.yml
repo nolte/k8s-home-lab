@@ -1,0 +1,36 @@
+---
+version: '3'
+
+env:
+  KUBECONFIG_PATH: ~/.kube/config
+
+
+tasks:
+
+
+  create:
+    desc: create cluster
+    cmds:
+    - |
+      kind create cluster \
+      --config {{.GIT_ROOT}}/hack/kind.yaml \
+      --name production 
+    silent: true
+
+  destroy:
+    desc: Destroy cluster
+    cmds:
+    - |
+      kind delete cluster --name production
+    silent: true
+
+
+  apply:
+    desc: Install ArgoCD and Base Seed Jobs for the Cluster
+    cmds:
+    - |
+      cd {{.GIT_ROOT}}/hack/bootstrap/k8s \
+        && export KUBE_CONFIG_PATH={{.KUBECONFIG_PATH}} \
+        && terragrunt init \
+        && terragrunt apply
+    silent: true

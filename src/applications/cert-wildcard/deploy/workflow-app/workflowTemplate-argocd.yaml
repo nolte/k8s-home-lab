@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: app-cert-wildcard
+spec:
+  entrypoint: exec
+  templates:
+    - name: exec
+      resource:
+        action: apply
+        manifest: |
+          apiVersion: argoproj.io/v1alpha1
+          kind: Application
+          metadata:
+            name: cert-wildcard
+          spec:
+            destination:
+              name: in-cluster
+              namespace: cert-manager
+            project: default
+            source:
+              path: src/applications/cert-wildcard/deploy/chart
+              repoURL: https://github.com/nolte/argo-charts.git
+              targetRevision: feature/applications-structures
+              helm:
+                releaseName: cert-wildcard
+                

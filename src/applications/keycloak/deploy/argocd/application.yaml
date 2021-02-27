@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+spec:
+  destination:
+    name: in-cluster
+    namespace: keycloak
+  project: default
+  source:
+    path: src/applications/keycloak/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures
+    helm:
+      values: |
+        keycloak:
+          extraEnv: |
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+            - name: TZ
+              value: Europe/Berlin              
+          ingress:
+            annotations:
+              ingress.kubernetes.io/force-ssl-redirect: "true"
+              kubernetes.io/tls-acme: "true"
+            rules:
+              -
+                # Ingress host
+                host: '{{ .Release.Name }}.keycloak.example.com'
+                # Paths for the host
+                paths:
+                  - path: /
+                    pathType: Prefix
+            # TLS configuration
+            tls:
+              - hosts:
+                  - keycloak.example.com
+                secretName: ""                          
+      parameters: 
+      #- name: keycloak.ingress.enabled
+      #  value: "true"
+      - name: keycloak.ingress.annotations."certmanager\.k8s\.io/cluster-issuer"
+        value: selfsigned-cluster-issuer
+      - name: keycloak.ingress.rules[0].host
+        value: "keycloak.smart-home.k8sservices.local"
+      - name: keycloak.ingress.tls[0].hosts[0]
+        value: "keycloak.smart-home.k8sservices.local"
+      - name: keycloak.ingress.tls[0].secretName
+        value: "keycloak-tls"
+      

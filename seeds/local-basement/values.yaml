@@ -1,6 +1,0 @@
-
-global:
-  domain: 172-17-0-1.sslip.io
-
-tpl-argocd-baseline:
-  enabled: true

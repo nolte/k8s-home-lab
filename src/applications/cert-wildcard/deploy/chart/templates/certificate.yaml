@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "cert-wildcard.fullname" . }}
+  labels:
+    {{- include "cert-wildcard.labels" . | nindent 4 }}
+spec:
+  dnsNames:
+  - "*.{{ tpl .Values.dnsName . }}"
+  issuerRef:
+    name:  {{ tpl .Values.issuerName . }}
+    kind: ClusterIssuer
+  secretName: wildcard-duckdns-org-tls

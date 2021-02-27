@@ -1,0 +1,7 @@
+# hack for pod restart loop
+- op: add
+  path: /rules/1/apiGroups/-
+  value: networking.k8s.io
+- op: add
+  path: /rules/2/verbs/-
+  value: watch

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: resource
+spec:
+  resource:
+    seedupdated:
+      eventTypes:
+        - UPDATE
+        - ADD
+      filter:
+        fields:
+          - key: metadata.name
+            operation: '=='
+            value: bootstrap-state
+      group: ''
+      namespace: argocd
+      resource: configmaps
+      version: v1
+  template:
+    serviceAccountName: argo-events-sa

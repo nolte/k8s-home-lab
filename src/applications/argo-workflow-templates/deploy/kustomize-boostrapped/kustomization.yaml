@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+generatorOptions:
+  disableNameSuffixHash: true
+kind: Kustomization
+patchesJSON6902:
+  - patch: |-
+      - op: replace
+        path: /spec/templates/0/inputs/parameters/0/default
+        value: "--plaintext"
+    target:
+      group: argoproj.io
+      kind: WorkflowTemplate
+      name: argocd-login-initial-root
+      version: v1alpha1
+resources:
+  - ../kustomize

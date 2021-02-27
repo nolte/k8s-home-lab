@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "15"
+spec:
+  destination:
+    name: in-cluster
+    namespace: external-dns
+  project: default
+  source:
+    path: src/applications/external-dns/deploy/kustomize
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures

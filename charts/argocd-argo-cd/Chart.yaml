@@ -1,7 +1,0 @@
-apiVersion: v2
-name: argocd-argo-cd
-version: 1.6.1
-dependencies:
-  - name: common-app
-    repository: https://nolte.github.io/argo-charts/
-    version: 1.2.0
