@@ -12,9 +12,10 @@ spec:
     targetRevision: 1.6.1
     chart: argocd-argo-workflow
     helm:
-      fullnameOverride: argo-workflow
       releaseName: argo-workflow
       version: v3.5.1
+      values:
+        fullnameOverride: argo-workflow
   syncPolicy:
     automated:
       prune: true
