@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: baseline
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  project: seed
+  source:
+    repoURL: https://github.com/nolte/argo-bootstrap
+    targetRevision: HEAD
+    path: src/charts/technical/collection-baseline
+    helm:
+      releaseName: baseline
+      version: v3.5.1
+  syncPolicy: {}
+#    automated: {}
+#      prune: true
+#      selfHeal: true

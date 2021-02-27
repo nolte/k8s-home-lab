@@ -1,10 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: argocd
-
 commonLabels:
-  just-mfg.de/appgroup: baseline
+  just-mfg.de/appgroup: cicd
 
 resources:
-  - baseline.yaml
+  - argo.yaml
+  - argo-workflow-teplates.yaml

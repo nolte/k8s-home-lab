@@ -6,3 +6,4 @@ namespace: argocd
 
 resources:
   - ../base
+  - ../argo
