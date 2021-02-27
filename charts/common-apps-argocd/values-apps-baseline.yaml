@@ -1,0 +1,70 @@
+apps:
+  argocd-project-contour:
+    source: |
+      repoURL: https://nolte.github.io/argo-charts/
+      chart: argocd-project-contour
+      targetRevision: 1.6.0
+      helm:
+        releaseName: project-contour
+        version: v3.5.1
+
+  argocd-reloader:
+    source: |
+      repoURL: https://nolte.github.io/argo-charts/
+      chart: argocd-reloader
+      targetRevision: 1.6.2
+      helm:
+        version: v3.5.1
+
+  argocd-konfigurator:
+    source: |
+      repoURL: https://nolte.github.io/argo-charts/
+      chart: argocd-cert-manager
+      targetRevision: 1.6.3
+      helm:
+        version: v3.5.1
+
+  argocd-cert-manager:
+    source: |
+      repoURL: https://nolte.github.io/argo-charts/
+      chart: argocd-cert-manager
+      targetRevision: 1.6.3
+      helm:
+        version: v3.5.1
+        values: |
+          installCRDs: true
+          prometheus:
+            enabled: true
+            servicemonitor:
+              enabled: true
+
+  argocd-monitoring:
+    source: |
+      repoURL: https://nolte.github.io/argo-charts/
+      chart: argocd-monitoring
+      targetRevision: 1.6.0
+      helm:
+        version: v3.5.1
+
+  argocd-forecastle:
+    source: |
+      repoURL: https://nolte.github.io/argo-charts/
+      chart: argocd-forecastle
+      targetRevision: 1.6.0 
+      helm:
+        version: v3.5.1
+        values: |
+           forecastle:
+             ingress:
+               enabled: {{ .Values.global.ingress.enabled }}
+               annotations:
+                 ingress.kubernetes.io/force-ssl-redirect: "true"
+                 cert-manager.io/cluster-issuer: {{ .Values.global.ingress.clusterIssuer }}
+               tls:
+                 - hosts:
+                     - forecastle.{{ .Values.global.ingress.domain }}
+                   secretName: forecastle-cert
+               hosts:
+                 - host: forecastle.{{ .Values.global.ingress.domain }}
+                   paths:
+                   - /        

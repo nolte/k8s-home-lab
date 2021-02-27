@@ -1,0 +1,19 @@
+# Set annotations on the deployment/statefulset/daemonset
+controllerAnnotations: {}
+# Set labels on the deployment/statefulset/daemonset
+controllerLabels: {}
+
+nameOverride: ""
+fullnameOverride: ""
+
+global:
+  project: baseline
+  ingress:
+    enabled: false
+    domain: domain.local #172-17-0-1.sslip.io
+    clusterIssuer: cluster-issuer
+  destination: |
+    name: in-cluster
+    namespace: argocd
+
+apps: {}

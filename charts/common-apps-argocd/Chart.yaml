@@ -1,0 +1,10 @@
+apiVersion: v2
+name: common-apps-argocd
+description: A Helm chart for Kubernetes
+type: application
+version: 0.2.1
+appVersion: 1.0.0
+dependencies:
+  - name: common
+    repository: https://k8s-at-home.com/charts/
+    version: 2.2.1
