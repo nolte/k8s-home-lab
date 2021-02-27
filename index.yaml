@@ -734,6 +734,21 @@ entries:
     urls:
     - https://github.com/nolte/argo-charts/releases/download/common-app-1.0.1/common-app-1.0.1.tgz
     version: 1.0.1
+  common-apps-argocd:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-02-27T16:51:25.555166617Z"
+    dependencies:
+    - name: common
+      repository: https://k8s-at-home.com/charts/
+      version: 2.2.1
+    description: A Helm chart for Kubernetes
+    digest: 3976c16fbd4fa8e6cbf0a61c975162aabe031690dbd6d577ba4602b146bf4462
+    name: common-apps-argocd
+    type: application
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/common-apps-argocd-0.2.1/common-apps-argocd-0.2.1.tgz
+    version: 0.2.1
   esphome:
   - apiVersion: v2
     appVersion: 4.3.1
