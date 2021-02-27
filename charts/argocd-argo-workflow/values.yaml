@@ -1,6 +1,8 @@
 destination:
   namespace: argo-workflow
 
+project: cicd
+
 source:
   repoURL: https://argoproj.github.io/argo-helm
   chart: argo
