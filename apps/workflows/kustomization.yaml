@@ -13,3 +13,4 @@ resources:
   - app
   - argocd-init
   - terraform
+  - bindings
