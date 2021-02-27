@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo
+  name: seed-argo
 spec:
   destination:
     name: in-cluster
     namespace: argocd
-  project: cicd
+  project: seed
   source:
     repoURL: https://nolte.github.io/argo-charts/
     targetRevision: 1.6.1
