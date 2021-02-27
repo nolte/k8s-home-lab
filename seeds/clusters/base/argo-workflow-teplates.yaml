@@ -5,18 +5,15 @@ metadata:
 spec:
   destination:
     name: in-cluster
-    namespace: argocd
+    namespace: argo-workflow
   project: cicd
   source:
     repoURL: https://nolte.github.io/argo-charts/
-    targetRevision: 1.6.1
-    chart: argocd-argo-workflow
-    helm:
-      releaseName: argo
-      version: v3.5.1
+    targetRevision: HEAD
+    path: apps/workflows
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=true    
