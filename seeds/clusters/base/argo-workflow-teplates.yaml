@@ -8,7 +8,7 @@ spec:
     namespace: argo-workflow
   project: cicd
   source:
-    repoURL: https://nolte.github.io/argo-charts/
+    repoURL: https://github.com/nolte/argo-charts.git
     targetRevision: HEAD
     path: apps/workflows
   syncPolicy:
