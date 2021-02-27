@@ -166,6 +166,18 @@ entries:
   argocd-argo-workflow:
   - apiVersion: v2
     appVersion: 0.15.4
+    created: "2021-02-27T14:29:32.401745858Z"
+    dependencies:
+    - name: common-app
+      repository: https://nolte.github.io/argo-charts/
+      version: 1.2.0
+    digest: 16b8a8512e0da005f98078e22ac39a573a932d89ab30655655721a1919f44a5e
+    name: argocd-argo-workflow
+    urls:
+    - https://github.com/nolte/argo-charts/releases/download/argocd-argo-workflow-1.6.2/argocd-argo-workflow-1.6.2.tgz
+    version: 1.6.2
+  - apiVersion: v2
+    appVersion: 0.15.4
     created: "2021-02-07T15:41:41.441999957Z"
     dependencies:
     - name: common-app
