@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: esphome
     repository: https://k8s-at-home.com/charts/
-    version: 8.0.0
+    version: 8.0.1
 description: Preconfigured ESPHome Deployment
 name: esphome
 sources:
