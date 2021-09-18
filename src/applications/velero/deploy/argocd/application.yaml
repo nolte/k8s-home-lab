@@ -11,6 +11,11 @@ spec:
     chart: velero
     helm:
       releaseName: velero
+      parameters:
+        - name: backupsEnabled
+          value: 'false'
+        - name: snapshotsEnabled
+          value: 'false'      
     repoURL: https://vmware-tanzu.github.io/helm-charts
     # https://github.com/vmware-tanzu/helm-charts/tree/main/charts/velero
     targetRevision: 2.23.8
