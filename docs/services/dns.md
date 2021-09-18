@@ -7,13 +7,16 @@
 ## Usefull Commands
 
 ??? example "Start port foward"
-    ```sh
-    kubectl -n powerdns port-forward svc/powerdns-webserver 8081
-    ```
+
+    {%
+       include-markdown "../../src/applications/powerdns/README.md"
+       start="<!--port-forward-start-->"
+       end="<!--port-forward-end-->"
+    %}
 
 ??? example "list all zone records"
-    ```sh
-    curl -X GET \
-      http://localhost:8081/api/v1/servers/localhost/zones/smart-home.k8sservices.local. \
-      -H 'x-api-key: supersecretpw'
-    ```
+    {%
+       include-markdown "../../src/applications/powerdns/README.md"
+       start="<!--pdns-zone-elements-start-->"
+       end="<!--pdns-zone-elements-end-->"
+    %}
