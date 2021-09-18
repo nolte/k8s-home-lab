@@ -183,6 +183,68 @@ patchesJSON6902:
       kind: Application
       name: keycloak
       version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  httpProxy.create
+          value: "false"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  harbor.externalURL
+          value: "https://harbor.dev44-just-homestyle.duckdns.org"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  harbor.expose.ingress.hosts.core
+          value: harbor.dev44-just-homestyle.duckdns.org
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  harbor.expose.ingress.hosts.notary
+          value: notary.dev44-just-homestyle.duckdns.org          
+    target:
+      group: argoproj.io
+      kind: Application
+      name: harbor
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  externalSecret.create
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  gitea.gitea.admin.existingSecret
+          value: "gitea-admin-secret"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: gitea.dev44-just-homestyle.duckdns.org        
+    target:
+      group: argoproj.io
+      kind: Application
+      name: gitea
+      version: v1alpha1
+
+
 resources:
   - ../../../src/bundles/25-baseline-services
   - ../../../src/bundles/smart-home
+  - ../../../src/bundles/devops-services

@@ -1,0 +1,10 @@
+apiVersion: v2
+dependencies:
+  - name: contour
+    repository: https://charts.bitnami.com/bitnami
+    version: 5.5.0
+description: Preconfigured contour Deployment
+name: contour
+sources: []
+type: application
+version: 5.5.0

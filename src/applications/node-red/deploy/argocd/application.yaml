@@ -8,8 +8,9 @@ spec:
     namespace: node-red
   project: default
   source:
-    chart: node-red
-    repoURL: https://k8s-at-home.com/charts/
-    targetRevision: 9.0.0
+    path: src/applications/node-red/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master
+
     helm:
       releaseName: node-red

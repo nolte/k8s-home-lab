@@ -7,9 +7,9 @@ spec:
     name: in-cluster
     namespace: pihole
   project: default
-  source:
-    chart: pihole
-    repoURL: https://mojo2600.github.io/pihole-kubernetes/
-    targetRevision: 2.1.2
+  source:    
+    path: src/applications/pihole/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master
     helm:
       releaseName: pihole
