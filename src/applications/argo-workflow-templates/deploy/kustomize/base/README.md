@@ -10,5 +10,5 @@ argo submit \
   -p repo=https://github.com/nolte/argo-charts.git \
   -p action="run-all apply" \
   -p path=./hack/terraground-example \
-  -p revision=feature/applications-structures
+  -p revision=master
 ```

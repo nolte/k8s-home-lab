@@ -33,7 +33,7 @@ spec:
           source:
             path: src/applications/cert-manager-webhook-duckdns/deploy/chart
             repoURL: https://github.com/nolte/argo-charts.git
-            targetRevision: feature/applications-structures
+            targetRevision: master
             helm:
               releaseName: cert-manager-webhook-duckdns
               parameters:

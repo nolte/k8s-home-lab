@@ -21,7 +21,7 @@ spec:
             source:
               path: src/applications/cert-wildcard/deploy/chart
               repoURL: https://github.com/nolte/argo-charts.git
-              targetRevision: feature/applications-structures
+              targetRevision: master
               helm:
                 releaseName: cert-wildcard
                 

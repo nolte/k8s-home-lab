@@ -10,7 +10,7 @@ spec:
   source:
     path: src/applications/keycloak/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/applications-structures
+    targetRevision: master
     helm:
       values: |
         keycloak:

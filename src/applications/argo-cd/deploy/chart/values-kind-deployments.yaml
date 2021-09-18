@@ -13,7 +13,7 @@ argo-cd:
         source:
           path: src/clusters/screenplay/dev-kind-powerdns
           repoURL: https://github.com/nolte/argo-charts.git
-          targetRevision: feature/applications-structures
+          targetRevision: master
         syncPolicy:
           automated:
             prune: true
@@ -31,7 +31,7 @@ argo-cd:
         source:
           path: src/bundles/00-bootstrapping-minimal
           repoURL: https://github.com/nolte/argo-charts.git
-          targetRevision: feature/applications-structures
+          targetRevision: master
         syncPolicy:
           automated:
             prune: true

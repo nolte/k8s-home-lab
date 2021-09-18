@@ -14,7 +14,7 @@ metadata:
 spec:
   terraformVersion: 0.14.9
   terraformModule:
-    address: https://github.com/nolte/argo-charts.git//src/applications/minio/configuration/baseline?ref=feature/applications-structures
+    address: https://github.com/nolte/argo-charts.git//src/applications/minio/configuration/baseline?ref=master
   customBackend: |-
     terraform {
       backend "kubernetes" {

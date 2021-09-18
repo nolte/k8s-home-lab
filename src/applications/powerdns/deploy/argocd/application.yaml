@@ -13,7 +13,7 @@ spec:
   source:
     path: src/applications/powerdns/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/applications-structures
+    targetRevision: master
     helm:
       valueFiles: []
       parameters:

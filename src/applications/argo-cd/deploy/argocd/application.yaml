@@ -16,4 +16,4 @@ spec:
         - values.yaml
     path: src/applications/argo-cd/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/applications-structures
+    targetRevision: master

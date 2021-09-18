@@ -16,7 +16,7 @@ keycloak:
         name: 'keycloak-admin-user'
 
 terraformModule:
-  address: https://github.com/nolte/argo-charts.git//src/applications/keycloak/configuration/baseline?ref=feature/applications-structures
+  address: https://github.com/nolte/argo-charts.git//src/applications/keycloak/configuration/baseline?ref=master
 
 
 argo-workflows-execution:

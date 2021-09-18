@@ -14,7 +14,7 @@ spec:
   arguments:
     parameters:
     - name: revision
-      value: "feature/applications-structures" #master
+      value: "master" #master
     - name: action
       value: apply
     - name: path
@@ -44,7 +44,7 @@ spec:
     inputs:
       parameters:
       - name: revision
-        default: "feature/applications-structures" #master
+        default: "master" #master
       - name: action
         default: apply
       - name: path

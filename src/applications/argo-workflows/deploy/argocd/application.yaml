@@ -25,4 +25,4 @@ spec:
       releaseName: argo-workflows
     path: src/applications/argo-workflows/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/applications-structures
+    targetRevision: master
