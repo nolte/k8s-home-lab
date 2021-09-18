@@ -1,6 +1,0 @@
-# https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
-destination:
-  namespace: velero
-source:
-  chart: velero
-  repoURL: https://vmware-tanzu.github.io/helm-charts

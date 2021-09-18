@@ -1,0 +1,12 @@
+httpProxy:
+  create: false
+  fqdn:  argocd.smart-home.k8sservices.local
+  tls:
+    secretName: cert-manager/wildcard-duckdns-org-tls
+
+argo-cd:
+  apiVersionOverrides:
+    certmanager: cert-manager.io/v1
+  server:
+    extraArgs:
+      - '--insecure'

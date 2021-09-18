@@ -1,0 +1,17 @@
+{{- if .Values.httpProxy.create }}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: argocd
+  labels:
+    {{- include "argo-cd.labels" (dict "context" .) | nindent 4 }}
+spec:
+  virtualhost:
+    fqdn: {{ tpl .Values.httpProxy.fqdn . }}
+    tls:
+      secretName: {{ tpl .Values.httpProxy.tls.secretName . }}
+  routes:
+  - services:
+    - name: argocd-server
+      port: 80
+{{- end }}

@@ -1,0 +1,25 @@
+httpProxy:
+  create: false
+  fqdn:  argo.smart-home.k8sservices.local
+  tls:
+    secretName: cert-manager/wildcard-duckdns-org-tls
+
+argo-workflows-execution:
+  role:
+    tfState:
+      create: true
+      name: argo-workflows-execution
+    type: ClusterRole
+    vaultInjector:
+      create: true
+      name: argo-workflows-execution
+  roleBinding:
+    tfState:
+      create: false
+    type: Role
+    vaultInjector:
+      create: false
+  serviceAccount:
+    annotations: {}
+    create: false
+    name: argo-workflows-execution

@@ -1,6 +1,0 @@
-# https://github.com/banzaicloud/bank-vaults/tree/master/charts/vault-operator
-destination:
-  namespace: operators
-source:
-  chart: vault-operator
-  repoURL: https://kubernetes-charts.banzaicloud.com

@@ -1,0 +1,15 @@
+apiVersion: v2
+dependencies:
+  - # https://github.com/hashicorp/vault-helm
+    name: vault
+    repository: https://helm.releases.hashicorp.com
+    version: 0.15.0
+  - name: argo-workflows-execution
+    version: 0.0.1
+    repository: "file://../../../argo-workflow-templates/deploy/chart"
+description: Preconfigured Vault Deployment
+name: vault
+sources:
+  - https://github.com/hashicorp/vault-helm
+type: application
+version: 0.2.2

@@ -1,7 +1,0 @@
-# https://github.com/halkeye-helm-charts/powerdns/blob/master/values.yaml
-destination:
-  namespace: powerdns
-source:
-  chart: powerdns
-  repoURL: https://halkeye.github.io/helm-charts
-

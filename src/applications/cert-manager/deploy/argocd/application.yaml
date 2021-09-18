@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-69"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+  project: default
+  source:
+    chart: cert-manager
+    # https://artifacthub.io/packages/helm/cert-manager/cert-manager
+    repoURL: https://charts.jetstack.io
+    targetRevision: v1.5.3
+    helm:
+      releaseName: cert-manager
+      values: |
+        extraArgs:
+          - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
+        ingressShim:
+          defaultIssuerName: selfsigned-cluster-issuer
+          defaultIssuerKind: ClusterIssuer
+          defaultIssuerGroup: cert-manager.io
+        prometheus:
+          enabled: true
+          servicemonitor:
+            enabled: true  
+      parameters:
+        - name: installCRDs
+          value: "true"

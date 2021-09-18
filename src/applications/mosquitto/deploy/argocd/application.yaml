@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mosquitto
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: mosquitto
+  project: default
+  source:
+    chart: mosquitto
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 4.0.0
+    helm:
+      releaseName: mosquitto

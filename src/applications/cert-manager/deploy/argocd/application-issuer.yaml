@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager-issuers
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-66"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+  project: default
+  source:
+    path: src/applications/cert-manager/deploy/kustomize-issuers
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures

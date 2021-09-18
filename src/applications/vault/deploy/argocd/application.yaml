@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-50"
+spec:
+  destination:
+    name: in-cluster
+    namespace: vault
+  project: default
+  source:
+    path: src/applications/vault/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures
+    helm:
+      valueFiles: []
+      values: |
+        vault:
+          server:
+            ingress:
+              annotations:
+                ingress.kubernetes.io/force-ssl-redirect: "true"
+                kubernetes.io/tls-acme: "true"
+      parameters:
+      - name: vault.server.ha.replicas
+        value: "1"
+      - name: vault.server.raft.enabled
+        value: "true"        
+#      - name: vault.server.ingress.annotations.certmanager\.k8s\.io/cluster-issuer
+#        value: selfsigned-cluster-issuer
+#      - name: vault.server.ingress.hosts[0].host
+#        value: "vault.smart-home.k8sservices.local"
+#      - name: vault.server.ingress.tls[0].hosts[0]
+#        value: "vault.smart-home.k8sservices.local"
+#      - name: vault.server.ingress.tls[0].secretName
+#        value: "vault-tls"

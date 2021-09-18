@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://github.com/kubernetes-sigs/external-dns.git/kustomize?ref=v0.9.0
+  - exsecret-root.yaml
+
+namespace: external-dns
+
+configMapGenerator:
+- name: pdns-config
+  literals:
+  - pdns_api_url=http://powerdns-webserver.powerdns.svc:8081
+  - owner_id_for_this_external_dns=test-externaldns
+  - pdns_domain_filter=smart-home.k8sservices.local.
+
+#secretGenerator:
+#- name: pdns-api
+#  literals:
+#  - pdns_http_api_key=supersecretpw
+
+patchesJson6902:
+- target:
+    group: "apps" 
+    version: v1 # apiVersion
+    kind: Deployment
+    name: external-dns
+  path: deployment-patch.yaml
+- target:
+    group: "rbac.authorization.k8s.io" 
+    version: v1 # apiVersion
+    kind: ClusterRole
+    name: external-dns
+  path: cr-patch.yaml

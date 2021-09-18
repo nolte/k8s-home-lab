@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-sidecar-injector
+spec:
+  destination:
+    name: in-cluster
+    namespace: vault-sidecar-injector
+  project: cicd
+  source:
+    path: deploy/helm
+    repoURL: https://github.com/Talend/vault-sidecar-injector
+    targetRevision: v7.2.1
+    helm:
+      releaseName: vault-sidecar-injector
+      values: |
+        vault:
+          authMethods:
+            approle: 
+              path: kubernetes
+          ssl:
+            verify: false  # Enable or disable verification of certificates
+      parameters:
+        - name: image.tag
+          value: "7.2.1"
+        - name: vault.addr
+          value: "http://vault.vault.svc:8200"          

@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: minio
+
+generatorOptions:
+ disableNameSuffixHash: true
+
+configMapGenerator:
+- name: tf-static-minio-endpoints
+  literals:
+  - MINIO_ENDPOINT=minio.minio.svc
+
+resources:
+#  - certificate.yaml
+  - ext-console-secret.yaml
+  - ext-minio-creds.yaml
+#  - ingress.yaml
+  - tenant.yaml
+  
+  # Argo Workflow stuff
+  - ../../../argo-workflow-templates/deploy/kustomize/sa
+  - tf-flow-configure-tenant.yaml
+  - tf-exec.yaml
+  #- tf-configure-tenant.yaml
+
+

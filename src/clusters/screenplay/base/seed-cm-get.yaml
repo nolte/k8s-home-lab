@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: seed-cm-get
+spec:
+  entrypoint: exec
+  arguments:
+    parameters:
+      - name: configPathStep
+  templates:
+  - name: exec
+    inputs:
+      parameters:
+        - default: "1"
+          name: configPathStep      
+        - default: screenplay-bootstrap
+          name: configmapname
+    resource:
+      action: get
+      manifest: |
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: {{inputs.parameters.configmapname}}
+    outputs:
+      parameters:
+      - name: bootstrapStep
+        valueFrom:
+          jqFilter: '.data["state.{{inputs.parameters.configPathStep}}.path"]'
+      - name: bootstrapStepNext
+        value: '{{=sprig.add(inputs.parameters.configPathStep,1)}}'
+      - name: bootstrapStepNextPath
+        valueFrom:
+          jqFilter: '.data["state.{{=sprig.add(inputs.parameters.configPathStep,1)}}.path"]'

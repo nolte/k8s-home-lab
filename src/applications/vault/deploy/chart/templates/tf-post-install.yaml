@@ -1,0 +1,23 @@
+# This example demonstrates the use of a git repo as a hard-wired input artifact.
+# The argo repo is cloned to its target destination at '/src' for the main container to consume.
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: post-sync-vault
+  labels:
+    app.kubernetes.io/name: {{ include "vault.name" . }}
+    helm.sh/chart: {{ include "vault.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/hook: PostSync
+spec:
+  entrypoint: exec
+  templates:
+  - name: exec
+    steps:                            
+      - - name: configure-vault
+          templateRef:
+            name: flow-tf-vault-baseline
+            template: exec

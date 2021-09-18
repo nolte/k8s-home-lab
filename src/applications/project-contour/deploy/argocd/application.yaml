@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: project-contour
+spec:
+  destination:
+    name: in-cluster
+    namespace: project-contour
+  project: default
+  source:
+    chart: contour
+    helm:
+      parameters:
+        - name: envoy.service.type
+          value: NodePort
+      releaseName: contour
+      values: |
+        contour:
+          manageCRDs: true
+          extraArgs:
+            - --ingress-status-address=192.168.0.39
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 5.5.0

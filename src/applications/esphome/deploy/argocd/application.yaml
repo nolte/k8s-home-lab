@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: esphome
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: esphome
+  project: default
+  source:
+    path: src/applications/esphome/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures  
+    helm:
+      releaseName: esphome
+      parameters:
+        - name: ingress.main.enabled
+          value: "false"

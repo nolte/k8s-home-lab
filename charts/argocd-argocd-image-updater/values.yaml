@@ -1,6 +1,0 @@
-destination:
-  namespace: argocd
-source:
-  path: apps/argocd-image-updater/
-  repoURL: https://github.com/nolte/argo-charts.git
-  targetRevision: HEAD  

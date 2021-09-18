@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflow-templates
+spec:
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+  project: default
+  source:
+    path: src/applications/argo-workflow-templates/deploy/kustomize
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/applications-structures

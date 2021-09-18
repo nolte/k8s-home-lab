@@ -1,0 +1,90 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: flow-bump-up-step
+spec:
+  entrypoint: exec
+  synchronization:
+    semaphore:
+      configMapKeyRef:
+        name: synchronization-config
+        key: workflow  
+  templates:
+    - name: exec
+      steps:
+        - - name: get-seed-job-infos
+            templateRef:
+              name: seed-job-get
+              template: exec
+
+        - - name: get-seed-job-sub-synced
+            templateRef:
+              name: seed-job-wait
+              template: exec
+            arguments:
+              parameters:
+              - name: argocdAppName
+                value: "{{item}}"
+            withParam: "{{steps.get-seed-job-infos.outputs.parameters.resources}}"
+
+        - - arguments:
+              parameters:
+                - name: configPathStep
+                  value: '{{steps.get-seed-job-infos.outputs.parameters.bootstrapStep}}'
+            name: get-path
+            templateRef:
+              name: seed-cm-get
+              template: exec
+
+        - - arguments:
+              parameters:
+                - name: bootstrapStepNumber
+                  value: '{{steps.get-path.outputs.parameters.bootstrapStepNext}}'
+                - name: argoJobSourcesPath
+                  value: '{{steps.get-path.outputs.parameters.bootstrapStepNextPath}}'
+            name: patch
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            templateRef:
+              name: seed-job-patch
+              template: exec
+#
+        - - name: get-seed-job-wait-patched
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            templateRef:
+              name: seed-job-wait
+              template: exec
+
+
+        - - name: get-seed-job-sub-synced-after-patch
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            templateRef:
+              name: seed-job-wait
+              template: exec
+            arguments:
+              parameters:
+              - name: argocdAppName
+                value: "{{item}}"
+            withParam: "{{steps.get-seed-job-infos.outputs.parameters.resources}}"
+
+
+        - - name: self-retry
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            templateRef:
+              name: flow-bump-up-step
+              template: exec
+
+
+#
+#        - - name: get-seed-job-resources-infos
+#            templateRef:
+#              name: seed-job-get
+#              template: exec
+
+#    - name: whalesay
+#      inputs:
+#        parameters:
+#        - name: message
+#      container:
+#        image: docker/whalesay:latest
+#        command: [cowsay]
+#        args: ["{{inputs.parameters.message}}"]

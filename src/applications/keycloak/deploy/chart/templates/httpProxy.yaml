@@ -1,0 +1,20 @@
+{{- if .Values.httpProxy.create }}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: keycloak
+  labels:
+    app.kubernetes.io/name: {{ include "keycloak.name" . }}
+    helm.sh/chart: {{ include "keycloak.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  virtualhost:
+    fqdn: {{ tpl .Values.httpProxy.fqdn . }}
+    tls:
+      secretName: {{ tpl .Values.httpProxy.tls.secretName . }}
+  routes:
+  - services:
+    - name: keycloak-http
+      port: 80
+{{- end }}

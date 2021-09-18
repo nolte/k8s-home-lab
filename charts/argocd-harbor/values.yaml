@@ -1,6 +1,0 @@
-# https://github.com/goharbor/harbor-helm/blob/master/values.yaml
-destination:
-  namespace: harbor
-source:
-  chart: harbor
-  repoURL: https://helm.goharbor.io

@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argo-workflows-executer
+roleRef:
+  apiGroup: ''
+  kind: Role
+  name: argo-workflows-executer
+subjects:
+  - apiGroup: ''
+    kind: ServiceAccount
+    name: argo-workflows-executer

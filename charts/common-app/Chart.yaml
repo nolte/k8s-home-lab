@@ -1,9 +1,0 @@
-apiVersion: v2
-name: common-app
-version: 1.2.1
-type: library
-keywords:
-  - argocd
-  - common
-home: https://github.com/nolte/argo-charts/tree/master/charts/common-app
-maintainers: []

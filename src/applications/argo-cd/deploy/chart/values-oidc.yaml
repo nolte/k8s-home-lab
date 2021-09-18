@@ -1,0 +1,22 @@
+externalSecret:
+  enabled: true
+  key: secrets-tf/data/services/IdentityAccessManagement/clients/argocd
+
+argo-cd:
+  apiVersionOverrides:
+    certmanager: cert-manager.io/v1
+  server:
+    config:
+      url: https://argocd.dev44-just-homestyle.duckdns.org
+      oidc.config: |
+        name: Keycloak
+        issuer: https://keycloak.dev44-just-homestyle.duckdns.org/auth/realms/devops-services
+        clientID: argocd
+        clientSecret: $argocd-oidc-secret:oidc.keycloak.clientSecret
+        requestedScopes: ["openid", "profile", "email", "groups"]
+    rbacConfig:
+      policy.csv: |
+        # Grant all members of the group 'my-org:team-alpha; the ability to sync apps in 'my-project'
+        # p, my-org:team-alpha, applications, sync, my-project/*, allow
+        # Grant all members of 'my-org:team-beta' admins
+        g, /platform-super-users/argocd-admin-users, role:admin        

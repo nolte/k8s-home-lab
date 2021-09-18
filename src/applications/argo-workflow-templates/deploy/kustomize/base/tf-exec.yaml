@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: flow-tf-exec
+spec:
+  arguments:
+    parameters:
+      - name: repo
+      - name: path
+      - name: revision
+        value: master
+      - name: action
+        value: apply
+  entrypoint: exec
+  templates:
+    - inputs:
+        artifacts:
+          - git:
+              repo: '{{inputs.parameters.repo}}'
+              revision: '{{inputs.parameters.revision}}'
+            name: argo-source
+            path: /src
+        parameters:
+          - name: repo
+          - name: revision
+          - name: path
+          - name: action
+      name: exec
+      script:
+        command:
+          - bash
+        image: alpine/terragrunt
+        source: |
+          #!/usr/bin/env bash
+          set -o errexit
+          set -o pipefail
+          set -o nounset
+
+          cd {{inputs.parameters.path}}
+
+          tfExitCode=$(terragrunt {{inputs.parameters.action}} -input=false -auto-approve -no-color -compact-warnings)
+          ls -all
+          echo "exitcode"$tfExitCode"ende"
+          #mkdir -p /tmp/tf-outputs/
+          #terragrunt output -json > /tmp/tf-outputs/out.json
+        workingDir: /src

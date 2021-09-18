@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: harbor
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: harbor
+  project: default
+  source:
+    chart: harbor
+    repoURL: https://helm.goharbor.io
+    targetRevision: 1.7.1
+    helm:
+      releaseName: harbor

@@ -1,0 +1,50 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+commonLabels:
+  argocd.argoproj.io/instance: seed-job
+kind: Kustomization
+namespace: argocd
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+#patchesJSON6902:
+#  - patch: |-
+#      - op: replace
+#        path: /metadata/annotations
+#        value: {}
+#      - op: add
+#        path: /metadata/annotations/argocd.argoproj.io~1hook
+#        value: PostSync
+#      - op: add
+#        path: /metadata/annotations/argocd.argoproj.io~1sync-wave
+#        value: "-1"
+#    target:
+#      group: ""
+#      kind: ConfigMap
+#      name: bootstrap-state
+#      version: v1
+
+#patchesJSON6902:
+#- target:
+#      group: argoproj.io
+#      kind: Application
+#      version: v1alpha1
+#      name: argocd
+#  patch: |-
+#    - op: add
+#      path: /spec/source/helm/parameters
+#      value:
+#        - name: "argo-cd.server.additionalApplications[0].source.path"
+#          value: "src/bundles/05-bootstrapping-ingress"
+resources:
+  - ../../../src/bundles/00-bootstrapping-minimal
+  - ../../../src/applications/project-contour/deploy/argocd
+  - ../../../src/applications/cert-manager/deploy/argocd

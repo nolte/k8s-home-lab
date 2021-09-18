@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-secrets
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-44"  
+spec:
+  destination:
+    name: in-cluster
+    namespace: external-secrets
+  project: default
+  source:
+    path: charts/kubernetes-external-secrets
+    repoURL: https://github.com/external-secrets/kubernetes-external-secrets
+    targetRevision: 8.3.0
+    helm:
+      releaseName: external-secrets
+      values: |
+        env:
+          WATCHED_NAMESPACES: ""
+          DEFAULT_VAULT_MOUNT_POINT: "kubernetes"
+          LOG_LEVEL: "debug"
+          DEFAULT_VAULT_ROLE: "external-secrets"                    
+        serviceMonitor:
+          enabled: true  
+      parameters:
+        - name: fullnameOverride
+          value: "external-secrets"
+        - name: env.VAULT_ADDR
+          value: "http://vault.vault.svc:8200"          

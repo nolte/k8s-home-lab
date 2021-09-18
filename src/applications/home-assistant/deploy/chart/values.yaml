@@ -1,0 +1,124 @@
+# homeassistant:
+#        persistence:
+#          config:
+#            enabled: true
+#            mountPath: /config
+homeassistant:
+  global:
+    fullnameOverride: home-assistant      
+  env:
+    HUE_ENDPOINT: "192.168.0.17"
+    MQTT_ENDPOINT: mosquitto.mosquitto.svc
+    FIRETV_ENDPOINT: "192.168.0.20"
+    DENON_ENDPOINT: "192.168.0.27"
+    PHILIPSTV_ENDPOINT: "192.168.0.24"
+    FRITZBOX_ENDPOINT: "192.168.0.1"
+    HARMONY_ENDPOINT: "192.168.0.32"
+    
+  envFrom:
+    - secretRef:
+        name: home-assistant-creds
+  
+  controller:
+    annotations:
+      reloader.stakater.com/auto: "true"
+
+  initContainers:
+    gitsync:
+      args:
+      - set -e; if [ -d "/config/.git" ]; then git -C "/config" pull || true; else if
+        [ "$(ls -A /config)" ]; then git clone --branch ${GIT_BRANCH} --depth 2 "${GIT_REPO}"
+        /tmp/repo; cp -rf /tmp/repo/.git "/config"; cd "/config"; git checkout -f; else
+        git clone --branch ${GIT_BRANCH} --depth 2 "${GIT_REPO}" "/config";
+        fi; fi; if [ -f "/root/.ssh/git-crypt-key" ]; then cd /config; git-crypt unlock
+        "/root/.ssh/git-crypt-key"; fi;
+      env:
+        - name: "GIT_BRANCH"
+          value: "feature/minimized-config"
+        - name: "GIT_REPO"
+          value: "git@github.com:nolte/home-assistant-config.git"                  
+      command:
+      - /bin/sh
+      - -c
+      image: k8sathome/git-crypt:2020.11.15
+      imagePullPolicy: IfNotPresent
+      name: git-sync
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /root/.ssh
+        name: gitsecret
+  additionalContainers:    
+    hassConfigurator:
+      image: causticlab/hass-configurator-docker:latest
+      name: hass-configurator
+      volumeMounts:
+        - mountPath: /hass-config
+          name: config
+        - mountPath: /root/.ssh
+          name: gitsecret
+  resources:
+    limits:
+      cpu: 2
+      memory: 2048Mi
+    requests:
+      cpu: 1
+      memory: 1024Mi
+  persistence:
+    gitsecret:
+      enabled: true
+      mountPath: /root/.ssh
+      type: custom
+      volumeSpec:
+        secret:
+          defaultMode: 256
+          optional: true
+          secretName: git-creds
+    config:
+      enabled: true
+      mountPath: /config      
+         
+certificate:
+  create: false
+
+assistantCreds:
+  data: 
+    - key: secrets-tf/data/third-party-services/google.com/projects/home-assistant
+      name: GOOGLE_CLIENT_ID
+      property: client_id
+    
+    - key: secrets-tf/data/third-party-services/google.com/projects/home-assistant
+      name: GOOGLE_CLIENT_SECRET
+      property: client_secret
+
+    - key: secrets-tf/data/third-party-services/openweathermap.org/projects/home-assistant
+      name: OPENWEATHERMAP_API_KEY
+      property: token      
+    
+    - key: secrets-tf/data/services/router-fritz-box/users/admin
+      name: FRITZBOX_USERNAME
+      property: username   
+    - key: secrets-tf/data/services/router-fritz-box/users/admin
+      name: FRITZBOX_PASSWORD
+      property: password
+
+    - key: secrets-tf/data/third-party-services/github.com/apitoken/home-assistant
+      name: GITHUB_ACCESS_TOKEN
+      property: token
+
+
+#    - key: secrets-tf/data/third-party-services/github.com/deploymentkey/home-assistant
+#      name: TELEGRAM_API_TOKEN
+#      property: token 
+#    - key: secrets-tf/data/third-party-services/github.com/deploymentkey/home-assistant
+#      name: TELEGRAM_USER_ID
+#      property: token
+#    - key: secrets-tf/data/third-party-services/github.com/deploymentkey/home-assistant
+#      name: TELEGRAM_CHAT_ID
+#      property: token
+
+httpProxy:
+  create: false
+  fqdn:  home-assistant.smart-home.k8sservices.local
+  tls:
+    secretName: cert-manager/wildcard-duckdns-org-tls

@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: app-cert-manager-webhook-duckdns
+spec:
+  entrypoint: exec
+  arguments:
+    parameters:
+      - name: issuerEmail  
+  templates:
+  - name: exec
+    inputs:
+      parameters:
+        - name: issuerEmail
+    resource:
+      action: apply
+      manifest: |
+        apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: cert-manager-webhook-duckdns
+        spec:
+          destination:
+            name: in-cluster
+            namespace: cert-manager
+          project: default
+          # hack for ignore changed duration format from 43800h to 43800h0m0s
+          ignoreDifferences:
+          - group: cert-manager.io
+            kind: Certificate
+            jsonPointers:
+            - /spec/duration
+          source:
+            path: src/applications/cert-manager-webhook-duckdns/deploy/chart
+            repoURL: https://github.com/nolte/argo-charts.git
+            targetRevision: feature/applications-structures
+            helm:
+              releaseName: cert-manager-webhook-duckdns
+              parameters:
+                - name: certmanagerwebhookduckdns.fullnameOverride
+                  value: "cert-manager-webhook-duckdns"
+                - name: certmanagerwebhookduckdns.clusterIssuer.email
+                  value: "{{inputs.parameters.issuerEmail}}"
+                - name: certmanagerwebhookduckdns.clusterIssuer.production.create
+                  value: "true"
+                - name: certmanagerwebhookduckdns.clusterIssuer.staging.create
+                  value: "true"                 
+                - name: certmanagerwebhookduckdns.secret.existingSecret
+                  value: "true"
+                - name: certmanagerwebhookduckdns.secret.existingSecretName
+                  value: "duckdns-token"          

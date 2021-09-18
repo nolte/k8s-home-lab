@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-events
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-77"
+spec:
+  destination:
+    name: in-cluster
+    namespace: argo-events
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-events
+    targetRevision:  1.7.0
+    helm:
+      releaseName: argo-events
+      parameters:
+        - name: singleNamespace
+          value: "false"
+        - name: additionalSaNamespaces.0
+          value: "argocd"
+      values: |-
+        additionalServiceAccountRules:          
+        - apiGroups:
+            - ""
+          verbs:
+            - get
+            - list
+            - update
+            - watch
+          resources:
+            - configmaps
+        - apiGroups:
+            - argoproj.io
+          verbs:
+            - create
+            - delete
+            - deletecollection
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          resources:
+            - applications

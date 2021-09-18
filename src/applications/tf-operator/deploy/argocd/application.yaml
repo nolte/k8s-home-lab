@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tf-operator
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-77"
+spec:
+  destination:
+    name: in-cluster
+    namespace: operators
+  project: cicd
+  source:
+    repoURL: https://isaaguilar.github.io/helm-charts
+    chart: terraform-operator
+    targetRevision:  v0.1.17
+    helm:
+      releaseName: terraform-operator

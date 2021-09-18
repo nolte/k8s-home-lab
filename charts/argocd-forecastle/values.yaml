@@ -1,6 +1,0 @@
-# https://github.com/stakater/Reloader/blob/master/deployments/kubernetes/chart/reloader/values.yaml
-destination:
-  namespace: operators
-source:
-  path: deployments/kubernetes/chart/forecastle
-  repoURL: https://github.com/stakater/Forecastle.git

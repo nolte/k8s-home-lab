@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: resource
+spec:
+  dependencies:
+    - eventName: seedupdated
+      eventSourceName: resource
+      name: test-dep
+  template:
+    serviceAccountName: argo-events-sa
+  triggers:
+    - retryStrategy:
+        steps: 3
+      template:
+        k8s:
+          group: argoproj.io
+          operation: create
+          parameters: []
+          resource: workflows
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: resource-workflow-
+                labels:
+                  app: resource-workflow
+              spec:
+                entrypoint: whalesay
+                templates:
+                  - name: whalesay
+                    steps:
+                      - - name: bootstrap
+                          templateRef:
+                            name: flow-bootstrap-seed-state-next
+                            template: exec
+          version: v1alpha1
+        name: argo-workflow

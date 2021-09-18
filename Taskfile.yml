@@ -7,6 +7,9 @@ vars:
 
 includes:
   chart: .taskfiles/Taskfile_chart.yml
+  kind: .taskfiles/Taskfile_kind.yml
+  argocd: .taskfiles/Taskfile_argocd.yml
+  serviceset: .taskfiles/Taskfile_servicesets.yml
 
 tasks:
   default:

@@ -1,7 +1,0 @@
-# https://github.com/k8s-at-home/charts/blob/master/charts/node-red/values.yaml
-destination:
-  namespace: home-assistant
-
-source:
-  chart: home-assistant
-  repoURL: https://k8s-at-home.com/charts

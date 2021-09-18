@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero
+spec:
+  destination:
+    name: in-cluster
+    namespace: velero
+  project: default
+  source:
+    chart: velero
+    helm:
+      releaseName: velero
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    # https://github.com/vmware-tanzu/helm-charts/tree/main/charts/velero
+    targetRevision: 2.23.8
