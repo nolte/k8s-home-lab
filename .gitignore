@@ -15,3 +15,4 @@ hack/packer/builds/*.box
 .terraform
 *.tfvars.json
 .terragrunt-cache
+*.tfstate

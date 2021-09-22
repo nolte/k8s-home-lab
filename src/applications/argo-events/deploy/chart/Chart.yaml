@@ -1,0 +1,10 @@
+apiVersion: v2
+dependencies:
+  - name: argo-events
+    repository: https://argoproj.github.io/argo-helm
+    version: 1.7.0
+description: Preconfigured argo-events Deployment
+name: argo-events
+sources: []
+type: application
+version: 1.7.0

@@ -1,0 +1,10 @@
+apiVersion: v2
+dependencies:
+  - name: mosquitto
+    repository: https://k8s-at-home.com/charts/
+    version: 4.0.0
+description: Preconfigured mosquitto Deployment
+name: mosquitto
+sources: []
+type: application
+version: 4.0.0
