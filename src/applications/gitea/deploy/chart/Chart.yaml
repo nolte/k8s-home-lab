@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: gitea
     repository: https://dl.gitea.io/charts/
-    version: 4.1.0
+    version: 4.1.1
 description: Preconfigured gitea Deployment
 name: gitea
 sources:
