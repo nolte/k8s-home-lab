@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: metallb
     repository: https://charts.bitnami.com/bitnami
-    version: 2.5.5
+    version: 2.5.6
 description: Preconfigured metallb Deployment
 name: metallb
 sources: []
