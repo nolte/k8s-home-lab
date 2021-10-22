@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets
+  name: fritz-exporter
 spec:
   destination:
     name: in-cluster
@@ -14,8 +14,22 @@ spec:
           value: fritz-exporter
       releaseName: fritz-exporter
       values: |
-        serviceMonitor:
-          enabled: true  
-    path: charts/incubator/fritz-exporter
-    repoURL: https://github.com/nolte/k8s-at-home-charts
-    targetRevision: feature/fritz-exporter
+        # env: 
+        #   using credentials from external/secret (vault)
+        #   FRITZ_HOSTNAME: 'xxxx'
+        #   FRITZ_USERNAME: 'admin'
+        #   FRITZ_PASSWORD: ''
+        externalSecret:
+          enabled: true
+        envFrom:
+          - secretRef:
+              name: fritz-creds
+        metrics:
+          enabled: true
+          serviceMonitor:
+            labels:
+              release: monitoring
+
+    path: src/applications/fritz-exporter/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master        
