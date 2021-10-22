@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     helm:
-      releaseName: blackbox-exporter-prometheus
+      releaseName: prometheus-blackbox-exporter
     path: src/applications/blackbox-exporter/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
     targetRevision: master       
