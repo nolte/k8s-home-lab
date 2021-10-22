@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: forecastle
     repository: https://stakater.github.io/stakater-charts
-    version: v1.0.68
+    version: v1.0.69
 description: Preconfigured forecastle Deployment
 name: forecastle
 sources:

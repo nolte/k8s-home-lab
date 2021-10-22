@@ -10,10 +10,9 @@ spec:
     namespace: cert-manager
   project: default
   source:
-    chart: cert-manager
-    # https://artifacthub.io/packages/helm/cert-manager/cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.5.3
+    path: src/applications/cert-manager/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master    
     helm:
       releaseName: cert-manager
       values: |

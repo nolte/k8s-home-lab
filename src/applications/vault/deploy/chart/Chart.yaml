@@ -3,7 +3,7 @@ dependencies:
   - # https://github.com/hashicorp/vault-helm
     name: vault
     repository: https://helm.releases.hashicorp.com
-    version: 0.16.0
+    version: 0.16.1
   - name: argo-workflows-execution
     version: 0.0.1
     repository: "file://../../../argo-workflow-templates/deploy/chart"

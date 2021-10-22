@@ -1,0 +1,12 @@
+httpProxy:
+  create: false
+  fqdn:  harbor.smart-home.k8sservices.local
+  tls:
+    secretName: cert-manager/wildcard-duckdns-org-tls
+
+harbor:
+  expose:
+    ingress:
+      hosts:
+        core: harbor.smart-home.k8sservices.local
+        notary: notary.smart-home.k8sservices.local

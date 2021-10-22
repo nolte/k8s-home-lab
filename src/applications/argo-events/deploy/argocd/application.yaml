@@ -10,9 +10,9 @@ spec:
     namespace: argo-events
   project: default
   source:
-    repoURL: https://argoproj.github.io/argo-helm
-    chart: argo-events
-    targetRevision:  1.7.0
+    path: src/applications/argo-events/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master
     helm:
       releaseName: argo-events
       parameters:

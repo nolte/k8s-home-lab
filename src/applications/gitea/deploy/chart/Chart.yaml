@@ -1,0 +1,12 @@
+apiVersion: v2
+dependencies:
+  - name: gitea
+    repository: https://dl.gitea.io/charts/
+    version: 4.1.1
+description: Preconfigured gitea Deployment
+name: gitea
+sources:
+  - https://gitea.com/gitea/helm-chart
+  - https://gitea.io/en-us/
+type: application
+version: 0.0.1
