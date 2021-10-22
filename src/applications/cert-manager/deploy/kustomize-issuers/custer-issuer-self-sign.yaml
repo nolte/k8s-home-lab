@@ -4,4 +4,3 @@ metadata:
   name: selfsigned-cluster-issuer
 spec:
   selfSigned: {}
- 

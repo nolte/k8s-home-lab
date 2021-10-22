@@ -2,18 +2,16 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cert-manager
-  #annotations:
-  #  argocd.argoproj.io/sync-wave: "-69"  
 spec:
   destination:
     name: in-cluster
     namespace: cert-manager
   project: default
   source:
-    path: src/applications/cert-manager/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master    
     helm:
+      parameters:
+        - name: installCRDs
+          value: 'true'
       releaseName: cert-manager
       values: |
         extraArgs:
@@ -26,6 +24,6 @@ spec:
           enabled: true
           servicemonitor:
             enabled: true  
-      parameters:
-        - name: installCRDs
-          value: "true"
+    path: src/applications/cert-manager/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master
