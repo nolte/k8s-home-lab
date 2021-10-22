@@ -10,7 +10,7 @@ spec:
     namespace: monitoring
   project: default
   source:
-     path: src/applications/kube-prometheus-stack/deploy/chart
+     path: src/applications/monitoring/deploy/chart
      repoURL: https://github.com/nolte/argo-charts.git
      targetRevision: master     
      helm:
