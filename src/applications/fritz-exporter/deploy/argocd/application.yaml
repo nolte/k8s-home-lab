@@ -19,8 +19,8 @@ spec:
         #   FRITZ_HOSTNAME: 'xxxx'
         #   FRITZ_USERNAME: 'admin'
         #   FRITZ_PASSWORD: ''
-        externalSecret:
-          enabled: true
+        # externalSecret:
+        #   enabled: true
         # envFrom:
         #   - secretRef:
         #       name: fritz-creds
