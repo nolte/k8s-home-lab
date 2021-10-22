@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-secrets
+spec:
+  destination:
+    name: in-cluster
+    namespace: monitoring
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: fullnameOverride
+          value: fritz-exporter
+      releaseName: fritz-exporter
+      values: |
+        serviceMonitor:
+          enabled: true  
+    path: charts/incubator/fritz-exporter
+    repoURL: https://github.com/nolte/k8s-at-home-charts
+    targetRevision: feature/fritz-exporter
