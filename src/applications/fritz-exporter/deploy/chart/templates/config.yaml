@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: fritz-exporter
+  name: fritz-exporter-config
 type: Opaque
 data:
 {{ (.Files.Glob "configs/*").AsSecrets | indent 2 }}
