@@ -18,9 +18,19 @@ image:
 env:
   # -- Set the container timezone
   TZ: UTC
-
+args: 
+  - '--config'
+  - '/fritz-exporter/fritz-exporter.yaml'
 externalSecret:
   enabled: false
+
+persistence:
+  fritz-exporter:
+    enabled: true
+    type: custom
+    volumeSpec:
+      secret:
+        secretName: fritz-exporter-config
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
