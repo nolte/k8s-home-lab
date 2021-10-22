@@ -27,5 +27,6 @@ spec:
     #path: src/applications/cert-manager/deploy/chart
     #repoURL: https://github.com/nolte/argo-charts.git
     #targetRevision: master
+    chart: cert-manager
     repoURL: 'https://charts.jetstack.io'
     targetRevision: v1.5.4    
