@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blackbox-exporter
+spec:
+  destination:
+    name: in-cluster
+    namespace: monitoring
+  project: default
+  source:
+    helm:
+      releaseName: blackbox-exporter
+    path: src/applications/blackbox-exporter/deploy/chart
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master       

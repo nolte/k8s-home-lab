@@ -21,6 +21,11 @@ env:
 args: 
   - '--config'
   - '/fritz-exporter/fritz-exporter.yaml'
+
+controller:
+  annotations:
+    reloader.stakater.com/auto: "true"
+
 externalSecret:
   enabled: false
 

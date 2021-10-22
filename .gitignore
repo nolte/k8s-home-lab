@@ -8,6 +8,8 @@ Chart.lock
 
 packer_cache
 
+src/clusters/dev-kind-monitoring-light
+
 hack/packer/output-*
 hack/packer/builds/*.box
 
