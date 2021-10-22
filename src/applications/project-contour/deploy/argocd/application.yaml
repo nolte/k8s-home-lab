@@ -18,6 +18,6 @@ spec:
           manageCRDs: true
           extraArgs:
             - --ingress-status-address=192.168.0.39
-    path: src/applications/contour/deploy/chart
+    path: src/applications/project-contour/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
     targetRevision: master    
