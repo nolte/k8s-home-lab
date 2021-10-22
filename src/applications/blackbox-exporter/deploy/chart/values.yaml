@@ -1,0 +1,6 @@
+prometheus-blackbox-exporter: 
+  serviceMonitor:
+    enabled: true
+    defaults:
+      labels:
+        release: monitoring

@@ -5,6 +5,7 @@ dependencies:
     version: 5.2.0
 description: Blackbox Exporter
 name: prometheus-blackbox-exporter
-sources: []
+sources: 
+  - https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-blackbox-exporter
 type: application
 version: 5.2.0
