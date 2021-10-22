@@ -10,7 +10,7 @@ spec:
   source:
     helm:
       parameters:
-        - name: installCRDs
+        - name: cert-manager.installCRDs
           value: 'true'
       releaseName: cert-manager
       values: |
@@ -24,6 +24,8 @@ spec:
           enabled: true
           servicemonitor:
             enabled: true  
-    path: src/applications/cert-manager/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    #path: src/applications/cert-manager/deploy/chart
+    #repoURL: https://github.com/nolte/argo-charts.git
+    #targetRevision: master
+    repoURL: 'https://charts.jetstack.io'
+    targetRevision: v1.5.4    
