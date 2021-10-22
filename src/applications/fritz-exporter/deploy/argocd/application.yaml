@@ -21,9 +21,9 @@ spec:
         #   FRITZ_PASSWORD: ''
         externalSecret:
           enabled: true
-        envFrom:
-          - secretRef:
-              name: fritz-creds
+        # envFrom:
+        #   - secretRef:
+        #       name: fritz-creds
         metrics:
           enabled: true
           serviceMonitor:
