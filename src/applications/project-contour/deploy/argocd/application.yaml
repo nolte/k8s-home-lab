@@ -5,20 +5,22 @@ metadata:
 spec:
   destination:
     name: in-cluster
-    namespace: project-contour
+    namespace: projectcontour
   project: default
   source:
     helm:
       parameters:
-        - name: contour.envoy.service.type
+        - name: envoy.service.type
           value: NodePort
       releaseName: contour
       values: |
         contour:
-          contour:
-            manageCRDs: true
-            extraArgs:
-              - --ingress-status-address=192.168.0.39
-    path: src/applications/project-contour/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master    
+          manageCRDs: true
+          extraArgs:
+            - --ingress-status-address=192.168.0.39
+    # path: src/applications/project-contour/deploy/chart
+    # repoURL: https://github.com/nolte/argo-charts.git
+    # targetRevision: master    
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 6.0.0    
+    chart: contour    
