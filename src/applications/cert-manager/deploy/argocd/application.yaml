@@ -10,7 +10,7 @@ spec:
   source:
     helm:
       parameters:
-        - name: cert-manager.installCRDs
+        - name: installCRDs
           value: 'true'
       releaseName: cert-manager
       values: |
