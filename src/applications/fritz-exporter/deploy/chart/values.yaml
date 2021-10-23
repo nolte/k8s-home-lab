@@ -9,9 +9,13 @@ image:
   # -- image repository
   repository: pdreker/fritz_exporter
   # -- image tag
-  tag: v2.0.1
+  tag: v2.0.0
   # -- image pull policy
   pullPolicy: IfNotPresent
+
+controller:
+  strategy: RollingUpdate
+
 
 # -- environment variables. See [application docs](https://docs.miguelndecarvalho.pt/projects/speedtest-exporter/) for more details.
 # @default -- See below
