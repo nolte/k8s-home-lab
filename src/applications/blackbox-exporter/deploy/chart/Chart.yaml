@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: prometheus-blackbox-exporter
     repository: https://prometheus-community.github.io/helm-charts
-    version: 5.2.0
+    version: 5.3.1
 description: Blackbox Exporter
 name: prometheus-blackbox-exporter
 sources: 
