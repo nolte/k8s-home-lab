@@ -3,7 +3,7 @@ dependencies:
   - name: home-assistant
     alias: homeassistant 
     repository: https://k8s-at-home.com/charts/
-    version: 11.0.5
+    version: 11.0.6
 description: Preconfigured Home Assistant Deployment
 name: home-assistant
 sources:
