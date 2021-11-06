@@ -12,7 +12,7 @@ spec:
   source:
     path: charts/kubernetes-external-secrets
     repoURL: https://github.com/external-secrets/kubernetes-external-secrets
-    targetRevision: 8.3.0
+    targetRevision: 8.3.2
     helm:
       releaseName: external-secrets
       values: |
