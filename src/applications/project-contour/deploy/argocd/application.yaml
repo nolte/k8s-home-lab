@@ -17,7 +17,8 @@ spec:
         contour:
           manageCRDs: true
           extraArgs:
-            - --ingress-status-address=192.168.0.39
+            - --ingress-status-address=192.168.178.21
+            - --envoy-service-name=contour-envoy
     #path: src/applications/project-contour/deploy/chart
     #repoURL: https://github.com/nolte/argo-charts.git
     #targetRevision: master    
