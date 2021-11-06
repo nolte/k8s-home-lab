@@ -2,9 +2,9 @@ apiVersion: v2
 dependencies:
   - name: contour
     repository: https://charts.bitnami.com/bitnami
-    version: 6.0.0
+    version: 5.4.0
 description: Preconfigured contour Deployment
 name: contour
 sources: []
 type: application
-version: 6.0.0
+version: 5.4.0
