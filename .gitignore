@@ -1,10 +1,12 @@
 # Helm resources
 src/applications/*/deploy/chart/charts
 *.tgz
+*.img
 Chart.lock
 
 
 .back
+packer_cache
 
 packer_cache
 

@@ -10,10 +10,10 @@ spec:
     namespace: monitoring
   project: default
   source:
-     path: src/applications/monitoring/deploy/chart
-     repoURL: https://github.com/nolte/argo-charts.git
-     targetRevision: master     
-     helm:
+    chart: kube-prometheus-stack
+    repository: https://prometheus-community.github.io/helm-charts
+    version: 19.2.3
+    helm:
        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
       values: |
         grafana:

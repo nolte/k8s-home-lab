@@ -8,8 +8,8 @@ spec:
     namespace: pihole
   project: default
   source:    
-    path: src/applications/pihole/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: pihole
+    repository: https://mojo2600.github.io/pihole-kubernetes/
+    version: 2.5.2
     helm:
       releaseName: pihole

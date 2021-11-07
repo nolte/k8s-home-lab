@@ -10,8 +10,8 @@ spec:
     namespace: harbor
   project: default
   source:
-    path: src/applications/harbor/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/devops-services-set
+    chart: harbor
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.0.1
     helm:
       releaseName: harbor

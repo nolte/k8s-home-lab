@@ -89,6 +89,12 @@ kubectl create secret generic -n vault vault-initial-keys \
 ```
 <!--vault-init-end-->
 
+<!--vault-init-job-start-->
+```sh
+ argo -n vault wait @latest   
+```
+<!--vault-init-job-end-->
+
 ### Useful Environment Variables
 
 port-forward

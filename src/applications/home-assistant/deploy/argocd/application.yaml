@@ -10,9 +10,9 @@ spec:
     namespace: home-assistant
   project: default
   source:
-    path: src/applications/home-assistant/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: home-assistant
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.2.2    
     helm:
       releaseName: home-assistant
       parameters:

@@ -10,9 +10,9 @@ spec:
     namespace: vault
   project: default
   source:
-    path: src/applications/vault/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: vault
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.2.2
     helm:
       valueFiles: []
       values: |

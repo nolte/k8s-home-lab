@@ -1,5 +1,0 @@
-httpProxy:
-  create: false
-  fqdn: forecastle.smart-home.k8sservices.local
-  tls:
-    secretName: cert-manager/wildcard-duckdns-org-tls

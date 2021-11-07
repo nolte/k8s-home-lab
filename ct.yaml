@@ -1,0 +1,11 @@
+remote: origin
+target-branch: master
+helm-extra-args: --timeout 600s
+chart-dirs:
+  - src/applications/**/deploy/chart
+excluded-charts:
+  - common-app
+chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
+  - k8s-at-home=https://k8s-at-home.com/charts
+  - argo-apps=https://nolte.github.io/argo-charts/

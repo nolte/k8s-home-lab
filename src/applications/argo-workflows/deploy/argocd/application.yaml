@@ -23,6 +23,9 @@ spec:
         - name: argoworkflows.server.extraArgs[0]
           value: '--auth-mode=server'
       releaseName: argo-workflows
-    path: src/applications/argo-workflows/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    #path: src/applications/argo-workflows/deploy/chart
+    #repoURL: https://github.com/nolte/argo-charts.git
+    #targetRevision: master
+    chart: argo-workflows
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.2.2

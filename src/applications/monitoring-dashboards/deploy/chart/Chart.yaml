@@ -1,0 +1,7 @@
+apiVersion: v2
+name: monitoring-dashboards
+description: Preconfigured Grafana Dashboards
+type: application
+version: 0.0.1
+sources: []
+dependencies: []

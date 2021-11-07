@@ -10,9 +10,9 @@ spec:
     namespace: esphome
   project: default
   source:
-    path: src/applications/esphome/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master  
+    chart: esphome
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.1.0
     helm:
       releaseName: esphome
       parameters:

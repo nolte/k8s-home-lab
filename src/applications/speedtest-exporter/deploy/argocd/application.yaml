@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: speedtest-exporter
+spec:
+  destination:
+    name: in-cluster
+    namespace: monitoring
+  project: default
+  source:
+    chart: speedtest-exporter
+    helm:
+      parameters:
+        - name: fullnameOverride
+          value: speedtest-exporter
+      releaseName: speedtest-exporter
+      values: |
+        env: 
+          TZ: 'Europe/Berlin'
+        metrics:
+          enabled: true
+          serviceMonitor:
+            labels:
+              release: monitoring 
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 5.0.2

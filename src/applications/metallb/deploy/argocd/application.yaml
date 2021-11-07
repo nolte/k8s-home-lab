@@ -12,7 +12,7 @@ spec:
   source:
     helm:
       releaseName: metallb
-    path: src/applications/metallb/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: metallb
+    repository: https://charts.bitnami.com/bitnami
+    version: 2.5.10
     # https://github.com/bitnami/charts/blob/master/bitnami/metallb/values.yaml

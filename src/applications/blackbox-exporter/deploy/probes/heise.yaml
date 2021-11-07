@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: probe-heise
+spec:
+  jobName: probe-heise
+  prober:
+    url: prometheus-blackbox-exporter:9115
+  targets:
+    staticConfig:
+      static:
+      - https://www.heise.com

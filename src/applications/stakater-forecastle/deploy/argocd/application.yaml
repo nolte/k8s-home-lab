@@ -19,6 +19,6 @@ spec:
             config:
               namespaceSelector:
                 any: true
-    path: src/applications/stakater-forecastle/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: forecastle
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.2.2        

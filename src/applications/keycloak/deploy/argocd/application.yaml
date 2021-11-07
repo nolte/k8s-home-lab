@@ -8,9 +8,9 @@ spec:
     namespace: keycloak
   project: default
   source:
-    path: src/applications/keycloak/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: keycloak
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.2.2    
     helm:
       values: |
         keycloak:

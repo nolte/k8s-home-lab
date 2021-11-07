@@ -1,6 +1,0 @@
-fullnameOverride: ''
-nameOverride: ''
-
-
-dnsName: dev44-just-homestyle.duckdns.org
-issuerName: cert-manager-webhook-duckdns-production

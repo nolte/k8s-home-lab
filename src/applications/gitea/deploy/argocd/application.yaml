@@ -10,8 +10,8 @@ spec:
     namespace: gitea
   project: default
   source:
-    path: src/applications/gitea/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: gitea
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.0.1
     helm:
       releaseName: gitea

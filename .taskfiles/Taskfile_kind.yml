@@ -3,11 +3,10 @@ version: '3'
 
 env:
   KUBECONFIG_PATH: ~/.kube/config
-
+  CLUSTER_SERVICE_SET: argocd-cluster-config
+  CLUSTER_VARS: empty.tfvars
 
 tasks:
-
-
   create:
     desc: create cluster
     cmds:
@@ -24,13 +23,26 @@ tasks:
       kind delete cluster --name production
     silent: true
 
+  apply_devops_station:
+    desc: Destroy cluster
+    cmds:
+    - task: apply
+      vars: {CLUSTER_VARS: "devops_station.tfvars"}
+    silent: true
+
+  apply_monitoring:
+    desc: Destroy cluster
+    cmds:
+    - task: apply
+      vars: {CLUSTER_VARS: "monitoring_node.tfvars"}
+    silent: true
 
   apply:
     desc: Install ArgoCD and Base Seed Jobs for the Cluster
     cmds:
     - |
-      cd {{.GIT_ROOT}}/hack/bootstrap/k8s \
+      cd {{.GIT_ROOT}}/hack/bootstrap/{{.CLUSTER_SERVICE_SET}} \
         && export KUBE_CONFIG_PATH={{.KUBECONFIG_PATH}} \
         && terragrunt init \
-        && terragrunt apply
-    silent: true
+        && terragrunt apply --var-file {{.CLUSTER_VARS}} -auto-approve
+    #silent: true
