@@ -1,4 +1,10 @@
 certmanagerwebhookduckdns:
+  clusterIssuer:
+    email: name@example.com
+    staging:
+      create: true
+    production:
+      create: true
   secret:
     existingSecret: true
     existingSecretName: duckdns-token

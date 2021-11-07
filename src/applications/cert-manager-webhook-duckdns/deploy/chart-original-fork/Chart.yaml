@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: v1.2.2
 description: A Helm chart for cert manager webhook solver for ACME DNS01 challenge
   via DuckDNS
@@ -16,4 +16,4 @@ maintainers:
 name: cert-manager-webhook-duckdns
 sources:
 - https://github.com/ebrianne/cert-manager-webhook-duckdns
-version: v1.2.2
+version: v1.3.0

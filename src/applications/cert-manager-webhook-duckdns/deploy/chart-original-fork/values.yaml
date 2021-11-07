@@ -24,9 +24,9 @@ secret:
 clusterIssuer:
   email: name@example.com
   staging:
-    create: false
+    create: true
   production:
-    create: false
+    create: true
 
 image:
   repository: ebrianne/cert-manager-webhook-duckdns
