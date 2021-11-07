@@ -1,4 +1,7 @@
+fullnameOverride: cert-manager-webhook-duckdns
+
 certmanagerwebhookduckdns:
+  fullnameOverride: cert-manager-webhook-duckdns
   clusterIssuer:
     email: name@example.com
     staging:
