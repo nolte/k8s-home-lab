@@ -17,17 +17,15 @@ vault kv put \
   secrets-tf/third-party-services/openweathermap.org/projects/home-assistant \
   token="$(pass network/homeassistant/openweather/apikey)" 
 
-
 vault kv put \
   secrets-tf/third-party-services/github.com/apitoken/home-assistant \
   token="$(pass internet/github.com/nolte/servics/home-assistant/token)" 
 
-
-
 vault kv put \
   secrets-tf/services/router-fritz-box/users/admin \
   username="$(pass network/homeassistant/fritzbox/user)" \
-  password="$(pass network/homeassistant/fritzbox/password)" 
+  password="$(pass network/homeassistant/fritzbox/password)" \
+  endpoint="$(pass network/homeassistant/fritzbox/endpoint)"
 
 vault kv put \
   secrets-tf/third-party-services/google.com/projects/home-assistant \

@@ -2,10 +2,7 @@
 
 *Namespace:* `monitoring`  
 
-
-## Usefull Commands
-
-### Prometheus
+## Prometheus
 
 ??? example "Start port foward"
 
@@ -15,7 +12,7 @@
        end="<!--prometheus-port-forward-end-->"
     %}
 
-### Grafana
+## Grafana
 
 ??? example "Start port foward"
 
@@ -42,5 +39,28 @@
 
 ## Fritz Box Monitoring
 
+*Sources:* [pdreker/fritz_exporter](https://github.com/pdreker/fritz_exporter)
+
 ## Speed Test
 
+*Helm Chart:*[k8s-at-home/charts/tree/master/charts/stable/speedtest-exporter](https://github.com/k8s-at-home/charts/tree/master/charts/stable/speedtest-exporter)   
+*Sources:* [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter/)
+
+
+??? example "Start port foward"
+
+    {%
+       include-markdown "../../src/applications/speedtest-exporter/README.md"
+       start="<!--port-forward-start-->"
+       end="<!--port-forward-end-->"
+    %}
+
+## Blackbox Exporter
+
+??? example "Start port foward"
+
+    {%
+       include-markdown "../../src/applications/blackbox-exporter/README.md"
+       start="<!--blackbox-exporter-port-forward-start-->"
+       end="<!--blackbox-exporter-port-forward-end-->"
+    %}

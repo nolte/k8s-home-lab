@@ -11,6 +11,16 @@ task \
 
 <!--kind-init-end-->
 
+Zusätlich zum 
+
+<!--kind-flavors-start-->
+| **Task Goal**          | **Chart Config**                   | **Kurz Beschreibung**                                                                                                                                                                                                                   |
+|------------------------|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `apply`                | `-`                                | Ein "blanker" Kind Cluster mit ArgoCD, dieses setting dient als Grundlage aller Kind Deployments.                                                                                                                                       |
+| `apply_devops_station` | `values-kind-deployments.yaml`     | Breitstellung eines Vollständig Konfigurierten DevOps Clusters mit diversen unterstützenden Tools wie z.B. Vault, Harbor etc.                                                                                                           |
+| `apply_monitoring`     | `values-kind-monitoring-node.yaml` | Bereitstellung einer Minimal Installation der Monitoring Komponenten. Dieses Deployment wird genutzt um den eigenen Hausanschluss zu überwachen, und eventuelle geschwindigkeits Verluste frühzeitig zu bemerken und zu protokollieren. |
+<!--kind-flavors-end-->
+
 
 ??? abstract "Start the Kind Cluster"
     task: `task kind:create`

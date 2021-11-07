@@ -20,6 +20,14 @@
        end="<!--vault-init-end-->"
     %}
 
+    warten bis die vault Initialisierung abgeschlossen ist,
+   
+    {%
+       include-markdown "../src/applications/vault/README.md"
+       start="<!--vault-init-job-start-->"
+       end="<!--vault-init-job-end-->"
+    %}
+
 3. [Zertifikate](services/certificates.md#bereitstellung) Bereitstellen 
 
  
