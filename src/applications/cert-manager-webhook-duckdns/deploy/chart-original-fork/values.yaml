@@ -30,7 +30,7 @@ clusterIssuer:
 
 image:
   repository: ebrianne/cert-manager-webhook-duckdns
-  tag: v1.2.2
+  tag: v1.2.3
   pullPolicy: IfNotPresent
   # pullSecret: ""
 
