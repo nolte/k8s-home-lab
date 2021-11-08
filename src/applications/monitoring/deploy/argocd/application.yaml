@@ -11,11 +11,28 @@ spec:
   project: default
   source:
     chart: kube-prometheus-stack
-    repository: https://prometheus-community.github.io/helm-charts
-    version: 19.2.3
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 19.2.3
     helm:
        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
       values: |
         grafana:
           enabled: false
+          dashboards:
+            default:
+              fritz-exporter:
+                gnetId: 13983
+                datasource: Prometheus  
+          dashboardProviders: 
+            dashboardproviders.yaml:
+              apiVersion: 1
+              providers:
+              - name: 'default'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/default          
       parameters: []
