@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     chart: powerdns
-    repoURL: https://nolte.github.io/helm-charts-repo.git
+    repoURL: https://nolte.github.io/helm-charts-repo
     targetRevision: 0.2.2
     helm:
       valueFiles: []
