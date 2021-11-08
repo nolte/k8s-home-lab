@@ -11,9 +11,9 @@ spec:
     
   project: default
   source:
-    path: src/applications/powerdns/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: powerdns
+    repoURL: https://nolte.github.io/helm-charts-repo.git
+    targetRevision: 0.2.2
     helm:
       valueFiles: []
       parameters:
