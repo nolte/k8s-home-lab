@@ -10,18 +10,24 @@ spec:
   source:
     helm:
       parameters:
+#        - name: envoy.hostNetwork
+#          value: "true"
         - name: envoy.service.type
           value: NodePort
+        - name: envoy.containerSecurityContext.enabled
+          value: "true"
+        - name: envoy.containerSecurityContext.runAsUser
+          value: "0"
+        - name: envoy.extraEnvVars[0].name
+          value: "ENVOY_UID"
+        - name: envoy.extraEnvVars[0].value
+          value: "0"
+        - name: contour.extraArgs[0]
+          value: "--ingress-status-address=192.168.178.21"          
       releaseName: contour
       values: |
         contour:
           manageCRDs: true
-          extraArgs:
-            - --ingress-status-address=192.168.178.21
-            - --envoy-service-name=contour-envoy
-    #path: src/applications/project-contour/deploy/chart
-    #repoURL: https://github.com/nolte/argo-charts.git
-    #targetRevision: master    
     repoURL: https://charts.bitnami.com/bitnami
     targetRevision: 7.0.1    
     chart: contour    
