@@ -9,7 +9,7 @@ spec:
   project: default
   source:    
     chart: pihole
-    repository: https://mojo2600.github.io/pihole-kubernetes/
+    repoURL: https://mojo2600.github.io/pihole-kubernetes/
     version: 2.5.2
     helm:
       releaseName: pihole

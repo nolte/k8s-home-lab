@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     chart: mosquitto
-    repository: https://k8s-at-home.com/charts/
+    repoURL: https://k8s-at-home.com/charts/
     version: 4.0.1
     helm:
       releaseName: mosquitto
