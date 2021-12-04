@@ -31,4 +31,4 @@ spec:
 
 
     repoURL: https://operator.min.io/
-    targetRevision: 4.3.5
+    targetRevision: 4.3.6
