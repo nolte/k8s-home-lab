@@ -1,0 +1,20 @@
+---
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  annotations:
+    eventing.knative.dev/broker.class: RabbitMQBroker
+  name: knative-starting
+spec:
+  config:
+    apiVersion: rabbitmq.com/v1beta1
+    kind: RabbitmqCluster
+    name: knative-starting
+  # Optional
+  #delivery:
+  #  deadLetterSink:
+  #    ref:
+  #      apiVersion: serving.knative.dev/v1
+  #      kind: Service
+  #      name: <deadlettersink-name>
+  #    uri: <deadlettersink-uri>

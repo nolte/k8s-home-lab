@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - application-platform.yaml
   - application.yaml
+  - application-broker.yaml

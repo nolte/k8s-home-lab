@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: knative-platform
+spec:
+  destination:
+    name: in-cluster
+    namespace: knative
+  project: default
+  source:
+    path: src/applications/knative/deploy/kustomize/broker
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master
