@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - kn-eventing.yaml
   - kn-serving.yaml
+  - broker.yaml
