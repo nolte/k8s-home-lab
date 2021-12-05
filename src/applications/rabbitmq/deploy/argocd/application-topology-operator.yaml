@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rabbitmq-topology-operator
+spec:
+  destination:
+    name: in-cluster
+    namespace: rabbitmq-system
+  project: default
+  source:
+    path: src/applications/rabbitmq/deploy/kustomize/topology-operator
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: master
