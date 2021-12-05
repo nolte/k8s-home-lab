@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+commonLabels:
+  argocd.argoproj.io/instance: seed-job
+
+generatorOptions:
+ disableNameSuffixHash: true
+
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+resources:
+  - ../../../src/applications/knative/deploy/argocd
+  - ../../../src/applications/rabbitmq/deploy/argocd
+  - ../../../src/applications/camel-k/deploy/argocd
+  

@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: camel-k
+spec:
+  destination:
+    name: in-cluster
+    namespace: camel-k
+  project: default
+  source:
+    chart: camel-k
+    repoURL: https://apache.github.io/camel-k/charts
+    targetRevision: 0.8.0
+    helm:
+      releaseName: camel-k

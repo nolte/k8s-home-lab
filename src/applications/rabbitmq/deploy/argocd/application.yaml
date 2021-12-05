@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rabbitmq
+spec:
+  destination:
+    name: in-cluster
+    namespace: rabbitmq
+  project: default
+  source:
+    chart: rabbitmq
+    helm:
+      releaseName: rabbitmq
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 8.24.9
