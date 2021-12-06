@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: knative-platform
+  name: knative-broker
 spec:
   destination:
     name: in-cluster

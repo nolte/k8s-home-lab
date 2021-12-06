@@ -3,3 +3,6 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: knative-starting
+  annotations:
+    # A single RabbitMQ cluster per Knative Eventing installation
+    rabbitmq.com/topology-allowed-namespaces: "*"  
