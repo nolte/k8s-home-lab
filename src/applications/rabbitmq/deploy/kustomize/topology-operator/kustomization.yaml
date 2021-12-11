@@ -1,6 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+patchesStrategicMerge:
+  - delete-ns-rabbitmq-system.yaml
+
 resources:
   #- https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.2.1/messaging-topology-operator.yaml
   - https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml # only for the moment, later use  src/applications/cert-manager
