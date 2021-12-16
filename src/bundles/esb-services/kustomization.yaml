@@ -19,7 +19,7 @@ patches:
       version: v1alpha1
 
 resources:
-  - ../../../src/applications/knative/deploy/argocd
+  #- ../../../src/applications/knative/deploy/argocd
   - ../../../src/applications/rabbitmq/deploy/argocd
   - ../../../src/applications/camel-k/deploy/argocd
   

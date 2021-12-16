@@ -1,0 +1,15 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: log-event-sink
+spec:
+  source:
+    ref:
+      kind: Channel
+      apiVersion: messaging.knative.dev/v1
+      name: mychannel
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: log-sink

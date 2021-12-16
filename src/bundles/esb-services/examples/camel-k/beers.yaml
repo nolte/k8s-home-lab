@@ -1,0 +1,15 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: beers
+spec:
+  flows:
+  - from:
+      steps:
+      - log: ${body}
+      #- to: "knative:channel/mychannel"
+      - to: "knative:event/beers"
+      - log: 
+          message: fofa2
+      # - knative: ${body}
+      uri: kamelet:beer-source?period=5000
