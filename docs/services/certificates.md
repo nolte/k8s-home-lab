@@ -38,10 +38,20 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
       -p issuerEmail=$(pass internet/letsencrypt/account_mail)
     ```
 
+    ```sh
+    argo wait \
+      -n argocd @latest
+    ```
+
 3. Generieren eines Zentralen Wildcard Zertifikates
 
     ```sh
     argo submit \
       -n argocd \
       --from workflowtemplate/app-cert-wildcard
+    ```
+
+    ```sh
+    argo wait \
+      -n argocd @latest
     ```
