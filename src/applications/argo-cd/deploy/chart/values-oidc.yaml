@@ -1,3 +1,6 @@
+workflow:
+  enabled: true
+
 externalSecret:
   enabled: true
   key: secrets-tf/data/services/IdentityAccessManagement/clients/argocd
