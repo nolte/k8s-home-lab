@@ -1,0 +1,82 @@
+{{- if .Values.workflow.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: flow-tf-argocd-fineconfig
+  labels:
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/instance:  {{ .Release.Name }}
+    app.kubernetes.io/component: server
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/part-of: argocd
+spec:
+  entrypoint: exec
+  arguments:
+    parameters:
+    - name: revision
+      value: "master"
+    - name: action
+      value: apply
+    - name: path
+      value: ./src/applications/argo-cd/configuration/fineconf
+
+  templates:  
+  - name: exec
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "argo-workflows"
+        vault.hashicorp.com/agent-inject-token: "true"
+        # Load a Secret for Terraform State file access
+        vault.hashicorp.com/agent-inject-secret-keycloak: secrets-tf/services/IdentityAccessManagement/users/admin
+        vault.hashicorp.com/agent-inject-template-keycloak: |
+          {{"{{-"}} with secret "secrets-tf/services/IdentityAccessManagement/users/admin" {{ "-}}" }}
+          export KEYCLOAK_USER={{"{{"}} .Data.data.username {{ "}}" }}
+          export KEYCLOAK_PASSWORD={{"{{"}} .Data.data.password {{ "}}" }}
+          {{"{{-"}} end {{ "}}" }}        
+        vault.hashicorp.com/agent-inject-secret-s3access: secrets-tf/services/s3/users/admin
+        vault.hashicorp.com/agent-inject-template-s3access: |
+          {{"{{-"}} with secret "secrets-tf/services/s3/users/admin" {{ "-}}" }}
+          [default]
+          aws_access_key_id={{"{{"}} .Data.data.accesskey {{ "}}" }}
+          aws_secret_access_key={{"{{"}} .Data.data.secretkey {{ "}}" }}
+          {{"{{-"}} end {{ "}}" }}  
+    inputs:
+      parameters:
+      - name: revision
+        default: "master" #master
+      - name: action
+        default: apply
+      - name: path
+        default: ./src/applications/argo-cd/configuration/fineconf
+      artifacts:
+      - name: argo-source
+        path: "/src"
+        git:
+          repo: "https://github.com/nolte/argo-charts.git"
+          revision: "{{ "{{" }}inputs.parameters.revision{{ "}}" }}"
+    script:
+      image: alpine/terragrunt
+      command: [bash]
+      workingDir: "/src"
+      source: |
+        #!/usr/bin/env bash
+        set -o errexit
+        set -o pipefail
+        set -o nounset
+        
+        cd {{ "{{" }}inputs.parameters.path{{ "}}" }}
+        source /vault/secrets/keycloak
+        export VAULT_TOKEN=$(cat /vault/secrets/token)
+        
+        terragrunt {{ "{{" }}inputs.parameters.action{{ "}}" }} -input=false -auto-approve -no-color -compact-warnings
+
+      env:
+        - name: AWS_SHARED_CREDENTIALS_FILE
+          value: /vault/secrets/s3access
+        - name: KEYCLOAK_URL
+          value: http://keycloak-http.{{.Release.Namespace}}.svc
+      envFrom:
+        - configMapRef:
+            name: tf-static-endpoints
+{{- end }}

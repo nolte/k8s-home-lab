@@ -7,6 +7,9 @@ httpProxy:
   tls:
     secretName: cert-manager/wildcard-duckdns-org-tls
 
+workflow:
+  enabled: false
+
 argo-cd:
   kubeVersionOverride: 1.21.0
   repoServer:
@@ -76,6 +79,7 @@ argo-cd:
       accounts.seedmanager: apiKey
       helm.path.v3.6.0: /custom-tools/helm_3_6_0
       kustomize.path.v4.1.3: /custom-tools/kustomize_4_1_3
+      # hack for https://github.com/coredns/helm/issues/37#issuecomment-918469766
       configManagementPlugins: |-
         - name: kustomized-helm
           init:
