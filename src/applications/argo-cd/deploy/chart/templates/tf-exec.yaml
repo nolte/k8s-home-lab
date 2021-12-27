@@ -71,6 +71,7 @@ spec:
         source /vault/secrets/keycloak
         export VAULT_TOKEN=$(cat /vault/secrets/token)
         
+        terragrunt init
         terragrunt {{ "{{" }}inputs.parameters.action{{ "}}" }} -input=false -auto-approve -no-color -compact-warnings
 
       env:
