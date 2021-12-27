@@ -9,6 +9,8 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/part-of: argocd
+  annotations:
+    argocd.argoproj.io/hook: PreSync
 spec:
   entrypoint: exec
   arguments:
