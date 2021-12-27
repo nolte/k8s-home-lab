@@ -22,7 +22,7 @@ spec:
               value: "0"
         contour:
           extraArgs:
-            - --ingress-status-address=192.168.178.21
+            - --ingress-status-address=192.168.178.42
           manageCRDs: true
     repoURL: https://charts.bitnami.com/bitnami
     targetRevision: 7.0.8    
