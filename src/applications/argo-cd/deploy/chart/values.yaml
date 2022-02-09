@@ -12,6 +12,8 @@ workflow:
 
 argo-cd:
   kubeVersionOverride: 1.21.0
+  global:
+    tag: v2.3.0-rc5
   repoServer:
     initContainers:
       - args:
