@@ -2,19 +2,19 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/kubernetes" {
-  version = "2.7.1"
+  version = "2.8.0"
   hashes = [
-    "h1:+8dl6Z/FTnBVdoN6e4IJHIFYaLZzAiOQrHKRhNgMnPg=",
-    "h1:/zifejk3MfLSDQr5J6sc3EHrnFwAVEDH9LrewWMRqe4=",
-    "h1:4LPAvfuRY3Kw9bycdOttVqxYryg1DThYhAr9D8jZ+fo=",
-    "h1:DGjybciYXYyF3rVb+mN0vUKAeofGezj3/7QD0jhtgBE=",
-    "h1:Df9MZxqgXueXVObeAiPPDQ5aLwQ2bJ2r1gul/IYSxeg=",
-    "h1:PhN8kkR1WXnlfpozuaDEc8dIcI1s+a2mdbgphDOSVlY=",
-    "h1:RuaYJmg2JSWwdkTcBX1VduD21Yl+bszOh0PBaRAN+bo=",
-    "h1:oW4vjSt6yhfIifRk5RNthxGoGIxqovij48znbroh7xw=",
-    "h1:q1g2MRafLl/vP3PoxX5X4LUs7M/gg/US9tiP+dz/BVA=",
-    "h1:rpgghB1aWihY76yhLZQtJvaglkGyRJN6CYXVonzbpqg=",
-    "h1:ylrzJ6MUV3TyFt3gVIShyqFlnszRbv3qwbchR1Gfm8I=",
+    "h1:HNyY2SjwsLMGQGsdIWFxyD8qubBjfWgPg8/OHNm62C4=",
+    "h1:KG+gZ+/U3enzh88WSGDikxcVZQO6t37Yz/H+ahrA4VM=",
+    "h1:LZLKGKTlBmG8jtMBdZ4ZMe+r15OQLSMYV0DktfROk+Y=",
+    "h1:UZCCMTH49ziz6YDV5oCCoOHypOxZWvzc59IfZxVdWeI=",
+    "h1:Vo9uO5QfnNelDA/OsOXzjh7G6cnPnuWWeVXm8B7vlpk=",
+    "h1:WWDmUkBgYc8KcprlZ6FUiBwX7xVFz8i3w43GnrIPl7g=",
+    "h1:aU9axQagkwAmDUVqRY71UU1kgjBrgFKQYgpAhqQnOEk=",
+    "h1:aqmqzuptQKQpDjtymkjMRyC8oqae3gB7km0oT+GZ1Kk=",
+    "h1:eNU8IhwbalDD2WB+BGwArKwgHB/13/4D8gOImL11FQg=",
+    "h1:sufBjcWUkYCO/JYC+o9w3aU/RqJAZq2y0JbJHMZUeJw=",
+    "h1:tfU8BStZIt2d6KIGTRNjWb09zeVzh3UFGNRGVgFce+A=",
   ]
 }
 
