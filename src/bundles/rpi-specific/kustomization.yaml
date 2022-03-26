@@ -16,10 +16,8 @@ patches:
       name: .*
       version: v1alpha1
 
-
 resources:
-  - ../../../src/applications/pihole/deploy/argocd
-  #- ../../../src/applications/node-red/deploy/argocd
-  - ../../../src/applications/mosquitto/deploy/argocd
-  - ../../../src/applications/esphome/deploy/argocd
-  - ../../../src/applications/home-assistant/deploy/argocd
+  - ../../../src/applications/metallb/deploy/argocd
+  - ../../../src/applications/ingress-nginx/deploy/argocd
+  - ../../../src/applications/stakater-reloader/deploy/argocd
+  

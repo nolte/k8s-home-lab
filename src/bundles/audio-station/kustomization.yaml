@@ -18,8 +18,7 @@ patches:
 
 
 resources:
-  - ../../../src/applications/pihole/deploy/argocd
-  #- ../../../src/applications/node-red/deploy/argocd
-  - ../../../src/applications/mosquitto/deploy/argocd
-  - ../../../src/applications/esphome/deploy/argocd
-  - ../../../src/applications/home-assistant/deploy/argocd
+  - ../../../src/applications/mopidy/deploy/argocd
+  - ../../../src/applications/snapcast-server/deploy/argocd
+  - ../../../src/applications/snapcast-client/deploy/argocd
+  - ../../../src/applications/upmpdcli/deploy/argocd

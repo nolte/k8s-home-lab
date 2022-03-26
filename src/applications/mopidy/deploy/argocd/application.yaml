@@ -11,3 +11,6 @@ spec:
     path: charts/stable/mopidy
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: feature/multi-room-audio
+    helm:
+      parameters: []
+      valueFiles: [] 

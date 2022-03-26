@@ -1,16 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: snapcast-server
+  name: upmpdcli
 spec:
   destination:
     name: in-cluster
     namespace: audio-station
   project: default
   source:
-    path: charts/stable/snapcast-server
+    path: charts/stable/upmpdcli
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: feature/multi-room-audio
     helm:
       parameters: []
-      valueFiles: []

@@ -10,11 +10,21 @@ spec:
     namespace: esphome
   project: default
   source:
-    chart: esphome
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.0
+    # chart: esphome
+    # repoURL: https://nolte.github.io/helm-charts-repo
+    # targetRevision: 0.2.0
+    path: charts/stable/esphome
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/multi-room-audio     
     helm:
       releaseName: esphome
       parameters:
-        - name: ingress.main.enabled
-          value: "false"
+        - name: esphome.initContainers.gitsync.env[1].value
+          value: "git@github.com:nolte/esphome-configs.git"
+      valueFiles:
+        - values-gitsync.yaml
+      values: |
+        esphome:
+          envFrom:
+            - secretRef:
+                name: esphome-config
