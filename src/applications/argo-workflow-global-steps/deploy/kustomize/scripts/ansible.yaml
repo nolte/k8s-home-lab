@@ -18,6 +18,8 @@ spec:
       - name: playbook-revision
         default: master
       - name: playbook
+      - name: playbook-dir
+        default: ""
       artifacts:
       - name: inventory-source
         path: /src/inventory
@@ -47,7 +49,7 @@ spec:
           value: /etc/ssh-key/id_rsa
       source: |
         cd /src/playbook
-        ansible-playbook {{inputs.parameters.playbook}}
+        ansible-runner run {{inputs.parameters.playbook_dir}} --playbook {{inputs.parameters.playbook}}
       volumeMounts:
       - name: ssh-key-volume
         mountPath: "/etc/ssh-key"
