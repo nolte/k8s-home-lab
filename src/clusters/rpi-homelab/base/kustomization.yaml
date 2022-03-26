@@ -1,0 +1,233 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+commonLabels:
+  argocd.argoproj.io/instance: seed-job-rpi
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+namePrefix:
+  rpi-
+
+patches:
+  - path: patch-argocd-destination-cluster.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+patchesJSON6902:
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  service.public.ports.mpd.nodePort
+          value: "32767"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  mopidy.snapcast.server.host
+          value: "rpi-snapcast-server"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  mopidy.spotify.enabled
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: nodeSelector.task
+          value: "gipo"
+      - op: add
+        path: /spec/source/helm/valueFiles/-
+        value: "values-spotify.yaml"
+      - op: add
+        path: /spec/source/helm/values
+        value: |-
+          ingress: 
+            main:
+              enabled: true
+              ingressClassName: nginx
+              hosts:
+                - host: "mopidy.rpi-just-homestyle.duckdns.org"
+                  paths:
+                    - path: /
+    target:
+      group: argoproj.io
+      kind: Application
+      name: mopidy
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  hostNetwork
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: nodeSelector.task
+          value: "gipo"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: ingress.main.ingressClassName	
+          value: "nginx"          
+    target:
+      group: argoproj.io
+      kind: Application
+      name: upmpdcli
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: nodeSelector.task
+          value: "gipo"          
+    target:
+      group: argoproj.io
+      kind: Application
+      name: snapcast-server
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: nodeSelector.task
+          value: "hifi"          
+    target:
+      group: argoproj.io
+      kind: Application
+      name: snapcast-client
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: replace
+        path: /spec/source/helm/values
+        value: |
+          configInline:
+            address-pools:
+             - name: default
+               protocol: layer2
+               addresses:
+               - 192.168.178.91-192.168.178.100
+             - name: mqtt-pool
+               protocol: layer2
+               addresses:
+               - 192.168.178.110/32
+             - name: ingress-pool
+               protocol: layer2
+               addresses:
+               - 192.168.178.111/32
+    target:
+      group: argoproj.io
+      kind: Application
+      name: metallb
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/values
+        value: |
+          service:
+            main:
+              enabled: true
+              type: LoadBalancer
+              annotations:
+                metallb.universe.tf/address-pool: mqtt-pool
+    target:
+      group: argoproj.io
+      kind: Application
+      name: mosquitto
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: replace
+        path: /spec/source/helm/values
+        value: |
+          controller:
+            publishService:
+              enabled: true
+            service:
+              externalIPs: 
+                - 192.168.178.111
+              annotations:
+                metallb.universe.tf/address-pool: ingress-pool
+    target:
+      group: argoproj.io
+      kind: Application
+      name: ingress-nginx
+      version: v1alpha1
+
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: homeassistant.hostNetwork	
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: homeassistant.env.MQTT_ENDPOINT
+          value: "mosquitto.mosquitto.svc"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: homeassistant.env.MOPIDY_ENDPOINT
+          value: "rpi-mopidy-public.audio-station.svc"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name: homeassistant.env.SNAPCAST_ENDPOINT
+          value: "rpi-snapcast-server-public.audio-station.svc"
+      - op: add
+        path: /spec/source/helm/values
+        value:  |
+          homeassistant:
+            ingress: 
+              main:
+                enabled: true
+                ingressClassName: nginx
+                annotations:
+                  nginx.org/websocket-services: home-assistant
+                hosts:
+                  - host: "homeassistant.rpi-just-homestyle.duckdns.org"
+                    paths:
+                      - path: /
+
+    target:
+      group: argoproj.io
+      kind: Application
+      name: home-assistant
+      version: v1alpha1
+
+
+resources:
+  - ../../../../src/bundles/audio-station
+  - ../../../../src/bundles/rpi-specific
+  - ../../../../src/bundles/smart-home

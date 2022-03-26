@@ -4,10 +4,6 @@ metadata:
   name: infra-install-k3s
 spec:
   entrypoint: exec
-  arguments:
-    parameters:
-    - name: revision
-      value: "master"  
   templates:
   - name: exec
     steps:                 
