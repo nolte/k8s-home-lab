@@ -31,6 +31,7 @@ spec:
             - name: playbook-revision
               value: "feature/rpi-support"
             - name: playbook-dir
+              value: "ansible"
               
       - - name: install-k3s
           templateRef:                  # You can reference a "template" from another "WorkflowTemplate or ClusterWorkflowTemplate" using this field
