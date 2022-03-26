@@ -37,9 +37,9 @@ spec:
         git:
           repo: "{{inputs.parameters.playbook-repo}}"
           revision: "{{inputs.parameters.playbook-revision}}"
-          sshPrivateKeySecret:
-            name: git-creds
-            key: id_rsa
+          # sshPrivateKeySecret:
+          #   name: git-creds
+          #   key: id_rsa
     script:
       image: quay.io/ansible/ansible-runner:stable-2.12-latest
       command: [bash]
