@@ -48,6 +48,6 @@ resources:
   #- workflow-update-seed.yaml
   - ../../../src/applications/argo-cd/deploy/argocd
   - ../../../src/applications/monitoring/deploy/argocd
-  - ../../../src/applications/argo-workflow-templates/deploy/argocd
-  - ../../../src/applications/argo-workflows/deploy/argocd
+  #- ../../../src/applications/argo-workflow-templates/deploy/argocd
+  #- ../../../src/applications/argo-workflows/deploy/argocd
   - ../../../src/applications/argo-events/deploy/argocd  
