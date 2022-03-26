@@ -1,0 +1,23 @@
+argo-cd:
+  server:
+    additionalApplications:
+      - additionalAnnotations:
+          argocd.argoproj.io/sync-wave: '-100'
+          de.noltarium.bootstrapping/steps: 0
+        additionalLabels: {}
+        destination:
+          namespace: argo
+          server: https://kubernetes.default.svc
+        name: workflows
+        namespace: argocd
+        project: cicd
+        source:
+          path: src/applications/argo-workflows/deploy/argocd
+          repoURL: https://github.com/nolte/argo-charts.git
+          targetRevision: feature/audio-station
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true        
