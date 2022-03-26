@@ -6,13 +6,13 @@ argo-cd:
           de.noltarium.bootstrapping/steps: 0
         additionalLabels: {}
         destination:
-          namespace: argo
+          namespace: argocd
           server: https://kubernetes.default.svc
         name: workflows
         namespace: argocd
         project: cicd
         source:
-          path: src/applications/argo-workflows/deploy/argocd
+          path: src/bundles/bootstrapping-stack
           repoURL: https://github.com/nolte/argo-charts.git
           targetRevision: feature/audio-station
         syncPolicy:
