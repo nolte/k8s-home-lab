@@ -3,15 +3,6 @@
 
 **RPI HomeLab Cluster**
 
-```sh
-argo submit -n argocd \
-  --from workflowtemplate/script-argocd-application \
-  -p argocd-application-name=rpi-management \
-  -p argocd-destination-namespace=rpi-homelab-management \
-  -p argocd-source-path="src/clusters/rpi-homelab" \
-  -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
-  -p argocd-source-targetRevision="feature/audio-station"
-```
 
 ```sh
 argo submit -n argocd \
