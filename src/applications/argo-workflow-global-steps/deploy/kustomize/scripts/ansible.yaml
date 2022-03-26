@@ -19,7 +19,7 @@ spec:
         default: master
       - name: playbook
       - name: playbook-dir
-        default: ""
+        default: "/src/playbook"
       artifacts:
       - name: inventory-source
         path: /src/inventory
