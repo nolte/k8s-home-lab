@@ -19,3 +19,4 @@ patches:
 
 resources:
   - ../../../src/applications/argo-workflows/deploy/argocd
+  - ../../../src/applications/argo-workflow-global-steps/deploy/argocd
