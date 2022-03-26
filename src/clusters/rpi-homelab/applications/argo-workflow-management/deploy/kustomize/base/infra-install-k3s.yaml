@@ -25,7 +25,7 @@ spec:
             - name: inventory-revision
               value: "feature/tower-structure"
             - name: playbook
-              value: "ansible/master-configure-system.yml"
+              value: "master-configure-system.yml"
             - name: playbook-repo
               value: "git@github.com:nolte/ansible_playbook-baseline-online-server.git"
             - name: playbook-revision
@@ -52,6 +52,5 @@ spec:
               value: "git@github.com:nolte/ansible_playbook-baseline-k3s.git"
             - name: playbook-revision
               value: "feature/controllable-firelld"
-             
             - name: playbook-requirements-file
               value: "roles/requirements.yml"
