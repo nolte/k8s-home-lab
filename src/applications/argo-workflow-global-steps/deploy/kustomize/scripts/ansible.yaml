@@ -49,7 +49,7 @@ spec:
           value: /etc/ssh-key/id_rsa
       source: |
         cd /src/playbook
-        ansible-runner run {{inputs.parameters.playbook_dir}} --playbook {{inputs.parameters.playbook}}
+        ansible-runner run {{inputs.parameters.playbook-dir}} --playbook {{inputs.parameters.playbook}}
       volumeMounts:
       - name: ssh-key-volume
         mountPath: "/etc/ssh-key"
