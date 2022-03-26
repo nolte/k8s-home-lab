@@ -20,6 +20,9 @@ spec:
       - name: playbook
       - name: playbook-dir
         default: "/src/playbook"
+      - name: playbook-requirements-file
+        default: "ansible/roles/requirements.yml"
+        
       artifacts:
       - name: inventory-source
         path: /src/inventory
@@ -49,6 +52,12 @@ spec:
           value: /etc/ssh-key/id_rsa
       source: |
         cd /src/playbook
+        
+        FILE=/src/playbook/{{inputs.parameters.playbook-requirements-file}}
+        if [ -f "$FILE" ]; then
+            ansible-galaxy install -r $FILE
+        fi
+
         ansible-runner run {{inputs.parameters.playbook-dir}} --playbook {{inputs.parameters.playbook}}
       volumeMounts:
       - name: ssh-key-volume
