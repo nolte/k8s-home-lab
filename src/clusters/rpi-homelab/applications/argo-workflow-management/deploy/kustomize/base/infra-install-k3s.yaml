@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: infra-install-k3s
+spec:
+  entrypoint: exec
+  arguments:
+    parameters:
+    - name: revision
+      value: "master"  
+  templates:
+  - name: exec
+    steps:                 
+      - - name: install-k3s
+          templateRef:                  # You can reference a "template" from another "WorkflowTemplate or ClusterWorkflowTemplate" using this field
+            name: script-ansible   # This is the name of the "WorkflowTemplate or ClusterWorkflowTemplate" CRD that contains the "template" you want
+            template: exec # This is the name of the "template" you want to reference
+            clusterScope: true          # This field indicates this templateRef is pointing ClusterWorkflowTemplate
+          arguments:                    # You can pass in arguments as normal
+            parameters:
+            - name: inventory-path
+              value: "local"
+            - name: inventory-repo
+              value: "git@github.com:nolte/ansible-inventories.git"
+            - name: inventory-revision
+              value: "feature/tower-structure"
+            - name: playbook
+              value: "playbook-install-k3s.yaml"
+            - name: playbook-repo
+              value: "git@github.com:nolte/ansible_playbook-baseline-k3s.git"
+            - name: playbook-revision
+              value: "feature/controllable-firelld"
