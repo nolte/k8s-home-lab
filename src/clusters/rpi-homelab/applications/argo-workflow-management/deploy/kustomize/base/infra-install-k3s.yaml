@@ -30,7 +30,8 @@ spec:
               value: "git@github.com:nolte/ansible_playbook-baseline-online-server.git"
             - name: playbook-revision
               value: "feature/rpi-support"
-
+            - name: playbook-dir
+              
       - - name: install-k3s
           templateRef:                  # You can reference a "template" from another "WorkflowTemplate or ClusterWorkflowTemplate" using this field
             name: script-ansible   # This is the name of the "WorkflowTemplate or ClusterWorkflowTemplate" CRD that contains the "template" you want
@@ -50,6 +51,6 @@ spec:
               value: "git@github.com:nolte/ansible_playbook-baseline-k3s.git"
             - name: playbook-revision
               value: "feature/controllable-firelld"
-            - name: playbook-dir
-              value: "ansible"              
-              
+             
+            - name: playbook-requirements-file
+              value: "roles/requirements.yml"
