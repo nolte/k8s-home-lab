@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: script-argocd-application
+spec:
+  entrypoint: exec
+
+  templates:
+  - name: exec
+    inputs:
+      parameters:
+      - name: argocd-application-name
+      - name: argocd-application-project
+        default: default
+      - name: argocd-application-namespace
+        default: argocd
+      - name: argocd-destination-name
+        default: in-cluster
+      - name: argocd-destination-namespace
+      - name: argocd-source-path
+        default: .
+      - name: argocd-source-repoURL
+      - name: argocd-source-targetRevision
+        default: master
+
+    # https://github.com/argoproj/argo-workflows/blob/master/examples/README.md#kubernetes-resources
+    resource:
+      action: apply
+      manifest: |
+        apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: {{inputs.parameters.argocd-application-name}}
+          namespace: {{inputs.parameters.argocd-application-namespace}}
+        spec:
+          destination:
+            name: {{inputs.parameters.argocd-destination-name}}
+            namespace: {{inputs.parameters.argocd-destination-namespace}}
+          project: {{inputs.parameters.argocd-application-project}}
+          source:
+            path: {{inputs.parameters.argocd-source-path}}
+            repoURL: {{inputs.parameters.argocd-source-repoURL}}
+            targetRevision: {{inputs.parameters.argocd-source-targetRevision}}
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            retry:
+              backoff:
+                duration: 10m
+                factor: 1
+                maxDuration: 20m
+              limit: 15
+            syncOptions:
+            - CreateNamespace=true
+            - ApplyOutOfSyncOnly=true
