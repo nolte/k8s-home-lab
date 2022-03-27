@@ -15,3 +15,4 @@ resources:
   - base
   - ./applications/argo-workflow-management/deploy/argocd
   - ../../applications/cert-manager-webhook-duckdns/deploy/argocd-workflow
+  - ../../applications/cert-wildcard/deploy/argocd

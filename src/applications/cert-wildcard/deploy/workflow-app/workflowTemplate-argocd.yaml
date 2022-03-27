@@ -6,16 +6,24 @@ spec:
   entrypoint: exec
   templates:
     - name: exec
+      inputs:
+        parameters:
+          - name: name-prefix
+            default: ""
+          - name: destination-name
+            default: in-cluster
+          - name: cert-wildcard-dns-name
+            default: "dev44-just-homestyle.duckdns.org"    
       resource:
         action: apply
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Application
           metadata:
-            name: cert-wildcard
+            name: {{inputs.parameters.name-prefix}}cert-wildcard
           spec:
             destination:
-              name: in-cluster
+              name: {{inputs.parameters.destination-name}}
               namespace: cert-manager
             project: default
             source:
@@ -24,4 +32,7 @@ spec:
               targetRevision: 0.1.0
               helm:
                 releaseName: cert-wildcard
+                parameters:
+                  - name: dnsName
+                    value: "{{inputs.parameters.cert-wildcard-dns-name}}"
                 

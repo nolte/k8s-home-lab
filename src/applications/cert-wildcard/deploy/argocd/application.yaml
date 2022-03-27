@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflow-cert-wildcard
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  project: default
+  source:
+    path: src/applications/cert-wildcard/deploy/workflow-app
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/audio-station
+    
