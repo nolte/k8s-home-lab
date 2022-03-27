@@ -21,5 +21,5 @@ resources:
   - ../../../src/applications/ingress-nginx/deploy/argocd
   - ../../../src/applications/stakater-reloader/deploy/argocd
   - ../../../src/applications/cert-manager/deploy/argocd
-  - ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
+  #- ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
   
