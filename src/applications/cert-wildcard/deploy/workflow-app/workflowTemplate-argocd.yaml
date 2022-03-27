@@ -29,9 +29,11 @@ spec:
             source:
               chart: cert-wildcard
               repoURL: https://nolte.github.io/helm-charts-repo
-              targetRevision: 0.2.0
+              targetRevision: 0.2.1
               helm:
                 releaseName: cert-wildcard
+                valueFiles:
+                  - values-reflector.yaml
                 parameters:
                   - name: dnsName
                     value: "{{inputs.parameters.cert-wildcard-dns-name}}"
