@@ -59,6 +59,10 @@ patchesJSON6902:
                 - host: "mopidy.rpi-just-homestyle.duckdns.org"
                   paths:
                     - path: /
+              tls:
+                - secretName: wildcard-duckdns-org-tls
+                  hosts:
+                    - mopidy.rpi-just-homestyle.duckdns.org                    
     target:
       group: argoproj.io
       kind: Application
@@ -219,6 +223,11 @@ patchesJSON6902:
                   - host: "homeassistant.rpi-just-homestyle.duckdns.org"
                     paths:
                       - path: /
+                tls:
+                  - secretName: wildcard-duckdns-org-tls
+                    hosts:
+                      - homeassistant.rpi-just-homestyle.duckdns.org
+
 
     target:
       group: argoproj.io
