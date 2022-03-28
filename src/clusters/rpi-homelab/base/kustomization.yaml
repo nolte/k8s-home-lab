@@ -227,12 +227,29 @@ patchesJSON6902:
                   - secretName: wildcard-duckdns-org-tls
                     hosts:
                       - homeassistant.rpi-just-homestyle.duckdns.org
-
-
     target:
       group: argoproj.io
       kind: Application
       name: home-assistant
+      version: v1alpha1
+
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/values
+        value:  |
+            ingress: 
+              enabled: true
+              ingressClassName: nginx
+              hosts:
+                - "pihole.rpi-just-homestyle.duckdns.org"
+              tls:
+                - secretName: wildcard-duckdns-org-tls
+                  hosts:
+                    - pihole.rpi-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: pihole
       version: v1alpha1
 
 
