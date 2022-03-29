@@ -243,14 +243,10 @@ patchesJSON6902:
         value:  |
             adlists:
               - https://adaway.org/hosts.txt
-              - https://block.energized.pro/spark/formats/domains.txt              
-              - https://gist.githubusercontent.com/...38b445d6be381aeebeaf14368e821ca3/SmartTV2.txt
-              - https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+              - https://block.energized.pro/spark/formats/domains.txt
               - https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
               - https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt
               - https://hostsfile.org/Downloads/hosts.txt
-              - https://mirror.cedia.org.ec/malwaredomains/immortal_domains.txt
-              - https://mirror.cedia.org.ec/malwaredomains/immortal_domains.txt
               - https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
               - https://phishing.army/download/phishing_army_blocklist_extended.txt
               - https://phishing.army/download/phishing_army_blocklist.txt
