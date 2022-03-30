@@ -51,7 +51,7 @@ jobs:
           helm repo add argo-charts https://nolte.github.io/argo-charts/
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.3.0
+        uses: helm/chart-releaser-action@v1.4.0
         with:
           charts_repo_url: https://nolte.github.io/argo-charts/
         env:
