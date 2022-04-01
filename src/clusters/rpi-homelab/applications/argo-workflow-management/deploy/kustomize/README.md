@@ -1,3 +1,3 @@
-# Cluster Workflows
+# RPI Cluster Management
 
-Cluster Workflows, will be used for different Automation like call ansible playbooks or other scripts.
+This Resources will be Deployed to the ArgoWorkflow Management Cluster.

@@ -3,50 +3,57 @@ kind: WorkflowTemplate
 metadata:
   name: infra-install-k3s
 spec:
+  arguments:
+    parameters:
+      - default: feature/tower-structure
+        name: inventory-revision
+      - default: local
+        name: inventory-path
+      - default: git@github.com:nolte/ansible-inventories.git
+        name: inventory-repo
   entrypoint: exec
   templates:
-  - name: exec
-    steps:                 
-      - - name: install-baseline
-          templateRef:                  # You can reference a "template" from another "WorkflowTemplate or ClusterWorkflowTemplate" using this field
-            name: script-ansible   # This is the name of the "WorkflowTemplate or ClusterWorkflowTemplate" CRD that contains the "template" you want
-            template: exec # This is the name of the "template" you want to reference
-            clusterScope: true          # This field indicates this templateRef is pointing ClusterWorkflowTemplate
-          arguments:                    # You can pass in arguments as normal
-            parameters:
-            - name: inventory-path
-              value: "local"
-            - name: inventory-repo
-              value: "git@github.com:nolte/ansible-inventories.git"
-            - name: inventory-revision
-              value: "feature/tower-structure"
-            - name: playbook
-              value: "master-configure-system.yml"
-            - name: playbook-repo
-              value: "https://github.com/nolte/ansible_playbook-baseline-online-server.git"
-            - name: playbook-revision
-              value: "feature/rpi-support"
-            - name: playbook-dir
-              value: "ansible"
-              
-      - - name: install-k3s
-          templateRef:                  # You can reference a "template" from another "WorkflowTemplate or ClusterWorkflowTemplate" using this field
-            name: script-ansible   # This is the name of the "WorkflowTemplate or ClusterWorkflowTemplate" CRD that contains the "template" you want
-            template: exec # This is the name of the "template" you want to reference
-            clusterScope: true          # This field indicates this templateRef is pointing ClusterWorkflowTemplate
-          arguments:                    # You can pass in arguments as normal
-            parameters:
-            - name: inventory-path
-              value: "local"
-            - name: inventory-repo
-              value: "git@github.com:nolte/ansible-inventories.git"
-            - name: inventory-revision
-              value: "feature/tower-structure"
-            - name: playbook
-              value: "playbook-install-k3s.yaml"
-            - name: playbook-repo
-              value: "https://github.com/nolte/ansible_playbook-baseline-k3s.git"
-            - name: playbook-revision
-              value: "feature/controllable-firelld"
-            - name: playbook-requirements-file
-              value: "roles/requirements.yml"
+    - name: exec
+      steps:
+        - - arguments:
+              parameters:
+                - name: inventory-path
+                  value: '{{workflow.parameters.inventory-path}}'
+                - name: inventory-repo
+                  value: '{{workflow.parameters.inventory-repo}}'
+                - name: inventory-revision
+                  value: '{{workflow.parameters.inventory-revision}}'
+                - name: playbook
+                  value: master-configure-system.yml
+                - name: playbook-repo
+                  value: https://github.com/nolte/ansible_playbook-baseline-online-server.git
+                - name: playbook-revision
+                  value: v1.0.5
+                - name: playbook-dir
+                  value: ansible
+            name: install-baseline
+            templateRef:
+              clusterScope: true
+              name: script-ansible
+              template: exec
+        - - arguments:
+              parameters:
+                - name: inventory-path
+                  value: '{{workflow.parameters.inventory-path}}'
+                - name: inventory-repo
+                  value: '{{workflow.parameters.inventory-repo}}'
+                - name: inventory-revision
+                  value: '{{workflow.parameters.inventory-revision}}'
+                - name: playbook
+                  value: playbook-install-k3s.yaml
+                - name: playbook-repo
+                  value: https://github.com/nolte/ansible_playbook-baseline-k3s.git
+                - name: playbook-revision
+                  value: v0.0.2
+                - name: playbook-requirements-file
+                  value: roles/requirements.yml
+            name: install-k3s
+            templateRef:
+              clusterScope: true
+              name: script-ansible
+              template: exec
