@@ -25,5 +25,5 @@ spec:
             - --ingress-status-address=192.168.178.42
           manageCRDs: true
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 7.4.6    
+    targetRevision: 7.4.7    
     chart: contour    
