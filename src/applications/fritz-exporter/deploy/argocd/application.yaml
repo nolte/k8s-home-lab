@@ -22,4 +22,4 @@ spec:
 
     chart: fritz-exporter
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.0    
+    targetRevision: 0.2.1    
