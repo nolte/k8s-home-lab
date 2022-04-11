@@ -10,7 +10,7 @@ spec:
   source:
     chart: keycloak
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 2.0.4    
+    targetRevision: 3.0.0    
     helm:
       values: |
         keycloak:
