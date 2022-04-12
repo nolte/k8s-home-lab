@@ -246,5 +246,4 @@ patchesJSON6902:
 
 resources:
   - ../../../src/bundles/25-baseline-services
-  - ../../../src/bundles/smart-home
   - ../../../src/bundles/devops-services
