@@ -14,6 +14,7 @@ spec:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 34.9.0
     helm:
+      skipCrds: true
        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
       values: |
         grafana:
