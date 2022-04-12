@@ -9,7 +9,8 @@ spec:
   project: default
   source:
     path: charts/stable/upmpdcli
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/multi-room-audio
+    chart: upmpdcli
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.1.0
     helm:
       parameters: []

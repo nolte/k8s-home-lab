@@ -5,7 +5,7 @@ metadata:
 spec:
   arguments:
     parameters:
-      - default: feature/tower-structure
+      - default: develop
         name: inventory-revision
       - default: local
         name: inventory-path

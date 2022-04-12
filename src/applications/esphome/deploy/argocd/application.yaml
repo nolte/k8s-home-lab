@@ -10,12 +10,9 @@ spec:
     namespace: esphome
   project: default
   source:
-    # chart: esphome
-    # repoURL: https://nolte.github.io/helm-charts-repo
-    # targetRevision: 0.2.0
-    path: charts/stable/esphome
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/multi-room-audio     
+    chart: esphome
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.4.1
     helm:
       releaseName: esphome
       parameters:

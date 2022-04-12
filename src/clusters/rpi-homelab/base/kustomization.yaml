@@ -28,11 +28,6 @@ patchesJSON6902:
       - op: add
         path: /spec/source/helm/parameters/-
         value:             
-          name:  service.public.ports.mpd.nodePort
-          value: "32767"
-      - op: add
-        path: /spec/source/helm/parameters/-
-        value:             
           name:  mopidy.snapcast.server.host
           value: "rpi-snapcast-server"
       - op: add
@@ -51,6 +46,17 @@ patchesJSON6902:
       - op: add
         path: /spec/source/helm/values
         value: |-
+          service:
+            public:
+              type: LoadBalancer
+              enabled: true
+              annotations:
+                metallb.universe.tf/address-pool: mpd-pool
+              ports:
+                mpd:
+                  enabled: true
+                  protocol: TCP
+                  port: 6600
           ingress: 
             main:
               enabled: true
@@ -77,16 +83,26 @@ patchesJSON6902:
         value:             
           name:  hostNetwork
           value: "true"
-      - op: add
-        path: /spec/source/helm/parameters/-
-        value:             
-          name: nodeSelector.task
-          value: "gipo"
+      # - op: add
+      #   path: /spec/source/helm/parameters/-
+      #   value:             
+      #     name: nodeSelector.task
+      #     value: "gipo"
       - op: add
         path: /spec/source/helm/parameters/-
         value:             
           name: ingress.main.ingressClassName	
-          value: "nginx"          
+          value: "nginx"
+      - op: add
+        path: /spec/source/helm/values
+        value: |-
+          args: ["-m", "3", "-l", "0", "-h", "192.168.178.108", "-p", "6600", "-P", "1900"]
+      - op: add
+        path: /spec/source/helm/values
+        value: |-
+          service:
+            main:
+              enabled: false
     target:
       group: argoproj.io
       kind: Application
@@ -130,10 +146,14 @@ patchesJSON6902:
         value: |
           configInline:
             address-pools:
-             - name: default
+             - name: default-pool
                protocol: layer2
                addresses:
                - 192.168.178.91-192.168.178.100
+             - name: mpd-pool
+               protocol: layer2
+               addresses:
+               - 192.168.178.108/32
              - name: mqtt-pool
                protocol: layer2
                addresses:

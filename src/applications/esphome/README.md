@@ -1,8 +1,13 @@
 # ESP Home
 
 <!--description-start-->
-Deployment [k8s-at-home/charts](https://github.com/k8s-at-home/charts/tree/master/charts/stable/esphome) by used the Wrapped Self hosted one from [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/esphome).
+Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection Informations from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System. 
 <!--description-end-->
+
+<!--header-start-->
+**Deployment:** [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/esphome) *wrapper from the [k8s-at-home/charts](https://github.com/k8s-at-home/charts/tree/master/charts/stable/esphome) Chart*   
+**Web**: [esphome.io](https://esphome.io/)   
+<!--header-end-->
 
 ## Preconditions 
 

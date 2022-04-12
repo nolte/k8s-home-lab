@@ -8,9 +8,9 @@ spec:
     namespace: audio-station
   project: default
   source:
-    path: charts/stable/mopidy
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/multi-room-audio
+    chart: mopidy
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.1.1      
     helm:
       parameters: []
       valueFiles: [] 

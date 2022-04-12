@@ -1,4 +1,6 @@
-# Local Dev Env
+# Local Environment
+
+The local environment will be used as temporary Boostrapping/Management Cluster.
 
 <!--kind-init-start-->
 
@@ -6,24 +8,26 @@
 task \
   kind:destroy \
   kind:create \
-  kind:apply
+  kind:apply_bootstrapping
 ```
 
 <!--kind-init-end-->
 
-Zusätlich zum 
+After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, used for manage different sets of Services/Clusters.
 
-<!--kind-flavors-start-->
-| **Task Goal**          | **Chart Config**                   | **Kurz Beschreibung**                                                                                                                                                                                                                   |
-|------------------------|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `apply`                | `-`                                | Ein "blanker" Kind Cluster mit ArgoCD, dieses setting dient als Grundlage aller Kind Deployments.                                                                                                                                       |
-| `apply_devops_station` | `values-kind-deployments.yaml`     | Breitstellung eines Vollständig Konfigurierten DevOps Clusters mit diversen unterstützenden Tools wie z.B. Vault, Harbor etc.                                                                                                           |
-| `apply_monitoring`     | `values-kind-monitoring-node.yaml` | Bereitstellung einer Minimal Installation der Monitoring Komponenten. Dieses Deployment wird genutzt um den eigenen Hausanschluss zu überwachen, und eventuelle geschwindigkeits Verluste frühzeitig zu bemerken und zu protokollieren. |
-<!--kind-flavors-end-->
+??? abstract "Starter Sets"
 
+    [Task](https://github.com/go-task/task) Steps, for starting with preconfigured set of Services.
 
-??? abstract "Start the Kind Cluster"
-    task: `task kind:create`
+    | **Task Goal**          | **Chart Config**                      | **Kurz Beschreibung**                                                                                                                                                                                                                   |
+    |------------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `apply`                | `-`                                   | Ein "blanker" Kind Cluster mit ArgoCD, dieses setting dient als Grundlage aller Kind Deployments.                                                                                                                                       |
+    | `apply_devops_station` | `values-kind-deployments.yaml`        | Breitstellung eines Vollständig Konfigurierten DevOps Clusters mit diversen unterstützenden Tools wie z.B. Vault, Harbor etc.                                                                                                           |
+    | `apply_monitoring`     | `values-kind-monitoring-node.yaml`    | Bereitstellung einer Minimal Installation der Monitoring Komponenten. Dieses Deployment wird genutzt um den eigenen Hausanschluss zu überwachen, und eventuelle geschwindigkeits Verluste frühzeitig zu bemerken und zu protokollieren. |
+    | `apply_bootstrapping`  | `values-kind-bootstrapping-node.yaml` | Stellt ein Minimales set an Services bereit, ArgoCD und Argo Workflow bilden hier die Grundlage für weitere Installationen.                                                                                                             |   
+
+    **Deprecated** Please try to use allways `kind:apply_bootstrapping` and after this you can install the required Resources like [rpiCluster](./infrastructure/rpi-cluster/installation.md) or [Kind DevOpsStation](./infrastructure/local-kind-devops-station/installation.md), by submit some ArgoWorkflow.
+
 
 ??? example "Start port foward"
     ```sh
@@ -61,46 +65,7 @@ Zusätlich zum
     kind delete cluster --name production
     ```
 
-## Bootstrapping Status
+For deploy the Different Clusters/Service sets, take a look to: 
 
-```sh
-argo get bootstrap-cluster -n argocd
-```
-
-
-## Terraform 
-
-
-??? example "Environment variable)"
-
-    ??? example "Vault Access"
-        
-        Required Vars and Login
-        {%
-           include-markdown "../src/applications/vault/README.md"
-           start="<!--env-vars-start-->"
-           end="<!--env-vars-end-->"
-        %}
-
-
-    ??? example "S3 State Backend"
-
-        Planing to use `secrets-tf/services/s3/users/svc-tf-argo`
-        {%
-           include-markdown "./services/minio.md"
-           start="<!--s3-state-tf-env-vars-start-->"
-           end="<!--s3-state-tf-env-vars-end-->"
-        %}
-
-    ??? example "IAM Keycloak Access"
-    
-
-        {%
-           include-markdown "./services/keycloak.md"
-           start="<!--keycloak-tf-env-vars-start-->"
-           end="<!--keycloak-tf-env-vars-end-->"
-        %}
-
-```sh
- terragrunt run-all apply --terragrunt-non-interactive
-```
+* [RPI HomeLab](./infrastructure/rpi-cluster/index.md) *(RPI Based Cluster for Smart Home, and useful other services.)*
+* [Kind DevOps Station](./infrastructure/local-kind-devops-station/index.mdd) *(Cluster for Hosting devopment and maintenance services, like Vault, Gitea etc.)*

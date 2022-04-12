@@ -8,9 +8,9 @@ spec:
     namespace: audio-station
   project: default
   source:
-    path: charts/stable/snapcast-client
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/multi-room-audio
+    chart: snapcast-client
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.1.1      
     helm:
       parameters: []
       valueFiles: []

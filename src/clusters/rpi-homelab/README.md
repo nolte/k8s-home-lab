@@ -1,10 +1,13 @@
 # RPI Home Lab Cluster
 
 <!--cluster-description-start-->
-Cluster with a mixed set op RPIs with modules. This 
+Cluster with a mixed set of RPIs with with some extensions shields. This 
 Cluster will be used as Central Place for Home Automation ([home-assistant](https://www.home-assistant.io)), and other util task like MultiRoomAudio([badaix/snapcast](https://github.com/badaix/snapcast)) or Add Blocking [pi-hole](https://pi-hole.net/).
 
 <!--cluster-description-end-->
+
+This Cluster will be run 24/7 and have at the moment no dependencies to any other Self Hosted Systems.
+
 
 <!--bootstrap-jobs-start-->
 ```sh

@@ -23,9 +23,9 @@ kubectl -n argocd create secret generic ansible-ssh \
 ```
 argo submit -n argocd \
   --from clusterworkflowtemplate/script-ansible \
-  -p inventory-path="local" \
+  -p inventory-path="src/local" \
   -p inventory-repo="git@github.com:nolte/ansible-inventories.git" \
-  -p inventory-revision="feature/tower-structure" \
+  -p inventory-revision="develop" \
   -p playbook="playbook-firewalld-stop.yaml" \
   -p playbook-repo="git@github.com:nolte/ansible_playbook-baseline-k3s.git" \
   -p playbook-revision="feature/controllable-firelld" 
@@ -34,9 +34,9 @@ argo submit -n argocd \
 ```
 argo submit -n argocd \
   --from clusterworkflowtemplate/script-ansible \
-  -p inventory-path="local" \
+  -p inventory-path="src/local" \
   -p inventory-repo="git@github.com:nolte/ansible-inventories.git" \
-  -p inventory-revision="feature/tower-structure" \
+  -p inventory-revision="develop" \
   -p playbook="playbook-install-k3s.yaml" \
   -p playbook-repo="git@github.com:nolte/ansible_playbook-baseline-k3s.git" \
   -p playbook-revision="feature/controllable-firelld" 

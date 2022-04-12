@@ -7,9 +7,13 @@ spec:
   templates:
     - inputs:
         parameters:
+          - name: name-prefix
+            default: ""
           - name: issuerEmail
           - name: destination-name
             default: in-cluster
+          - name: externalsecrets-enabled
+            default: "false"
       name: exec
       resource:
         action: apply
@@ -17,7 +21,7 @@ spec:
           apiVersion: argoproj.io/v1alpha1
           kind: Application
           metadata:
-            name: cert-manager-webhook-duckdns
+            name: {{inputs.parameters.name-prefix}}cert-manager-webhook-duckdns
           spec:
             destination:
               name: {{inputs.parameters.destination-name}}
@@ -52,4 +56,4 @@ spec:
                   - name: certmanagerwebhookduckdns.secret.existingSecretName
                     value: "duckdns-token"
                   - name: externalsecrets.enabled
-                    value: "true"
+                    value: "{{inputs.parameters.externalsecrets-enabled}}"

@@ -1,8 +1,7 @@
 # ArgoCD Workflows
 
 
-**RPI HomeLab Cluster**
-
+## Usage
 
 ```sh
 argo submit -n argocd \
@@ -15,13 +14,3 @@ argo submit -n argocd \
   -p argocd-source-targetRevision="feature/audio-station"
 ```
 
-```sh
-argo submit -n argocd \
-  --from workflowtemplate/script-argocd-application \
-  -p argocd-application-name=seed-job \
-  -p argocd-application-project=cicd \
-  -p argocd-destination-namespace=argocd \
-  -p argocd-source-path="src/bundles/00-bootstrapping-minimal" \
-  -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
-  -p argocd-source-targetRevision="feature/audio-station"
-```
