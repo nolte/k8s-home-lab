@@ -2,11 +2,11 @@ apiVersion: v2
 dependencies:
   - name: argo-cd
     repository: https://argoproj.github.io/argo-helm
-    version: 4.2.2
+    version: 4.5.3
   - name: argo-workflow-mixin
     condition: workflow.enabled
     repository: https://nolte.github.io/helm-charts-repo/
-    version: 0.2.0
+    version: 0.2.1
     alias: argo-workflows-execution    
 description: Preconfigured ArgoCD Deployment
 name: argo-cd
