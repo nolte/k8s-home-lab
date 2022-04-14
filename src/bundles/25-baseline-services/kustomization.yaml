@@ -9,7 +9,7 @@ generatorOptions:
 
 
 patches:
-  - path: deployment-patch.yaml
+  - path: ../deployment-patch.yaml
     target:
       group: argoproj.io
       kind: Application
