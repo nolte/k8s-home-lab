@@ -12,6 +12,6 @@ spec:
   source:
     repoURL: https://isaaguilar.github.io/helm-charts
     chart: terraform-operator
-    targetRevision:  v0.2.3
+    targetRevision:  v0.2.4
     helm:
       releaseName: terraform-operator
