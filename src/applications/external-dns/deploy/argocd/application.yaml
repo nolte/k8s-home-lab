@@ -10,6 +10,12 @@ spec:
     namespace: external-dns
   project: default
   source:
-    path: src/applications/external-dns/deploy/kustomize
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    chart: external-dns
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.0.1
+    helm:
+      releaseName: external-dns
+      parameters:
+        - name: externalSecret.create
+          value: "true"
+     
