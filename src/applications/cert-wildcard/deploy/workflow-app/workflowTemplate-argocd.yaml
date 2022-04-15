@@ -13,7 +13,10 @@ spec:
           - name: destination-name
             default: in-cluster
           - name: cert-wildcard-dns-name
-            default: "dev44-just-homestyle.duckdns.org"    
+            default: "dev44-just-homestyle.duckdns.org"
+          - name: helm-values-filename
+            default: "values-reflector.yaml"
+        
       resource:
         action: apply
         manifest: |
@@ -29,11 +32,11 @@ spec:
             source:
               chart: cert-wildcard
               repoURL: https://nolte.github.io/helm-charts-repo
-              targetRevision: 0.2.1
+              targetRevision: 0.3.0
               helm:
                 releaseName: cert-wildcard
                 valueFiles:
-                  - values-reflector.yaml
+                  - {{inputs.parameters.helm-values-filename}}
                 parameters:
                   - name: dnsName
                     value: "{{inputs.parameters.cert-wildcard-dns-name}}"
