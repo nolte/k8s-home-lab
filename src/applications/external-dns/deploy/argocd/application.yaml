@@ -20,8 +20,11 @@ spec:
           value: "true"
       values: |
         externaldns:
-           sources:
-             - contour-httpproxy
-             - contour-ingressroute
-             - ingress
-             - service
+          txtOwnerId: "play-external-dns"
+          domainFilters:
+            - "dev44-just-homestyle.duckdns.org"
+            - "smart-home.k8sservices.local"
+          sources:
+            - contour-httpproxy
+            - ingress
+            - service
