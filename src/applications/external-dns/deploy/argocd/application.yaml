@@ -18,4 +18,10 @@ spec:
       parameters:
         - name: externalSecret.create
           value: "true"
-     
+      values: |
+        externaldns:
+           sources:
+             - contour-httpproxy
+             - contour-ingressroute
+             - ingress
+             - service
