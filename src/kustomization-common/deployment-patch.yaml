@@ -1,0 +1,16 @@
+- op: replace
+  path: /spec/syncPolicy
+  value:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+    retry:
+      limit: 15
+      backoff:
+        duration: 10m
+        factor: 1
+        maxDuration: 20m

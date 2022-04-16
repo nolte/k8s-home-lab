@@ -35,5 +35,5 @@ spec:
           value: "true"
         - name: certmanagerwebhookduckdns.secret.existingSecretName
           value: "duckdns-token"
-        - name: externalsecrets.enabled
-          value: "false"              
+        #- name: externalsecrets.enabled
+        #  value: "false"              
