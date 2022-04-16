@@ -220,7 +220,7 @@ patchesJSON6902:
       - op: add
         path: /spec/source/helm/parameters/-
         value:
-          name:  externalSecret.create
+          name:  externalsecrets.enabled
           value: "true"
       - op: add
         path: /spec/source/helm/parameters/-
