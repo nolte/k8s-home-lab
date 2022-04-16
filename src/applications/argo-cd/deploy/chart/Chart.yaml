@@ -6,8 +6,13 @@ dependencies:
   - name: argo-workflow-mixin
     condition: workflow.enabled
     repository: https://nolte.github.io/helm-charts-repo/
-    version: 0.2.1
-    alias: argo-workflows-execution    
+    version: 0.4.3
+    alias: argo-workflows-execution
+  - name: external-secrets-manifests
+    version: 0.1.3
+    repository: https://nolte.github.io/helm-charts-repo/
+    alias: externalsecrets
+    condition: externalsecrets.enabled
 description: Preconfigured ArgoCD Deployment
 name: argo-cd
 sources:
