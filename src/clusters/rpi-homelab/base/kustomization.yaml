@@ -130,7 +130,11 @@ patchesJSON6902:
         path: /spec/source/helm/parameters/-
         value:             
           name: nodeSelector.task
-          value: "hifi"          
+          value: "hifi"
+      - op: replace
+        path: /spec/source/helm/values
+        value: |
+          args: ["-h", "rpi-snapcast-server-public","--hostID","rpi-hifi"]
     target:
       group: argoproj.io
       kind: Application
