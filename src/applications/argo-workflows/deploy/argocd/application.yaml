@@ -28,4 +28,4 @@ spec:
     #targetRevision: master
     chart: argo-workflows
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.8.1
+    targetRevision: 0.9.0
