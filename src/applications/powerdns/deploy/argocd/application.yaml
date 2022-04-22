@@ -13,7 +13,7 @@ spec:
   source:
     chart: powerdns
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 1.3.2
+    targetRevision: 1.3.3
     helm:
       valueFiles: []
       parameters:
