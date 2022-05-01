@@ -243,6 +243,20 @@ patchesJSON6902:
       name: gitea
       version: v1alpha1
 
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  externalsecrets.enabled
+          value: "true"      
+    target:
+      group: argoproj.io
+      kind: Application
+      name: external-dns
+      version: v1alpha1
 
 resources:
   - ../../../src/bundles/25-baseline-services
