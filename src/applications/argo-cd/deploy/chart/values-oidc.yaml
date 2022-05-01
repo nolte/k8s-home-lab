@@ -37,7 +37,10 @@ argo-workflows-execution:
       source:
         repo: https://github.com/nolte/argo-charts.git
         path: ../src/applications/argo-cd/configuration/fineconf
-        revision: master
+        revision: feature/audio-station
+
+workflow:
+  enabled: true
 
 externalsecrets:
   enabled: true
