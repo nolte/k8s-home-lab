@@ -12,7 +12,7 @@ spec:
   source:
     chart: external-dns
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.0.2
+    targetRevision: 0.2.0
     helm:
       releaseName: external-dns
       parameters:
