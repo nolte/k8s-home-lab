@@ -1,0 +1,13 @@
+kind: Kustomization
+
+
+patchesJson6902:
+- target:
+    group: "apiextensions.k8s.io" 
+    version: v1 # apiVersion
+    kind: CustomResourceDefinition
+    name: prometheuses.monitoring.coreos.com
+  path: overlays/add-argo-annotation-label.yaml
+
+bases:
+- base/all.yaml

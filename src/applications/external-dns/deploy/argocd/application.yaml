@@ -16,7 +16,7 @@ spec:
     helm:
       releaseName: external-dns
       parameters:
-        - name: externalSecret.create
+        - name: externalsecrets.enabled
           value: "true"
       values: |
         externaldns:

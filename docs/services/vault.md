@@ -27,9 +27,19 @@
 
 ### Useful Environment Variables
 
-{%
-   include-markdown "../../src/applications/vault/README.md"
-   start="<!--env-vars-start-->"
-   end="<!--env-vars-end-->"
-%}
+??? example "Using ingress"
+
+      {%
+         include-markdown "../../src/applications/vault/README.md"
+         start="<!--env-vars-start-->"
+         end="<!--env-vars-end-->"
+      %}
+
+??? example "Using port-forward"
+
+      {%
+         include-markdown "../../src/applications/vault/README.md"
+         start="<!--login-port-forward-start-->"
+         end="<!--login-port-forward-end-->"
+      %}
 

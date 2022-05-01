@@ -9,8 +9,8 @@ spec:
   project: default
   source:
     chart: snapcast-server
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.1.1    
     helm:
       parameters: []
       valueFiles: []
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.1.1

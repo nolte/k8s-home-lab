@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: svc-cat
+spec:
+  destination:
+    name: in-cluster
+    namespace: svc-cat
+  project: default
+  source:
+    chart: catalog
+    helm:
+      releaseName: svc-cat
+      values: |
+        persistence:
+          storageClass: default
+    repoURL: https://kubernetes-sigs.github.io/service-catalog
+    targetRevision: 0.3.1

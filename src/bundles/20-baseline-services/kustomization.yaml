@@ -28,18 +28,7 @@ patchesJSON6902:
       value:
         name: vault.injector.enabled
         value: 'true'  
-    
-#- target:
-#      group: argoproj.io
-#      kind: Application
-#      version: v1alpha1
-#      name: argocd
-#  patch: |-
-#    - op: add
-#      path: /spec/source/helm/parameters
-#      value:
-#        - name: "argo-cd.server.additionalApplications[0].source.path"
-#          value: "src/bundles/20-baseline-services"
+
 resources:
   - ../../../src/bundles/10-bootstrapping-utils
   - ../../../src/applications/vault-sidecar-injector/deploy/argocd

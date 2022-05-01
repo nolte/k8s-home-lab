@@ -3,12 +3,11 @@
 
 ## Usefull Commands
 
+### Controll
+
 ??? example "Start port foward"
     ```sh
     kubectl -n operators port-forward svc/console 9090
-    
-    # or
-    https://minio-console.smart-home.k8sservices.local
     ```
 
 ??? example "Access"
@@ -20,6 +19,23 @@
         -o jsonpath="{.data.token}" | base64 --decode
     ```
 
+
+
+### Tenant
+
+
+??? example "Start port foward"
+    ```sh
+    kubectl -n minio port-forward svc/minio 9000:80
+    ```
+
+<!--s3-state-tf-env-vars-port-forward-start-->
+```sh
+export AWS_S3_ENDPOINT=http://localhost:9000/ \
+    && export AWS_ACCESS_KEY_ID=$(vault kv get -field=accesskey secrets-tf/services/s3/users/admin) \
+    && export AWS_SECRET_ACCESS_KEY=$(vault kv get -field=secretkey secrets-tf/services/s3/users/admin)
+```
+<!--s3-state-tf-env-vars-port-forward-end-->
 
 <!--s3-state-tf-env-vars-start-->
 ```sh

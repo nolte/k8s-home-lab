@@ -1,0 +1,7 @@
+
+
+```
+
+sudo systemctl reload apparmor
+
+```

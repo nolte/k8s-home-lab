@@ -15,10 +15,11 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
 
         ??? example "Config From Secret"
 
-            ```sh
-            TBD
-            ```
-
+            {%
+               include-markdown "../../src/applications/cert-manager-webhook-duckdns/README.md"
+               start="<!--classic-secret-start-->"
+               end="<!--classic-secret-end-->"
+            %}
 
         ??? example "Config From Vault"
 
@@ -35,20 +36,21 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
                 %}
 
             2. Kopieren des Zugriffstoken von [duckdns.org](https://www.duckdns.org) aus dem privaten Password Store ins Zentrale [Secret Management](vault.md).
-                ```sh
-                vault kv put \
-                  secrets-tf/third-party-services/duckdns.org/api \
-                  token=$(pass internet/duckdns.org/oidc-google/token)
-                ```
+                {%
+                   include-markdown "../../src/applications/cert-manager-webhook-duckdns/README.md"
+                   start="<!--vault-secret-start-->"
+                   end="<!--vault-secret-end-->"
+                %}
 
 2. Starten des [ebrianne/cert-manager-webhook-duckdns](https://github.com/ebrianne/cert-manager-webhook-duckdns/) Deployments über ArgoWorkflow 
 
-    ```sh
-    argo submit \
-      -n argocd \
-      --from workflowtemplate/app-cert-manager-webhook-duckdns \
-      -p issuerEmail=$(pass internet/letsencrypt/account_mail)
-    ```
+
+
+    {%
+       include-markdown "../../src/applications/cert-manager-webhook-duckdns/README.md"
+       start="<!--workflow-deploy-start-->"
+       end="<!--workflow-deploy-end-->"
+    %}
 
     ```sh
     argo wait \
@@ -60,7 +62,8 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
     ```sh
     argo submit \
       -n argocd \
-      --from workflowtemplate/app-cert-wildcard
+      --from workflowtemplate/app-cert-wildcard \
+      -p helm-values-filename=values-contour-tls-delegate.yaml
     ```
 
     ```sh

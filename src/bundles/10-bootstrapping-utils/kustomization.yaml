@@ -15,19 +15,6 @@ patches:
       name: .*
       version: v1alpha1
 
-
-#patchesJSON6902:
-#- target:
-#      group: argoproj.io
-#      kind: Application
-#      version: v1alpha1
-#      name: argocd
-#  patch: |-
-#    - op: add
-#      path: /spec/source/helm/parameters
-#      value:
-#        - name: "argo-cd.server.additionalApplications[0].source.path"
-#          value: "src/bundles/10-bootstrapping-utils"
 resources:
   - ../../../src/bundles/05-bootstrapping-ingress
   - ../../../src/applications/stakater-forecastle/deploy/argocd
