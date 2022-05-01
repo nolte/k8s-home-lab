@@ -134,7 +134,7 @@ patchesJSON6902:
       - op: replace
         path: /spec/source/helm/values
         value: |
-          args: ["-h", "rpi-snapcast-server-public","--instance","rpi-hifi","--hostID","rpi-hifi"]
+          args: ["-h", "rpi-snapcast-server-public","--hostID","rpi-hifi"]
     target:
       group: argoproj.io
       kind: Application
