@@ -1,0 +1,20 @@
+argo-workflows-execution:
+  cmTfStaticEndpoints:
+    create: true
+
+  role:
+    tfState:
+      create: false
+      name: argo-workflows-execution
+    type: ClusterRole
+    vaultInjector:
+      create: false
+      name: argo-workflows-execution
+  roleBinding:
+    tfState:
+      create: true
+    type: Role
+    vaultInjector:
+      create: true
+  serviceAccount:
+    create: true
