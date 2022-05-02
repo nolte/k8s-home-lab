@@ -9,5 +9,5 @@ patches:
       name: .*
       version: v1alpha1
 
-resources:
-  - application.yaml
+resources: []
+  #- application.yaml
