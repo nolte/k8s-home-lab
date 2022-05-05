@@ -12,6 +12,6 @@ spec:
   source:
     chart: gitea
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 1.2.4
+    targetRevision: 1.2.5
     helm:
       releaseName: gitea
