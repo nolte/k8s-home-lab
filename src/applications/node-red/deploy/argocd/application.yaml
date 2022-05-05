@@ -10,6 +10,6 @@ spec:
   source:
     chart: node-red
     repoURL: https://k8s-at-home.com/charts/
-    targetRevision: 10.0.0
+    targetRevision: 10.1.1
     helm:
       releaseName: node-red
