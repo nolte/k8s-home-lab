@@ -230,7 +230,7 @@ patchesJSON6902:
       - op: add
         path: /spec/source/helm/parameters/-
         value:             
-          name: homeassistant.env.MOPIDY_ENDPOINT_MDP
+          name: homeassistant.env.MOPIDY_ENDPOINT_MPD
           value: "rpi-mopidy-public.audio-station.svc"
       - op: add
         path: /spec/source/helm/parameters/-
