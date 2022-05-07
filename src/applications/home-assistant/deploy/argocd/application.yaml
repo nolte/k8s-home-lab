@@ -12,7 +12,7 @@ spec:
   source:
     chart: home-assistant
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 2.1.2    
+    targetRevision: 2.2.0    
     helm:
       releaseName: home-assistant
       parameters:
