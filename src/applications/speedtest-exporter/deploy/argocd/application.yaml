@@ -23,4 +23,4 @@ spec:
             labels:
               release: monitoring 
     repoURL: https://k8s-at-home.com/charts/
-    targetRevision: 5.3.2
+    targetRevision: 5.3.3
