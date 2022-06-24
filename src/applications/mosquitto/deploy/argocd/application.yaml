@@ -12,6 +12,6 @@ spec:
   source:
     chart: mosquitto
     repoURL: https://k8s-at-home.com/charts/
-    targetRevision: 4.3.2
+    targetRevision: 4.4.0
     helm:
       releaseName: mosquitto
