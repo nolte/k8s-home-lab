@@ -37,6 +37,13 @@ tasks:
       vars: {CLUSTER_VARS: "monitoring_node.tfvars"}
     silent: true
 
+  apply_bootstrapping:
+    desc: Create bootstrapping cluster
+    cmds:
+    - task: apply
+      vars: {CLUSTER_VARS: "bootstrapping_node.tfvars"}
+    silent: true
+
   apply:
     desc: Install ArgoCD and Base Seed Jobs for the Cluster
     cmds:

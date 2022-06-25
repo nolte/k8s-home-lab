@@ -31,4 +31,4 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
 extra_css:
-  - docs/css/overwrite.css
+  - css/overwrite.css
