@@ -12,7 +12,7 @@ spec:
   source:
     chart: esphome
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.4.2
+    targetRevision: 0.5.1
     helm:
       releaseName: esphome
       parameters:
