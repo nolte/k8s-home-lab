@@ -12,7 +12,7 @@ spec:
   source:
     chart: argo-events
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 2.0.0
+    targetRevision: 2.0.1
     helm:
       releaseName: argo-events
       parameters:
