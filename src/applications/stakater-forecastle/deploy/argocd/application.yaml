@@ -21,4 +21,4 @@ spec:
                 any: true
     chart: forecastle
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.13        
+    targetRevision: 0.2.14        
