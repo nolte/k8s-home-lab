@@ -21,6 +21,6 @@ remote_state {
     force_path_style = true
     disable_bucket_update = true
 
-    encrypt        = true
+    # encrypt        = true
   }
 }
