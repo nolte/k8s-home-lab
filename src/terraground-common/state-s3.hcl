@@ -19,6 +19,7 @@ remote_state {
     skip_bucket_root_access = true
     disable_aws_client_checksums = true
     force_path_style = true
+    disable_bucket_update = true
 
     encrypt        = true
   }
