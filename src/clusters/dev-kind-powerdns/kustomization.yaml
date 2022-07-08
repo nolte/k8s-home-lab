@@ -10,6 +10,14 @@ generatorOptions:
   disableNameSuffixHash: true
 
 
+patches:
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
 patchesJSON6902:
 
   - patch: |-
