@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - role.yaml
   - roleBinding.yaml
-  - sa.yaml
