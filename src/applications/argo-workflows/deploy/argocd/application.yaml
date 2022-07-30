@@ -24,10 +24,12 @@ spec:
           value: argo-workflows-executer
         - name: argoworkflows.server.extraArgs[0]
           value: '--auth-mode=server'
-        - name: argoworkflows.controller.extraEnv[0].name
-          value: 'ARGO_EXECUTOR_PLUGINS'
-        - name: argoworkflows.controller.extraEnv[0].value
-          value: 'true'          
+      values:
+        argoworkflows:
+          controller:
+            extraEnv:
+              - name: ARGO_EXECUTOR_PLUGINS
+                value: true
       releaseName: argo-workflows
     #path: src/applications/argo-workflows/deploy/chart
     #repoURL: https://github.com/nolte/argo-charts.git
