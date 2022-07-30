@@ -29,7 +29,7 @@ spec:
           controller:
             extraEnv:
               - name: ARGO_EXECUTOR_PLUGINS
-                value: true
+                value: "true"
       releaseName: argo-workflows
     #path: src/applications/argo-workflows/deploy/chart
     #repoURL: https://github.com/nolte/argo-charts.git
