@@ -16,20 +16,6 @@ patches:
       name: .*
       version: v1alpha1
 
-  - path: ../patch-workflows-tf-branch.yaml
-    target:
-      group: argoproj.io
-      kind: Application
-      name: powerdns
-      version: v1alpha1
-
-  - path: ../patch-workflows-tf-branch.yaml
-    target:
-      group: argoproj.io
-      kind: Application
-      name: keycloak
-      version: v1alpha1
-
 
 resources:
   - ../../../src/bundles/20-baseline-services
