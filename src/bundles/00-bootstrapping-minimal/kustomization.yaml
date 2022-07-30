@@ -21,6 +21,14 @@ patches:
       kind: Application
       name: monitoring-crds
       version: v1alpha1
+
+  - path: ../patch-workflows-tf-branch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1
+
 resources:
   - ../../../src/applications/argo-cd/deploy/argocd
   - ../../../src/applications/monitoring/deploy/argocd

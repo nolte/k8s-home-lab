@@ -1,3 +1,7 @@
+
+workflow:
+  enabled: true
+
 argo-workflows-execution:
   cmTfStaticEndpoints:
     create: true
