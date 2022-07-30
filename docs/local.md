@@ -68,4 +68,4 @@ After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, 
 For deploy the Different Clusters/Service sets, take a look to: 
 
 * [RPI HomeLab](./infrastructure/rpi-cluster/index.md) *(RPI Based Cluster for Smart Home, and useful other services.)*
-* [Kind DevOps Station](./infrastructure/local-kind-devops-station/index.mdd) *(Cluster for Hosting devopment and maintenance services, like Vault, Gitea etc.)*
+* [Kind DevOps Station](./infrastructure/local-kind-devops-station/installation.md) *(Cluster for Hosting devopment and maintenance services, like Vault, Gitea etc.)*

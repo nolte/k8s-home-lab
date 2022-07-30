@@ -45,6 +45,13 @@ export AWS_S3_ENDPOINT=https://$(kubectl -n minio get httpproxies.projectcontour
 ```
 <!--s3-state-tf-env-vars-end-->
 
+
+```sh
+export MINIO_ENDPOINT=$(kubectl -n minio get httpproxies.projectcontour.io minio -ojson  | jq '.spec.virtualhost.fqdn' -r) \
+    && export MINIO_ACCESS_KEY=$(vault kv get -field=accesskey secrets-tf/services/s3/users/admin) \
+    && export MINIO_SECRET_KEY=$(vault kv get -field=secretkey secrets-tf/services/s3/users/admin)
+```
+
 ## Links/Open Tasks
 
 * SSO Integration 

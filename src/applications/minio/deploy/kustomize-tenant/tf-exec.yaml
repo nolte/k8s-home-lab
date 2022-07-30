@@ -34,7 +34,7 @@ spec:
           repo: "https://github.com/nolte/argo-charts.git"
           revision: "{{inputs.parameters.revision}}"
     script:
-      image: alpine/terragrunt
+      image: alpine/terragrunt:1.2.3
       command: [bash]
       workingDir: "/src"
       source: |
