@@ -24,7 +24,7 @@ spec:
           value: argo-workflows-executer
         - name: argoworkflows.server.extraArgs[0]
           value: '--auth-mode=server'
-      values:
+      values: |-
         argoworkflows:
           controller:
             extraEnv:
