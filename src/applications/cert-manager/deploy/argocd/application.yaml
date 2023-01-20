@@ -31,4 +31,5 @@ spec:
     #targetRevision: master
     chart: cert-manager
     repoURL: 'https://charts.jetstack.io'
-    targetRevision: v1.9.1    
+    # https://artifacthub.io/packages/helm/cert-manager/cert-manager
+    targetRevision: v1.11.0
