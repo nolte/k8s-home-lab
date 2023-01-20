@@ -31,8 +31,8 @@ spec:
               - name: ARGO_EXECUTOR_PLUGINS
                 value: "true"
       releaseName: argo-workflows
-    path: src/applications/argo-workflows/deploy/chart
-    repoURL: https://github.com/nolte/argo-charts.git
+    path: charts/stable/argo-workflows/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: feature/2023-q1
     #chart: argo-workflows
     #repoURL: https://nolte.github.io/helm-charts-repo
