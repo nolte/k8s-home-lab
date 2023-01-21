@@ -34,12 +34,12 @@ spec:
               jsonPointers:
               - /spec/duration
             source:
-              chart: cert-manager-webhook-duckdns
-              repoURL: https://nolte.github.io/helm-charts-repo
-              targetRevision: 0.2.2
-              #path: src/applications/cert-manager-webhook-duckdns/deploy/chart
-              #repoURL: https://github.com/nolte/argo-charts.git
-              #targetRevision: master
+              # chart: cert-manager-webhook-duckdns
+              # repoURL: https://nolte.github.io/helm-charts-repo
+              # targetRevision: 0.2.2
+              path: charts/stable/cert-manager-webhook-duckdns/
+              repoURL: https://github.com/nolte/helm-charts-repo.git
+              targetRevision: feature/2023-q1
               helm:
                 releaseName: cert-manager-webhook-duckdns
                 parameters:
