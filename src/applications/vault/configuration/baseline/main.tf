@@ -85,12 +85,13 @@ resource "vault_kubernetes_auth_backend_role" "this" {
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "external-secrets"
   bound_service_account_names      = ["external-secrets", "tf-keycloak", "talend-vault-sidecar-injector"]
-  bound_service_account_namespaces = ["external-secrets","minio", "keycloak", "vault"]
+  bound_service_account_namespaces = ["external-secrets","minio", "keycloak", "vault","external-dns"]
   token_ttl                        = 3600
   token_policies = [
     "default",
     vault_policy.this.name,
-    vault_policy.minio_external_secrets.name
+    vault_policy.minio_external_secrets.name,
+    vault_policy.external_dns_external_secrets.name
   ]
   # audience                         = "vault"
 }
