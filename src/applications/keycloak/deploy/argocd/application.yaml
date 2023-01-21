@@ -8,9 +8,12 @@ spec:
     namespace: keycloak
   project: default
   source:
-    chart: keycloak
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 3.6.0    
+    # chart: keycloak
+    # repoURL: https://nolte.github.io/helm-charts-repo
+    # targetRevision: 3.6.0    
+    path: charts/stable/keycloak/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1      
     helm:
       values: |
         keycloak:
