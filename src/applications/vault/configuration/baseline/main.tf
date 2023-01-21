@@ -34,16 +34,17 @@ resource "vault_auth_backend" "kubernetes" {
   type = "kubernetes"
 }
 
-data "kubernetes_service_account" "vault" {
-  metadata {
-    name      = "vault"
-    namespace = "vault"
-  }
-}
+
+# data "kubernetes_service_account" "vault" {
+#   metadata {
+#     name      = "vault"
+#     namespace = "vault"
+#   }
+# }
 
 data "kubernetes_secret" "vault" {
   metadata {
-    name      = data.kubernetes_service_account.vault.default_secret_name
+    name      = "vault-k8s-auth-secret"
     namespace = "vault"
   }
 }
