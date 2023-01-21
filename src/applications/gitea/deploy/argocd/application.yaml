@@ -10,8 +10,11 @@ spec:
     namespace: gitea
   project: default
   source:
-    chart: gitea
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 1.2.7
+    # chart: gitea
+    # repoURL: https://nolte.github.io/helm-charts-repo
+    # targetRevision: 1.2.7
+    path: charts/stable/gitea/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1
     helm:
       releaseName: gitea
