@@ -91,7 +91,8 @@ resource "vault_kubernetes_auth_backend_role" "this" {
     "keycloak",
     "vault",
     "external-dns",
-    "cert-manager"
+    "cert-manager",
+    "gitea",
   ]
   token_ttl = 3600
   token_policies = [
@@ -100,6 +101,7 @@ resource "vault_kubernetes_auth_backend_role" "this" {
     vault_policy.minio_external_secrets.name,
     vault_policy.external_dns_external_secrets.name,
     vault_policy.cert_manager_external_secrets.name,
+    vault_policy.gitea_external_secrets.name,    
   ]
   # audience                         = "vault"
 }
