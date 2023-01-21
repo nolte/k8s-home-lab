@@ -51,3 +51,25 @@ resource "vault_generic_secret" "minio_console" {
 }
 EOT
 }
+
+data "vault_policy_document" "minio_external_secrets" {
+  rule {
+    path         = "secrets-tf/data/services/s3/users/console-admin"
+    capabilities = ["read"]
+    description  = "Read Generated Console Admin Informations"
+  }
+  rule {
+    path         = "secrets-tf/data/services/s3/users/admin"
+    capabilities = ["read"]
+    description  = "Read the Minio admin Informations"
+  }
+}
+
+
+
+resource "vault_policy" "minio_external_secrets" {
+  name   = "minio-external-secrets"
+  policy = data.vault_policy_document.minio_external_secrets.hcl
+}
+
+
