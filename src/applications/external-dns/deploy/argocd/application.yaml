@@ -10,9 +10,12 @@ spec:
     namespace: external-dns
   project: default
   source:
-    chart: external-dns
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.0
+    # chart: external-dns
+    # repoURL: https://nolte.github.io/helm-charts-repo
+    # targetRevision: 0.2.0
+    path: charts/stable/external-dns/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1      
     helm:
       releaseName: external-dns
       parameters:
