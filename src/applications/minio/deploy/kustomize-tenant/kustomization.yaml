@@ -16,6 +16,7 @@ resources:
   - ext-console-secret.yaml
   - ext-minio-creds.yaml
   - secret-store.yaml
+  - sa.yaml
 #  - ingress.yaml
   - tenant.yaml
   

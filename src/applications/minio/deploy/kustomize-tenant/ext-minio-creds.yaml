@@ -26,29 +26,4 @@ spec:
   - secretKey: CONSOLE_SECRET_KEY
     remoteRef:
       key: services/s3/users/console-admin
-      property: secretkey
-#     - key: secrets-tf/data/services/s3/users/console-admin
-#       name: CONSOLE_ACCESS_KEY
-#       property: accesskey
-#     - key: secrets-tf/data/services/s3/users/console-admin
-#       name: CONSOLE_SECRET_KEY
-#       property: secretkey    
-# apiVersion: kubernetes-client.io/v1
-# kind: ExternalSecret
-# metadata:
-#   name: console-secret
-# spec:
-#   backendType: vault
-#   data:
-#     - key: secrets-tf/data/services/s3/users/console-admin
-#       name: CONSOLE_PBKDF_PASSPHRASE
-#       property: passphrase
-#     - key: secrets-tf/data/services/s3/users/console-admin
-#       name: CONSOLE_PBKDF_SALT
-#       property: salt
-#     - key: secrets-tf/data/services/s3/users/console-admin
-#       name: CONSOLE_ACCESS_KEY
-#       property: accesskey
-#     - key: secrets-tf/data/services/s3/users/console-admin
-#       name: CONSOLE_SECRET_KEY
-#       property: secretkey            
+      property: secretkey  
