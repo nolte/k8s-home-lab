@@ -1,6 +1,5 @@
-argo-cd:
-  server:
-    additionalApplications:
+argocd-apps:
+  applications: 
       - additionalAnnotations:
           argocd.argoproj.io/sync-wave: '-90'
         additionalLabels: {}

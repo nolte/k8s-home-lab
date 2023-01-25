@@ -8,7 +8,7 @@ generatorOptions:
  disableNameSuffixHash: true
 
 patches:
-  - path: ../deployment-patch.yaml
+  - path: ../../kustomization-common/deployment-patch.yaml
     target:
       group: argoproj.io
       kind: Application
@@ -28,6 +28,12 @@ patchesJSON6902:
       value:
         name: vault.injector.enabled
         value: 'true'  
+- target:
+    group: argoproj.io
+    kind: Application
+    name: monitoring
+    version: v1alpha1
+  path: ../../kustomization-common/deployment-serverside-patch.yaml
 
 resources:
   - ../../../src/bundles/10-bootstrapping-utils

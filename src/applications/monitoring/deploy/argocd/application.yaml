@@ -14,7 +14,7 @@ spec:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 44.2.1
     helm:
-      skipCrds: true
+      # skipCrds: true
        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
       values: |
         grafana:
@@ -37,3 +37,6 @@ spec:
                 options:
                   path: /var/lib/grafana/dashboards/default          
       parameters: []
+  syncPolicy:
+    syncOptions:
+    - ServerSideApply=true

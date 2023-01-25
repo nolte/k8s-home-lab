@@ -7,6 +7,42 @@ httpProxy:
   tls:
     secretName: cert-manager/wildcard-duckdns-org-tls
 
+argocd-apps:
+  projects:
+    - clusterResourceWhitelist:
+        - group: '*'
+          kind: '*'
+      description: Baseline Relevant Projects
+      destinations:
+        - namespace: '*'
+          server: '*'
+      name: baseline
+      namespace: argocd
+      sourceRepos:
+        - '*'
+    - clusterResourceWhitelist:
+        - group: '*'
+          kind: '*'
+      description: CICD Seed Jobs
+      destinations:
+        - namespace: '*'
+          server: '*'
+      name: seed
+      namespace: argocd
+      sourceRepos:
+        - '*'
+    - clusterResourceWhitelist:
+        - group: '*'
+          kind: '*'
+      description: CICD Tools
+      destinations:
+        - namespace: '*'
+          server: '*'
+      name: cicd
+      namespace: argocd
+      sourceRepos:
+        - '*'
+
 argo-cd:
   kubeVersionOverride: 1.21.0
   # global:
@@ -41,40 +77,6 @@ argo-cd:
       - emptyDir: {}
         name: custom-tools
   server:
-    additionalProjects:
-      - clusterResourceWhitelist:
-          - group: '*'
-            kind: '*'
-        description: Baseline Relevant Projects
-        destinations:
-          - namespace: '*'
-            server: '*'
-        name: baseline
-        namespace: argocd
-        sourceRepos:
-          - '*'
-      - clusterResourceWhitelist:
-          - group: '*'
-            kind: '*'
-        description: CICD Seed Jobs
-        destinations:
-          - namespace: '*'
-            server: '*'
-        name: seed
-        namespace: argocd
-        sourceRepos:
-          - '*'
-      - clusterResourceWhitelist:
-          - group: '*'
-            kind: '*'
-        description: CICD Tools
-        destinations:
-          - namespace: '*'
-            server: '*'
-        name: cicd
-        namespace: argocd
-        sourceRepos:
-          - '*'
     config:
       accounts.seedmanager: apiKey
       helm.path.v3.6.0: /custom-tools/helm_3_6_0

@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - application.yaml
-  - application-crd.yaml
+  # - application-crd.yaml
