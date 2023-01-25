@@ -259,7 +259,7 @@ patchesJSON6902:
       - op: add
         path: /spec/source/helm/parameters/-
         value:
-          name:  externalSecret.enabled
+          name:  externalsecret.enabled
           value: "true"      
     target:
       group: argoproj.io
