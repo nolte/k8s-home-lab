@@ -1,0 +1,19 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: NamespaceConfig
+metadata:
+  name: workflow-settings
+spec:
+  labelSelector:
+    matchLabels:
+      de.noltarium.workflows/enabled: "true"
+  templates:
+  - objectTemplate: |  
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: tf-static-endpoints
+        namespace: {{ .Name }}  
+      data:
+        AWS_S3_ENDPOINT: http://minio.minio.svc
+        KEYCLOAK_URL: http://keycloak.keycloak.svc
+        VAULT_ADDR: http://vault.vault.svc:8200
