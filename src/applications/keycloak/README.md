@@ -9,7 +9,7 @@
 
 <!--port-forward-start-->
 ```sh
-kubectl -n keycloak port-forward svc/keycloak-http 8081:80
+kubectl -n keycloak port-forward svc/keycloak 8081:80
 ```
 <!--port-forward-end-->
 
