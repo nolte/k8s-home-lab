@@ -18,6 +18,9 @@ spec:
     targetRevision: feature/2023-q1      
     helm:
       values: |
+        argo-workflows-execution:
+          cmTfStaticEndpoints:
+            create: false      
         keycloak:
           service:
             type: ClusterIP
