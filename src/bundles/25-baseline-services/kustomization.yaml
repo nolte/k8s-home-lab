@@ -33,8 +33,8 @@ patchesJson6902:
 
 
 resources:
-#  - ../../../src/bundles/20-baseline-services
+  - ../../../src/bundles/20-baseline-services
   - ../../../src/applications/keycloak/deploy/argocd
-#  - ../../../src/applications/powerdns/deploy/argocd
-#  - ../../../src/applications/external-dns/deploy/argocd
-#  - ../../../src/applications/velero/deploy/argocd
+  - ../../../src/applications/powerdns/deploy/argocd
+  - ../../../src/applications/external-dns/deploy/argocd
+  - ../../../src/applications/velero/deploy/argocd
