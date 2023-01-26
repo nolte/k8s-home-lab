@@ -25,6 +25,7 @@ patchesJson6902:
 
 resources:
   - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/applications/namespace-configuration-operator/deploy/argocd
   - ../../../src/applications/stakater-forecastle/deploy/argocd
   - ../../../src/applications/stakater-reloader/deploy/argocd
   - ../../../src/applications/tf-operator/deploy/argocd

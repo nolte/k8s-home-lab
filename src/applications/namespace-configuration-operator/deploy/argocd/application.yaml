@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: namespace-configuration-operator
+spec:
+  destination:
+    name: in-cluster
+    namespace: operators
+  project: default
+  source:
+    chart: namespace-configuration-operator
+    repoURL: https://redhat-cop.github.io/namespace-configuration-operator
+    targetRevision: 1.2.4
+    helm:
+      releaseName: namespace-configuration-operator
+      values: |
+        enableCertManager: true
