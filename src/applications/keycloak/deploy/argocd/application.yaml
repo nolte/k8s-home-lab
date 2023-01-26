@@ -17,6 +17,8 @@ spec:
     helm:
       values: |
         keycloak:
+          service:
+            type: ClusterIP
           extraEnv: |
             - name: PROXY_ADDRESS_FORWARDING
               value: "true"
