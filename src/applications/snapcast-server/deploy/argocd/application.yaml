@@ -13,4 +13,4 @@ spec:
       parameters: []
       valueFiles: []
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.1.1
+    targetRevision: 0.3.1
