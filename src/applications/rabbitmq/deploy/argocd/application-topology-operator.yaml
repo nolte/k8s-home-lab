@@ -10,4 +10,4 @@ spec:
   source:
     path: src/applications/rabbitmq/deploy/kustomize/topology-operator
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    targetRevision: feature/audio-station

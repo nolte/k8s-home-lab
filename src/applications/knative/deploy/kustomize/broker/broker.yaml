@@ -4,12 +4,14 @@ kind: Broker
 metadata:
   annotations:
     eventing.knative.dev/broker.class: RabbitMQBroker
-  name: knative-starting
+  name: default #knative-starting
 spec:
   config:
     apiVersion: rabbitmq.com/v1beta1
     kind: RabbitmqCluster
     name: knative-starting
+    namespace: knative-eventing
+
   # Optional
   #delivery:
   #  deadLetterSink:

@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: '-70'
+  name: argo-workflow-global-steps
+spec:
+  destination:
+    name: in-cluster
+    namespace: argo
+  project: default
+  source:
+    path: src/applications/argo-workflow-global-steps/deploy/kustomize
+    repoURL: https://github.com/nolte/argo-charts.git
+    targetRevision: feature/audio-station

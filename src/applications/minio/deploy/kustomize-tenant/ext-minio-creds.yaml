@@ -1,19 +1,29 @@
-apiVersion: kubernetes-client.io/v1
+apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: console-secret
 spec:
-  backendType: vault
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: SecretStore
+  target:
+    name: console-secret
+    creationPolicy: Owner
   data:
-    - key: secrets-tf/data/services/s3/users/console-admin
-      name: CONSOLE_PBKDF_PASSPHRASE
+  - secretKey: CONSOLE_PBKDF_PASSPHRASE
+    remoteRef:
+      key: services/s3/users/console-admin
       property: passphrase
-    - key: secrets-tf/data/services/s3/users/console-admin
-      name: CONSOLE_PBKDF_SALT
+  - secretKey: CONSOLE_PBKDF_SALT
+    remoteRef:
+      key: services/s3/users/console-admin
       property: salt
-    - key: secrets-tf/data/services/s3/users/console-admin
-      name: CONSOLE_ACCESS_KEY
+  - secretKey: CONSOLE_ACCESS_KEY
+    remoteRef:
+      key: services/s3/users/console-admin
       property: accesskey
-    - key: secrets-tf/data/services/s3/users/console-admin
-      name: CONSOLE_SECRET_KEY
-      property: secretkey            
+  - secretKey: CONSOLE_SECRET_KEY
+    remoteRef:
+      key: services/s3/users/console-admin
+      property: secretkey  

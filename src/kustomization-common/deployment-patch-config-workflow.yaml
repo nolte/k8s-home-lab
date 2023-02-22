@@ -1,0 +1,5 @@
+- op: add
+  path: /spec/source/helm/parameters/-
+  value:             
+    name:  argo-workflows-execution.configurationWorkflows.post-install.source.revision
+    value: "feature/audio-station"

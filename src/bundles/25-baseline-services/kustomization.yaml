@@ -9,12 +9,27 @@ generatorOptions:
 
 
 patches:
-  - path: deployment-patch.yaml
+  - path: ../../kustomization-common/deployment-patch.yaml
     target:
       group: argoproj.io
       kind: Application
       name: .*
       version: v1alpha1
+  - target:
+      kind: Application
+      labelSelector: de.noltarium.workflows/enabled=true
+    path: ../../kustomization-common/app-namespace-workflow-support-patch.yaml
+
+
+patchesJson6902:
+- target:
+    group: argoproj.io
+    kind: Application
+    name: monitoring
+    version: v1alpha1
+  path: ../../kustomization-common/deployment-serverside-patch.yaml
+
+
 
 
 resources:

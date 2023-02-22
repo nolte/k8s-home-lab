@@ -1,0 +1,47 @@
+
+workflow:
+  enabled: true
+
+argo-workflows-execution:
+  cmTfStaticEndpoints:
+    create: true
+
+  role:
+    tfState:
+      create: false
+      name: argo-workflows-execution
+    type: ClusterRole
+    vaultInjector:
+      create: false
+      name: argo-workflows-execution
+  roleBinding:
+    tfState:
+      create: true
+    type: Role
+    vaultInjector:
+      create: true
+  serviceAccount:
+    create: true
+
+argocd-apps:
+  applications:
+      - additionalAnnotations:
+          argocd.argoproj.io/sync-wave: '-100'
+          de.noltarium.bootstrapping/steps: 0
+        additionalLabels: {}
+        destination:
+          namespace: argocd
+          server: https://kubernetes.default.svc
+        name: workflows
+        namespace: argocd
+        project: cicd
+        source:
+          path: src/bundles/bootstrapping-stack
+          repoURL: https://github.com/nolte/argo-charts.git
+          targetRevision: feature/audio-station
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true        

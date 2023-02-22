@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: upmpdcli
+spec:
+  destination:
+    name: in-cluster
+    namespace: audio-station
+  project: default
+  source:
+    path: charts/stable/upmpdcli
+    chart: upmpdcli
+    repoURL: https://nolte.github.io/helm-charts-repo
+    targetRevision: 0.1.0
+    helm:
+      parameters: []

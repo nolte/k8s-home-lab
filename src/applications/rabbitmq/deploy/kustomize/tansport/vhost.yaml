@@ -1,0 +1,8 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Vhost
+metadata:
+  name: first-draft-vhost
+spec:
+  name: first-draft-vhost # vhost name
+  rabbitmqClusterReference:
+    name: transport

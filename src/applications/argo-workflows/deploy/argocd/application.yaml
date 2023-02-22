@@ -2,6 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-workflows
+  annotations:
+    argocd.argoproj.io/sync-wave: "-80"
 spec:
   destination:
     name: in-cluster
@@ -12,8 +14,8 @@ spec:
       parameters:
         - name: argoworkflows.fullnameOverride
           value: argo-workflows
-        - name: argoworkflows.controller.containerRuntimeExecutor
-          value: k8sapi
+        #- name: argoworkflows.controller.containerRuntimeExecutor
+        #  value: k8sapi
         - name: argoworkflows.controller.workflowNamespaces[0]
           value: argo
         - name: argoworkflows.server.clusterWorkflowTemplates.enabled
@@ -22,10 +24,16 @@ spec:
           value: argo-workflows-executer
         - name: argoworkflows.server.extraArgs[0]
           value: '--auth-mode=server'
+      values: |-
+        argoworkflows:
+          controller:
+            extraEnv:
+              - name: ARGO_EXECUTOR_PLUGINS
+                value: "true"
       releaseName: argo-workflows
-    #path: src/applications/argo-workflows/deploy/chart
-    #repoURL: https://github.com/nolte/argo-charts.git
-    #targetRevision: master
-    chart: argo-workflows
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.13.1
+    path: charts/stable/argo-workflows/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1
+    #chart: argo-workflows
+    #repoURL: https://nolte.github.io/helm-charts-repo
+    #targetRevision: 0.14.1

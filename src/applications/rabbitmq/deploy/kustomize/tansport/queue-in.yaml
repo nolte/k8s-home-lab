@@ -1,0 +1,39 @@
+# https://github.com/rabbitmq/messaging-topology-operator/blob/main/docs/examples/queues/quorum-queue.yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: direct
+spec:
+  name: direct-exchange # name of the exchange
+  vhost: "first-draft-vhost" # default to '/' if not provided
+  type: direct
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: transport
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: binding
+spec:
+  vhost: "first-draft-vhost" # default to '/' if not provided
+  source: direct-exchange # an existing exchange
+  destination: in.testing.example # an existing queue or exchange
+  destinationType: queue # can be 'queue' or 'exchange'
+  rabbitmqClusterReference:
+    name: transport
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: in-testing-example
+spec:
+  name: in.testing.example # name of the queue
+  vhost: "first-draft-vhost" # default to '/' if not provided
+  #type: quorum # without providing a queue type, rabbitmq creates a classic queue
+  #autoDelete: false
+  #durable: true # seting 'durable' to false means this queue won't survive a server restart
+  rabbitmqClusterReference:
+    name: transport

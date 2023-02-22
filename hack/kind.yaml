@@ -17,3 +17,16 @@ nodes:
   - containerPort: 443
     hostPort: 443
     listenAddress: "0.0.0.0"
+  # audio station ports    
+  - containerPort: 30704
+    hostPort: 30704
+  - containerPort: 30705
+    hostPort: 30705
+
+
+  - containerPort: 36600
+    hostPort: 36600
+  - containerPort: 30900
+    hostPort: 30900
+  - containerPort: 30152
+    hostPort: 30152

@@ -4,6 +4,6 @@
 */
 
 inputs = {
-  keycloak = "3.4.0"
-  minio = ">= 1.2.0"
+  keycloak = "4.1.0"
+  minio = "1.10.0"
 }

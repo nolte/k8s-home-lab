@@ -1,13 +1,5 @@
 # Keycloak
 
-
-![](https://img.shields.io/github/release/nolte/ansible-role-msopenjdk.svg)](https://github.com/nolte/ansible-role-msopenjdk)
-
-!!! note "Initial Deployment"
-    At the moment you must create the Initial user by use `kubectl port-forward` and the Ui :material-emoticon-cry-outline:
-
-
-
 *Namespace:* `keycloak`  
 *Configuration:* `./src/applications/keycloak/configuration/baseline`  
 
@@ -15,24 +7,29 @@
 
 ## Usefull Commands
 
-??? example "Start port foward"
-    
-    ```sh
-    kubectl -n keycloak port-forward svc/keycloak-http 8081:80
-    ```
-    
-    open [localhost:8081](http://localhost:8081)
+<!--port-forward-start-->
+```sh
+kubectl -n keycloak port-forward svc/keycloak 8081:80
+```
+<!--port-forward-end-->
 
-??? example "Access"
+open [localhost:8081](http://localhost:8081)
 
 
-??? example "Base Config Job"
-    
-    ```sh
-    argo -n keycloak get post-sync-keycloak 
-    ```
+<!--keycloak-tf-env-vars-port-forward-start-->
+```sh
+export KEYCLOAK_URL=http://localhost:8081 \
+    && export KEYCLOAK_USER=$(vault kv get -field=username secrets-tf/services/IdentityAccessManagement/users/admin) \
+    && export KEYCLOAK_PASSWORD=$(vault kv get -field=password secrets-tf/services/IdentityAccessManagement/users/admin)
+```
+<!--keycloak-tf-env-vars-port-forward-end-->
 
-    open [Workflow](http://localhost:2746/workflows/keycloak/post-sync-keycloak?tab=workflow)
+
+```sh
+argo -n keycloak get post-sync-keycloak 
+```
+
+open [Workflow](http://localhost:2746/workflows/keycloak/post-sync-keycloak?tab=workflow)
 
 
 <!--keycloak-links-start-->

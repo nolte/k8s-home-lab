@@ -2,18 +2,28 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: keycloak
+  labels:
+    de.noltarium.workflows/enabled: "true"
 spec:
   destination:
     name: in-cluster
     namespace: keycloak
   project: default
   source:
-    chart: keycloak
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 3.6.0    
+    # chart: keycloak
+    # repoURL: https://nolte.github.io/helm-charts-repo
+    # targetRevision: 3.6.0    
+    path: charts/stable/keycloak/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1      
     helm:
       values: |
+        argo-workflows-execution:
+          cmTfStaticEndpoints:
+            create: false      
         keycloak:
+          service:
+            type: ClusterIP
           extraEnv: |
             - name: PROXY_ADDRESS_FORWARDING
               value: "true"

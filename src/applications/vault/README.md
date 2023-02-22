@@ -80,7 +80,13 @@ pass insert -m -f \
 ```sh
 kubectl exec \
   -n vault \
-  -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[0]' -r)
+  -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[0]' -r) \
+  && kubectl exec \
+    -n vault \
+    -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[1]' -r) \
+  && kubectl exec \
+    -n vault \
+    -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[2]' -r)
 ```
 
 ```sh
@@ -112,6 +118,14 @@ export VAULT_ADDR=https://$(kubectl -n vault get httpproxies.projectcontour.io v
     && vault login token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
 ```
 <!--env-vars-end-->
+
+
+<!--login-port-forward-start-->
+```sh
+export VAULT_ADDR=http://localhost:8200 \
+    && vault login token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
+```
+<!--login-port-forward-end-->
 
 ## Links
 

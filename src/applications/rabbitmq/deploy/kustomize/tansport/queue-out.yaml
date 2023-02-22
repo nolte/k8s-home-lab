@@ -1,0 +1,14 @@
+# https://github.com/rabbitmq/messaging-topology-operator/blob/main/docs/examples/queues/quorum-queue.yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: out-testing-example
+spec:
+  name: out.testing.example # name of the queue
+  vhost: "first-draft-vhost" # default to '/' if not provided
+  #type: quorum # without providing a queue type, rabbitmq creates a classic queue
+  #autoDelete: false
+  #durable: true # seting 'durable' to false means this queue won't survive a server restart
+  rabbitmqClusterReference:
+    name: transport

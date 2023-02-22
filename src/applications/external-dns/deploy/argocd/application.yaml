@@ -10,6 +10,24 @@ spec:
     namespace: external-dns
   project: default
   source:
-    path: src/applications/external-dns/deploy/kustomize
-    repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    # chart: external-dns
+    # repoURL: https://nolte.github.io/helm-charts-repo
+    # targetRevision: 0.2.0
+    path: charts/stable/external-dns/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1      
+    helm:
+      releaseName: external-dns
+      parameters:
+        - name: externalsecrets.enabled
+          value: "true"
+      values: |
+        externaldns:
+          txtOwnerId: "play-external-dns"
+          domainFilters:
+            - "dev44-just-homestyle.duckdns.org"
+            - "smart-home.k8sservices.local"
+          sources:
+            - contour-httpproxy
+            - ingress
+            - service

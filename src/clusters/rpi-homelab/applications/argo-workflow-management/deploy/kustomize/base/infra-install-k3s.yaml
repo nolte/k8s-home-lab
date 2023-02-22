@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: infra-install-k3s
+spec:
+  arguments:
+    parameters:
+      - default: develop
+        name: inventory-revision
+      - default: local
+        name: inventory-path
+      - default: git@github.com:nolte/ansible-inventories.git
+        name: inventory-repo
+  entrypoint: exec
+  templates:
+    - name: exec
+      steps:
+        - - arguments:
+              parameters:
+                - name: inventory-path
+                  value: '{{workflow.parameters.inventory-path}}'
+                - name: inventory-repo
+                  value: '{{workflow.parameters.inventory-repo}}'
+                - name: inventory-revision
+                  value: '{{workflow.parameters.inventory-revision}}'
+                - name: playbook
+                  value: master-configure-system.yml
+                - name: playbook-repo
+                  value: https://github.com/nolte/ansible_playbook-baseline-online-server.git
+                - name: playbook-revision
+                  value: v1.0.5
+                - name: playbook-dir
+                  value: ansible
+            name: install-baseline
+            templateRef:
+              clusterScope: true
+              name: script-ansible
+              template: exec
+        - - arguments:
+              parameters:
+                - name: inventory-path
+                  value: '{{workflow.parameters.inventory-path}}'
+                - name: inventory-repo
+                  value: '{{workflow.parameters.inventory-repo}}'
+                - name: inventory-revision
+                  value: '{{workflow.parameters.inventory-revision}}'
+                - name: playbook
+                  value: playbook-install-k3s.yaml
+                - name: playbook-repo
+                  value: https://github.com/nolte/ansible_playbook-baseline-k3s.git
+                - name: playbook-revision
+                  value: v0.0.2
+                - name: playbook-requirements-file
+                  value: roles/requirements.yml
+            name: install-k3s
+            templateRef:
+              clusterScope: true
+              name: script-ansible
+              template: exec

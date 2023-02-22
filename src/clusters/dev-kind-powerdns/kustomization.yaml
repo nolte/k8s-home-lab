@@ -10,6 +10,8 @@ generatorOptions:
   disableNameSuffixHash: true
 
 
+
+
 patchesJSON6902:
 
   - patch: |-
@@ -74,15 +76,15 @@ patchesJSON6902:
       version: v1alpha1
 
 
-  - patch: |-
-      - op: replace
-        path: /spec/source/path
-        value: src/applications/argo-workflow-templates/deploy/kustomize-boostrapped
-    target:
-      group: argoproj.io
-      kind: Application
-      name: argo-workflow-templates
-      version: v1alpha1
+#  - patch: |-
+#      - op: replace
+#        path: /spec/source/path
+#        value: src/applications/argo-workflow-templates/deploy/kustomize-boostrapped
+#    target:
+#      group: argoproj.io
+#      kind: Application
+#      name: argo-workflow-templates
+#      version: v1alpha1
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -178,11 +180,18 @@ patchesJSON6902:
         value:             
           name:  httpProxy.fqdn
           value: keycloak.dev44-just-homestyle.duckdns.org
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:             
+          name:  argo-workflows-execution.configurationWorkflows.post-install.source.revision
+          value: feature/audio-station
+
     target:
       group: argoproj.io
       kind: Application
       name: keycloak
       version: v1alpha1
+
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -220,7 +229,7 @@ patchesJSON6902:
       - op: add
         path: /spec/source/helm/parameters/-
         value:
-          name:  externalSecret.create
+          name:  externalsecrets.enabled
           value: "true"
       - op: add
         path: /spec/source/helm/parameters/-
@@ -243,8 +252,30 @@ patchesJSON6902:
       name: gitea
       version: v1alpha1
 
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  externalsecrets.enabled
+          value: "true"      
+    target:
+      group: argoproj.io
+      kind: Application
+      name: external-dns
+      version: v1alpha1
+
+
+patches:
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: powerdns
+      version: v1alpha1
 
 resources:
   - ../../../src/bundles/25-baseline-services
-  - ../../../src/bundles/smart-home
   - ../../../src/bundles/devops-services

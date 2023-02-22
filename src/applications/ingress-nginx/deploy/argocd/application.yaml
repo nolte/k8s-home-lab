@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+spec:
+  destination:
+    name: in-cluster
+    namespace: kube-system
+  project: default
+  source:
+    helm:
+      parameters: []
+      valueFiles: []     
+      releaseName: ingress-nginx
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.0.18
+    # https://github.com/bitnami/charts/blob/master/bitnami/metallb/values.yaml

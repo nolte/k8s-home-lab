@@ -28,6 +28,4 @@ resources:
   - seed-job-get.yaml
   - seed-job-patch.yaml
   - seed-job-wait.yaml
-  - role.yaml
-  - roleBinding.yaml
   - flow-start-install.yaml

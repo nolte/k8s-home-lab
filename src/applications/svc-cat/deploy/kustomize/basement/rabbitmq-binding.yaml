@@ -1,0 +1,8 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: rabbitmq-operator-binding
+  namespace: rabbitmq-system
+spec:
+  instanceRef:
+    name: rabbitmq-operator-instance

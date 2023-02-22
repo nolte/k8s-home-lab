@@ -2,8 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: monitoring
-  #annotations:
-  #  argocd.argoproj.io/sync-wave: "-88"  
+  annotations:
+    argocd.argoproj.io/sync-wave: "-50" 
 spec:
   destination:
     name: in-cluster
@@ -12,8 +12,9 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 35.4.2
+    targetRevision: 44.2.1
     helm:
+      # skipCrds: true
        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
       values: |
         grafana:
@@ -36,3 +37,6 @@ spec:
                 options:
                   path: /var/lib/grafana/dashboards/default          
       parameters: []
+  syncPolicy:
+    syncOptions:
+    - ServerSideApply=true

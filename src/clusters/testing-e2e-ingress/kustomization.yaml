@@ -9,6 +9,13 @@ commonLabels:
 generatorOptions:
   disableNameSuffixHash: true
 
+patches:
+  - path: deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
 
 resources:
   - ../../../src/applications/project-contour/deploy/argocd

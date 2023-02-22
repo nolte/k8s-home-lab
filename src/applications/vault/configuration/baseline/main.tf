@@ -34,16 +34,17 @@ resource "vault_auth_backend" "kubernetes" {
   type = "kubernetes"
 }
 
-data "kubernetes_service_account" "vault" {
-  metadata {
-    name      = "vault"
-    namespace = "vault"
-  }
-}
+
+# data "kubernetes_service_account" "vault" {
+#   metadata {
+#     name      = "vault"
+#     namespace = "vault"
+#   }
+# }
 
 data "kubernetes_secret" "vault" {
   metadata {
-    name      = data.kubernetes_service_account.vault.default_secret_name
+    name      = "vault-k8s-auth-secret"
     namespace = "vault"
   }
 }
@@ -81,12 +82,27 @@ resource "vault_kubernetes_auth_backend_config" "this" {
 }
 
 resource "vault_kubernetes_auth_backend_role" "this" {
-  backend                          = vault_auth_backend.kubernetes.path
-  role_name                        = "external-secrets"
-  bound_service_account_names      = ["external-secrets", "tf-keycloak", "talend-vault-sidecar-injector"]
-  bound_service_account_namespaces = ["external-secrets", "keycloak", "vault"]
-  token_ttl                        = 3600
-  token_policies                   = ["default", vault_policy.this.name]
+  backend                     = vault_auth_backend.kubernetes.path
+  role_name                   = "external-secrets"
+  bound_service_account_names = ["external-secrets", "tf-keycloak", "talend-vault-sidecar-injector"]
+  bound_service_account_namespaces = [
+    "external-secrets",
+    "minio",
+    "keycloak",
+    "vault",
+    "external-dns",
+    "cert-manager",
+    "gitea",
+  ]
+  token_ttl = 3600
+  token_policies = [
+    "default",
+    vault_policy.this.name,
+    vault_policy.minio_external_secrets.name,
+    vault_policy.external_dns_external_secrets.name,
+    vault_policy.cert_manager_external_secrets.name,
+    vault_policy.gitea_external_secrets.name,    
+  ]
   # audience                         = "vault"
 }
 

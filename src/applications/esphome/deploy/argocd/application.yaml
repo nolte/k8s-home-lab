@@ -16,5 +16,12 @@ spec:
     helm:
       releaseName: esphome
       parameters:
-        - name: ingress.main.enabled
-          value: "false"
+        - name: esphome.initContainers.gitsync.env[1].value
+          value: "git@github.com:nolte/esphome-configs.git"
+      valueFiles:
+        - values-gitsync.yaml
+      values: |
+        esphome:
+          envFrom:
+            - secretRef:
+                name: esphome-config

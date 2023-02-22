@@ -1,6 +1,6 @@
-argo-cd:
-  server:
-    additionalApplications:
+argocd-apps:
+  applications: 
+
       - additionalAnnotations:
           argocd.argoproj.io/sync-wave: '-100'
           de.noltarium.bootstrapping/steps: 0

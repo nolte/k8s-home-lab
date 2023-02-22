@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+resources:
+  - base
+  - ./applications/argo-workflow-management/deploy/argocd
+  - ../../applications/cert-manager-webhook-duckdns/deploy/argocd-workflow
+  - ../../applications/cert-wildcard/deploy/argocd

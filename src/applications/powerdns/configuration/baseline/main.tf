@@ -11,6 +11,12 @@ resource "powerdns_zone" "this" {
   kind = "Native"
 }
 
+resource "powerdns_zone" "duckdns_local" {
+  name = "dev44-just-homestyle.duckdns.org."
+  kind = "Native"
+}
+
+
 #resource "powerdns_record" "foobar" {
 #  zone    = "example.com."
 #  name    = "www.example.com."

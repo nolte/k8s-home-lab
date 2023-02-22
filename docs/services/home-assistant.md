@@ -1,34 +1,55 @@
 # Home Assistant
 
+{%
+   include-markdown "../../src/applications/home-assistant/README.md"
+   start="<!--description-start-->"
+   end="<!--description-end-->"
+%}
+
+---
+
+{%
+   include-markdown "../../src/applications/home-assistant/README.md"
+   start="<!--header-start-->"
+   end="<!--header-end-->"
+%}
+
+---
+
+
 https://github.com/CausticLab/hass-configurator-docker
 https://github.com/danielperna84/hass-configurator
 
 
 Set Git Key for Clone Conf repo.
 
-```sh
-vault kv put \
-  secrets-tf/third-party-services/github.com/deploymentkey/home-assistant \
-  id_rsa="$(pass internet/project/homeassistant/deploymentkey/id_rsa)" \
-  id_rsa.pub="$(pass internet/project/homeassistant/deploymentkey/id_rsa.pub)" \
-  known_hosts="$(ssh-keyscan -H github.com )"
 
-vault kv put \
-  secrets-tf/third-party-services/openweathermap.org/projects/home-assistant \
-  token="$(pass network/homeassistant/openweather/apikey)" 
+??? example "Environment variable"
 
-vault kv put \
-  secrets-tf/third-party-services/github.com/apitoken/home-assistant \
-  token="$(pass internet/github.com/nolte/servics/home-assistant/token)" 
+    ??? example "Classic Secret"
+        
+        Required Vars and Login
+        {%
+            include-markdown "../../src/applications/home-assistant/README.md"
+            start="<!--secret-git-creds-start-->"
+            end="<!--secret-git-creds-end-->"
+        %}
 
-vault kv put \
-  secrets-tf/services/router-fritz-box/users/admin \
-  username="$(pass network/homeassistant/fritzbox/user)" \
-  password="$(pass network/homeassistant/fritzbox/password)" \
-  endpoint="$(pass network/homeassistant/fritzbox/endpoint)"
+        {%
+            include-markdown "../../src/applications/home-assistant/README.md"
+            start="<!--secret-home-assistant-creds-start-->"
+            end="<!--secret-home-assistant-creds-end-->"
+        %}
 
-vault kv put \
-  secrets-tf/third-party-services/google.com/projects/home-assistant \
-  client_id="$(pass internet/google.com/projects/home-assistant-274616/client_id)" \
-  client_secret="$(pass internet/google.com/projects/home-assistant-274616/client_secret)" 
-```
+    ??? example "Vault Access"
+        
+        Required Vars and Login
+        {%
+            include-markdown "../../src/applications/home-assistant/README.md"
+            start="<!--vault-secrets-start-->"
+            end="<!--vault-secrets-end-->"
+        %}
+
+
+## Access 
+

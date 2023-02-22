@@ -11,7 +11,7 @@ generatorOptions:
 
 
 patches:
-  - path: deployment-patch.yaml
+  - path: ../../kustomization-common/deployment-patch.yaml
     target:
       group: argoproj.io
       kind: Application

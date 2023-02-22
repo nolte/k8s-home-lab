@@ -2,8 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: home-assistant
-  #annotations:
-  #  argocd.argoproj.io/sync-wave: "-33"  
 spec:
   destination:
     name: in-cluster
@@ -15,69 +13,6 @@ spec:
     targetRevision: 2.4.0    
     helm:
       releaseName: home-assistant
-      parameters:
-        - name: homeassistant.ingress.main.enabled
-          value: "false"
-  
-      values: |-
-        homeassistant:
-          global:
-            fullnameOverride: home-assistant      
-          initContainers:
-            gitsync:
-              args:
-              - set -e; if [ -d "/config/.git" ]; then git -C "/config" pull || true; else if
-                [ "$(ls -A /config)" ]; then git clone --branch ${GIT_BRANCH} --depth 2 "${GIT_REPO}"
-                /tmp/repo; cp -rf /tmp/repo/.git "/config"; cd "/config"; git checkout -f; else
-                git clone --branch ${GIT_BRANCH} --depth 2 "${GIT_REPO}" "/config";
-                fi; fi; if [ -f "/root/.ssh/git-crypt-key" ]; then cd /config; git-crypt unlock
-                "/root/.ssh/git-crypt-key"; fi;
-              env:
-                - name: "GIT_BRANCH"
-                  value: "feature/minimized-config"
-                - name: "GIT_REPO"
-                  value: "git@github.com:nolte/home-assistant-config.git"                  
-              command:
-              - /bin/sh
-              - -c
-              image: k8sathome/git-crypt:2020.11.15
-              imagePullPolicy: IfNotPresent
-              name: git-sync
-              volumeMounts:
-              - mountPath: /config
-                name: config
-              - mountPath: /root/.ssh
-                name: gitsecret
-
-          additionalContainers:    
-            hassConfigurator:
-              image: causticlab/hass-configurator-docker:latest
-              name: hass-configurator
-              volumeMounts:
-                - mountPath: /hass-config
-                  name: config
-                - mountPath: /root/.ssh
-                  name: gitsecret
-          resources:
-            limits:
-              cpu: 2
-              memory: 2048Mi
-            requests:
-              cpu: 1
-              memory: 1024Mi
-
-          persistence:
-            gitsecret:
-              enabled: true
-              mountPath: /root/.ssh
-              type: custom
-              volumeSpec:
-                secret:
-                  defaultMode: 256
-                  optional: true
-                  secretName: git-creds
-
-            config:
-              enabled: true
-              mountPath: /config      
-         
+      parameters: []
+      valueFiles:
+      - values-gitsync.yaml

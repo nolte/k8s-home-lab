@@ -20,3 +20,4 @@ hack/packer/builds/*.box
 *.tfvars.json
 .terragrunt-cache
 *.tfstate
+.vscode

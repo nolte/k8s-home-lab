@@ -8,28 +8,24 @@ generatorOptions:
  disableNameSuffixHash: true
 
 patches:
-  - path: deployment-patch.yaml
+  - path: ../../kustomization-common/deployment-patch.yaml
     target:
       group: argoproj.io
       kind: Application
       name: .*
       version: v1alpha1
 
+patchesJson6902:
+- target:
+    group: argoproj.io
+    kind: Application
+    name: monitoring
+    version: v1alpha1
+  path: ../../kustomization-common/deployment-serverside-patch.yaml
 
-#patchesJSON6902:
-#- target:
-#      group: argoproj.io
-#      kind: Application
-#      version: v1alpha1
-#      name: argocd
-#  patch: |-
-#    - op: add
-#      path: /spec/source/helm/parameters
-#      value:
-#        - name: "argo-cd.server.additionalApplications[0].source.path"
-#          value: "src/bundles/10-bootstrapping-utils"
 resources:
   - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/applications/namespace-configuration-operator/deploy/argocd
   - ../../../src/applications/stakater-forecastle/deploy/argocd
   - ../../../src/applications/stakater-reloader/deploy/argocd
   - ../../../src/applications/tf-operator/deploy/argocd

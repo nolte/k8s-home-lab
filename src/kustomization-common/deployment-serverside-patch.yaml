@@ -1,0 +1,3 @@
+- op: add
+  path: /spec/syncPolicy/syncOptions/-
+  value: ServerSideApply=true

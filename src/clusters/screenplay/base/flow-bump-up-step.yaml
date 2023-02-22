@@ -43,20 +43,20 @@ spec:
                 - name: argoJobSourcesPath
                   value: '{{steps.get-path.outputs.parameters.bootstrapStepNextPath}}'
             name: patch
-            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: seed-job-patch
               template: exec
 #
         - - name: get-seed-job-wait-patched
-            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: seed-job-wait
               template: exec
 
 
         - - name: get-seed-job-sub-synced-after-patch
-            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: seed-job-wait
               template: exec
@@ -68,7 +68,7 @@ spec:
 
 
         - - name: self-retry
-            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null\n'"
+            when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: flow-bump-up-step
               template: exec

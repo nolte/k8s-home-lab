@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: ansible
+spec:
+  entrypoint: exec
+  templates:
+    - inputs:
+        artifacts:
+          - git:
+              repo: '{{inputs.parameters.inventory-repo}}'
+              revision: '{{inputs.parameters.inventory-revision}}'
+              sshPrivateKeySecret:
+                key: id_rsa
+                name: git-creds-inventory
+            name: inventory-source
+            path: /src/inventory
+          - git:
+              repo: '{{inputs.parameters.playbook-repo}}'
+              revision: '{{inputs.parameters.playbook-revision}}'
+            name: playbook-source
+            path: /src/playbook
+        parameters:
+          - default: git@github.com:nolte/ansible-inventories.git
+            name: inventory-repo
+          - default: master
+            name: inventory-revision
+          - default: local
+            name: inventory-path
+          - name: playbook-repo
+          - default: master
+            name: playbook-revision
+          - name: playbook
+          - default: /src/playbook
+            name: playbook-dir
+          - default: ansible/roles/requirements.yml
+            name: playbook-requirements-file
+      name: exec
+      script:
+        command:
+          - bash
+        env:
+          - name: ANSIBLE_INVENTORY
+            value: /src/inventory/{{inputs.parameters.inventory-path}}
+          - name: ANSIBLE_HOST_KEY_CHECKING
+            value: 'false'
+          - name: ANSIBLE_PRIVATE_KEY_FILE
+            value: /etc/ssh-key/id_rsa
+        image: quay.io/ansible/ansible-runner:stable-2.12-latest
+        source: |
+          cd /src/playbook
+
+          FILE=/src/playbook/{{inputs.parameters.playbook-requirements-file}}
+          if [ -f "$FILE" ]; then
+              ansible-galaxy install -r $FILE
+          fi
+
+          ansible-runner run {{inputs.parameters.playbook-dir}} --playbook {{inputs.parameters.playbook}}
+        volumeMounts:
+          - mountPath: /etc/ssh-key
+            name: ssh-key-volume
+      volumes:
+        - name: ssh-key-volume
+          secret:
+            defaultMode: 256
+            secretName: ansible-ssh

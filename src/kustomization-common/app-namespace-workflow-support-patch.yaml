@@ -1,0 +1,5 @@
+- op: add
+  path: /spec/syncPolicy/managedNamespaceMetadata
+  value:
+    labels:
+      de.noltarium.workflows/enabled: "true"

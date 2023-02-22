@@ -9,11 +9,10 @@ spec:
   project: cicd
   source:
     helm:
-      parameters:
-        - name: dummy
-          value: fo
+      parameters: []
       valueFiles:
         - values.yaml
+        - values-workflow-support.yaml
     path: src/applications/argo-cd/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master
+    targetRevision: feature/audio-station

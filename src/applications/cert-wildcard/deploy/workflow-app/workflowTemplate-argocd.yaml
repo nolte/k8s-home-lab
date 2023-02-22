@@ -6,22 +6,50 @@ spec:
   entrypoint: exec
   templates:
     - name: exec
+      inputs:
+        parameters:
+          - name: name-prefix
+            default: ""
+          - name: destination-name
+            default: in-cluster
+          - name: cert-wildcard-dns-name
+            default: "dev44-just-homestyle.duckdns.org"
+          - name: helm-values-filename
+            default: "values-reflector.yaml"
+        
       resource:
         action: apply
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Application
           metadata:
-            name: cert-wildcard
+            name: {{inputs.parameters.name-prefix}}cert-wildcard
           spec:
             destination:
-              name: in-cluster
+              name: {{inputs.parameters.destination-name}}
               namespace: cert-manager
             project: default
             source:
               chart: cert-wildcard
               repoURL: https://nolte.github.io/helm-charts-repo
-              targetRevision: 0.1.0
+              targetRevision: 0.3.0
               helm:
                 releaseName: cert-wildcard
-                
+                valueFiles:
+                  - {{inputs.parameters.helm-values-filename}}
+                parameters:
+                  - name: dnsName
+                    value: "{{inputs.parameters.cert-wildcard-dns-name}}"
+            syncPolicy:
+              automated:
+                prune: true
+                selfHeal: true
+              retry:
+                backoff:
+                  duration: 10m
+                  factor: 1
+                  maxDuration: 20m
+                limit: 15
+              syncOptions:
+              - CreateNamespace=true
+              - ApplyOutOfSyncOnly=true

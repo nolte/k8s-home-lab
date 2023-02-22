@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: operators
 
 resources:
-  - https://github.com/knative/serving/releases/download/knative-v1.0.0/serving-crds.yaml
-  - https://github.com/knative/operator/releases/latest/download/operator.yaml
+  - https://github.com/knative/operator/releases/download/knative-v1.0.0/operator.yaml
+  #- https://github.com/knative/serving/releases/download/knative-v1.0.0/serving-crds.yaml
+  #- https://github.com/knative/operator/releases/latest/download/operator.yaml

@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  #annotations:
-  #  argocd.argoproj.io/sync-wave: '-77'
   name: metallb
 spec:
   destination:
     name: in-cluster
-    namespace: metallb
+    namespace: metallb-system
   project: default
   source:
     helm:
+      parameters: []
+      valueFiles: []     
       releaseName: metallb
     chart: metallb
-    repository: https://charts.bitnami.com/bitnami
-    version: 2.5.10
+    repoURL: https://metallb.github.io/metallb
+    targetRevision: 0.12.1
     # https://github.com/bitnami/charts/blob/master/bitnami/metallb/values.yaml
