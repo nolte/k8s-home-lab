@@ -184,7 +184,7 @@ patchesJSON6902:
         path: /spec/source/helm/parameters/-
         value:             
           name:  argo-workflows-execution.configurationWorkflows.post-install.source.revision
-          value: feature/audio-station
+          value: master
 
     target:
       group: argoproj.io

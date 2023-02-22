@@ -14,7 +14,7 @@
       -p argocd-destination-namespace=argocd \
       -p argocd-source-path="src/clusters/screenplay/dev-kind-powerdns" \
       -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
-      -p argocd-source-targetRevision="feature/audio-station"
+      -p argocd-source-targetRevision="master"
     ```
     
     ```sh
@@ -25,7 +25,7 @@
       -p argocd-destination-namespace=argocd \
       -p argocd-source-path="src/bundles/00-bootstrapping-minimal" \
       -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
-      -p argocd-source-targetRevision="feature/audio-station"
+      -p argocd-source-targetRevision="master"
     ```
 
 

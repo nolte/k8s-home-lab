@@ -10,4 +10,4 @@ spec:
   source:
     path: src/clusters/rpi-homelab/applications/argo-workflow-management/deploy/kustomize
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/audio-station
+    targetRevision: master

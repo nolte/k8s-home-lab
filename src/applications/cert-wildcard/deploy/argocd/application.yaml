@@ -12,5 +12,5 @@ spec:
   source:
     path: src/applications/cert-wildcard/deploy/workflow-app
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/audio-station
+    targetRevision: master
     

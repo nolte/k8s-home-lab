@@ -17,7 +17,7 @@ argo submit -n argocd \
   -p argocd-destination-namespace=rpi-homelab-management \
   -p argocd-source-path="src/clusters/rpi-homelab" \
   -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
-  -p argocd-source-targetRevision="feature/audio-station"
+  -p argocd-source-targetRevision="master"
 ```
 <!--bootstrap-jobs-end-->
 ## Access

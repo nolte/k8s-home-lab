@@ -10,5 +10,5 @@ spec:
   source:
     path: src/applications/cert-manager-webhook-duckdns/deploy/workflow-app
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/audio-station
+    targetRevision: master
     

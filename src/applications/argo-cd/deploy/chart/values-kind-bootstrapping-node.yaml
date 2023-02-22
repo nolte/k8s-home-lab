@@ -38,7 +38,7 @@ argocd-apps:
         source:
           path: src/bundles/bootstrapping-stack
           repoURL: https://github.com/nolte/argo-charts.git
-          targetRevision: feature/audio-station
+          targetRevision: master
         syncPolicy:
           automated:
             prune: true

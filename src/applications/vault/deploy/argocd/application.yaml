@@ -20,7 +20,7 @@ spec:
       valueFiles: []
       values: |
         postconfig:
-          revision: feature/audio-station
+          revision: master
         vault:
           server:
             ingress:

@@ -53,7 +53,7 @@ argo submit -n argocd \
   --from clusterworkflowtemplate/script-terraform \
   -p path="./src/applications/argo-cd/configuration/fineconf" \
   -p repo="https://github.com/nolte/argo-charts.git" \
-  -p revision="feature/audio-station" \
+  -p revision="master" \
   -p action="init"
 ```
 
@@ -62,7 +62,7 @@ argo submit -n argocd \
   --from clusterworkflowtemplate/script-terragrunt \
   -p path="./src/applications/argo-cd/configuration/fineconf" \
   -p repo="https://github.com/nolte/argo-charts.git" \
-  -p revision="feature/audio-station" \
+  -p revision="master" \
   -p action="init"
 ```
 terragrunt

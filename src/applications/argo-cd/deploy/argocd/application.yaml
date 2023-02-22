@@ -15,4 +15,4 @@ spec:
         - values-workflow-support.yaml
     path: src/applications/argo-cd/deploy/chart
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/audio-station
+    targetRevision: master

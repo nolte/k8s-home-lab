@@ -10,4 +10,4 @@ spec:
   source:
     path: src/applications/namespace-configuration-operator/deploy/kustomize/configs
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: feature/audio-station
+    targetRevision: master
