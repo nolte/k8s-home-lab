@@ -14,5 +14,5 @@ spec:
       releaseName: ingress-nginx
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.0.18
+    targetRevision: 4.5.2
     # https://github.com/bitnami/charts/blob/master/bitnami/metallb/values.yaml
