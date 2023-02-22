@@ -11,6 +11,6 @@ spec:
     path: charts/stable/upmpdcli
     chart: upmpdcli
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.1.0
+    targetRevision: 0.3.1
     helm:
       parameters: []
