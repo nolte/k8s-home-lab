@@ -10,6 +10,6 @@ spec:
   source:    
     chart: pihole
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
-    targetRevision: 2.9.0
+    targetRevision: 2.11.1
     helm:
       releaseName: pihole
