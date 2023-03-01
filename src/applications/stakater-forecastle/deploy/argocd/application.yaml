@@ -7,18 +7,30 @@ spec:
     name: in-cluster
     namespace: forecastle
   project: cicd
-  source:
-    helm:
+  sources:
+  - helm:
+      releaseName: projectcontour-mixin
       parameters:
         - name: httpProxy.create
-          value: 'false'
+          value: "false"
+      values: |-
+        httpProxy:
+          create: false
+          fqdn: argo.smart-home.k8sservices.local
+          tls:
+            secretName: cert-manager/wildcard-duckdns-org-tls      
+    path: charts/stable/projectcontour-mixin/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1
+  source:
+    helm:
+      parameters: []
       valueFiles: []
       values: |
         forecastle:
-          forecastle:
-            config:
-              namespaceSelector:
-                any: true
+          config:
+            namespaceSelector:
+              any: true
     chart: forecastle
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.17        
+    repoURL: https://stakater.github.io/stakater-charts
+    targetRevision: v1.0.97

@@ -1,6 +1,8 @@
 site_name: Argo Cluster Bootstrapping
 theme:
   name: 'material'
+  features:
+    - content.code.copy
 #docs_dir: .
 repo_name: 'nolte/argo-charts'
 repo_url: 'https://github.com/nolte/argo-charts'
@@ -14,14 +16,20 @@ markdown_extensions:
   - meta
   - footnotes
   - admonition
-  - pymdownx.highlight
-  - pymdownx.superfences
   - pymdownx.details
   - pymdownx.betterem
   - pymdownx.magiclink
   - pymdownx.extra
   - pymdownx.smartsymbols
+  
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.superfences
+
   - pymdownx.tasklist:
       custom_checkbox: true
   - toc:

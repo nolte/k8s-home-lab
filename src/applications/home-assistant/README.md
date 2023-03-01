@@ -1,11 +1,11 @@
 # Home Assisant
 
 <!--description-start-->
-Used as Basement for a CloudLess Smart Home Eco System.
+Used as basement for a cloudless Smart Home Eco system.
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/home-assistant) *wrapper from the [k8s-at-home/charts](https://github.com/k8s-at-home/charts/tree/master/charts/stable/home-assistant) Chart*   
+**Deployment:** [ghcr.io/home-assistant/home-assistant](https://github.com/home-assistant/core/pkgs/container/home-assistant) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*   
 **Web**: [home-assistant.io](https://www.home-assistant.io/)   
 <!--header-end-->
 

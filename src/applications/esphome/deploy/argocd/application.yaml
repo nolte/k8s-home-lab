@@ -9,19 +9,48 @@ spec:
     name: in-cluster
     namespace: esphome
   project: default
-  source:
-    chart: esphome
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.5.1
+  sources:
+  - helm:
+      releaseName: projectcontour-mixin
+      parameters:
+        - name: httpProxy.create
+          value: "false"
+        - name: httpProxy.fqdn
+          value: esphome.smart-home.k8sservices.local
+      values: |-
+        httpProxy:
+          create: false
+          fqdn: argo.smart-home.k8sservices.local
+          tls:
+            secretName: cert-manager/wildcard-duckdns-org-tls
+          routes:
+          - services:
+            - name: esphome
+              port: 6052
+    path: charts/stable/projectcontour-mixin/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1
+  - chart: app-template
+    repoURL: https://bjw-s.github.io/helm-charts
+    targetRevision: 1.3.2
     helm:
       releaseName: esphome
-      parameters:
-        - name: esphome.initContainers.gitsync.env[1].value
-          value: "git@github.com:nolte/esphome-configs.git"
-      valueFiles:
-        - values-gitsync.yaml
       values: |
-        esphome:
-          envFrom:
-            - secretRef:
-                name: esphome-config
+        image:
+          repository: esphome/esphome
+          tag: "2023.2"
+        service:
+          main:
+            ports:
+              http:
+                port: 6052
+      #parameters:
+      #  - name: esphome.initContainers.gitsync.env[1].value
+      #    value: "git@github.com:nolte/esphome-configs.git"
+      #valueFiles:
+      #  - values-gitsync.yaml
+      #values: |
+      #  esphome:
+      #    envFrom:
+      #      - secretRef:
+      #          name: esphome-config
