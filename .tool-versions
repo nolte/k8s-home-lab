@@ -5,5 +5,5 @@ task 3.7.0
 terraform 1.4.4
 terragrount 0.43.2
 
-python 3.11.2
+python 3.11.3
 krew v0.4.1
