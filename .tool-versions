@@ -2,7 +2,7 @@ helm 3.11.1
 helm-ct 3.4.0
 act 0.2.17
 task 3.7.0
-terraform 1.3.9
+terraform 1.4.4
 terragrount 0.43.2
 
 python 3.11.2
