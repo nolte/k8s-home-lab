@@ -40,6 +40,7 @@ spec:
     targetRevision: 1.3.2
     helm:
       releaseName: home-assistant
+      parameters: []
       values: |
         image:
           repository: ghcr.io/home-assistant/home-assistant
@@ -60,8 +61,11 @@ spec:
             memory: 411M
           limits:
             memory: 4417M
-        volumeClaimTemplates:
-          - name: config
+
+        persistence:
+          config:
+            enabled: false
+            type: hostPath
             mountPath: /config
-            accessMode: ReadWriteOnce
-            size: 1Gi
+            hostPath: /var/mnt/storage/home-assistant
+            
