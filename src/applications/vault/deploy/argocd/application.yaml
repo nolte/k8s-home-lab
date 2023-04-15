@@ -9,29 +9,66 @@ spec:
     name: in-cluster
     namespace: vault
   project: default
-  source:
-    path: charts/stable/vault/
+  sources:
+  - helm:
+      releaseName: projectcontour-mixin
+      parameters:
+        - name: httpProxy.create
+          value: "false"
+        - name: httpProxy.fqdn
+          value: vault.smart-home.k8sservices.local
+      values: |-
+        httpProxy:
+          create: false
+          fqdn: vault.smart-home.k8sservices.local
+          tls:
+            secretName: cert-manager/wildcard-duckdns-org-tls      
+    path: charts/stable/projectcontour-mixin/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: main  
+    targetRevision: main
+
+
+  - helm:
+      parameters:
+        - name: vault.server.ha.replicas
+          value: "1"
+        - name: vault.server.raft.enabled
+          value: "true"
+      values: |-
+        server:
+          ingress:
+            annotations:
+              ingress.kubernetes.io/force-ssl-redirect: "true"
+              kubernetes.io/tls-acme: "true"
+      releaseName: argo-workflows
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.24.0
+
+
+  #source:
+  #  path: charts/stable/vault/
+  #  repoURL: https://github.com/nolte/helm-charts-repo.git
+  #  targetRevision: main  
     # chart: vault
     # repoURL: https://nolte.github.io/helm-charts-repo
     # targetRevision: 0.10.0
-    helm:
-      valueFiles: []
-      values: |
-        postconfig:
-          revision: master
-        vault:
-          server:
-            ingress:
-              annotations:
-                ingress.kubernetes.io/force-ssl-redirect: "true"
-                kubernetes.io/tls-acme: "true"
-      parameters:
-      - name: vault.server.ha.replicas
-        value: "1"
-      - name: vault.server.raft.enabled
-        value: "true"        
+    #helm:
+    #  valueFiles: []
+    #  values: |
+    #    postconfig:
+    #      revision: master
+    #    vault:
+    #      server:
+    #        ingress:
+    #          annotations:
+    #            ingress.kubernetes.io/force-ssl-redirect: "true"
+    #            kubernetes.io/tls-acme: "true"
+    #  parameters:
+    #  - name: vault.server.ha.replicas
+    #    value: "1"
+    #  - name: vault.server.raft.enabled
+    #    value: "true"        
 #      - name: vault.server.ingress.annotations.certmanager\.k8s\.io/cluster-issuer
 #        value: selfsigned-cluster-issuer
 #      - name: vault.server.ingress.hosts[0].host
