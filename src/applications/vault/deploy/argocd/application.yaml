@@ -27,7 +27,31 @@ spec:
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: main
 
-
+  - helm:
+      releaseName: argo-workflow-mixin
+      values: |-
+        role:
+          tfState:
+            create: true
+            name: argo-workflows-execution
+          type: ClusterRole
+          vaultInjector:
+            create: true
+            name: argo-workflows-execution
+        roleBinding:
+          tfState:
+            create: false
+          type: Role
+          vaultInjector:
+            create: false
+        serviceAccount:
+          annotations: {}
+          create: false
+          name: argo-workflows-execution      
+    path: charts/stable/argo-workflow-mixin/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: main
+    
   - helm:
       parameters:
         - name: vault.server.ha.replicas

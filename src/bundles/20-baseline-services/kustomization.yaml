@@ -24,7 +24,7 @@ patchesJSON6902:
       name: vault
   patch: |-
     - op: add
-      path: /spec/source/helm/parameters/-
+      path: /spec/sources/2/helm/parameters/-
       value:
         name: vault.injector.enabled
         value: 'true'  
