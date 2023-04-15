@@ -15,6 +15,6 @@ spec:
     # targetRevision: 1.2.7
     path: charts/stable/gitea/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/2023-q1
+    targetRevision: main
     helm:
       releaseName: gitea

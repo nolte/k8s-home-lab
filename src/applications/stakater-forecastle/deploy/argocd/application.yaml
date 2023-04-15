@@ -21,7 +21,7 @@ spec:
             secretName: cert-manager/wildcard-duckdns-org-tls      
     path: charts/stable/projectcontour-mixin/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/2023-q1
+    targetRevision: main
   source:
     helm:
       parameters: []

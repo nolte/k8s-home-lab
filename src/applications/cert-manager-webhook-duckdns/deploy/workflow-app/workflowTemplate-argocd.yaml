@@ -39,7 +39,7 @@ spec:
               # targetRevision: 0.2.2
               path: charts/stable/cert-manager-webhook-duckdns/
               repoURL: https://github.com/nolte/helm-charts-repo.git
-              targetRevision: feature/2023-q1
+              targetRevision: main
               helm:
                 releaseName: cert-manager-webhook-duckdns
                 parameters:

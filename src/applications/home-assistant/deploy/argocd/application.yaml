@@ -10,7 +10,7 @@ spec:
   sources:
   - path: charts/stable/projectcontour-mixin/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/2023-q1
+    targetRevision: main
     helm:
      releaseName: projectcontour-mixin
      parameters:

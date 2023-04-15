@@ -15,7 +15,7 @@ spec:
     # targetRevision: 3.6.0    
     path: charts/stable/keycloak/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/2023-q1      
+    targetRevision: main      
     helm:
       values: |
         argo-workflows-execution:

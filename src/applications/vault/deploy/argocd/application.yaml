@@ -12,7 +12,7 @@ spec:
   source:
     path: charts/stable/vault/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/2023-q1  
+    targetRevision: main  
     # chart: vault
     # repoURL: https://nolte.github.io/helm-charts-repo
     # targetRevision: 0.10.0
