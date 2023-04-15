@@ -12,6 +12,6 @@ spec:
   source:
     chart: harbor
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.4
+    targetRevision: 0.3.0
     helm:
       releaseName: harbor
