@@ -30,24 +30,25 @@ spec:
   - helm:
       releaseName: argo-workflow-mixin
       values: |-
+        cmTfStaticEndpoints:
+          create: false
         role:
           tfState:
-            create: true
+            create: false
             name: argo-workflows-execution
           type: ClusterRole
           vaultInjector:
-            create: true
+            create: false
             name: argo-workflows-execution
         roleBinding:
           tfState:
-            create: false
+            create: true
           type: Role
           vaultInjector:
-            create: false
+            create: true
         serviceAccount:
-          annotations: {}
-          create: false
-          name: argo-workflows-execution      
+          create: true
+
     path: charts/stable/argo-workflow-mixin/
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: main
