@@ -64,7 +64,7 @@ spec:
             annotations:
               ingress.kubernetes.io/force-ssl-redirect: "true"
               kubernetes.io/tls-acme: "true"
-      releaseName: argo-workflows
+      releaseName: vault
     chart: vault
     repoURL: https://helm.releases.hashicorp.com
     targetRevision: 0.24.0
