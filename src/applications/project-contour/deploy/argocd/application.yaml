@@ -14,12 +14,12 @@ spec:
         envoy:
           service:
             type: NodePort
-          containerSecurityContext:
-            enabled: "false"
-            runAsUser: "0"
-          extraEnvVars:
-            - name: ENVOY_UID
-              value: "0"
+          # containerSecurityContext:
+          #   enabled: "false"
+          #   runAsUser: 0
+          # extraEnvVars:
+          #   - name: ENVOY_UID
+          #     value: "0"
         contour:
           extraArgs:
             - --ingress-status-address=192.168.178.42
