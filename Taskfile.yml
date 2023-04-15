@@ -16,3 +16,20 @@ tasks:
     cmds:
     - task -l
     silent: true
+
+  docs:
+    cmds:
+    - docker run \
+        -ti --rm \
+        --name mkdocs \
+        -p 9000:9000 \
+        -e "ADD_MODULES=mkdocs-include-markdown-plugin pymdown-extensions mkdocs-material" \
+        -e "LIVE_RELOAD_SUPPORT=true" \
+        -e "FAST_MODE=true" \
+        -e "DOCS_DIRECTORY=/mydocs" \
+        -e "AUTO_UPDATE=true" \
+        -e "UPDATE_INTERVAL=1" \
+        -e "DEV_ADDR=0.0.0.0:9000" \
+        -v $(pwd):/mydocs \
+        polinux/mkdocs
+    silent: true

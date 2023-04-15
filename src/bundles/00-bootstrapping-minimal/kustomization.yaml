@@ -24,6 +24,6 @@ patchesJson6902:
   path: ../../kustomization-common/deployment-serverside-patch.yaml
 
 resources:
-  - ../../../src/applications/argo-cd/deploy/argocd
+  #- ../../../src/applications/argo-cd/deploy/argocd
   - ../../../src/applications/monitoring/deploy/argocd
   - ../../../src/applications/argo-events/deploy/argocd  

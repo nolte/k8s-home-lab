@@ -10,13 +10,16 @@ The Basement of the delivery process are [ArgoCD]() for Deployment/Control K8S M
 
 ## Project Structure
 
-| **Folder**         | **Description**                                                              |
-|--------------------|------------------------------------------------------------------------------|
-| `docs`             | Folder for [mkdocs](https://www.mkdocs.org/) based documentation.            |
-| `hack`             | Useful scripts for local Cluster Bootstrapping.                              |
-| `src/applications` | Preconfigured ArgoCD Applications, for deploy different type of Services.    |
-| `src/bundles`      | Will Be combine a different set of Services, into one "Product".             |
-| `src/clusters`     | Represent the Differnt Clusters with the different Service Set for each one. |
+| **Folder**                 | **Description**                                                              |
+|----------------------------|------------------------------------------------------------------------------|
+| `docs`                     | Folder for [mkdocs](https://www.mkdocs.org/) based documentation.            |
+| `hack`                     | Useful scripts for local Cluster Bootstrapping.                              |
+| `src/applications`         | Preconfigured ArgoCD Applications, for deploy different type of Services.    |
+| `src/bundles`              | Will Be combine a different set of Services, into one "Product".             |
+| `src/clusters`             | Represent the Differnt Clusters with the different Service Set for each one. |
+| `src/kustomization-common` | Reuseable Kustomize overlays, like Namespace Handling etc.                   |
+| `src/terraground-common`   | Shared Terraground Configs, like Statefile Handling or Module Versions.      |
+| `src/talos-configs`        | The [Talos](https://www.talos.dev/) K8S Cluster configs.                     |
 
 For more Information take a look into the `README.md` inside the Subfolder like [/src/applications](./src/applications/README.md). 
 
@@ -38,10 +41,13 @@ docker run \
     polinux/mkdocs
 ```
 
-###
+or you will be use the task alias `task docs`, for starting the mkdocs Container.
+
+
+### Local Deploy
 
 ```sh
- --load-restrictor LoadRestrictionsNone
+ kustomize build .  --load-restrictor LoadRestrictionsNone | kubectl apply -f - 
 ```
 
 ## Links

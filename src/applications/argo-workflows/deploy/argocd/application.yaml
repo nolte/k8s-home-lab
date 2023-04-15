@@ -9,31 +9,73 @@ spec:
     name: in-cluster
     namespace: argo
   project: cicd
-  source:
-    helm:
+  sources:
+  - helm:
+      releaseName: projectcontour-mixin
       parameters:
-        - name: argoworkflows.fullnameOverride
+        - name: httpProxy.create
+          value: "false"
+        - name: httpProxy.fqdn
+          value: argo.smart-home.k8sservices.local
+      values: |-
+        httpProxy:
+          create: false
+          fqdn: argo.smart-home.k8sservices.local
+          tls:
+            secretName: cert-manager/wildcard-duckdns-org-tls      
+    path: charts/stable/projectcontour-mixin/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1
+  - helm:
+      releaseName: argo-workflow-mixin
+      values: |-
+        role:
+          tfState:
+            create: true
+            name: argo-workflows-execution
+          type: ClusterRole
+          vaultInjector:
+            create: true
+            name: argo-workflows-execution
+        roleBinding:
+          tfState:
+            create: false
+          type: Role
+          vaultInjector:
+            create: false
+        serviceAccount:
+          annotations: {}
+          create: false
+          name: argo-workflows-execution      
+    path: charts/stable/argo-workflow-mixin/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: feature/2023-q1
+  - helm:
+      parameters:
+        - name: fullnameOverride
           value: argo-workflows
         #- name: argoworkflows.controller.containerRuntimeExecutor
         #  value: k8sapi
-        - name: argoworkflows.controller.workflowNamespaces[0]
+        - name: controller.workflowNamespaces[0]
           value: argo
-        - name: argoworkflows.server.clusterWorkflowTemplates.enabled
+        - name: server.clusterWorkflowTemplates.enabled
           value: 'true'
-        - name: argoworkflows.controller.workflowDefaults.spec.serviceAccountName
+        - name: controller.workflowDefaults.spec.serviceAccountName
           value: argo-workflows-executer
-        - name: argoworkflows.server.extraArgs[0]
+        - name: server.extraArgs[0]
           value: '--auth-mode=server'
       values: |-
-        argoworkflows:
-          controller:
-            extraEnv:
-              - name: ARGO_EXECUTOR_PLUGINS
-                value: "true"
+         controller:
+           extraEnv:
+             - name: ARGO_EXECUTOR_PLUGINS
+               value: "true"
       releaseName: argo-workflows
-    path: charts/stable/argo-workflows/
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: feature/2023-q1
+    #path: charts/stable/argo-workflows/
+    #repoURL: https://github.com/nolte/helm-charts-repo.git
+    #targetRevision: feature/2023-q1
     #chart: argo-workflows
     #repoURL: https://nolte.github.io/helm-charts-repo
     #targetRevision: 0.14.1
+    chart: argo-workflows
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 0.22.8    

@@ -53,3 +53,46 @@ Set Git Key for Clone Conf repo.
 
 ## Access 
 
+## Config By API
+
+Set a [long lived](https://developers.home-assistant.io/docs/auth_api/#long-lived-access-token) Token from your User Profile 
+
+```sh
+export HASS_TOKEN=$(pass network/homeassistant/api/token)
+```
+
+
+```sh
+export HASS_FLOW_ID=$(curl 'https://home-assistant.dev44-just-homestyle.duckdns.org/api/config/config_entries/flow' -H "Authorization: Bearer $HASS_TOKEN" -H "Content-Type: application/json" --data-raw '{"handler":"androidtv","show_advanced_options":false}' --compressed -s | jq -r '.flow_id')
+```
+
+```sh
+curl \
+  -H "Authorization: Bearer $HASS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  https://home-assistant.dev44-just-homestyle.duckdns.org/api/config/config_entries/flow/$HASS_FLOW_ID \
+  --data-raw '{"host":"192.168.178.75","device_class":"firetv","port":5555}'
+```
+
+
+```sh
+export HASS_FLOW_ID=$(curl 'https://home-assistant.dev44-just-homestyle.duckdns.org/api/config/config_entries/flow' -H "Authorization: Bearer $HASS_TOKEN" -H "Content-Type: application/json" --data-raw '{"handler":"fritzbox_callmonitor","show_advanced_options":false}' --compressed -s | jq -r '.flow_id')
+```
+```sh
+curl \
+  -H "Authorization: Bearer $HASS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  https://home-assistant.dev44-just-homestyle.duckdns.org/api/config/config_entries/flow/$HASS_FLOW_ID \
+  --data-binary "{\"host\":\""$(pass network/homeassistant/fritzbox/endpoint)"\",\"port\":1012,\"username\":\""$(pass network/homeassistant/fritzbox/user)"\" ,\"password\":\""$(pass network/homeassistant/fritzbox/password)"\"}"  
+```
+
+```sh
+curl \
+  -H "Authorization: Bearer $HASS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  https://home-assistant.dev44-just-homestyle.duckdns.org/api/config/config_entries/flow/$HASS_FLOW_ID \
+  --data-raw '{"phonebook":"malte"}'
+```

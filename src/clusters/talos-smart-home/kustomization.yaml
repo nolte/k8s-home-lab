@@ -1,0 +1,123 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+commonLabels:
+  argocd.argoproj.io/instance: seed-job-talos
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+namePrefix: talos-smart-home-
+
+patches:
+  - path: patch-argocd-destination-cluster.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+  - path: ../../kustomization-common/patch-argocd-pod-security-ns.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: (project-contour|monitoring|esphome|home-assistant)
+      version: v1alpha1
+
+  - path: ../../kustomization-common/patch-argocd-server-side-apply.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
+
+patchesJSON6902:
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  httpProxy.fqdn
+          value: home-assistant.dev44-just-homestyle.duckdns.org
+
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:             
+          name:  persistence.config.enabled
+          value: "true"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:             
+          name:  persistence.config.hostPath
+          value: "/var/mnt/storage/home-assistant"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: home-assistant
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  httpProxy.fqdn
+          value: esphome.dev44-just-homestyle.duckdns.org
+      - op: replace
+        path: /spec/sources/1/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:             
+          name: initContainers.gitsync.env[1].value
+          value: git@github.com:nolte/esphome-configs.git
+    target:
+      group: argoproj.io
+      kind: Application
+      name: esphome
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  service.main.type
+          value: "NodePort"
+      - op: add 
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  service.main.ports.http.nodePort
+          value: "31883"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: mosquitto
+      version: v1alpha1
+
+resources:
+  - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/applications/stakater-reloader/deploy/argocd
+  - ../../bundles/smart-home

@@ -4,6 +4,5 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-
   - ../../../../src/applications/cert-wildcard/deploy/workflow-app/
   - ../../../../src/applications/cert-manager-webhook-duckdns/deploy/workflow-app/

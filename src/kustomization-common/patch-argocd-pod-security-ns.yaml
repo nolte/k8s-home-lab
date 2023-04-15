@@ -1,0 +1,6 @@
+# configure https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline 
+- op: add
+  path: /spec/syncPolicy/managedNamespaceMetadata
+  value:
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
