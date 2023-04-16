@@ -34,9 +34,9 @@ spec:
           create: false
         role:
           tfState:
-            create: false
+            create: true
             name: argo-workflows-execution
-          type: ClusterRole
+          type: Role
           vaultInjector:
             create: false
             name: argo-workflows-execution
