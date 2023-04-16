@@ -16,15 +16,15 @@ patchesJSON6902:
 
   - patch: |-
       - op: replace
-        path: /spec/source/helm/parameters
+        path: /spec/sources/0/helm/parameters
         value: []
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.create
           value: "true"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.fqdn
           value: forecastle.dev44-just-homestyle.duckdns.org
@@ -75,16 +75,6 @@ patchesJSON6902:
       name: esphome
       version: v1alpha1
 
-
-#  - patch: |-
-#      - op: replace
-#        path: /spec/source/path
-#        value: src/applications/argo-workflow-templates/deploy/kustomize-boostrapped
-#    target:
-#      group: argoproj.io
-#      kind: Application
-#      name: argo-workflow-templates
-#      version: v1alpha1
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -107,17 +97,14 @@ patchesJSON6902:
       name: minio-tenant
       version: v1alpha1
 
-
-
-
   - patch: |-
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.create
           value: "true"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.fqdn
           value: argo.dev44-just-homestyle.duckdns.org        
@@ -149,17 +136,18 @@ patchesJSON6902:
       kind: Application
       name: argocd
       version: v1alpha1
+  
   - patch: |-
-      - op: add
-        path: /spec/source/helm/parameters/-
-        value:             
-          name:  httpProxy.create
-          value: "true"
-      - op: add
-        path: /spec/source/helm/parameters/-
-        value:             
-          name:  httpProxy.fqdn
-          value: vault.dev44-just-homestyle.duckdns.org
+     - op: add
+       path: /spec/sources/0/helm/parameters/-
+       value:             
+         name:  httpProxy.create
+         value: "true"
+     - op: add
+       path: /spec/sources/0/helm/parameters/-
+       value:             
+         name:  httpProxy.fqdn
+         value: vault.dev44-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
@@ -168,22 +156,22 @@ patchesJSON6902:
 
   - patch: |-
       - op: replace
-        path: /spec/source/helm/parameters
+        path: /spec/sources/0/helm/parameters
         value: []
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.create
           value: "true"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.fqdn
           value: keycloak.dev44-just-homestyle.duckdns.org
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/1/helm/parameters/-
         value:             
-          name:  argo-workflows-execution.configurationWorkflows.post-install.source.revision
+          name:  configurationWorkflows.post-install.source.revision
           value: master
 
     target:
@@ -267,8 +255,6 @@ patchesJSON6902:
       name: external-dns
       version: v1alpha1
 
-
-patches:
   - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
     target:
       group: argoproj.io

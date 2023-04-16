@@ -28,6 +28,7 @@ spec:
       targetRevision: main
     - helm:
         releaseName: argo-workflow-mixin
+        parameters: []
         values: |-
           cmTfStaticEndpoints:
             create: true
