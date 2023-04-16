@@ -25,5 +25,5 @@ spec:
         parameters: []
       chart: harbor
       repoURL: https://helm.goharbor.io
-      targetRevision: 1.3.18
+      targetRevision: 1.11.1
     
