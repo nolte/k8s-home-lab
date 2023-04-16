@@ -2,16 +2,28 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: harbor
-  #annotations:
-  #  argocd.argoproj.io/sync-wave: "-33"  
 spec:
   destination:
     name: in-cluster
     namespace: harbor
   project: default
-  source:
-    chart: harbor
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.2.4
-    helm:
-      releaseName: harbor
+  sources:
+    - helm:
+        releaseName: projectcontour-mixin
+        parameters: []
+        values: |-
+          httpProxy:
+            create: false
+            fqdn: harbor.smart-home.k8sservices.local
+            tls:
+              secretName: cert-manager/wildcard-duckdns-org-tls
+      path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+    
+    - helm:
+        parameters: []
+      chart: harbor
+      repoURL: https://helm.goharbor.io
+      targetRevision: 1.3.18
+    

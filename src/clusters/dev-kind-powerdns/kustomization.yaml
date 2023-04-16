@@ -182,25 +182,25 @@ patchesJSON6902:
 
   - patch: |-
       - op: replace
-        path: /spec/source/helm/parameters
+        path: /spec/sources/0/helm/parameters
         value: []
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.create
           value: "false"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/1/helm/parameters/-
         value:             
-          name:  harbor.externalURL
+          name:  externalURL
           value: "https://harbor.dev44-just-homestyle.duckdns.org"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/1/helm/parameters/-
         value:             
           name:  harbor.expose.ingress.hosts.core
           value: harbor.dev44-just-homestyle.duckdns.org
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/1/helm/parameters/-
         value:             
           name:  harbor.expose.ingress.hosts.notary
           value: notary.dev44-just-homestyle.duckdns.org          
