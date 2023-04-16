@@ -2,19 +2,103 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: gitea
-  #annotations:
-  #  argocd.argoproj.io/sync-wave: "-33"  
+  labels:
+    de.noltarium.workflows/enabled: "true"
 spec:
   destination:
     name: in-cluster
     namespace: gitea
   project: default
-  source:
-    # chart: gitea
-    # repoURL: https://nolte.github.io/helm-charts-repo
-    # targetRevision: 1.2.7
-    path: charts/stable/gitea/
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: main
-    helm:
-      releaseName: gitea
+  sources:
+    - helm:
+        releaseName: projectcontour-mixin
+        parameters:
+          - name: httpProxy.create
+            value: "false"
+          - name: httpProxy.fqdn
+            value: gitea.smart-home.k8sservices.local
+        values: |-
+          httpProxy:
+            create: false
+            fqdn: gitea.smart-home.k8sservices.local
+            tls:
+              secretName: cert-manager/wildcard-duckdns-org-tls
+      path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+    - helm:
+        releaseName: argo-workflow-mixin
+        parameters: []
+        values: |-
+          cmTfStaticEndpoints:
+            create: true
+          role:
+            tfState:
+              create: false
+              name: argo-workflows-execution
+            type: ClusterRole
+            vaultInjector:
+              create: false
+              name: argo-workflows-execution
+          roleBinding:
+            tfState:
+              create: true
+            type: Role
+            vaultInjector:
+              create: true
+          serviceAccount:
+            create: true            
+          configurationWorkflows:
+            post-install:
+              type: terragrunt
+              workflow: true
+              terraform:
+                action: apply
+              extraSourceElements:
+                - "source /vault/secrets/gitea"
+              extraAnnotations:
+                # Load a Secret for Terraform State file access
+                vault.hashicorp.com/agent-inject-secret-gitea: secrets-tf/services/IdentityAccessManagement/users/admin
+                vault.hashicorp.com/agent-inject-template-gitea: |
+                  {{- with secret "secrets-tf/services/IdentityAccessManagement/users/admin" -}}
+                  export KEYCLOAK_USER={{ .Data.data.username }}
+                  export KEYCLOAK_PASSWORD={{ .Data.data.password }}
+                  {{- end }}
+              source:
+                repo: https://github.com/nolte/argo-charts.git
+                path: ./src/applications/gitea/configuration/baseline
+                revision: master     
+      path: charts/stable/argo-workflow-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+
+    - helm:
+        releaseName: gitea
+        parameters: []
+      chart: gitea
+      repoURL: https://dl.gitea.io/charts/
+      targetRevision: 8.1.0
+    
+    - helm:
+        releaseName: external-secrets-manifests
+        parameters: []
+        values: |-
+          secretstore:
+            create: true
+            serviceAccount:
+              create: true
+          secrets:
+            gitea-admin-secret:
+              data:
+                - key: services/gitea/users/admin
+                  name: username
+                  property: username
+                - key: services/gitea/users/admin
+                  name: password
+                  property: password
+                - key: services/gitea/users/admin
+                  name: email
+                  property: email          
+      path: charts/stable/external-secrets-manifests/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main

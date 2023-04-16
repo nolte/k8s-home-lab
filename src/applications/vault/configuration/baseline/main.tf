@@ -84,7 +84,12 @@ resource "vault_kubernetes_auth_backend_config" "this" {
 resource "vault_kubernetes_auth_backend_role" "this" {
   backend                     = vault_auth_backend.kubernetes.path
   role_name                   = "external-secrets"
-  bound_service_account_names = ["external-secrets", "tf-keycloak", "talend-vault-sidecar-injector"]
+  bound_service_account_names = [
+    "external-secrets", 
+    "tf-keycloak", 
+    "talend-vault-sidecar-injector",
+    "argo-workflows-executer",
+  ]
   bound_service_account_namespaces = [
     "external-secrets",
     "minio",

@@ -222,25 +222,20 @@ patchesJSON6902:
 
   - patch: |-
       - op: replace
-        path: /spec/source/helm/parameters
+        path: /spec/sources/1/helm/parameters
         value: []
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/1/helm/parameters/-
         value:
-          name:  externalsecrets.enabled
-          value: "true"
-      - op: add
-        path: /spec/source/helm/parameters/-
-        value:
-          name:  gitea.gitea.admin.existingSecret
+          name:  admin.existingSecret
           value: "gitea-admin-secret"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:
           name:  httpProxy.create
           value: "true"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:
           name:  httpProxy.fqdn
           value: gitea.dev44-just-homestyle.duckdns.org        
