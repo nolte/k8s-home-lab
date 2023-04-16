@@ -10,62 +10,96 @@ spec:
     namespace: keycloak
   project: default
   sources:
-  - helm:
-      releaseName: projectcontour-mixin
-      parameters:
-        - name: httpProxy.create
-          value: "false"
-        - name: httpProxy.fqdn
-          value: keycloak.smart-home.k8sservices.local
-      values: |-
-        httpProxy:
-          create: false
-          fqdn: keycloak.smart-home.k8sservices.local
-          tls:
-            secretName: cert-manager/wildcard-duckdns-org-tls  
-  - helm:
-      releaseName: argo-workflow-mixin
-      values: |-
-        cmTfStaticEndpoints:
-          create: false             
-
-    - chart: keycloak
+    - helm:
+        releaseName: projectcontour-mixin
+        parameters:
+          - name: httpProxy.create
+            value: "false"
+          - name: httpProxy.fqdn
+            value: keycloak.smart-home.k8sservices.local
+        values: |-
+          httpProxy:
+            create: false
+            fqdn: keycloak.smart-home.k8sservices.local
+            tls:
+              secretName: cert-manager/wildcard-duckdns-org-tls
+      path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+    - helm:
+        releaseName: argo-workflow-mixin
+        values: |-
+          cmTfStaticEndpoints:
+            create: true
+          role:
+            tfState:
+              create: false
+              name: argo-workflows-execution
+            type: ClusterRole
+            vaultInjector:
+              create: false
+              name: argo-workflows-execution
+          roleBinding:
+            tfState:
+              create: true
+            type: Role
+            vaultInjector:
+              create: true
+          serviceAccount:
+            create: true            
+          configurationWorkflows:
+            post-install:
+              type: terragrunt
+              workflow: true
+              terraform:
+                action: apply
+              extraSourceElements:
+                - "source /vault/secrets/keycloak"
+              extraAnnotations:
+                # Load a Secret for Terraform State file access
+                vault.hashicorp.com/agent-inject-secret-keycloak: secrets-tf/services/IdentityAccessManagement/users/admin
+                vault.hashicorp.com/agent-inject-template-keycloak: |
+                  {{- with secret "secrets-tf/services/IdentityAccessManagement/users/admin" -}}
+                  export KEYCLOAK_USER={{ .Data.data.username }}
+                  export KEYCLOAK_PASSWORD={{ .Data.data.password }}
+                  {{- end }}
+              source:
+                repo: https://github.com/nolte/argo-charts.git
+                path: ./src/applications/keycloak/configuration/baseline
+                revision: master            
+      path: charts/stable/argo-workflow-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+    - helm:
+        values: |
+          service:
+            type: ClusterIP
+          extraEnv: |
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+            - name: TZ
+              value: Europe/Berlin
+          auth:
+            existingSecret: keycloak-admin-auth
+            passwordSecretKey: password
+            adminUser: admin
+        parameters: []
+      chart: keycloak
       repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 14.2.0
-      helm:
-        values: |
-            service:
-              type: ClusterIP
-            extraEnv: |
-              - name: PROXY_ADDRESS_FORWARDING
-                value: "true"
-              - name: TZ
-                value: Europe/Berlin              
-            # ingress:
-            #   annotations:
-            #     ingress.kubernetes.io/force-ssl-redirect: "true"
-            #     kubernetes.io/tls-acme: "true"
-            #   rules:
-            #     -
-            #       # Ingress host
-            #       host: '{{ .Release.Name }}.keycloak.example.com'
-            #       # Paths for the host
-            #       paths:
-            #         - path: /
-            #           pathType: Prefix
-            #   # TLS configuration
-            #   tls:
-            #     - hosts:
-            #         - keycloak.example.com
-            #       secretName: ""
-        parameters: []
-          #- name: keycloak.ingress.enabled
-          #  value: "true"
-          # - name: keycloak.ingress.annotations."certmanager\.k8s\.io/cluster-issuer"
-          #   value: selfsigned-cluster-issuer
-          # - name: keycloak.ingress.rules[0].host
-          #   value: "keycloak.smart-home.k8sservices.local"
-          # - name: keycloak.ingress.tls[0].hosts[0]
-          #   value: "keycloak.smart-home.k8sservices.local"
-          # - name: keycloak.ingress.tls[0].secretName
-          #   value: "keycloak-tls"
+    - helm:
+        releaseName: external-secrets-manifests
+        values: |-
+          secretstore:
+            create: true
+            serviceAccount:
+              create: true
+          secrets:
+            keycloak-admin-auth:
+              data:
+                - key: services/IdentityAccessManagement/users/admin
+                  name: password
+                  property: password
+      path: charts/stable/external-secrets-manifests/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
