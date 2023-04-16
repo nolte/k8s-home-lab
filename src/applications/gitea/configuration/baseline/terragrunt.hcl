@@ -3,9 +3,9 @@ include {
   path = "../../../../terraground-common/terraground.hcl"
 }
 
-dependency "vault" {
-  config_path = "../../../vault/configuration/baseline"
-}
+# dependency "vault" {
+#   config_path = "../../../vault/configuration/baseline"
+# }
 
 dependency "keycloak" {
   config_path = "../../../keycloak/configuration/baseline"
@@ -13,7 +13,7 @@ dependency "keycloak" {
 
 inputs = {
   realm_id = dependency.keycloak.outputs.realm_id
-  vault_secrets_engine_path = dependency.vault.outputs.secrets_engine_path
+  # vault_secrets_engine_path = dependency.vault.outputs.secrets_engine_path
   gitea_fqdn = "gitea.dev44-just-homestyle.duckdns.org"
   keycloak_fqdn = dependency.keycloak.outputs.keycloak_fqdn
   super_admins_group_id = dependency.keycloak.outputs.super_admins_group_id
