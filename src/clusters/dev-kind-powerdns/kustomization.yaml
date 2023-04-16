@@ -197,13 +197,18 @@ patchesJSON6902:
       - op: add
         path: /spec/sources/1/helm/parameters/-
         value:             
-          name:  harbor.expose.ingress.hosts.core
+          name:  expose.ingress.hosts.core
           value: harbor.dev44-just-homestyle.duckdns.org
       - op: add
         path: /spec/sources/1/helm/parameters/-
         value:             
-          name:  harbor.expose.ingress.hosts.notary
-          value: notary.dev44-just-homestyle.duckdns.org          
+          name:  expose.ingress.hosts.notary
+          value: notary.dev44-just-homestyle.duckdns.org    
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:             
+          name:  expose.type
+          value: clusterIP
     target:
       group: argoproj.io
       kind: Application
