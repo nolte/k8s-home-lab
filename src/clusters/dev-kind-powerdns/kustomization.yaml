@@ -188,7 +188,7 @@ patchesJSON6902:
         path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.create
-          value: "false"
+          value: "true"
       - op: add
         path: /spec/sources/1/helm/parameters/-
         value:             
@@ -209,6 +209,11 @@ patchesJSON6902:
         value:             
           name:  expose.type
           value: clusterIP
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:             
+          name:  expose.tls.enabled
+          value: "false"          
     target:
       group: argoproj.io
       kind: Application
