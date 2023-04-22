@@ -1,4 +1,4 @@
 - op: add
-  path: /spec/source/helm/valueFiles/-
+  path: /spec/sources/1/helm/valueFiles/-
   value: values-kind-deployments.yaml
   
