@@ -17,6 +17,10 @@ spec:
             fqdn: harbor.smart-home.k8sservices.local
             tls:
               secretName: cert-manager/wildcard-duckdns-org-tls
+            routes:
+            - services:
+              - name: harbor
+                port: 80              
       path: charts/stable/projectcontour-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main

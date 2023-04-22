@@ -116,18 +116,18 @@ patchesJSON6902:
 
   - patch: |-
       - op: add
-        path: /spec/source/helm/valueFiles/-
+        path: /spec/sources/1/helm/valueFiles/-
         value: values-ingress.yaml
       - op: add
-        path: /spec/source/helm/valueFiles/-
+        path: /spec/sources/1/helm/valueFiles/-
         value: values-oidc.yaml        
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.create
           value: "true"
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:             
           name:  httpProxy.fqdn
           value: argocd.dev44-just-homestyle.duckdns.org        
@@ -189,6 +189,11 @@ patchesJSON6902:
         value:             
           name:  httpProxy.create
           value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:             
+          name:  httpProxy.fqdn
+          value: "harbor.dev44-just-homestyle.duckdns.org"
       - op: add
         path: /spec/sources/1/helm/parameters/-
         value:             
@@ -259,6 +264,25 @@ patchesJSON6902:
       kind: Application
       name: external-dns
       version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  contour.extraArgs[0]
+          value: "--ingress-status-address=172.18.0.2"      
+    target:
+      group: argoproj.io
+      kind: Application
+      name: project-contour
+      version: v1alpha1
+
+      
+      
+
 
   - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
     target:

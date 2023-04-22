@@ -2,8 +2,8 @@
 resource "vault_kubernetes_auth_backend_role" "argo_workflow" {
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "argo-workflows"
-  bound_service_account_names      = ["argo-workflows-executer", "argo-workflows-executer"]
-  bound_service_account_namespaces = ["keycloak", "powerdns", "minio","argocd", "argo"]
+  bound_service_account_names      = ["argo-workflows-executer"]
+  bound_service_account_namespaces = ["keycloak", "powerdns", "minio","argocd", "argo", "gitea"]
   token_ttl                        = 3600
   token_policies = [
     "default",
