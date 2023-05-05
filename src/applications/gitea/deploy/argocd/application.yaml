@@ -85,7 +85,7 @@ spec:
               existingSecret: gitea-admin-secret
       chart: gitea
       repoURL: https://dl.gitea.io/charts/
-      targetRevision: 8.1.0
+      targetRevision: 8.3.0
     
     - helm:
         releaseName: external-secrets-manifests
