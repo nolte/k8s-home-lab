@@ -12,4 +12,4 @@ spec:
     helm:
       releaseName: rabbitmq
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 11.14.4
+    targetRevision: 11.14.5
