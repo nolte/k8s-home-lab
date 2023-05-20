@@ -26,7 +26,7 @@ data "vault_policy_document" "gitea_external_secrets" {
     capabilities = ["read"]
     description  = "Read Generated Gitea Admin Informations"
   }
-  
+
 }
 
 

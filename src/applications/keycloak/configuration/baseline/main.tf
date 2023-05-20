@@ -3,7 +3,7 @@ resource "keycloak_realm" "realm" {
   realm = "devops-services"
 
   otp_policy {
-    type = "totp"
+    type      = "totp"
     algorithm = "HmacSHA256"
   }
 }

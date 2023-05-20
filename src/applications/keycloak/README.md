@@ -1,9 +1,16 @@
 # Keycloak
+<!--description-start-->
+Identity and access management solution.
+<!--description-end-->
 
-*Namespace:* `keycloak`  
-*Configuration:* `./src/applications/keycloak/configuration/baseline`  
 
-
+<!--header-start-->
+**Namespace:** `keycloak`  
+**Configuration:** `./src/applications/keycloak/configuration/baseline`  
+**Deployment:** Helm, [bitnami/keycloak](https://github.com/bitnami/charts/tree/main/bitnami/keycloak/)  
+**Terraform Provider:** [mrparkers/keycloak](https://registry.terraform.io/providers/mrparkers/keycloak/latest/docs)  
+**Web:** [keycloak.org](https://www.keycloak.org/)
+<!--header-end-->
 
 ## Usefull Commands
 
@@ -40,3 +47,10 @@ open [Workflow](http://localhost:2746/workflows/keycloak/post-sync-keycloak?tab=
 <!--keycloak-links-end-->
 
 
+**Open HttpProxy if exists**
+<!--httpproxies-start-->
+```sh
+browse \
+  "https://$(kubectl -n keycloak get httpproxies.projectcontour.io http-proxy -ojson | jq '.spec.virtualhost.fqdn' -r)"
+```
+<!--httpproxies-end-->

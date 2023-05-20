@@ -82,11 +82,11 @@ resource "vault_kubernetes_auth_backend_config" "this" {
 }
 
 resource "vault_kubernetes_auth_backend_role" "this" {
-  backend                     = vault_auth_backend.kubernetes.path
-  role_name                   = "external-secrets"
+  backend   = vault_auth_backend.kubernetes.path
+  role_name = "external-secrets"
   bound_service_account_names = [
-    "external-secrets", 
-    "tf-keycloak", 
+    "external-secrets",
+    "tf-keycloak",
     "talend-vault-sidecar-injector",
     "argo-workflows-executer",
   ]
@@ -106,7 +106,7 @@ resource "vault_kubernetes_auth_backend_role" "this" {
     vault_policy.minio_external_secrets.name,
     vault_policy.external_dns_external_secrets.name,
     vault_policy.cert_manager_external_secrets.name,
-    vault_policy.gitea_external_secrets.name,    
+    vault_policy.gitea_external_secrets.name,
   ]
   # audience                         = "vault"
 }

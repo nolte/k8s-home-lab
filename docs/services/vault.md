@@ -1,5 +1,21 @@
 # Secret Management
 
+{%
+   include-markdown "../../src/applications/vault/README.md"
+   start="<!--description-start-->"
+   end="<!--description-end-->"
+%}
+
+---
+
+{%
+   include-markdown "../../src/applications/vault/README.md"
+   start="<!--header-start-->"
+   end="<!--header-end-->"
+%}
+
+---
+
 ## Initiale Bereitstellung
 
 {%

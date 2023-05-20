@@ -5,7 +5,7 @@ data "vault_policy_document" "external_dns_external_secrets" {
     capabilities = ["read"]
     description  = "Read Generated Console Admin Informations"
   }
-  
+
 }
 
 

@@ -1,15 +1,23 @@
 # Vault
 
+<!--description-start-->
+API Based Secret Management
+<!--description-end-->
+
+
+<!--header-start-->
 **Namespace:** `vault`  
 **Configuration:** `./src/applications/vault/configuration`  
-**Deployment:** [hashicorp/vault-helm](https://github.com/hashicorp/vault-helm)
+**Deployment:** [hashicorp/vault-helm](https://github.com/hashicorp/vault-helm)   
+**Terraform Provider:** [hashicorp/vault](https://registry.terraform.io/providers/hashicorp/vault/latest/docs)   
+**Web:** [vaultproject.io](https://www.vaultproject.io/)   
+<!--header-end-->
 
 ## User Access
 
 *Access Configuration:* `./src/applications/keycloak/configuration`
 
 more informations at the [keycloak](/services/keycloak/) page
-
 
 ## Usefull Commands
 
@@ -24,7 +32,7 @@ kubectl -n vault port-forward svc/vault 8200
 <!--httpproxies-start-->
 ```sh
 browse \
-  "https://$(kubectl -n vault get httpproxies.projectcontour.io vault -ojson | jq '.spec.virtualhost.fqdn' -r)"
+  "https://$(kubectl -n vault get httpproxies.projectcontour.io http-proxy -ojson | jq '.spec.virtualhost.fqdn' -r)"
 ```
 <!--httpproxies-end-->
 
@@ -114,7 +122,7 @@ export VAULT_ADDR=http://localhost:8200 \
 
 <!--env-vars-start-->
 ```sh
-export VAULT_ADDR=https://$(kubectl -n vault get httpproxies.projectcontour.io vault -ojson  | jq '.spec.virtualhost.fqdn'  -r) \
+export VAULT_ADDR=https://$(kubectl -n vault get httpproxies.projectcontour.io http-proxy -ojson  | jq '.spec.virtualhost.fqdn'  -r) \
     && vault login token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
 ```
 <!--env-vars-end-->

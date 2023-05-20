@@ -1,10 +1,34 @@
 # Gitea
 
+<!--description-start-->
 Personal Git Service see [gitea.io](https://gitea.io/en-us/).
+<!--description-end-->
+
+<!--header-start-->
+**Deployment:** Helm, TBD   
+**Terraform Provider:** [Lerentis/gitea](https://registry.terraform.io/providers/Lerentis/gitea/latest/docs)   
+**Web**:  [gitea.io](https://gitea.io/en-us/) 
+<!--header-end-->
 
 
 **Admin Auth:**
 
+<!--admin-password-start-->
 ```sh
 vault kv get secrets-tf/services/gitea/users/admin
 ```
+<!--admin-password-end-->
+
+**Open HttpProxy if exists**
+<!--httpproxies-start-->
+```sh
+browse \
+  "https://$(kubectl -n gitea get httpproxies.projectcontour.io http-proxy -ojson | jq '.spec.virtualhost.fqdn' -r)"
+```
+<!--httpproxies-end-->
+
+
+<!--links-start-->
+* [gitea.io](https://gitea.io/en-us/) 
+* [terraform provider](https://registry.terraform.io/providers/malarinv/gitea/latest/docs)
+<!--links-end-->

@@ -4,8 +4,8 @@
 module "oidc_client" {
   source = "../../../keycloak/configuration/modules/oidc-client"
 
-  realm_id    = var.realm_id
-  client_id   = "gitea"
+  realm_id  = var.realm_id
+  client_id = "gitea"
   #root_url    = "https://gitea.dev44-just-homestyle.duckdns.org"
   #base_url    = "/applications"
   #web_origins = [""]

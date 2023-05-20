@@ -1,5 +1,21 @@
 # Identity- & Access-Management
 
+{%
+   include-markdown "../../src/applications/keycloak/README.md"
+   start="<!--description-start-->"
+   end="<!--description-end-->"
+%}
+
+---
+
+{%
+   include-markdown "../../src/applications/keycloak/README.md"
+   start="<!--header-start-->"
+   end="<!--header-end-->"
+%}
+
+---
+
 
 ## Usefull Commands
 
@@ -29,6 +45,14 @@
        include-markdown "../../src/applications/keycloak/README.md"
        start="<!--keycloak-tf-env-vars-port-forward-start-->"
        end="<!--keycloak-tf-env-vars-port-forward-end-->"
+    %}
+
+??? example "Open, if httpproxy configured"
+
+    {%
+       include-markdown "../../src/applications/keycloak/README.md"
+       start="<!--httpproxies-start-->"
+       end="<!--httpproxies-end-->"
     %}
 
 
