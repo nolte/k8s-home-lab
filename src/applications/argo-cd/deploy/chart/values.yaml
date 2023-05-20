@@ -55,7 +55,7 @@ argo-cd:
         command:
           - sh
           - '-c'
-        image: alpine:3.17
+        image: alpine:3.18
         name: download-tools-kustomize
         volumeMounts:
           - mountPath: /custom-tools
@@ -65,7 +65,7 @@ argo-cd:
         command:
           - sh
           - '-c'
-        image: alpine:3.17
+        image: alpine:3.18
         name: download-tools-helm
         volumeMounts:
           - mountPath: /custom-tools
