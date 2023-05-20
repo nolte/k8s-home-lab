@@ -4,8 +4,8 @@
 module "oidc_client" {
   source = "../../../keycloak/configuration/modules/oidc-client"
 
-  realm_id    = var.realm_id
-  client_id   = "harbor"
+  realm_id  = var.realm_id
+  client_id = "harbor"
   #root_url    = "https://harbor.dev44-just-homestyle.duckdns.org"
   #base_url    = "/applications"
   #web_origins = [""]
@@ -18,8 +18,8 @@ module "oidc_client" {
 
 
 resource "keycloak_openid_client_default_scopes" "client_default_scopes" {
-  realm_id   = var.realm_id
-  client_id  = module.oidc_client.this.id
+  realm_id  = var.realm_id
+  client_id = module.oidc_client.this.id
 
   default_scopes = [
     "openid",

@@ -1,7 +1,20 @@
 # DNS
 
-*Namespace:* `powerdns`  
-*Configuration:* `./src/applications/powerdns/configuration/baseline`  
+{%
+   include-markdown "../../src/applications/powerdns/README.md"
+   start="<!--description-start-->"
+   end="<!--description-end-->"
+%}
+
+---
+
+{%
+   include-markdown "../../src/applications/powerdns/README.md"
+   start="<!--header-start-->"
+   end="<!--header-end-->"
+%}
+
+---
 
 
 ## Usefull Commands

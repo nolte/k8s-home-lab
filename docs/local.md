@@ -30,25 +30,27 @@ After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, 
 
 
 ??? example "Start port foward"
-    ```sh
-    kubectl port-forward svc/argocd-server 8080:443 -n argocd
-    ```
+    {%
+       include-markdown "../src/applications/argo-cd/README.md"
+       start="<!--port-forward-start-->"
+       end="<!--port-forward-end-->"
+    %}
 
     ??? example "ArgoCD Password"
-        ```yaml
-        kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo ""
-        ```
+        {%
+           include-markdown "../src/applications/argo-cd/README.md"
+           start="<!--admin-password-start-->"
+           end="<!--admin-password-end-->"
+        %}
 
     ??? example "ArgoCD CLI Login"
         task: `task argocd:login`
 
-        ```yaml
-        argocd login \
-          localhost:8080 \
-          --username admin \
-          --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) \
-          --name local-bootstrapper
-        ```
+        {%
+           include-markdown "../src/applications/argo-cd/README.md"
+           start="<!--cli-admin-login-start-->"
+           end="<!--cli-admin-login-end-->"
+        %}        
 
 ??? example "Argo Workflow PortForward"
     ```sh

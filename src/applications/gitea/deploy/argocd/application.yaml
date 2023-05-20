@@ -79,6 +79,10 @@ spec:
     - helm:
         releaseName: gitea
         parameters: []
+        values: |-
+          gitea:
+            admin:
+              existingSecret: gitea-admin-secret
       chart: gitea
       repoURL: https://dl.gitea.io/charts/
       targetRevision: 8.3.0

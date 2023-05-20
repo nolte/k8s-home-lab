@@ -1,12 +1,12 @@
 
 data "vault_policy_document" "cert_manager_external_secrets" {
-  
+
   rule {
     path         = "secrets-tf/data/third-party-services/duckdns.org/api"
     capabilities = ["read"]
     description  = "Duckdns API Key"
   }
-  
+
 }
 
 
