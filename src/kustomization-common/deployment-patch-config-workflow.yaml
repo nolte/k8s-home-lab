@@ -1,5 +1,5 @@
 - op: add
-  path: /spec/source/helm/parameters/-
+  path: /spec/sources/0/helm/parameters/-
   value:             
-    name:  argo-workflows-execution.configurationWorkflows.post-install.source.revision
+    name:  configurationWorkflows.post-install.source.revision
     value: "master"
