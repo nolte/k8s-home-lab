@@ -10,23 +10,74 @@ spec:
     namespace: powerdns
     
   project: default
-  source:
-    chart: powerdns
-    repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 2.2.1
-    helm:
-      valueFiles: []
-      parameters:
-        - name: powerdns.powerdns.api_key
-          value: "supersecretpw"
-        - name: powerdns.powerdns.domain
-          value: "k8sservices.local"
-      values: |
-        powerdns:
-          strategyType: RollingUpdate
-          deployment:
-            annotations:
-              reloader.stakater.com/auto: "true"
-          service:
-            annotations:
-              metallb.universe.tf/allow-shared-ip: powerdns
+  sources:
+    - helm:
+        releaseName: argo-workflow-mixin
+        parameters: []
+        values: |-
+          cmTfStaticEndpoints:
+            create: true
+
+          role:
+            tfState:
+              create: false
+              name: argo-workflows-execution
+            type: ClusterRole
+            vaultInjector:
+              create: false
+              name: argo-workflows-execution
+          roleBinding:
+            tfState:
+              create: true
+            type: Role
+            vaultInjector:
+              create: true
+          serviceAccount:
+            create: true
+
+          configurationWorkflows:
+            post-install:
+              type: terragrunt
+              workflow: true
+              terraform:
+                action: apply
+              extraSourceElements:
+                - "source /vault/secrets/pdnsaccess"
+              extraAnnotations:
+                # Load a Secret for Terraform State file access
+                vault.hashicorp.com/agent-inject-secret-pdnsaccess: secrets-tf/services/dns/users/root
+                vault.hashicorp.com/agent-inject-template-pdnsaccess: |
+                  {{- with secret "secrets-tf/services/dns/users/root" -}}
+                  export PDNS_API_KEY={{ .Data.data.token }}
+                  {{- end }}
+              extraEnv:
+                - name: PDNS_SERVER_URL
+                  value: http://powerdns-webserver.{{.Release.Namespace}}.svc:8081
+              source:
+                repo: https://github.com/nolte/argo-charts.git
+                path: ./src/applications/powerdns/configuration/baseline
+                revision: master
+
+
+      path: charts/stable/argo-workflow-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main  
+    - chart: powerdns
+      repoURL: https://k8s-at-home.com/charts
+      targetRevision: 5.0.0
+      helm:
+        valueFiles: []
+        parameters:
+          - name: powerdns.powerdns.api_key
+            value: "supersecretpw"
+          - name: powerdns.powerdns.domain
+            value: "k8sservices.local"
+        values: |
+          powerdns:
+            strategyType: RollingUpdate
+            deployment:
+              annotations:
+                reloader.stakater.com/auto: "true"
+            service:
+              annotations:
+                metallb.universe.tf/allow-shared-ip: powerdns

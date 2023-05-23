@@ -1,0 +1,13 @@
+name: "Lint: Terraform"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+
+jobs:
+  lint:
+    uses: nolte/gh-plumbing/.github/workflows/reuseable-tf-lint.yaml@v1.0.22
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

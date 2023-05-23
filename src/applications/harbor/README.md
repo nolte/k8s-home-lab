@@ -12,8 +12,8 @@ kubectl -n harbor port-forward svc/harbor-portal 8080:80
 
 ```sh
 export HARBOR_INSECURE=true \
-  && export HARBOR_PASSWORD=Harbor123456 \
-  && export HARBOR_USERNAME=admin
+  && export HARBOR_PASSWORD=$(kubectl get secrets -n harbor harbor-core -ojson | jq '.data.HARBOR_ADMIN_PASSWORD' -r | base64 -d) \
+  && export HARBOR_USERNAME=admin \
   && export HARBOR_ENDPOINT=harbor.dev44-just-homestyle.duckdns.org
 ```
 
