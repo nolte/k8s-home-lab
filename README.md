@@ -10,6 +10,19 @@ The Basement of the delivery process are [ArgoCD]() for Deployment/Control K8S M
 
 ## Project Structure
 
+<!--structure-start-->
+```
+.
+├─📁 .github          # (optional) Sources for configure the Application, mostly with Terraform
+├─📁 .taskfiles       # Folder with k8s manifests
+├─📁 docs             # The Required Files for the mkdocs based Documentation  
+├─📁 hack             # The Sources for configure the Local Bootstrapping Cluster
+├─📁 src              # All required Sources for manage the Cluster
+└─📝 README.md        # The Application Specific Readme, used as Service Documentation.
+```
+<!--structure-end-->
+
+
 | **Folder**                 | **Description**                                                              |
 |----------------------------|------------------------------------------------------------------------------|
 | `docs`                     | Folder for [mkdocs](https://www.mkdocs.org/) based documentation.            |

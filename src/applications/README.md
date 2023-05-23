@@ -1,8 +1,22 @@
 # Applications
 
-This subdirectory will give the Structure for all Used Application/Services, and the Configuration. This Applications will be used by different Service `../bundles`.
+This subdirectory will give the Structure for all Used Application/Services, and the Configuration. 
 
 ## Application Structure
+
+<!--structure-start-->
+```
+📁 [application]      # Folder with Required Sources for the Application
+├─📁 configuration    # (optional) Sources for configure the Application, mostly with Terraform
+| ├─📁 baseline       # The Base Configuration from the Application
+| ├─📁 modules        # (optional) Strucuture for Application Specific Terraform Modules
+| └─📁 ...            # additional config scripts 
+|─📁 deploy           # Folder with k8s manifests
+| └─📁 argocd         # ArgoCD manifests, required for Deploy the Application to K8S Cluster. 
+└─📝 README.md        # The Application Specific Readme, used as Service Documentation.
+```
+<!--structure-end-->
+
 
 | **Folder**      | **Description**                                                                                                                                                                                                                            |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

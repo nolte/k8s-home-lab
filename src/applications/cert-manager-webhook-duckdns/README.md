@@ -31,3 +31,8 @@ vault kv put \
   token=$(pass internet/duckdns.org/oidc-google/token)
 ```
 <!--vault-secret-end-->
+
+## Links
+
+* https://github.com/ebrianne/helm-charts/tree/master/charts/cert-manager-webhook-duckdns
+* https://github.com/ebrianne/cert-manager-webhook-duckdns
