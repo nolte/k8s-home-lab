@@ -56,6 +56,10 @@ generate "versions" {
           source = "mrparkers/keycloak"
           version = "${local.provider_version.inputs.keycloak}"
         }
+        harbor = {
+          source = "goharbor/harbor"
+          version = "3.9.0"
+        }        
       }
     }
 EOF

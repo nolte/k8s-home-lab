@@ -280,10 +280,6 @@ patchesJSON6902:
       name: project-contour
       version: v1alpha1
 
-      
-      
-
-
   - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
     target:
       group: argoproj.io

@@ -1,5 +1,3 @@
-
-
 # https://harbor.dev44-just-homestyle.duckdns.org/
 module "oidc_client" {
   source = "../../../keycloak/configuration/modules/oidc-client"
@@ -22,10 +20,9 @@ resource "keycloak_openid_client_default_scopes" "client_default_scopes" {
   client_id = module.oidc_client.this.id
 
   default_scopes = [
-    "openid",
-    "profile",
     "email",
-    "offlice_access",
+    "groups",
+    "profile",
   ]
 }
 
