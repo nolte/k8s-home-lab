@@ -28,13 +28,14 @@ kubectl -n harbor port-forward svc/harbor-portal 8080:80
 ```
 <!--port-forward-end-->
 
-
+<!--tf-env-vars-start-->
 ```sh
 export HARBOR_INSECURE=true \
   && export HARBOR_PASSWORD=$(kubectl get secrets -n harbor harbor-core -ojson | jq '.data.HARBOR_ADMIN_PASSWORD' -r | base64 -d) \
   && export HARBOR_USERNAME=admin \
-  && export HARBOR_URL=https://harbor.dev44-just-homestyle.duckdns.org
+  && export HARBOR_URL=https://$(kubectl -n harbor get httpproxies.projectcontour.io http-proxy -ojson | jq '.spec.virtualhost.fqdn' -r)"
 ```
+<!--tf-env-vars-end-->
 
 <!--reset-admin-password-by-api-start-->
 ```sh 

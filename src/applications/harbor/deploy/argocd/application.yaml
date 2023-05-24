@@ -24,7 +24,48 @@ spec:
       path: charts/stable/projectcontour-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
-    
+    - helm:
+        releaseName: argo-workflow-mixin
+        parameters: []
+        values: |-
+          cmTfStaticEndpoints:
+            create: true
+          role:
+            tfState:
+              create: false
+              name: argo-workflows-execution
+            type: ClusterRole
+            vaultInjector:
+              create: false
+              name: argo-workflows-execution
+          roleBinding:
+            tfState:
+              create: true
+            type: Role
+            vaultInjector:
+              create: true
+          serviceAccount:
+            create: true            
+          configurationWorkflows:
+            post-install:
+              type: terragrunt
+              workflow: true
+              terraform:
+                action: apply
+              extraSourceElements:
+                - "source /vault/secrets/keycloak"
+              extraAnnotations:
+                # Load a Secret for Terraform State file access
+                vault.hashicorp.com/agent-inject-secret-keycloak: secrets-tf/services/IdentityAccessManagement/users/admin
+                vault.hashicorp.com/agent-inject-template-keycloak: |
+                  {{- with secret "secrets-tf/services/IdentityAccessManagement/users/admin" -}}
+                  export KEYCLOAK_USER={{ .Data.data.username }}
+                  export KEYCLOAK_PASSWORD={{ .Data.data.password }}
+                  {{- end }}
+              source:
+                repo: https://github.com/nolte/argo-charts.git
+                path: ./src/applications/harbor/configuration/baseline
+                revision: master      
     - helm:
         parameters: []
       chart: harbor

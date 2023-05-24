@@ -29,14 +29,11 @@
 ## Usefull Env
 
 ??? example "Using Ingress"
-
-    <!--keycloak-tf-env-vars-start-->
-    ```sh
-    export KEYCLOAK_URL=https://$(kubectl -n keycloak get httpproxies.projectcontour.io http-prox<> -ojson  | jq '.spec.virtualhost.fqdn' -r) \
-        && export KEYCLOAK_USER=$(vault kv get -field=username secrets-tf/services/IdentityAccessManagement/users/admin) \
-        && export KEYCLOAK_PASSWORD=$(vault kv get -field=password secrets-tf/services/IdentityAccessManagement/users/admin)
-    ```
-    <!--keycloak-tf-env-vars-end-->
+    {%
+       include-markdown "../../src/applications/keycloak/README.md"
+       start="<!--keycloak-tf-env-vars-start-->"
+       end="<!--keycloak-tf-env-vars-end-->"
+    %}
 
 
 ??? example "Using port foward"
@@ -55,6 +52,14 @@
        end="<!--httpproxies-end-->"
     %}
 
+
+## Identity Provider
+
+{%
+   include-markdown "../../src/applications/keycloak/README.md"
+   start="<!--identity-providers-github-app-vault-start-->"
+   end="<!--identity-providers-github-app-vault-end-->"
+%}
 
 ## Links
 

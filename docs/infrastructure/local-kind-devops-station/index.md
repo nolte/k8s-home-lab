@@ -30,9 +30,19 @@
     
 
         {%
-           include-markdown "../../services/keycloak.md"
+           include-markdown "../../../src/applications/keycloak/README.md"
            start="<!--keycloak-tf-env-vars-start-->"
            end="<!--keycloak-tf-env-vars-end-->"
+        %}
+
+
+    ??? example "Harbor Access"
+    
+
+        {%
+           include-markdown "../../../src/applications/harbor/README.md"
+           start="<!--tf-env-vars-start-->"
+           end="<!--tf-env-vars-end-->"
         %}
 
 ```sh
