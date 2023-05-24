@@ -83,6 +83,16 @@ spec:
           gitea:
             admin:
               existingSecret: gitea-admin-secret
+            config:
+              server:
+                ROOT_URL: "https://gitea.dev44-just-homestyle.duckdns.org"              
+            oauth:
+              - name: "MyAwesomeGiteaOAuth"
+                existingSecret: gitea-oauth
+                provider: "openidConnect"
+                autoDiscoverUrl: https://keycloak.dev44-just-homestyle.duckdns.org/realms/devops-services/.well-known/openid-configuration 
+                groupClaimName: groups
+                adminGroup: /platform-super-users/gitea-admin-users
       chart: gitea
       repoURL: https://dl.gitea.io/charts/
       targetRevision: 8.3.0
@@ -96,6 +106,14 @@ spec:
             serviceAccount:
               create: true
           secrets:
+            gitea-oauth:
+              data:
+                - key: services/IdentityAccessManagement/clients/gitea
+                  name: key
+                  property: client_id
+                - key: sesecretsrvices/IdentityAccessManagement/clients/gitea
+                  name: secret
+                  property: client_secret          
             gitea-admin-secret:
               data:
                 - key: services/gitea/users/admin

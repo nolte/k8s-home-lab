@@ -5,7 +5,7 @@ Personal Git Service see [gitea.io](https://gitea.io/en-us/).
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** Helm, TBD   
+**Deployment:** Helm, [gitea/helm-chart](https://gitea.com/gitea/helm-chart)   
 **Terraform Provider:** [Lerentis/gitea](https://registry.terraform.io/providers/Lerentis/gitea/latest/docs)   
 **Web**:  [gitea.io](https://gitea.io/en-us/) 
 <!--header-end-->
@@ -27,6 +27,7 @@ browse \
 ```
 <!--httpproxies-end-->
 
+**Currently Problems with OIDC and Usergroups,** look [#23794](https://github.com/go-gitea/gitea/issues/23794) 
 
 <!--links-start-->
 * [gitea.io](https://gitea.io/en-us/) 
