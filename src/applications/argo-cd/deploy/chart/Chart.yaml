@@ -9,7 +9,7 @@ dependencies:
   - name: argo-workflow-mixin
     condition: workflow.enabled
     repository: https://nolte.github.io/helm-charts-repo/
-    version: 0.6.2
+    version: 0.7.2
     alias: argo-workflows-execution    
 description: Preconfigured ArgoCD Deployment
 name: argo-cd
