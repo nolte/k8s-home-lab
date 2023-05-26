@@ -78,4 +78,4 @@ spec:
     #targetRevision: 0.14.1
     chart: argo-workflows
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 0.28.1    
+    targetRevision: 0.28.2    
