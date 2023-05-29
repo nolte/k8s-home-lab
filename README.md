@@ -1,11 +1,18 @@
+<p align="center"><img src="https://i.imgur.com/p1RzXjQ.png"><br></p>
+<div align="center">
+<a href="https://github.com/nolte/k8s-home-lab"><img src="https://img.shields.io/github/stars/nolte/k8s-home-lab.svg?label=Stars&style=social"></a>
+<a href="https://github.com/nolte/k8s-home-lab"><img src="https://img.shields.io/github/issues-raw/nolte/k8s-home-lab.svg"></a>
+<a href="https://github.com/nolte/k8s-home-lab/actions/workflows/tf-lint.yaml"><img src="https://github.com/nolte/k8s-home-lab/actions/workflows/tf-lint.yaml/badge.svg"></a>
+</div>
+
+
 # Personal Cluster
 
-This Project will be use for creating different flavors/collections of Services, runs on  kubernetes.
+This project will be used to create different flavours/collections of services running on kubernetes.
 
-Configure k8s cluster for *different UseCases* like, [SmartHome](./docs/service-sets/smart-home.md), [DevOps Services](./docs/service-sets/devops.md) or Private Storage 
+K8S clusters will be configured for different use cases such as [SmartHome](./docs/service-sets/smart-home.md), [DevOps services](./docs/service-sets/devops.md) or private storage.
 
-The Basement of the delivery process are [ArgoCD]() for Deployment/Control K8S Manifests and [Argo Workflow]() as process automation tool.
-
+The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) for deployment/control of K8S manifests from the repository (SCM) and [Argo Workflow](https://argoproj.github.io/argo-workflows/) as a process automation tool.
 
 
 ## Project Structure

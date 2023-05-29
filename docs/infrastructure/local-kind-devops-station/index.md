@@ -4,6 +4,7 @@
 
 ## Terraform 
 
+For Development it is usefull to execute the Terraform scripts from youre Local Device.
 
 ??? example "Environment variable)"
 
@@ -45,6 +46,31 @@
            end="<!--tf-env-vars-end-->"
         %}
 
+
 ```sh
  terragrunt run-all apply --terragrunt-non-interactive
 ```
+
+
+## Third Party Secrets
+
+??? example "Required Secrets"
+
+    ??? example "Duckdns"
+        
+        Used for [duckdns.org](https://www.duckdns.org/), as DNS Service.
+        {%
+           include-markdown "../../../src/applications/cert-manager-webhook-duckdns/README.md"
+           start="<!--vault-secret-start-->"
+           end="<!--vault-secret-end-->"
+        %}
+
+    ??? example "Github App"
+        
+        Used [github.com](https://docs.github.com/en/apps/creating-github-apps/setting-up-a-github-app/creating-a-github-app), as External Identity Provider (IdP), for single sign on with your Personal Account.
+        {%
+        include-markdown "../../../src/applications/keycloak/README.md"
+        start="<!--identity-providers-github-app-vault-start-->"
+        end="<!--identity-providers-github-app-vault-end-->"
+        %}
+
