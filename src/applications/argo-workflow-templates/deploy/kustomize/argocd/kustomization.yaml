@@ -9,4 +9,3 @@ namespace: argocd
 
 resources:
   - ../sa
-

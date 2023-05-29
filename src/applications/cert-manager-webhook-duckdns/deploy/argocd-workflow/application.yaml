@@ -11,4 +11,3 @@ spec:
     path: src/applications/cert-manager-webhook-duckdns/deploy/workflow-app
     repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master
-

@@ -55,5 +55,3 @@ warten bis die vault Initialisierung abgeschlossen ist,
 ## Zertifikate
 
 [Zertifikate](../../services/certificates.md#bereitstellung) Bereitstellen
-
-

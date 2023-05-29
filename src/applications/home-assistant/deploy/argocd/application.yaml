@@ -68,4 +68,3 @@ spec:
             type: hostPath
             mountPath: /config
             hostPath: /var/mnt/storage/home-assistant
-

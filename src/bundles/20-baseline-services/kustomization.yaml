@@ -40,4 +40,3 @@ resources:
   - ../../../src/applications/vault-sidecar-injector/deploy/argocd
   - ../../../src/applications/vault/deploy/argocd
   - ../../../src/applications/minio/deploy/argocd
-
