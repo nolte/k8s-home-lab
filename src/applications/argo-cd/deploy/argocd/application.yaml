@@ -39,4 +39,4 @@ spec:
         valueFiles: []
       chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 5.34.4
+      targetRevision: 5.34.6
