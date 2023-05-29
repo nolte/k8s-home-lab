@@ -9,7 +9,7 @@ spec:
       - log: ${body}
       #- to: "knative:channel/mychannel"
       - to: "knative:event/beers"
-      - log: 
+      - log:
           message: fofa2
       # - knative: ${body}
       uri: kamelet:beer-source?period=5000

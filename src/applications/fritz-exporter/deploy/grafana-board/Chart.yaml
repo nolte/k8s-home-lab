@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: monitoring-dashboards
     repository: file://../../../monitoring-dashboards/deploy/chart
-    
+
 description: Preconfigured cert-manager Deployment
 name: cert-manager
 sources: []

@@ -1,6 +1,6 @@
 # RPI Cluster Management Workflows
 
-Cluster Specific Workflows, like Boostrapping the OS. 
+Cluster Specific Workflows, like Boostrapping the OS.
 
 ## Baseline Cluster
 

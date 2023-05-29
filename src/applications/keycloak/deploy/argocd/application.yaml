@@ -26,7 +26,7 @@ spec:
             routes:
             - services:
               - name: keycloak
-                port: 80          
+                port: 80
       path: charts/stable/projectcontour-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
@@ -51,7 +51,7 @@ spec:
             vaultInjector:
               create: true
           serviceAccount:
-            create: true            
+            create: true
           configurationWorkflows:
             post-install:
               type: terragrunt
@@ -71,7 +71,7 @@ spec:
               source:
                 repo: https://github.com/nolte/argo-charts.git
                 path: ./src/applications/keycloak/configuration/baseline
-                revision: master            
+                revision: master
       path: charts/stable/argo-workflow-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main

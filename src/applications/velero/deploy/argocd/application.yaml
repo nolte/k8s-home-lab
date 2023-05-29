@@ -15,7 +15,7 @@ spec:
         - name: backupsEnabled
           value: 'false'
         - name: snapshotsEnabled
-          value: 'false'      
+          value: 'false'
     repoURL: https://vmware-tanzu.github.io/helm-charts
     # https://github.com/vmware-tanzu/helm-charts/tree/main/charts/velero
     targetRevision: 4.0.2

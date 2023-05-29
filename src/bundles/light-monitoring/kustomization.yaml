@@ -17,74 +17,74 @@ patches:
       version: v1alpha1
 
 patchesJSON6902:
- 
+
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  defaultRules.create
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  alertmanager.enabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubeEtcd.enabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubeApiServer.enabled
-          value: "false"   
+          value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubeProxy.enabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  nodeExporter.enabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubelet.enabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  coreDns.enabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubeControllerManager.enabled
-          value: "false"          
+          value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubeScheduler.enabled
-          value: "false"          
+          value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  kubeStateMetrics.enabled
-          value: "false"            
+          value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  grafana.defaultDashboardsEnabled
           value: "false"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  grafana.enabled
           value: "true"
     target:

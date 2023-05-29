@@ -7,10 +7,10 @@ metadata:
     vault.hashicorp.com/agent-inject: "true"
     vault.hashicorp.com/role: "argo-workflows"
     vault.hashicorp.com/agent-inject-token: "true"
-    
+
     # Load a Secret for Terraform State file access
-    vault.hashicorp.com/agent-inject-secret-s3access: secrets-tf/services/s3/users/admin    
-# #   "helm.sh/hook": "post-install"    
+    vault.hashicorp.com/agent-inject-secret-s3access: secrets-tf/services/s3/users/admin
+# #   "helm.sh/hook": "post-install"
 spec:
   terraformVersion: 0.14.9
   terraformModule:
@@ -22,7 +22,7 @@ spec:
         in_cluster_config  = true
         namespace = "minio"
       }
-    }    
+    }
   applyOnCreate: true
   applyOnUpdate: true
   applyOnDelete: true

@@ -4,8 +4,8 @@ grafana:
     default:
       fritz-exporter:
         gnetId: 13983
-        datasource: Prometheus  
-  dashboardProviders: 
+        datasource: Prometheus
+  dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
@@ -16,4 +16,4 @@ grafana:
         disableDeletion: false
         editable: true
         options:
-          path: /var/lib/grafana/dashboards/default  
+          path: /var/lib/grafana/dashboards/default

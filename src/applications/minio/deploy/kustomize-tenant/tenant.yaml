@@ -145,8 +145,8 @@ spec:
   - name: MINIO_BROWSER
     value: "off" # to turn-off browser
   - name: MINIO_BROWSER_REDIRECT_URL
-    value: "http://minio.minio.svc" 
-    
+    value: "http://minio.minio.svc"
+
   # - name: MINIO_STORAGE_CLASS_STANDARD
   #   value: "EC:2"
 
@@ -164,7 +164,7 @@ spec:
 #    image: minio/console:v0.8.2
 #    replicas: 1
 #    consoleSecret:
-#      name: console-secret    
+#      name: console-secret
 #    securityContext:
 #      runAsUser: 1000
 #      runAsGroup: 2000

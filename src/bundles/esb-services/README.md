@@ -6,7 +6,7 @@
 * [RabbitMQ](../src/applications/rabbitmq/)
 * []
 
-kamel run hello.groovy -n camel-k 
+kamel run hello.groovy -n camel-k
 
  kamel run write.groovy -n knative-eventing --dev
 

@@ -70,4 +70,3 @@ resource "keycloak_user" "user_bob" {
     temporary = false
   }
 }
-

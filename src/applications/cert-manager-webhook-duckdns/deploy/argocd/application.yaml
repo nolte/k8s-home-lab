@@ -33,7 +33,7 @@ spec:
           - name: secret.existingSecretName
             value: "duckdns-token"
           #- name: externalsecrets.enabled
-          #  value: "false" 
+          #  value: "false"
         values: |
           fullnameOverride: cert-manager-webhook-duckdns
           clusterIssuer:
@@ -43,7 +43,7 @@ spec:
               create: true
           secret:
             existingSecret: true
-            existingSecretName: duckdns-token                      
+            existingSecretName: duckdns-token
     - chart: external-secrets-manifests
       repoURL: https://nolte.github.io/helm-charts-repo/
       targetRevision: 1.0.0

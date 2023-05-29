@@ -6,7 +6,7 @@
    end="<!--description-end-->"
 %}
 
-Use a different Service set: 
+Use a different Service set:
 
 * [ESPHome](../services/esphome.md) *for flashing and managing, different IoT Devices.*
 * [home-assistant](../services/home-assistant.md) *as central management, for different Devices and Automations.*

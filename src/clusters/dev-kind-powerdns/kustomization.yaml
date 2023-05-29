@@ -20,12 +20,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: forecastle.dev44-just-homestyle.duckdns.org
     target:
@@ -40,12 +40,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: home-assistant.dev44-just-homestyle.duckdns.org
     target:
@@ -61,12 +61,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: esphome.dev44-just-homestyle.duckdns.org
     target:
@@ -78,7 +78,7 @@ patchesJSON6902:
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
-        value: 
+        value:
           - name: console.ingress.enabled
             value: "true"
     target:
@@ -100,14 +100,14 @@ patchesJSON6902:
   - patch: |-
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
-          value: argo.dev44-just-homestyle.duckdns.org        
+          value: argo.dev44-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
@@ -120,32 +120,32 @@ patchesJSON6902:
         value: values-ingress.yaml
       - op: add
         path: /spec/sources/1/helm/valueFiles/-
-        value: values-oidc.yaml        
+        value: values-oidc.yaml
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
-          value: argocd.dev44-just-homestyle.duckdns.org        
+          value: argocd.dev44-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
       name: argocd
       version: v1alpha1
-  
+
   - patch: |-
      - op: add
        path: /spec/sources/0/helm/parameters/-
-       value:             
+       value:
          name:  httpProxy.create
          value: "true"
      - op: add
        path: /spec/sources/0/helm/parameters/-
-       value:             
+       value:
          name:  httpProxy.fqdn
          value: vault.dev44-just-homestyle.duckdns.org
     target:
@@ -160,17 +160,17 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: keycloak.dev44-just-homestyle.duckdns.org
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  configurationWorkflows.post-install.source.revision
           value: master
 
@@ -186,39 +186,39 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: "harbor.dev44-just-homestyle.duckdns.org"
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  externalURL
           value: "https://harbor.dev44-just-homestyle.duckdns.org"
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  expose.ingress.hosts.core
           value: harbor.dev44-just-homestyle.duckdns.org
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  expose.ingress.hosts.notary
-          value: notary.dev44-just-homestyle.duckdns.org    
+          value: notary.dev44-just-homestyle.duckdns.org
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  expose.type
           value: clusterIP
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  expose.tls.enabled
-          value: "false"          
+          value: "false"
     target:
       group: argoproj.io
       kind: Application
@@ -243,7 +243,7 @@ patchesJSON6902:
         path: /spec/sources/0/helm/parameters/-
         value:
           name:  httpProxy.fqdn
-          value: gitea.dev44-just-homestyle.duckdns.org        
+          value: gitea.dev44-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
@@ -258,7 +258,7 @@ patchesJSON6902:
         path: /spec/source/helm/parameters/-
         value:
           name:  externalsecrets.enabled
-          value: "true"      
+          value: "true"
     target:
       group: argoproj.io
       kind: Application
@@ -273,7 +273,7 @@ patchesJSON6902:
         path: /spec/source/helm/parameters/-
         value:
           name:  contour.extraArgs[0]
-          value: "--ingress-status-address=172.18.0.2"      
+          value: "--ingress-status-address=172.18.0.2"
     target:
       group: argoproj.io
       kind: Application

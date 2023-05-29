@@ -68,4 +68,4 @@ argo-cd:
         # Grant all members of the group 'my-org:team-alpha; the ability to sync apps in 'my-project'
         # p, my-org:team-alpha, applications, sync, my-project/*, allow
         # Grant all members of 'my-org:team-beta' admins
-        g, /platform-super-users/argocd-admin-users, role:admin        
+        g, /platform-super-users/argocd-admin-users, role:admin

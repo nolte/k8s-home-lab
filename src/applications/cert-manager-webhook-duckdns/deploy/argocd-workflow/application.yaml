@@ -11,4 +11,4 @@ spec:
     path: src/applications/cert-manager-webhook-duckdns/deploy/workflow-app
     repoURL: https://github.com/nolte/argo-charts.git
     targetRevision: master
-    
+

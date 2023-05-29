@@ -42,7 +42,7 @@ export KEYCLOAK_URL=https://$(kubectl -n keycloak get httpproxies.projectcontour
 
 
 ```sh
-argo -n keycloak get post-sync-keycloak 
+argo -n keycloak get post-sync-keycloak
 ```
 
 open [Workflow](http://localhost:2746/workflows/keycloak/post-sync-keycloak?tab=workflow)

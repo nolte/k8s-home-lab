@@ -25,7 +25,7 @@ spec:
         prometheus:
           enabled: true
           servicemonitor:
-            enabled: true  
+            enabled: true
     #path: src/applications/cert-manager/deploy/chart
     #repoURL: https://github.com/nolte/argo-charts.git
     #targetRevision: master

@@ -10,7 +10,7 @@ spec:
   source:
     helm:
       parameters: []
-      valueFiles: []     
+      valueFiles: []
       releaseName: metallb
     chart: metallb
     repoURL: https://metallb.github.io/metallb

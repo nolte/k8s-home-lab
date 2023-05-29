@@ -13,4 +13,3 @@ argo submit -n argocd \
   -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
   -p argocd-source-targetRevision="master"
 ```
-

@@ -1,6 +1,6 @@
 # Zertifikate
 
-Für die Nutzung von [Lets Encrypt](https://letsencrypt.org/) im lokalen Heimnetz nutzen wir [duckdns.org](https://www.duckdns.org) als Dynamic DNS (DDNS) Service. Dort wird die Lokale IP des Ingress Controllers einer Domain zugeordnet, durch diese Limitierung ist es leider aktuell nicht möglich mehr als einen Cluster pro Domain zu betreiben. 
+Für die Nutzung von [Lets Encrypt](https://letsencrypt.org/) im lokalen Heimnetz nutzen wir [duckdns.org](https://www.duckdns.org) als Dynamic DNS (DDNS) Service. Dort wird die Lokale IP des Ingress Controllers einer Domain zugeordnet, durch diese Limitierung ist es leider aktuell nicht möglich mehr als einen Cluster pro Domain zu betreiben.
 
 
 DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/ebrianne/cert-manager-webhook-duckdns/)
@@ -42,7 +42,7 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
                    end="<!--vault-secret-end-->"
                 %}
 
-2. Starten des [ebrianne/cert-manager-webhook-duckdns](https://github.com/ebrianne/cert-manager-webhook-duckdns/) Deployments über ArgoWorkflow 
+2. Starten des [ebrianne/cert-manager-webhook-duckdns](https://github.com/ebrianne/cert-manager-webhook-duckdns/) Deployments über ArgoWorkflow
 
 
 

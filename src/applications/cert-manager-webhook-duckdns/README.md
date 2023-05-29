@@ -8,7 +8,7 @@ argo submit \
   -n argocd \
   --from workflowtemplate/app-cert-manager-webhook-duckdns \
   -p issuerEmail=$(pass internet/letsencrypt/account_mail) \
-  -p externalsecrets-enabled=true 
+  -p externalsecrets-enabled=true
 ```
 <!--workflow-deploy-end-->
 ## Preconditions

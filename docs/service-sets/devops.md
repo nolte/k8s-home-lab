@@ -5,5 +5,5 @@ Unterstützende Services für die Heimische Entwicklung/Betrieb, z.B [Harbor](ht
 ## Umgebungen
 
 * kind
-* IntelNuc (x86) 
+* IntelNuc (x86)
 * Hetzner Cloud *planed*

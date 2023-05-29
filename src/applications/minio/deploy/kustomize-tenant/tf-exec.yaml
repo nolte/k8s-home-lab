@@ -15,7 +15,7 @@ spec:
     - name: path
       value: ./src/applications/minio/configuration/baseline
 
-  templates:  
+  templates:
   - name: exec
     metadata:
       annotations:
@@ -42,7 +42,7 @@ spec:
         set -o errexit
         set -o pipefail
         set -o nounset
-        
+
         cd {{inputs.parameters.path}}
         export VAULT_TOKEN=$(cat /vault/secrets/token)
         terragrunt {{inputs.parameters.action}} -input=false -auto-approve -no-color
@@ -54,7 +54,7 @@ spec:
             name: tf-static-minio-endpoints
       env:
         #- name: VAULT_TOKEN
-        #  value: 
+        #  value:
         - name: MINIO_ACCESS_KEY
           valueFrom:
             secretKeyRef:
@@ -66,7 +66,7 @@ spec:
               name: minio-creds-secret
               key: secretkey
         - name: KUBE_IN_CLUSTER_CONFIG
-          value: "true"              
+          value: "true"
 #    outputs:
 #      artifacts:
 #        - name: terraform-plan

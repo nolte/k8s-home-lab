@@ -26,4 +26,4 @@ patchesJson6902:
 resources:
   #- ../../../src/applications/argo-cd/deploy/argocd
   - ../../../src/applications/monitoring/deploy/argocd
-  - ../../../src/applications/argo-events/deploy/argocd  
+  - ../../../src/applications/argo-events/deploy/argocd

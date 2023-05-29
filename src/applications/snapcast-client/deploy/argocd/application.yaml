@@ -10,7 +10,7 @@ spec:
   source:
     chart: snapcast-client
     repoURL: https://nolte.github.io/helm-charts-repo
-    targetRevision: 0.3.1      
+    targetRevision: 0.3.1
     helm:
       parameters: []
       valueFiles: []

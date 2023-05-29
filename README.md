@@ -20,8 +20,8 @@ The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io
 <!--structure-start-->
 ```
 .
-├─📁 .github          # Github Actions and configurations, like linting etc. 
-├─📁 .taskfiles       # Taskfiles with reuseable small util commands 
+├─📁 .github          # Github Actions and configurations, like linting etc.
+├─📁 .taskfiles       # Taskfiles with reuseable small util commands
 ├─📁 docs             # The Required Files for the mkdocs based Documentation  
 ├─📁 hack             # The Sources for configure the Local Bootstrapping Cluster
 ├─📁 src              # All required Sources for manage the Cluster
@@ -41,7 +41,7 @@ The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io
 | `src/terraground-common`   | Shared Terraground Configs, like Statefile Handling or Module Versions.      |
 | `src/talos-configs`        | The [Talos](https://www.talos.dev/) K8S Cluster configs.                     |
 
-For more Information take a look into the `README.md` inside the Subfolder like [/src/applications](./src/applications/README.md). 
+For more Information take a look into the `README.md` inside the Subfolder like [/src/applications](./src/applications/README.md).
 
 ## Docs
 
@@ -67,7 +67,7 @@ or you will be use the task alias `task docs`, for starting the mkdocs Container
 ### Local Deploy
 
 ```sh
- kustomize build .  --load-restrictor LoadRestrictionsNone | kubectl apply -f - 
+ kustomize build .  --load-restrictor LoadRestrictionsNone | kubectl apply -f -
 ```
 
 ## Links
@@ -75,4 +75,3 @@ or you will be use the task alias `task docs`, for starting the mkdocs Container
 * For Bootstrapping take a look to [nolte/ansible_playbook-baseline-online-server](https://github.com/nolte/ansible_playbook-baseline-online-server#start-ssh-agent)
 * For Install k3s [nolte/ansible_playbook-baseline-k3s](https://github.com/nolte/ansible_playbook-baseline-k3s)
 * [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/) as Classic Helm Chart Repository.
-

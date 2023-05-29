@@ -90,13 +90,13 @@ argo-cd:
             args: ["helm repo add ${helm_dependency_name} ${helm_dependency_repo} && helm dependency update ${helm_base}"]
           generate:
             command: ["sh", "-c"]
-            args: ["helm template ${helm_dependency_name} ${helm_base} ${helm_args} > ${helm_base}/all.yaml && kustomize build"]      
+            args: ["helm template ${helm_dependency_name} ${helm_base} ${helm_args} > ${helm_base}/all.yaml && kustomize build"]
       resource.customizations: |
 
         cert-manager.io/Certificate:
           knownTypeFields:
           - field: spec.template.spec
-            type: core/v1/PodSpec      
+            type: core/v1/PodSpec
         admissionregistration.k8s.io/MutatingWebhookConfiguration:
           ignoreDifferences: |
             jsonPointers:

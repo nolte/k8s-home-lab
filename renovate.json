@@ -4,5 +4,5 @@
   ],
   "argocd": {
     "fileMatch": ["src/applications/.*/deploy/argocd/application.*\\.yaml"]
-  }  
+  }
 }

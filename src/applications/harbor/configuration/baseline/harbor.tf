@@ -11,4 +11,3 @@ resource "harbor_config_auth" "oidc" {
   oidc_user_claim    = "name"
   oidc_admin_group   = "/platform-super-users/harbor-admin-users"
 }
-

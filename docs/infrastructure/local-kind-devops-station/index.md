@@ -2,14 +2,14 @@
 
 
 
-## Terraform 
+## Terraform
 
 For Development it is usefull to execute the Terraform scripts from youre Local Device.
 
 ??? example "Environment variable)"
 
     ??? example "Vault Access"
-        
+
         Required Vars and Login
         {%
            include-markdown "../../../src/applications/vault/README.md"
@@ -28,7 +28,7 @@ For Development it is usefull to execute the Terraform scripts from youre Local 
         %}
 
     ??? example "IAM Keycloak Access"
-    
+
 
         {%
            include-markdown "../../../src/applications/keycloak/README.md"
@@ -38,7 +38,7 @@ For Development it is usefull to execute the Terraform scripts from youre Local 
 
 
     ??? example "Harbor Access"
-    
+
 
         {%
            include-markdown "../../../src/applications/harbor/README.md"
@@ -57,7 +57,7 @@ For Development it is usefull to execute the Terraform scripts from youre Local 
 ??? example "Required Secrets"
 
     ??? example "Duckdns"
-        
+
         Used for [duckdns.org](https://www.duckdns.org/), as DNS Service.
         {%
            include-markdown "../../../src/applications/cert-manager-webhook-duckdns/README.md"
@@ -66,11 +66,10 @@ For Development it is usefull to execute the Terraform scripts from youre Local 
         %}
 
     ??? example "Github App"
-        
+
         Used [github.com](https://docs.github.com/en/apps/creating-github-apps/setting-up-a-github-app/creating-a-github-app), as External Identity Provider (IdP), for single sign on with your Personal Account.
         {%
         include-markdown "../../../src/applications/keycloak/README.md"
         start="<!--identity-providers-github-app-vault-start-->"
         end="<!--identity-providers-github-app-vault-end-->"
         %}
-

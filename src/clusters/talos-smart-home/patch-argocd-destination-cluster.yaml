@@ -1,4 +1,4 @@
 - op: add
   path: /spec/destination/name
   value: talos-smart-home
-  
+

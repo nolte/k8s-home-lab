@@ -32,7 +32,7 @@ argo submit -n argocd \
   -p inventory-revision="develop" \
   -p playbook="playbook-firewalld-stop.yaml" \
   -p playbook-repo="git@github.com:nolte/ansible_playbook-baseline-k3s.git" \
-  -p playbook-revision="feature/controllable-firelld" 
+  -p playbook-revision="feature/controllable-firelld"
 ```
 
 ```
@@ -43,7 +43,7 @@ argo submit -n argocd \
   -p inventory-revision="develop" \
   -p playbook="playbook-install-k3s.yaml" \
   -p playbook-repo="git@github.com:nolte/ansible_playbook-baseline-k3s.git" \
-  -p playbook-revision="feature/controllable-firelld" 
+  -p playbook-revision="feature/controllable-firelld"
 ```
 
 #### Terragrunt & Terraform

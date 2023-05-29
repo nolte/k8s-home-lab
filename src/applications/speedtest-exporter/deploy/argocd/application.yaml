@@ -15,12 +15,12 @@ spec:
           value: speedtest-exporter
       releaseName: speedtest-exporter
       values: |
-        env: 
+        env:
           TZ: 'Europe/Berlin'
         metrics:
           enabled: true
           serviceMonitor:
             labels:
-              release: monitoring 
+              release: monitoring
     repoURL: https://k8s-at-home.com/charts/
     targetRevision: 5.4.2

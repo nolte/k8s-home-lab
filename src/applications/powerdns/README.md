@@ -8,8 +8,8 @@ Private DNS Service
 <!--header-start-->
 **Namespace:** `powerdns`  
 **Configuration:** `./src/applications/powerdns/configuration/baseline`  
-**Deployment:** Helm, [k8s-at-home/powerdns](https://github.com/k8s-at-home/charts/tree/master/charts/stable/powerdns/) *(deprecated)*    
-**Terraform Provider:** [pan-net/powerdns](https://registry.terraform.io/providers/pan-net/powerdns/latest/docs)   
+**Deployment:** Helm, [k8s-at-home/powerdns](https://github.com/k8s-at-home/charts/tree/master/charts/stable/powerdns/) *(deprecated)*  
+**Terraform Provider:** [pan-net/powerdns](https://registry.terraform.io/providers/pan-net/powerdns/latest/docs)  
 **Web:** [powerdns.com](https://www.powerdns.com/)
 <!--header-end-->
 

@@ -5,9 +5,9 @@ Personal Git Service see [gitea.io](https://gitea.io/en-us/).
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** Helm, [gitea/helm-chart](https://gitea.com/gitea/helm-chart)   
-**Terraform Provider:** [Lerentis/gitea](https://registry.terraform.io/providers/Lerentis/gitea/latest/docs)   
-**Web**:  [gitea.io](https://gitea.io/en-us/) 
+**Deployment:** Helm, [gitea/helm-chart](https://gitea.com/gitea/helm-chart)  
+**Terraform Provider:** [Lerentis/gitea](https://registry.terraform.io/providers/Lerentis/gitea/latest/docs)  
+**Web**:  [gitea.io](https://gitea.io/en-us/)
 <!--header-end-->
 
 
@@ -27,9 +27,9 @@ browse \
 ```
 <!--httpproxies-end-->
 
-**Currently Problems with OIDC and Usergroups,** look [#23794](https://github.com/go-gitea/gitea/issues/23794) 
+**Currently Problems with OIDC and Usergroups,** look [#23794](https://github.com/go-gitea/gitea/issues/23794)
 
 <!--links-start-->
-* [gitea.io](https://gitea.io/en-us/) 
+* [gitea.io](https://gitea.io/en-us/)
 * [terraform provider](https://registry.terraform.io/providers/malarinv/gitea/latest/docs)
 <!--links-end-->

@@ -23,7 +23,7 @@ kubectl -n audio-station port-forward svc/rpi-mopidy 6680
 
 <!--snapcast-server-port-forward-start-->
 ```sh
- kubectl -n audio-station port-forward svc/rpi-snapcast-server 1780 4953 
+ kubectl -n audio-station port-forward svc/rpi-snapcast-server 1780 4953
 ```
 <!--snapcast-server-port-forward-end-->
 
@@ -35,6 +35,6 @@ kubectl create secret generic -n audio-station spotify-auth \
   --from-literal=SPOTIFY_USERNAME= \
   --from-literal=SPOTIFY_PASSWORD= \
   --from-literal=SPOTIFY_CLIENT_ID= \
-  --from-literal=SPOTIFY_CLIENT_SECRET= 
+  --from-literal=SPOTIFY_CLIENT_SECRET=
 ```
 <!--mopidy-spotify-auth-end-->

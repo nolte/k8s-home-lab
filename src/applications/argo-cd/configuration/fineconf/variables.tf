@@ -12,4 +12,3 @@ variable "argocd_fqdn" {
 
 variable "super_admins_group_id" {
 }
-

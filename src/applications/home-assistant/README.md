@@ -5,8 +5,8 @@ Used as basement for a cloudless Smart Home Eco system.
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** [ghcr.io/home-assistant/home-assistant](https://github.com/home-assistant/core/pkgs/container/home-assistant) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*   
-**Web**: [home-assistant.io](https://www.home-assistant.io/)   
+**Deployment:** [ghcr.io/home-assistant/home-assistant](https://github.com/home-assistant/core/pkgs/container/home-assistant) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*  
+**Web**: [home-assistant.io](https://www.home-assistant.io/)  
 <!--header-end-->
 
 ## Classic Secret
@@ -48,11 +48,11 @@ vault kv put \
 
 vault kv put \
   secrets-tf/third-party-services/openweathermap.org/projects/home-assistant \
-  token="$(pass network/homeassistant/openweather/apikey)" 
+  token="$(pass network/homeassistant/openweather/apikey)"
 
 vault kv put \
   secrets-tf/third-party-services/github.com/apitoken/home-assistant \
-  token="$(pass internet/github.com/nolte/servics/home-assistant/token)" 
+  token="$(pass internet/github.com/nolte/servics/home-assistant/token)"
 
 vault kv put \
   secrets-tf/services/router-fritz-box/users/admin \
@@ -63,6 +63,6 @@ vault kv put \
 vault kv put \
   secrets-tf/third-party-services/google.com/projects/home-assistant \
   client_id="$(pass internet/google.com/projects/home-assistant-274616/client_id)" \
-  client_secret="$(pass internet/google.com/projects/home-assistant-274616/client_secret)" 
+  client_secret="$(pass internet/google.com/projects/home-assistant-274616/client_secret)"
 ```
 <!--vault-secrets-end-->

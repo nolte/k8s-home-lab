@@ -43,7 +43,7 @@
 
 ## Speed Test
 
-*Helm Chart:*[k8s-at-home/charts/tree/master/charts/stable/speedtest-exporter](https://github.com/k8s-at-home/charts/tree/master/charts/stable/speedtest-exporter)   
+*Helm Chart:*[k8s-at-home/charts/tree/master/charts/stable/speedtest-exporter](https://github.com/k8s-at-home/charts/tree/master/charts/stable/speedtest-exporter)  
 *Sources:* [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter/)
 
 

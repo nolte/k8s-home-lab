@@ -5,4 +5,3 @@
    start="<!--cluster-description-start-->"
    end="<!--cluster-description-end-->"
 %}
-

@@ -60,7 +60,7 @@ data "kubernetes_secret" "vault" {
 #    kind      = "ClusterRole"
 #    name      = "system:auth-delegator"
 #  }
-#  
+#
 #  subject {
 #    kind      = "ServiceAccount"
 #    name      = "vault"

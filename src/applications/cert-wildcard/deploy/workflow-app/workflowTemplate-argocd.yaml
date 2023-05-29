@@ -16,7 +16,7 @@ spec:
             default: "dev44-just-homestyle.duckdns.org"
           - name: helm-values-filename
             default: "values-reflector.yaml"
-        
+
       resource:
         action: apply
         manifest: |

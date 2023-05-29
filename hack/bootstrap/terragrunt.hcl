@@ -12,9 +12,8 @@ terraform {
     argocd = {
       source = "oboukili/argocd"
       version = "1.2.1"
-    }   
-  }  
+    }
+  }
 }
 EOF
 }
-

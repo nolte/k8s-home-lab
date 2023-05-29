@@ -56,7 +56,7 @@ jobs:
           charts_repo_url: https://nolte.github.io/argo-charts/
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-  
+
   # Update the generated timestamp in the index.yaml
   # needed until https://github.com/helm/chart-releaser/issues/90
   # or helm/chart-releaser-action supports this

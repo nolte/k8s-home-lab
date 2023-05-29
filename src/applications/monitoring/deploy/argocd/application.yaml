@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: monitoring
   annotations:
-    argocd.argoproj.io/sync-wave: "-50" 
+    argocd.argoproj.io/sync-wave: "-50"
 spec:
   destination:
     name: in-cluster
@@ -23,8 +23,8 @@ spec:
             default:
               fritz-exporter:
                 gnetId: 13983
-                datasource: Prometheus  
-          dashboardProviders: 
+                datasource: Prometheus
+          dashboardProviders:
             dashboardproviders.yaml:
               apiVersion: 1
               providers:
@@ -35,7 +35,7 @@ spec:
                 disableDeletion: false
                 editable: true
                 options:
-                  path: /var/lib/grafana/dashboards/default          
+                  path: /var/lib/grafana/dashboards/default
       parameters: []
   syncPolicy:
     syncOptions:

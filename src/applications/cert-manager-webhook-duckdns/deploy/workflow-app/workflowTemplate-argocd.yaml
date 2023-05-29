@@ -50,7 +50,7 @@ spec:
                   - name: certmanagerwebhookduckdns.clusterIssuer.production.create
                     value: "true"
                   - name: certmanagerwebhookduckdns.clusterIssuer.staging.create
-                    value: "true"                 
+                    value: "true"
                   - name: certmanagerwebhookduckdns.secret.existingSecret
                     value: "true"
                   - name: certmanagerwebhookduckdns.secret.existingSecretName

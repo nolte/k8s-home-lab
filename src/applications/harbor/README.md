@@ -5,10 +5,10 @@ Container Registry by [Harbor](https://github.com/goharbor).
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** Helm, [goharbor/harbor-helm](https://github.com/goharbor/harbor-helm)   
+**Deployment:** Helm, [goharbor/harbor-helm](https://github.com/goharbor/harbor-helm)  
 **Configuration:** `./src/applications/harbor/configuration/baseline`  
-**Terraform Provider:** [goharbor/harbor](https://registry.terraform.io/providers/goharbor/harbor/latest)   
-**Web**:  [goharbor.io](https://goharbor.io/) 
+**Terraform Provider:** [goharbor/harbor](https://registry.terraform.io/providers/goharbor/harbor/latest)  
+**Web**:  [goharbor.io](https://goharbor.io/)
 <!--header-end-->
 
 
@@ -24,7 +24,7 @@ browse \
 
 <!--port-forward-start-->
 ```sh
-kubectl -n harbor port-forward svc/harbor-portal 8080:80 
+kubectl -n harbor port-forward svc/harbor-portal 8080:80
 ```
 <!--port-forward-end-->
 
@@ -38,7 +38,7 @@ export HARBOR_INSECURE=true \
 <!--tf-env-vars-end-->
 
 <!--reset-admin-password-by-api-start-->
-```sh 
+```sh
 curl -k -X PUT \
   -u ${HARBOR_USERNAME}:${HARBOR_PASSWORD} \
   "${HARBOR_URL}/api/v2.0/users/1/password" \
@@ -48,5 +48,3 @@ curl -k -X PUT \
 
 ```
 <!--reset-admin-password-by-api-end-->
-
-

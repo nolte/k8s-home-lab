@@ -44,23 +44,23 @@ patchesJSON6902:
   - patch: |-
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: home-assistant.dev44-just-homestyle.duckdns.org
 
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  persistence.config.enabled
           value: "true"
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name:  persistence.config.hostPath
           value: "/var/mnt/storage/home-assistant"
     target:
@@ -75,12 +75,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: esphome.dev44-just-homestyle.duckdns.org
       - op: replace
@@ -88,7 +88,7 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/1/helm/parameters/-
-        value:             
+        value:
           name: initContainers.gitsync.env[1].value
           value: git@github.com:nolte/esphome-configs.git
     target:
@@ -103,12 +103,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  service.main.type
           value: "NodePort"
-      - op: add 
+      - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  service.main.ports.http.nodePort
           value: "31883"
     target:

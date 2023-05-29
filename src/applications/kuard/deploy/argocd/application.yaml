@@ -10,4 +10,4 @@ spec:
   source:
     path: src/applications/kuard/deploy/kustomize
     repoURL: https://github.com/nolte/argo-charts.git
-    targetRevision: master   
+    targetRevision: master

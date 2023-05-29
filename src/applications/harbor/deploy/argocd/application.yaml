@@ -20,7 +20,7 @@ spec:
             routes:
             - services:
               - name: harbor
-                port: 80              
+                port: 80
       path: charts/stable/projectcontour-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
@@ -45,7 +45,7 @@ spec:
             vaultInjector:
               create: true
           serviceAccount:
-            create: true            
+            create: true
           configurationWorkflows:
             post-install:
               type: terragrunt
@@ -65,10 +65,10 @@ spec:
               source:
                 repo: https://github.com/nolte/argo-charts.git
                 path: ./src/applications/harbor/configuration/baseline
-                revision: master      
+                revision: master
     - helm:
         parameters: []
       chart: harbor
       repoURL: https://helm.goharbor.io
       targetRevision: 1.12.1
-    
+

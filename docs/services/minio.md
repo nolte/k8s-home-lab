@@ -54,4 +54,4 @@ export MINIO_ENDPOINT=$(kubectl -n minio get httpproxies.projectcontour.io minio
 
 ## Links/Open Tasks
 
-* SSO Integration 
+* SSO Integration

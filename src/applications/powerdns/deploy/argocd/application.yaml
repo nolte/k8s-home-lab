@@ -8,7 +8,7 @@ spec:
   destination:
     name: in-cluster
     namespace: powerdns
-    
+
   project: default
   sources:
     - helm:
@@ -61,7 +61,7 @@ spec:
 
       path: charts/stable/argo-workflow-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
-      targetRevision: main  
+      targetRevision: main
     - chart: powerdns
       repoURL: https://k8s-at-home.com/charts
       targetRevision: 5.0.0

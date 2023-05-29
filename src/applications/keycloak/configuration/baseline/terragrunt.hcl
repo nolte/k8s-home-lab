@@ -5,7 +5,7 @@ include {
 
 locals {
   root_config = read_terragrunt_config("../../../../terraground-common/state-s3.hcl")
-  provider_version = read_terragrunt_config("../../../../terraground-common/provider-versions.hcl") 
+  provider_version = read_terragrunt_config("../../../../terraground-common/provider-versions.hcl")
 }
 
 remote_state {
@@ -34,7 +34,7 @@ generate "versions" {
   path      = "versions.gen.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
-    terraform {      
+    terraform {
       required_providers {
         keycloak = {
           source = "mrparkers/keycloak"

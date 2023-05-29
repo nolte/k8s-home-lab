@@ -5,5 +5,5 @@ Used as lightweight `MQTT` Broker, usefull for some IOT services like [tasmota](
 
 
 ```sh
-kubectl -n mosquitto get svc mosquitto        
+kubectl -n mosquitto get svc mosquitto  
 ```

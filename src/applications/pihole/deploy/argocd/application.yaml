@@ -7,7 +7,7 @@ spec:
     name: in-cluster
     namespace: pihole
   project: default
-  source:    
+  source:
     chart: pihole
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
     targetRevision: 2.14.0

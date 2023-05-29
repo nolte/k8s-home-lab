@@ -27,7 +27,7 @@ Set Git Key for Clone Conf repo.
 ??? example "Environment variable"
 
     ??? example "Classic Secret"
-        
+
         Required Vars and Login
         {%
             include-markdown "../../src/applications/home-assistant/README.md"
@@ -42,7 +42,7 @@ Set Git Key for Clone Conf repo.
         %}
 
     ??? example "Vault Access"
-        
+
         Required Vars and Login
         {%
             include-markdown "../../src/applications/home-assistant/README.md"
@@ -51,11 +51,11 @@ Set Git Key for Clone Conf repo.
         %}
 
 
-## Access 
+## Access
 
 ## Config By API
 
-Set a [long lived](https://developers.home-assistant.io/docs/auth_api/#long-lived-access-token) Token from your User Profile 
+Set a [long lived](https://developers.home-assistant.io/docs/auth_api/#long-lived-access-token) Token from your User Profile
 
 ```sh
 export HASS_TOKEN=$(pass network/homeassistant/api/token)

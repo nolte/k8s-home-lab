@@ -31,7 +31,7 @@
 ??? example "Environment variable"
 
     ??? example "Secret Git Private Key"
-        
+
         Required Vars and Login
         {%
             include-markdown "../../src/applications/esphome/README.md"
@@ -40,7 +40,7 @@
         %}
 
     ??? example "ESPHome Config"
-        
+
         Required Vars and Login
         {%
             include-markdown "../../src/applications/esphome/README.md"

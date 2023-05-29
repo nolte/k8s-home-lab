@@ -10,9 +10,8 @@ Used for development, or Clusters Bootstrapping. For more informations take a lo
 ## RPI (armhf)
 
 * https://hub.docker.com/r/mkaczanowski/packer-builder-arm
-* [nolte/infra-golden-image](https://github.com/nolte/infra-golden-image) zum erzeugen von Bootbaren SD Cards, für den HomeLab Cluster. 
+* [nolte/infra-golden-image](https://github.com/nolte/infra-golden-image) zum erzeugen von Bootbaren SD Cards, für den HomeLab Cluster.
 
-## Intel NUC (x86) 
+## Intel NUC (x86)
 
 ## Hetzner Cloud (Public)
-

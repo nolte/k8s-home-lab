@@ -16,12 +16,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: home-assistant.dev44-just-homestyle.duckdns.org
     target:
@@ -35,12 +35,12 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
         path: /spec/sources/0/helm/parameters/-
-        value:             
+        value:
           name:  httpProxy.fqdn
           value: esphome.dev44-just-homestyle.duckdns.org
     target:

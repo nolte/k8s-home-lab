@@ -24,4 +24,3 @@ resource "powerdns_zone" "duckdns_local" {
 #  ttl     = 300
 #  records = ["192.168.0.11"]
 #}
-

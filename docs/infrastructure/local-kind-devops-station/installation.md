@@ -16,7 +16,7 @@
       -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
       -p argocd-source-targetRevision="master"
     ```
-    
+
     ```sh
     argo submit -n argocd \
       --from workflowtemplate/script-argocd-application \
@@ -45,15 +45,15 @@ argo get bootstrap-cluster -n argocd
 %}
 
 warten bis die vault Initialisierung abgeschlossen ist,
-   
+
 {%
    include-markdown "../../../src/applications/vault/README.md"
    start="<!--vault-init-job-start-->"
    end="<!--vault-init-job-end-->"
 %}
 
-## Zertifikate 
+## Zertifikate
 
-[Zertifikate](../../services/certificates.md#bereitstellung) Bereitstellen 
+[Zertifikate](../../services/certificates.md#bereitstellung) Bereitstellen
 
- 
+

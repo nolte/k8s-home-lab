@@ -51,7 +51,7 @@ spec:
             vaultInjector:
               create: true
           serviceAccount:
-            create: true            
+            create: true
           configurationWorkflows:
             post-install:
               type: terragrunt
@@ -71,7 +71,7 @@ spec:
               source:
                 repo: https://github.com/nolte/argo-charts.git
                 path: ./src/applications/gitea/configuration/baseline
-                revision: master     
+                revision: master
       path: charts/stable/argo-workflow-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
@@ -85,18 +85,18 @@ spec:
               existingSecret: gitea-admin-secret
             config:
               server:
-                ROOT_URL: "https://gitea.dev44-just-homestyle.duckdns.org"              
+                ROOT_URL: "https://gitea.dev44-just-homestyle.duckdns.org"
             oauth:
               - name: "MyAwesomeGiteaOAuth"
                 existingSecret: gitea-oauth
                 provider: "openidConnect"
-                autoDiscoverUrl: https://keycloak.dev44-just-homestyle.duckdns.org/realms/devops-services/.well-known/openid-configuration 
+                autoDiscoverUrl: https://keycloak.dev44-just-homestyle.duckdns.org/realms/devops-services/.well-known/openid-configuration
                 groupClaimName: groups
                 adminGroup: /platform-super-users/gitea-admin-users
       chart: gitea
       repoURL: https://dl.gitea.io/charts/
       targetRevision: 8.3.0
-    
+
     - helm:
         releaseName: external-secrets-manifests
         parameters: []
@@ -113,7 +113,7 @@ spec:
                   property: client_id
                 - key: sesecretsrvices/IdentityAccessManagement/clients/gitea
                   name: secret
-                  property: client_secret          
+                  property: client_secret
             gitea-admin-secret:
               data:
                 - key: services/gitea/users/admin
@@ -124,7 +124,7 @@ spec:
                   property: password
                 - key: services/gitea/users/admin
                   name: email
-                  property: email          
+                  property: email
       path: charts/stable/external-secrets-manifests/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main

@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: esphome
   #annotations:
-  #  argocd.argoproj.io/sync-wave: "-33"  
+  #  argocd.argoproj.io/sync-wave: "-33"
 spec:
   destination:
     name: in-cluster
@@ -60,7 +60,7 @@ spec:
             - mountPath: /config
               name: config
             - mountPath: /root/.ssh
-              name: gitsecret          
+              name: gitsecret
         image:
           repository: esphome/esphome
           tag: "2023.2"

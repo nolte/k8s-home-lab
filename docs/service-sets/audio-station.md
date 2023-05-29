@@ -35,7 +35,7 @@
        include-markdown "../../src/bundles/audio-station/README.md"
        start="<!--mopidy-port-forward-start-->"
        end="<!--mopidy-port-forward-end-->"
-    %}    
+    %}  
 
 
 ??? example "Start port foward snapcast server"

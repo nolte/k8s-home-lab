@@ -5,8 +5,8 @@ keeps the cluster in sync ...
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** Helm, [argoproj/argo-helm](https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd)    
-**Web**: [argo-cd](https://argo-cd.readthedocs.io/en/stable/)   
+**Deployment:** Helm, [argoproj/argo-helm](https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd)  
+**Web**: [argo-cd](https://argo-cd.readthedocs.io/en/stable/)  
 <!--header-end-->
 
 

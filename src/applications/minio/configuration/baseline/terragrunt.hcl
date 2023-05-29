@@ -6,7 +6,7 @@ include {
 locals {
   STATE_NAMESPACE="minio"
   root_config = read_terragrunt_config("../../../../terraground-common/state-kubernetes.hcl")
-  provider_version = read_terragrunt_config("../../../../terraground-common/provider-versions.hcl") 
+  provider_version = read_terragrunt_config("../../../../terraground-common/provider-versions.hcl")
 }
 
 remote_state {

@@ -28,6 +28,6 @@ kubectl -n monitoring \
 kubectl -n monitoring \
   get secrets monitoring-grafana -ojson \
     | jq '.data["admin-password"]' -r \
-    | base64 -d 
+    | base64 -d
 ```
 <!--grafana-admin-password-end-->
