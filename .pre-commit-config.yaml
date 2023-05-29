@@ -3,6 +3,12 @@ repos:
       rev: v4.4.0
       hooks:
           - id: check-yaml
+            args: ['--unsafe']
+            exclude: (?x)(
+              .*/deploy/.*/templates/.* |
+              .*/examples/.* |
+              .*/rabbitmq/.*/.*/transport/.*
+              )
           - id: end-of-file-fixer
           - id: trailing-whitespace
             args: ['--markdown-linebreak-ext=md']

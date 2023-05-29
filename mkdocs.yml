@@ -35,8 +35,9 @@ markdown_extensions:
   - toc:
       permalink: True
   - pymdownx.emoji:
+# yamllint disable
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-
+# yamllint enable
 extra_css:
   - css/overwrite.css
