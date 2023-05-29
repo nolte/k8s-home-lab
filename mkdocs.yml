@@ -4,8 +4,8 @@ theme:
   features:
     - content.code.copy
 #docs_dir: .
-repo_name: 'nolte/argo-charts'
-repo_url: 'https://github.com/nolte/argo-charts'
+repo_name: 'nolte/k8s-home-lab'
+repo_url: 'https://github.com/nolte/k8s-home-lab'
 docs_dir: docs/
 plugins:
   - include-markdown

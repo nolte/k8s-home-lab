@@ -11,7 +11,7 @@ argocd-apps:
         project: cicd
         source:
           path: src/clusters/screenplay/dev-kind-powerdns
-          repoURL: https://github.com/nolte/argo-charts.git
+          repoURL: https://github.com/nolte/k8s-home-lab.git
           targetRevision: master
         syncPolicy:
           automated:
@@ -29,7 +29,7 @@ argocd-apps:
         project: cicd
         source:
           path: src/bundles/00-bootstrapping-minimal
-          repoURL: https://github.com/nolte/argo-charts.git
+          repoURL: https://github.com/nolte/k8s-home-lab.git
           targetRevision: master
         syncPolicy:
           automated:

@@ -10,6 +10,6 @@ argo submit -n argocd \
   -p argocd-application-project=cicd \
   -p argocd-destination-namespace=argocd \
   -p argocd-source-path="src/clusters/screenplay/dev-kind-powerdns" \
-  -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
+  -p argocd-source-repoURL="https://github.com/nolte/k8s-home-lab.git" \
   -p argocd-source-targetRevision="master"
 ```

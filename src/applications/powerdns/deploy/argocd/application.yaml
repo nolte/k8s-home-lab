@@ -54,7 +54,7 @@ spec:
                 - name: PDNS_SERVER_URL
                   value: http://powerdns-webserver.{{.Release.Namespace}}.svc:8081
               source:
-                repo: https://github.com/nolte/argo-charts.git
+                repo: https://github.com/nolte/k8s-home-lab.git
                 path: ./src/applications/powerdns/configuration/baseline
                 revision: master
 

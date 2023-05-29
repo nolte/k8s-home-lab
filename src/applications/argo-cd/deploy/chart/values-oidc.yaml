@@ -35,7 +35,7 @@ argo-workflows-execution:
           export KEYCLOAK_PASSWORD={{ .Data.data.password }}
           {{- end }}
       source:
-        repo: https://github.com/nolte/argo-charts.git
+        repo: https://github.com/nolte/k8s-home-lab.git
         path: ./src/applications/argo-cd/configuration/fineconf
         revision: master
 

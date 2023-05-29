@@ -69,7 +69,7 @@ spec:
                   export KEYCLOAK_PASSWORD={{ .Data.data.password }}
                   {{- end }}
               source:
-                repo: https://github.com/nolte/argo-charts.git
+                repo: https://github.com/nolte/k8s-home-lab.git
                 path: ./src/applications/keycloak/configuration/baseline
                 revision: master
       path: charts/stable/argo-workflow-mixin/

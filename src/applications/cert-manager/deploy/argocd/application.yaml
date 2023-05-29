@@ -27,7 +27,7 @@ spec:
           servicemonitor:
             enabled: true
     #path: src/applications/cert-manager/deploy/chart
-    #repoURL: https://github.com/nolte/argo-charts.git
+    #repoURL: https://github.com/nolte/k8s-home-lab.git
     #targetRevision: master
     chart: cert-manager
     repoURL: 'https://charts.jetstack.io'

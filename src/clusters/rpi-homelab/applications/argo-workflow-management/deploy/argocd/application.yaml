@@ -9,5 +9,5 @@ spec:
   project: default
   source:
     path: src/clusters/rpi-homelab/applications/argo-workflow-management/deploy/kustomize
-    repoURL: https://github.com/nolte/argo-charts.git
+    repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master

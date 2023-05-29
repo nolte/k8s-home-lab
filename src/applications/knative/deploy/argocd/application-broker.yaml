@@ -9,5 +9,5 @@ spec:
   project: default
   source:
     path: src/applications/knative/deploy/kustomize/broker
-    repoURL: https://github.com/nolte/argo-charts.git
+    repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master

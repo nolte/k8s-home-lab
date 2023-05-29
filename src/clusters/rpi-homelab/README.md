@@ -16,7 +16,7 @@ argo submit -n argocd \
   -p argocd-application-name=rpi-management \
   -p argocd-destination-namespace=rpi-homelab-management \
   -p argocd-source-path="src/clusters/rpi-homelab" \
-  -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
+  -p argocd-source-repoURL="https://github.com/nolte/k8s-home-lab.git" \
   -p argocd-source-targetRevision="master"
 ```
 <!--bootstrap-jobs-end-->

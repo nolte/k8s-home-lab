@@ -52,7 +52,7 @@ argo submit -n argocd \
 argo submit -n argocd \
   --from clusterworkflowtemplate/script-terraform \
   -p path="./src/applications/argo-cd/configuration/fineconf" \
-  -p repo="https://github.com/nolte/argo-charts.git" \
+  -p repo="https://github.com/nolte/k8s-home-lab.git" \
   -p revision="master" \
   -p action="init"
 ```
@@ -61,7 +61,7 @@ argo submit -n argocd \
 argo submit -n argocd \
   --from clusterworkflowtemplate/script-terragrunt \
   -p path="./src/applications/argo-cd/configuration/fineconf" \
-  -p repo="https://github.com/nolte/argo-charts.git" \
+  -p repo="https://github.com/nolte/k8s-home-lab.git" \
   -p revision="master" \
   -p action="init"
 ```

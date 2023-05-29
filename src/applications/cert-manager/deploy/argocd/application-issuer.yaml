@@ -11,5 +11,5 @@ spec:
   project: default
   source:
     path: src/applications/cert-manager/deploy/kustomize-issuers
-    repoURL: https://github.com/nolte/argo-charts.git
+    repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master
