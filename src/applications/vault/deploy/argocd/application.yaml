@@ -72,7 +72,7 @@ spec:
       releaseName: vault
     chart: vault
     repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.24.1
+    targetRevision: 0.25.0
 
   - helm:
       releaseName: vault-config 
