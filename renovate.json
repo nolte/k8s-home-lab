@@ -1,7 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base", 
+    "group:all", 
   ],
+  "schedule": "before 5am every weekday",
   "argocd": {
     "fileMatch": ["src/applications/.*/deploy/argocd/application.*\\.yaml"]
   }
