@@ -20,6 +20,6 @@ spec:
               release: monitoring
             # Set the namespace the ServiceMonitor should be deployed
             # namespace: monitoring
-    path: deployments/kubernetes/chart/reloader
-    repoURL: https://github.com/stakater/Reloader.git
-    targetRevision: v1.0.32
+    chart: reloader
+    repoURL: https://stakater.github.io/stakater-charts
+    targetRevision: 1.0.32 
