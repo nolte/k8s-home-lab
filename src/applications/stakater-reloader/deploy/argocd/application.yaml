@@ -22,4 +22,4 @@ spec:
             # namespace: monitoring
     path: deployments/kubernetes/chart/reloader
     repoURL: https://github.com/stakater/Reloader.git
-    targetRevision: v1.0.29
+    targetRevision: v1.0.32
