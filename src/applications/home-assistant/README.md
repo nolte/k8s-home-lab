@@ -66,3 +66,20 @@ vault kv put \
   client_secret="$(pass internet/google.com/projects/home-assistant-274616/client_secret)"
 ```
 <!--vault-secrets-end-->
+
+
+**Open HttpProxy if exists**
+<!--httpproxies-start-->
+```sh
+browse \
+  "https://$(kubectl -n home-assistant get httpproxies.projectcontour.io http-proxy -ojson | jq '.spec.virtualhost.fqdn' -r)"
+```
+<!--httpproxies-end-->
+
+
+
+<!--port-forward-start-->
+```sh
+kubectl -n home-assistant port-forward svc/home-assistant 8123
+```
+<!--port-forward-end-->

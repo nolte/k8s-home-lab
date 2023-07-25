@@ -49,11 +49,11 @@ spec:
               - name: "GIT_BRANCH"
                 value: "master"
               - name: "GIT_REPO"
-                value: "pleaseOverwrite"
+                value: "https://github.com/nolte/esphome-configs.git"
             command:
             - /bin/sh
             - -c
-            image: k8sathome/git-crypt:2020.11.15
+            image: registry.k8s.io/git-sync/git-sync:v3.6.8
             imagePullPolicy: IfNotPresent
             name: git-sync
             volumeMounts:
@@ -63,13 +63,17 @@ spec:
               name: gitsecret
         image:
           repository: esphome/esphome
-          tag: "2023.2"
+          # https://hub.docker.com/r/esphome/esphome/tags
+          tag: "2023.6"
         service:
           main:
             ports:
               http:
                 port: 6052
-
+        hostNetwork: true
+        envFrom:
+          - secretRef:
+              name: esphome-config
         persistence:
           gitsecret:
             enabled: true
@@ -82,6 +86,7 @@ spec:
                 secretName: git-creds
           config:
             enabled: true
+            type: emptyDir            
             mountPath: /config
-            type: hostPath
-            hostPath: /var/mnt/storage/esphome
+            #type: hostPath
+            #hostPath: /var/mnt/storage/esphome

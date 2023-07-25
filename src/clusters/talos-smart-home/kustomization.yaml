@@ -9,15 +9,15 @@ commonLabels:
 generatorOptions:
   disableNameSuffixHash: true
 
-namePrefix: talos-smart-home-
+# namePrefix: talos-smart-home-
 
 patches:
-  - path: patch-argocd-destination-cluster.yaml
-    target:
-      group: argoproj.io
-      kind: Application
-      name: .*
-      version: v1alpha1
+  #- path: patch-argocd-destination-cluster.yaml
+  #  target:
+  #    group: argoproj.io
+  #    kind: Application
+  #    name: .*
+  #    version: v1alpha1
 
   - path: ../../kustomization-common/deployment-patch.yaml
     target:
@@ -118,6 +118,12 @@ patchesJSON6902:
       version: v1alpha1
 
 resources:
-  - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/applications/argo-cd/deploy/argocd
+  - ../../../src/applications/argo-cd/workflows
+  - ../../../src/applications/argo-workflows/deploy/argocd
+  - ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd-workflow
+  - ../../../src/applications/cert-wildcard/deploy/workflow-app
+  - ../../../src/applications/namespace-configuration-operator/deploy/argocd
   - ../../../src/applications/stakater-reloader/deploy/argocd
+  - ../../../src/bundles/05-bootstrapping-ingress
   - ../../bundles/smart-home

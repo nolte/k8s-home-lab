@@ -5,7 +5,7 @@ Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Pr
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/esphome) *wrapper from the [k8s-at-home/charts](https://github.com/k8s-at-home/charts/tree/master/charts/stable/esphome) Chart*  
+**Deployment:** [esphome/esphome](https://hub.docker.com/r/esphome/esphome/tags) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart* 
 **Web**: [esphome.io](https://esphome.io/)  
 <!--header-end-->
 
@@ -27,7 +27,7 @@ Required Endpoints and secrets for use [nolte/esphome-configs](https://github.co
 <!--preconditions-esphome-config-start-->
 ```sh
 kubectl -n esphome create secret generic esphome-config \
-  --from-literal=WIFI_DOMAIN="fritz.local" \
+  --from-literal=WIFI_DOMAIN=".fritz.box" \
   --from-literal=WIFI_SSID="$(pass network/wifi/ssid)" \
   --from-literal=WIFI_PASSWORD="$(pass network/wifi/password)" \
   --from-literal=WIFI_FALLBACK_PASSWORD="$(pass network/wifi/password)" \

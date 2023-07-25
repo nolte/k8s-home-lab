@@ -1,4 +1,4 @@
-site_name: Argo Cluster Bootstrapping
+site_name: K8S HomeLab
 theme:
   name: 'material'
   features:

@@ -17,6 +17,16 @@
 ---
 
 
+??? example "Start port foward"
+
+    {%
+       include-markdown "../../src/applications/home-assistant/README.md"
+       start="<!--port-forward-start-->"
+       end="<!--port-forward-end-->"
+    %}
+
+
+
 https://github.com/CausticLab/hass-configurator-docker
 https://github.com/danielperna84/hass-configurator
 

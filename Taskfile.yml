@@ -19,7 +19,8 @@ tasks:
 
   docs:
     cmds:
-    - docker run \
+    - | 
+      docker run \
         -ti --rm \
         --name mkdocs \
         -p 9000:9000 \
