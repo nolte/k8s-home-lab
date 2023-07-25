@@ -83,14 +83,14 @@ patchesJSON6902:
         value:
           name:  httpProxy.fqdn
           value: esphome.dev44-just-homestyle.duckdns.org
-      - op: replace
-        path: /spec/sources/1/helm/parameters
-        value: []
-      - op: add
-        path: /spec/sources/1/helm/parameters/-
-        value:
-          name: initContainers.gitsync.env[1].value
-          value: git@github.com:nolte/esphome-configs.git
+      # - op: replace
+      #   path: /spec/sources/1/helm/parameters
+      #   value: []
+      # - op: add
+      #   path: /spec/sources/1/helm/parameters/-
+      #   value:
+      #     name: initContainers.gitsync.env[1].value
+      #     value: git@github.com:nolte/esphome-configs.git
     target:
       group: argoproj.io
       kind: Application

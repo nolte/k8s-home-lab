@@ -36,31 +36,42 @@ spec:
     helm:
       releaseName: esphome
       values: |
-        initContainers:
+        sidecars:
           gitsync:
-            args:
-            - set -e; if [ -d "/config/.git" ]; then git -C "/config" pull || true; else if
-              [ "$(ls -A /config)" ]; then git clone --branch ${GIT_BRANCH} --depth 2 "${GIT_REPO}"
-              /tmp/repo; cp -rf /tmp/repo/.git "/config"; cd "/config"; git checkout -f; else
-              git clone --branch ${GIT_BRANCH} --depth 2 "${GIT_REPO}" "/config";
-              fi; fi; if [ -f "/root/.ssh/git-crypt-key" ]; then cd /config; git-crypt unlock
-              "/root/.ssh/git-crypt-key"; fi;
             env:
-              - name: "GIT_BRANCH"
+              - name: "GIT_SYNC_BRANCH"
                 value: "master"
-              - name: "GIT_REPO"
+              - name: "GIT_SYNC_REPO"
                 value: "https://github.com/nolte/esphome-configs.git"
-            command:
-            - /bin/sh
-            - -c
+              - name: "GIT_SYNC_ROOT"
+                value: "/config"
+              - name: "GIT_SYNC_DEST"
+                value: "repo"                
             image: registry.k8s.io/git-sync/git-sync:v3.6.8
             imagePullPolicy: IfNotPresent
             name: git-sync
             volumeMounts:
             - mountPath: /config
               name: config
-            - mountPath: /root/.ssh
-              name: gitsecret
+        initContainers:
+          gitinit:
+            env:
+              - name: "GIT_SYNC_BRANCH"
+                value: "master"
+              - name: "GIT_SYNC_REPO"
+                value: "https://github.com/nolte/esphome-configs.git"
+              - name: "GIT_SYNC_ROOT"
+                value: "/config"
+              - name: "GIT_SYNC_DEST"
+                value: "repo"
+              - name: "GIT_SYNC_ONE_TIME"
+                value: "true"
+            image: registry.k8s.io/git-sync/git-sync:v3.6.8
+            imagePullPolicy: IfNotPresent
+            name: git-init
+            volumeMounts:
+            - mountPath: /config
+              name: config
         image:
           repository: esphome/esphome
           # https://hub.docker.com/r/esphome/esphome/tags
@@ -75,18 +86,10 @@ spec:
           - secretRef:
               name: esphome-config
         persistence:
-          gitsecret:
-            enabled: true
-            mountPath: /root/.ssh
-            type: custom
-            volumeSpec:
-              secret:
-                defaultMode: 256
-                optional: true
-                secretName: git-creds
           config:
             enabled: true
             type: emptyDir            
             mountPath: /config
+            subPath: repo
             #type: hostPath
             #hostPath: /var/mnt/storage/esphome
