@@ -24,7 +24,8 @@ spec:
           tls:
             secretName: cert-manager/wildcard-duckdns-org-tls
           routes:
-          - services:
+          - enableWebsockets: true
+            services:
             - name: esphome
               port: 6052
     path: charts/stable/projectcontour-mixin/
