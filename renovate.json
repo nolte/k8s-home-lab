@@ -1,7 +1,7 @@
 {
   "extends": [
-    "config:base", 
-    "group:all", 
+    "config:base",
+    "group:all",
   ],
   "schedule": "before 5am every weekday",
   "argocd": {

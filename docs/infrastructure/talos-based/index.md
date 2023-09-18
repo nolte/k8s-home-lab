@@ -6,7 +6,7 @@ Download the latest Talos iso from [siderolabs/talos](https://github.com/siderol
 dd TBD
 
 sudo dd if=talos-amd64.iso of=/dev/sda1 conv=fsync bs=4M
-sudo dd if=talos-amd64.iso of=/dev/sda && sudo syncStep 
+sudo dd if=talos-amd64.iso of=/dev/sda && sudo syncStep
 ```
 
 For the First setup we will be start with a small single node Cluster.

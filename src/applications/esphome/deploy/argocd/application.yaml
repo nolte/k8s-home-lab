@@ -47,7 +47,7 @@ spec:
               - name: "GIT_SYNC_ROOT"
                 value: "/config"
               - name: "GIT_SYNC_DEST"
-                value: "repo"                
+                value: "repo"
             image: registry.k8s.io/git-sync/git-sync:v3.6.8
             imagePullPolicy: IfNotPresent
             name: git-sync
@@ -89,7 +89,7 @@ spec:
         persistence:
           config:
             enabled: true
-            type: emptyDir            
+            type: emptyDir
             mountPath: /config
             subPath: repo
             #type: hostPath

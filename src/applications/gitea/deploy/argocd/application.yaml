@@ -96,7 +96,7 @@ spec:
       chart: gitea
       repoURL: https://dl.gitea.io/charts/
       targetRevision: 9.0.4
-    
+
     - helm:
         releaseName: external-secrets-manifests
         parameters: []

@@ -22,9 +22,9 @@ tasks:
       - |
         vale --glob='!*/.terraform/*' .
   docs:
- 
+
     cmds:
-    - | 
+    - |
       docker run \
         -ti --rm \
         --name mkdocs \
