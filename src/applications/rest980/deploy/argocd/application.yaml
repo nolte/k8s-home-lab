@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rest980
+spec:
+  destination:
+    name: in-cluster
+    namespace: home-assistant
+  project: default
+  sources:
+  - chart: app-template
+    repoURL: https://bjw-s.github.io/helm-charts
+    targetRevision: 1.5.1
+    helm:
+      releaseName: rest980
+      parameters: []
+      values: |
+        image:
+          repository: koalazak/rest980
+          tag: latest
+        env: 
+          - name: BLID
+            value: 758F0A5E5A2D4A3794709A3AA602D8BE 
+          - name: PASSWORD
+            value: :1:1656768867:bjeLCg9hw7bRLA8A 
+          - name: ROBOT_IP
+            value: 192.168.178.44
+          - name: DEBUG
+            value: rest980:*
+          - name: FIRMWARE_VERSION
+            value: 2
+          - name: ROBOT_CIPHERS
+            value: TLS_AES_256_GCM_SHA384
+        
+        service:
+          main:
+            ports:
+              http:
+                port: 3000
+        controller:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        hostNetwork: true
+        # resources:
+        #   requests:
+        #     cpu: 126m
+        #     memory: 411M
+        #   limits:
+        #     memory: 4417M

@@ -1,7 +1,7 @@
 # Smart Home Service Bundle
 
 <!--description-start-->
-This Collection will be used for a Cloud-Less SmartHome Deplpoyment.
+This Collection will be used for a Cloud-Less SmartHome Deployment.
 <!--description-end-->
 
 ## Services
@@ -10,7 +10,7 @@ This Collection will be used for a Cloud-Less SmartHome Deplpoyment.
 
 * Home-Assistant
 * PiHole
-* mosquitto
-* esphome
+* Mosquitto
+* ESPHome
 
 <!--service-set-end-->

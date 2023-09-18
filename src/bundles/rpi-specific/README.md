@@ -9,6 +9,6 @@ This Collection will be used for the baseline Services, of some K3S RPI Based Cl
 <!--service-set-start-->
 
 * MetalLB
-* Ingress Nginx
+* Ingress NGINX
 
 <!--service-set-end-->

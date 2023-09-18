@@ -1,13 +1,15 @@
 # ESP Home
 
 <!--description-start-->
-Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection Informations from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System.
+Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection informations from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System.
 <!--description-end-->
 
+<!-- vale off -->
 <!--header-start-->
 **Deployment:** [esphome/esphome](https://hub.docker.com/r/esphome/esphome/tags) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart* 
 **Web**: [esphome.io](https://esphome.io/)  
 <!--header-end-->
+<!-- vale on -->
 
 ## Preconditions
 

@@ -17,7 +17,12 @@ tasks:
     - task -l
     silent: true
 
+  spelling:
+    cmds:
+      - |
+        vale --glob='!*/.terraform/*' .
   docs:
+ 
     cmds:
     - | 
       docker run \

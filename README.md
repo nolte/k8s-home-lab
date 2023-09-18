@@ -8,7 +8,7 @@
 
 # Personal Cluster
 
-This project will be used to create different flavours/collections of services running on kubernetes.
+This project will be used to create different flavours/collections of services running on Kubernetes.
 
 K8S clusters will be configured for different use cases such as [SmartHome](./docs/service-sets/smart-home.md), [DevOps services](./docs/service-sets/devops.md) or private storage.
 
@@ -21,7 +21,7 @@ The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io
 ```
 .
 ├─📁 .github          # Github Actions and configurations, like linting etc.
-├─📁 .taskfiles       # Taskfiles with reuseable small util commands
+├─📁 .taskfiles       # Taskfiles with Reusable small util commands
 ├─📁 docs             # The Required Files for the mkdocs based Documentation  
 ├─📁 hack             # The Sources for configure the Local Bootstrapping Cluster
 ├─📁 src              # All required Sources for manage the Cluster
@@ -36,12 +36,12 @@ The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io
 | `hack`                     | Useful scripts for local Cluster Bootstrapping.                              |
 | `src/applications`         | Preconfigured ArgoCD Applications, for deploy different type of Services.    |
 | `src/bundles`              | Will Be combine a different set of Services, into one "Product".             |
-| `src/clusters`             | Represent the Differnt Clusters with the different Service Set for each one. |
-| `src/kustomization-common` | Reuseable Kustomize overlays, like Namespace Handling etc.                   |
-| `src/terraground-common`   | Shared Terraground Configs, like Statefile Handling or Module Versions.      |
+| `src/clusters`             | Represent the Different Clusters with the different Service Set for each one. |
+| `src/kustomization-common` | Reusable Kustomize overlays, like Namespace Handling etc.                   |
+| `src/terraground-common`   | Shared Terragrunt Configs, like Statefile Handling or Module Versions.      |
 | `src/talos-configs`        | The [Talos](https://www.talos.dev/) K8S Cluster configs.                     |
 
-For more Information take a look into the `README.md` inside the Subfolder like [/src/applications](./src/applications/README.md).
+For more Information take a look into the `README.md` inside the subfolder like [/src/applications](./src/applications/README.md).
 
 ## Docs
 

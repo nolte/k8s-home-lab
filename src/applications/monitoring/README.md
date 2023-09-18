@@ -1,6 +1,6 @@
 # kube-prometheus-stack (Monitoring)
 
-Using The Prometheus Operator all in one chart based by[kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+Using The Prometheus Operator all in one chart based by [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 
 <!--prometheus-port-forward-start-->
 ```sh

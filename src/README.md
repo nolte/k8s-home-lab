@@ -1,6 +1,6 @@
 # Cluster Configs
 
-This Strucutre will be used for manage the k8s Clusters.
+This Structure will be used for manage the k8s Clusters.
 
 
 <!--structure-start-->

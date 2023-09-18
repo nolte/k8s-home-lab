@@ -1,0 +1,9 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: Added a few words needed (#57)...
+      sha: c23765feeeed034ad09903efb636221de12de51a
+    path: .
+  path: vendor
+kind: LockConfig

@@ -64,8 +64,8 @@ spec:
 
         persistence:
           config:
-            enabled: false
-            type: emptyDir
-            # type: hostPath
-            # mountPath: /config
-            # hostPath: /var/mnt/storage/home-assistant
+            enabled: true
+            #type: emptyDir
+            type: hostPath
+            mountPath: /config
+            hostPath: /var/mnt/storage/home-assistant
