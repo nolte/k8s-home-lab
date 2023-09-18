@@ -46,7 +46,7 @@ spec:
             existingSecretName: duckdns-token
     - chart: external-secrets-manifests
       repoURL: https://nolte.github.io/helm-charts-repo/
-      targetRevision: 1.0.0
+      targetRevision: 1.0.1
       helm:
         releaseName: external-secrets-manifests
         values: |
