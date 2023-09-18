@@ -14,3 +14,8 @@ Statefile
 subfolder
 Terragrunt
 Hetzner
+MinIO
+Bootstick
+iso
+ARMhf
+Geekworm

@@ -35,7 +35,7 @@
 argo get bootstrap-cluster -n argocd
 ```
 
-## Vault Initialisierung
+## Vault Initializing
 
 
 {%
@@ -44,7 +44,7 @@ argo get bootstrap-cluster -n argocd
    end="<!--vault-init-end-->"
 %}
 
-warten bis die vault Initialisierung abgeschlossen ist,
+wait that the Vault initializing has been finished.
 
 {%
    include-markdown "../../../src/applications/vault/README.md"
@@ -52,6 +52,6 @@ warten bis die vault Initialisierung abgeschlossen ist,
    end="<!--vault-init-job-end-->"
 %}
 
-## Zertifikate
+## Certificates
 
-[Zertifikate](../../services/certificates.md#bereitstellung) Bereitstellen
+take a look to [Certificate](../../services/certificates.md#bereitstellung)

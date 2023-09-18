@@ -4,9 +4,9 @@
 
 ## Terraform
 
-For Development it is usefull to execute the Terraform scripts from youre Local Device.
+For Development it is useful to execute the Terraform scripts from our Local Device.
 
-??? example "Environment variable)"
+??? example "Environment variable"
 
     ??? example "Vault Access"
 

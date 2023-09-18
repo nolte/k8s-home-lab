@@ -26,7 +26,7 @@
        end="<!--port-forward-end-->"
     %}
 
-## Useful Env
+## Useful env
 
 ??? example "Using Ingress"
     {%
@@ -36,7 +36,7 @@
     %}
 
 
-??? example "Using port foward"
+??? example "Using port forward"
 
     {%
        include-markdown "../../src/applications/keycloak/README.md"

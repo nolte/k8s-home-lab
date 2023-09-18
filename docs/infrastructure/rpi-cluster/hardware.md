@@ -21,7 +21,7 @@ Geekworm-Raspberry-Management-Abschaltautomatik-Expansion/dp/B07R45W1LN), [v2.1]
 
 Extra Modules:
 
-* pinout the GIPO with a flat ribbon cable.
+* pin-out the GIPO with a flat ribbon cable.
 
 ### RPI2 (Display)
 

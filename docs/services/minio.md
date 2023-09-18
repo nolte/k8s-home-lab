@@ -1,11 +1,11 @@
-# Minio
+# MinIO
 
 
-## Usefull Commands
+## Useful Commands
 
-### Controll
+### Control
 
-??? example "Start port foward"
+??? example "Start port forward"
     ```sh
     kubectl -n operators port-forward svc/console 9090
     ```
@@ -24,7 +24,7 @@
 ### Tenant
 
 
-??? example "Start port foward"
+??? example "Start port forward"
     ```sh
     kubectl -n minio port-forward svc/minio 9000:80
     ```

@@ -16,7 +16,7 @@
 
 ---
 
-## Initiale Bereitstellung
+## Initial Setup
 
 {%
    include-markdown "../../src/applications/vault/README.md"
@@ -26,7 +26,7 @@
 
 ## Useful Commands
 
-??? example "Start port foward"
+??? example "Start port forward"
     {%
        include-markdown "../../src/applications/vault/README.md"
        start="<!--port-forward-start-->"
