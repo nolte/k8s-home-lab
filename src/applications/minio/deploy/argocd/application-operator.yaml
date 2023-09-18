@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: minio-operator
   #annotations:
-  #  argocd.argoproj.io/sync-wave: "-10"  
+  #  argocd.argoproj.io/sync-wave: "-10"
 spec:
   destination:
     name: in-cluster
@@ -19,15 +19,15 @@ spec:
           ingress:
             enabled: false
             labels: {}
-            annotations: 
+            annotations:
               ingress.kubernetes.io/force-ssl-redirect: "true"
-              kubernetes.io/tls-acme: "true"      
-            tls: 
+              kubernetes.io/tls-acme: "true"
+            tls:
               - hosts:
                   - minio-console.smart-home.k8sservices.local
                 secretName: minio-tls
             host: minio-console.smart-home.k8sservices.local
-            path: /  
+            path: /
 
 
     repoURL: https://operator.min.io/

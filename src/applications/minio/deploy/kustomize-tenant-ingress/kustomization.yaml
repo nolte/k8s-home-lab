@@ -9,4 +9,3 @@ generatorOptions:
 resources:
   - ../kustomize-tenant
   - httpProxy.yaml
-

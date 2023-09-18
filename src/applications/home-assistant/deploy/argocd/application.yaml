@@ -44,7 +44,7 @@ spec:
       values: |
         image:
           repository: ghcr.io/home-assistant/home-assistant
-          tag: 2023.2.5
+          tag: 2023.7.1
         service:
           main:
             ports:
@@ -64,8 +64,8 @@ spec:
 
         persistence:
           config:
-            enabled: false
+            enabled: true
+            #type: emptyDir
             type: hostPath
             mountPath: /config
             hostPath: /var/mnt/storage/home-assistant
-            

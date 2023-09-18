@@ -1,11 +1,11 @@
-# Minio
+# MinIO
 
 
-## Usefull Commands
+## Useful Commands
 
-### Controll
+### Control
 
-??? example "Start port foward"
+??? example "Start port forward"
     ```sh
     kubectl -n operators port-forward svc/console 9090
     ```
@@ -24,7 +24,7 @@
 ### Tenant
 
 
-??? example "Start port foward"
+??? example "Start port forward"
     ```sh
     kubectl -n minio port-forward svc/minio 9000:80
     ```
@@ -54,4 +54,4 @@ export MINIO_ENDPOINT=$(kubectl -n minio get httpproxies.projectcontour.io minio
 
 ## Links/Open Tasks
 
-* SSO Integration 
+* SSO Integration

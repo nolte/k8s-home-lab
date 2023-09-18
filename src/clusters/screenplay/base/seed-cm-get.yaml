@@ -12,7 +12,7 @@ spec:
     inputs:
       parameters:
         - default: "1"
-          name: configPathStep      
+          name: configPathStep
         - default: screenplay-bootstrap
           name: configmapname
     resource:

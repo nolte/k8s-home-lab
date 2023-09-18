@@ -16,7 +16,7 @@ spec:
       values: |
         vault:
           authMethods:
-            approle: 
+            approle:
               path: kubernetes
           ssl:
             verify: false  # Enable or disable verification of certificates
@@ -24,4 +24,4 @@ spec:
         - name: image.tag
           value: "7.2.1"
         - name: vault.addr
-          value: "http://vault.vault.svc:8200"          
+          value: "http://vault.vault.svc:8200"

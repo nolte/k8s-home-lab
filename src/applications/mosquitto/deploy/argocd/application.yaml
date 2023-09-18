@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: mosquitto
   #annotations:
-  #  argocd.argoproj.io/sync-wave: "-33"  
+  #  argocd.argoproj.io/sync-wave: "-33"
 spec:
   destination:
     name: in-cluster
@@ -35,8 +35,8 @@ spec:
                 listener 1883
                 persistence true
                 persistence_location /mosquitto/data
-                autosave_interval 1800                
-                
+                autosave_interval 1800
+
         persistence:
           data:
             enabled: true
@@ -47,4 +47,3 @@ spec:
             mountPath: /mosquitto/config
             type: configMap
             name: mosquitto-config
-

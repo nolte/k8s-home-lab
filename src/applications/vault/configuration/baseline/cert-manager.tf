@@ -15,4 +15,3 @@ resource "vault_policy" "cert_manager_external_secrets" {
   name   = "cert-manager-external-secrets"
   policy = data.vault_policy_document.cert_manager_external_secrets.hcl
 }
-

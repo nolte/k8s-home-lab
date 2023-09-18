@@ -1,6 +1,6 @@
-# kube-prometheus-stack (Monitoring)
+# kube Prometheus Stack (Monitoring)
 
-Using The Prometheus Operator all in one chart based by[kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+Using The Prometheus Operator all in one chart based by [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 
 <!--prometheus-port-forward-start-->
 ```sh
@@ -28,6 +28,6 @@ kubectl -n monitoring \
 kubectl -n monitoring \
   get secrets monitoring-grafana -ojson \
     | jq '.data["admin-password"]' -r \
-    | base64 -d 
+    | base64 -d
 ```
 <!--grafana-admin-password-end-->

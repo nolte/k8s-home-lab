@@ -1,11 +1,11 @@
-site_name: Argo Cluster Bootstrapping
+site_name: K8S HomeLab
 theme:
   name: 'material'
   features:
     - content.code.copy
 #docs_dir: .
-repo_name: 'nolte/argo-charts'
-repo_url: 'https://github.com/nolte/argo-charts'
+repo_name: 'nolte/k8s-home-lab'
+repo_url: 'https://github.com/nolte/k8s-home-lab'
 docs_dir: docs/
 plugins:
   - include-markdown
@@ -21,7 +21,7 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.extra
   - pymdownx.smartsymbols
-  
+
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -35,8 +35,9 @@ markdown_extensions:
   - toc:
       permalink: True
   - pymdownx.emoji:
+# yamllint disable
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-
+# yamllint enable
 extra_css:
   - css/overwrite.css

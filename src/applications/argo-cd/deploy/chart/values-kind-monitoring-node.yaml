@@ -1,5 +1,5 @@
 argocd-apps:
-  applications: 
+  applications:
 
       - additionalAnnotations:
           argocd.argoproj.io/sync-wave: '-100'
@@ -13,7 +13,7 @@ argocd-apps:
         project: cicd
         source:
           path: src/bundles/light-monitoring
-          repoURL: https://github.com/nolte/argo-charts.git
+          repoURL: https://github.com/nolte/k8s-home-lab.git
           targetRevision: master
         syncPolicy:
           automated:

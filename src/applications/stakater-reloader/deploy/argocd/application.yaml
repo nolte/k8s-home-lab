@@ -22,4 +22,4 @@ spec:
             # namespace: monitoring
     chart: reloader
     repoURL: https://stakater.github.io/stakater-charts
-    targetRevision: 1.0.32 
+    targetRevision: 1.0.32

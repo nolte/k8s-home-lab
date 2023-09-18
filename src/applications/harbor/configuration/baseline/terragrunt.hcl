@@ -21,7 +21,7 @@ inputs = {
 
 locals {
   root_config = read_terragrunt_config("../../../../terraground-common/state-s3.hcl")
-  provider_version = read_terragrunt_config("../../../../terraground-common/provider-versions.hcl") 
+  provider_version = read_terragrunt_config("../../../../terraground-common/provider-versions.hcl")
 }
 
 remote_state {
@@ -55,6 +55,10 @@ generate "versions" {
         keycloak = {
           source = "mrparkers/keycloak"
           version = "${local.provider_version.inputs.keycloak}"
+        }
+        harbor = {
+          source = "goharbor/harbor"
+          version = "3.9.0"
         }
       }
     }

@@ -27,17 +27,17 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  mopidy.snapcast.server.host
           value: "rpi-snapcast-server"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  mopidy.spotify.enabled
           value: "true"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: nodeSelector.task
           value: "gipo"
       - op: add
@@ -57,7 +57,7 @@ patchesJSON6902:
                   enabled: true
                   protocol: TCP
                   port: 6600
-          ingress: 
+          ingress:
             main:
               enabled: true
               ingressClassName: nginx
@@ -68,7 +68,7 @@ patchesJSON6902:
               tls:
                 - secretName: wildcard-duckdns-org-tls
                   hosts:
-                    - mopidy.rpi-just-homestyle.duckdns.org                    
+                    - mopidy.rpi-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
@@ -80,18 +80,18 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name:  hostNetwork
           value: "true"
       # - op: add
       #   path: /spec/source/helm/parameters/-
-      #   value:             
+      #   value:
       #     name: nodeSelector.task
       #     value: "gipo"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
-          name: ingress.main.ingressClassName	
+        value:
+          name: ingress.main.ingressClassName
           value: "nginx"
       - op: add
         path: /spec/source/helm/values
@@ -114,9 +114,9 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: nodeSelector.task
-          value: "gipo"          
+          value: "gipo"
     target:
       group: argoproj.io
       kind: Application
@@ -128,7 +128,7 @@ patchesJSON6902:
         value: []
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: nodeSelector.task
           value: "hifi"
       - op: replace
@@ -165,7 +165,7 @@ patchesJSON6902:
              - name: pihole-svc
                protocol: layer2
                addresses:
-               - 192.168.178.110/32               
+               - 192.168.178.110/32
              - name: ingress-pool
                protocol: layer2
                addresses:
@@ -206,7 +206,7 @@ patchesJSON6902:
             publishService:
               enabled: true
             service:
-              externalIPs: 
+              externalIPs:
                 - 192.168.178.111
               annotations:
                 metallb.universe.tf/address-pool: ingress-pool
@@ -219,34 +219,34 @@ patchesJSON6902:
   - patch: |-
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
-          name: homeassistant.hostNetwork	
+        value:
+          name: homeassistant.hostNetwork
           value: "true"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: homeassistant.env.MQTT_ENDPOINT
           value: "mosquitto.mosquitto.svc"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: homeassistant.env.MOPIDY_ENDPOINT_MPD
           value: "rpi-mopidy-public.audio-station.svc"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: homeassistant.env.MOPIDY_ENDPOINT
-          value: "rpi-mopidy.audio-station.svc"          
+          value: "rpi-mopidy.audio-station.svc"
       - op: add
         path: /spec/source/helm/parameters/-
-        value:             
+        value:
           name: homeassistant.env.SNAPCAST_ENDPOINT
           value: "rpi-snapcast-server-public.audio-station.svc"
       - op: add
         path: /spec/source/helm/values
         value:  |
           homeassistant:
-            ingress: 
+            ingress:
               main:
                 enabled: true
                 ingressClassName: nginx
@@ -302,8 +302,8 @@ patchesJSON6902:
             serviceDns:
               annotations:
                 metallb.universe.tf/allow-shared-ip: pihole-svc
-              type: LoadBalancer        
-            ingress: 
+              type: LoadBalancer
+            ingress:
               enabled: true
               ingressClassName: nginx
               hosts:

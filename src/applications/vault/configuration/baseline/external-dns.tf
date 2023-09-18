@@ -14,4 +14,3 @@ resource "vault_policy" "external_dns_external_secrets" {
   name   = "external-dns-external-secrets"
   policy = data.vault_policy_document.external_dns_external_secrets.hcl
 }
-

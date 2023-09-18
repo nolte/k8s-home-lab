@@ -13,7 +13,7 @@ tasks:
     - |
       kind create cluster \
       --config {{.GIT_ROOT}}/hack/kind.yaml \
-      --name production 
+      --name production
     silent: true
 
   destroy:

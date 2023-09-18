@@ -16,7 +16,7 @@
 
 ---
 
-??? example "Start port foward"
+??? example "Start port forward"
 
     {%
        include-markdown "../../src/applications/argo-cd/README.md"

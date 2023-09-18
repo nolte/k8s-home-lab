@@ -12,4 +12,3 @@ variable "gitea_fqdn" {
 
 variable "super_admins_group_id" {
 }
-

@@ -38,7 +38,7 @@ dependency "vault" {
 inputs = {
   realm_id = dependency.keycloak.outputs.realm_id
   super_admins_group_id = dependency.keycloak.outputs.super_admins_group_id
-  
+
   argocd_super_admins_group_id = dependency.argocd.outputs.super_admins_group_id
   argocd_reader_role_id = dependency.argocd.outputs.reader_role_id
   argocd_management_role_id = dependency.argocd.outputs.management_role_id
@@ -64,7 +64,7 @@ generate "versions" {
   path      = "versions.gen.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
-    terraform {      
+    terraform {
       required_providers {
         keycloak = {
           source = "mrparkers/keycloak"

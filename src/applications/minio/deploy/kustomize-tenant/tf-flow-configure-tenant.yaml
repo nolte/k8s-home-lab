@@ -9,7 +9,7 @@ spec:
   entrypoint: exec
   templates:
   - name: exec
-    steps:                            
+    steps:
       - - name: configure-minio-tenant
           templateRef:
             name: flow-tf-minio-baseline

@@ -35,5 +35,3 @@ resource "vault_policy" "gitea_external_secrets" {
   name   = "gitea-external-secrets"
   policy = data.vault_policy_document.gitea_external_secrets.hcl
 }
-
-

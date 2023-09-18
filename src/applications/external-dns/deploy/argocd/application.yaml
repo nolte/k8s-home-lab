@@ -15,7 +15,7 @@ spec:
     # targetRevision: 0.2.0
     path: charts/stable/external-dns/
     repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: main      
+    targetRevision: main
     helm:
       releaseName: external-dns
       parameters:

@@ -27,7 +27,7 @@ patchesJSON6902:
       path: /spec/sources/2/helm/parameters/-
       value:
         name: vault.injector.enabled
-        value: 'true'  
+        value: 'true'
 - target:
     group: argoproj.io
     kind: Application
@@ -38,7 +38,5 @@ patchesJSON6902:
 resources:
   - ../../../src/bundles/10-bootstrapping-utils
   - ../../../src/applications/vault-sidecar-injector/deploy/argocd
-  - ../../../src/applications/vault/deploy/argocd  
-  - ../../../src/applications/minio/deploy/argocd  
-    
-
+  - ../../../src/applications/vault/deploy/argocd
+  - ../../../src/applications/minio/deploy/argocd

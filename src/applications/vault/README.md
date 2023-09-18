@@ -8,18 +8,18 @@ API Based Secret Management
 <!--header-start-->
 **Namespace:** `vault`  
 **Configuration:** `./src/applications/vault/configuration`  
-**Deployment:** [hashicorp/vault-helm](https://github.com/hashicorp/vault-helm)   
-**Terraform Provider:** [hashicorp/vault](https://registry.terraform.io/providers/hashicorp/vault/latest/docs)   
-**Web:** [vaultproject.io](https://www.vaultproject.io/)   
+**Deployment:** [hashicorp/vault-helm](https://github.com/hashicorp/vault-helm)  
+**Terraform Provider:** [hashicorp/vault](https://registry.terraform.io/providers/hashicorp/vault/latest/docs)  
+**Web:** [Vaultproject.io](https://www.vaultproject.io/)  
 <!--header-end-->
 
 ## User Access
 
 *Access Configuration:* `./src/applications/keycloak/configuration`
 
-more informations at the [keycloak](/services/keycloak/) page
+more information at the [keycloak](/services/keycloak/) page
 
-## Usefull Commands
+## Useful Commands
 
 **Port Forward**
 <!--port-forward-start-->
@@ -40,7 +40,7 @@ browse \
 
 
 ??? example "Root Token"
-    
+
     Submit workflow for unseal Vault
 
     ```sh
@@ -58,7 +58,7 @@ browse \
     Show Root Token from Secret:
 
     ```sh
-    kubectl -n vault get secrets vault-init-tokens -ojson | jq '.data["content.json"]' -r | base64 -d | sed     -En "s/root_token: (.*)/\1/p" | xargs 
+    kubectl -n vault get secrets vault-init-tokens -ojson | jq '.data["content.json"]' -r | base64 -d | sed     -En "s/root_token: (.*)/\1/p" | xargs
     ```
 
 
@@ -76,7 +76,7 @@ export KUBE_CONFIG_PATH=~/.kube/config
 
 ### Initial
 
-For the Initial deployment you must generate the Root Token an some useal keys.
+For the Initial deployment you must generate the Root Token an some unseal keys.
 
 
 <!--vault-init-start-->
@@ -105,7 +105,7 @@ kubectl create secret generic -n vault vault-initial-keys \
 
 <!--vault-init-job-start-->
 ```sh
- argo -n vault wait @latest   
+ argo -n vault wait @latest  
 ```
 <!--vault-init-job-end-->
 

@@ -1,6 +1,6 @@
 # Cluster Configs
 
-This Strucutre will be used for manage the k8s Clusters.
+This Structure will be used for manage the k8s Clusters.
 
 
 <!--structure-start-->
@@ -8,7 +8,7 @@ This Strucutre will be used for manage the k8s Clusters.
 📁 src                       # Cluster Configs
 ├─📁 applications            # The Application Specific Deployment and Service Configuration Sources
 ├─📁 bundles                 # Service Mixes, for diffent Usecases
-├─📁 clusters                # Structure for manage the different Clusters 
+├─📁 clusters                # Structure for manage the different Clusters
 ├─📁 kustomization-common    # Reuseable kustomization configs, like patches etc.
 ├─📁 talos-configs           # Talos Config files for Provision the Clusters
 ├─📁 terraground-common      # Reuseable Terraground configs, like S3 State File configs.  

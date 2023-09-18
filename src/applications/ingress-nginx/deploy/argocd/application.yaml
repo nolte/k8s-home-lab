@@ -10,7 +10,7 @@ spec:
   source:
     helm:
       parameters: []
-      valueFiles: []     
+      valueFiles: []
       releaseName: ingress-nginx
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx

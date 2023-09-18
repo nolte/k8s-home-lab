@@ -47,7 +47,7 @@ resource "vault_generic_secret" "minio_console" {
   "salt": "${random_password.minio_console_secret_key_salt.result}",
   "passphrase":   "${random_password.minio_console_passphrase.result}",
   "accesskey":   "admin-console",
-  "secretkey":   "${random_password.minio_console_secret_key.result}"  
+  "secretkey":   "${random_password.minio_console_secret_key.result}"
 }
 EOT
 }
@@ -71,5 +71,3 @@ resource "vault_policy" "minio_external_secrets" {
   name   = "minio-external-secrets"
   policy = data.vault_policy_document.minio_external_secrets.hcl
 }
-
-

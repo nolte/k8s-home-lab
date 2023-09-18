@@ -30,8 +30,10 @@ resource "keycloak_openid_user_client_role_protocol_mapper" "user_client_role_ma
   realm_id  = var.realm_id
   client_id = module.vault.this.id
   name      = "user-client-role-mapper"
-  claim_name = format("resource_access.%s.roles",
-  module.vault.this.client_id)
+  claim_name = format(
+    "resource_access.%s.roles",
+    module.vault.this.client_id
+  )
   multivalued = true
 }
 
@@ -85,15 +87,17 @@ module "vault_storing" {
 }
 
 locals {
-  oidc_discovery_url = format("https://%s/auth/realms/%s", var.keycloak_fqdn, var.realm_id)
+  oidc_discovery_url = format(
+    "https://%s/realms/%s",
+    var.keycloak_fqdn,
+    var.realm_id
+  )
 }
 
 resource "vault_identity_oidc_key" "keycloak_provider_key" {
   name      = "keycloak"
   algorithm = "RS256"
 }
-
-
 
 resource "vault_jwt_auth_backend" "auth" {
   description        = "Demonstration of the Terraform JWT auth backend"
@@ -128,12 +132,16 @@ resource "vault_jwt_auth_backend_role" "default" {
   claim_mappings = {
     preferred_username = "username"
     email              = "email"
+    groups             = "groups"
   }
 
   allowed_redirect_uris = [
     "http://localhost:8200/ui/vault/auth/oidc/oidc/callback",
     "http://localhost:8250/oidc/callback",
-    format("https://%s/ui/vault/auth/oidc/oidc/callback", var.vault_fqdn)
+    format(
+      "https://%s/ui/vault/auth/oidc/oidc/callback",
+      var.vault_fqdn
+    )
   ]
   groups_claim = format("/resource_access/%s/roles",
   module.vault.this.client_id)
@@ -142,7 +150,10 @@ resource "vault_jwt_auth_backend_role" "default" {
 
 data "vault_policy_document" "reader_policy" {
   rule {
-    path         = format("%s/*", var.vault_secrets_engine_path)
+    path = format(
+      "%s/*",
+      var.vault_secrets_engine_path
+    )
     capabilities = ["list", "read"]
   }
 }
@@ -154,7 +165,10 @@ resource "vault_policy" "reader_policy" {
 
 data "vault_policy_document" "manager_policy" {
   rule {
-    path         = format("%s/*", var.vault_secrets_engine_path)
+    path = format(
+      "%s/*",
+      var.vault_secrets_engine_path
+    )
     capabilities = ["create", "update", "delete"]
   }
 }
@@ -164,14 +178,11 @@ resource "vault_policy" "manager_policy" {
   policy = data.vault_policy_document.manager_policy.hcl
 }
 
-
 resource "keycloak_group" "super_admins" {
   realm_id  = var.realm_id
   parent_id = var.super_admins_group_id
   name      = "vault-admin-users"
 }
-
-
 
 resource "vault_identity_oidc_role" "management_role" {
   name = keycloak_role.management_role.name

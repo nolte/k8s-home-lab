@@ -13,4 +13,3 @@ output "client_id" {
 output "super_admins_group_id" {
   value = keycloak_group.super_admins.id
 }
-

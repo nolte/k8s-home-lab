@@ -19,11 +19,9 @@ resources:
   - sa.yaml
 #  - ingress.yaml
   - tenant.yaml
-  
+
   # Argo Workflow stuff
   - ../../../argo-workflow-templates/deploy/kustomize/sa
   - tf-flow-configure-tenant.yaml
   - tf-exec.yaml
   #- tf-configure-tenant.yaml
-
-

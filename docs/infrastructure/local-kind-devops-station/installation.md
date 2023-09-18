@@ -13,10 +13,10 @@
       -p argocd-application-project=cicd \
       -p argocd-destination-namespace=argocd \
       -p argocd-source-path="src/clusters/screenplay/dev-kind-powerdns" \
-      -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
+      -p argocd-source-repoURL="https://github.com/nolte/k8s-home-lab.git" \
       -p argocd-source-targetRevision="master"
     ```
-    
+
     ```sh
     argo submit -n argocd \
       --from workflowtemplate/script-argocd-application \
@@ -24,7 +24,7 @@
       -p argocd-application-project=cicd \
       -p argocd-destination-namespace=argocd \
       -p argocd-source-path="src/bundles/00-bootstrapping-minimal" \
-      -p argocd-source-repoURL="https://github.com/nolte/argo-charts.git" \
+      -p argocd-source-repoURL="https://github.com/nolte/k8s-home-lab.git" \
       -p argocd-source-targetRevision="master"
     ```
 
@@ -35,7 +35,7 @@
 argo get bootstrap-cluster -n argocd
 ```
 
-## Vault Initialisierung
+## Vault Initializing
 
 
 {%
@@ -44,16 +44,14 @@ argo get bootstrap-cluster -n argocd
    end="<!--vault-init-end-->"
 %}
 
-warten bis die vault Initialisierung abgeschlossen ist,
-   
+wait that the Vault initializing has been finished.
+
 {%
    include-markdown "../../../src/applications/vault/README.md"
    start="<!--vault-init-job-start-->"
    end="<!--vault-init-job-end-->"
 %}
 
-## Zertifikate 
+## Certificates
 
-[Zertifikate](../../services/certificates.md#bereitstellung) Bereitstellen 
-
- 
+take a look to [Certificate](../../services/certificates.md#bereitstellung)

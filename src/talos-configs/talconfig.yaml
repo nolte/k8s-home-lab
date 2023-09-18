@@ -1,13 +1,17 @@
 clustername: smart-home
 talosVersion: v1.3.3
 kubernetesVersion: v1.26.0
-endpoint: https://192.168.178.86:6443
+endpoint: https://192.168.178.23:6443
 allowSchedulingOnMasters: true
-nodes: 
+nodes:
   - hostname: k8ssmarthome01
-    ipAddress: 192.168.178.86
+    ipAddress: 192.168.178.23
     installDisk: /dev/sda
     controlPlane: true
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.178.1
 
 controlPlane:
   patches:
@@ -15,7 +19,7 @@ controlPlane:
         - op: add
           path: /machine/disks
           value:
-          - device: /dev/sdX # The name of the disk to use.
+          - device: /dev/sdb # The name of the disk to use.
             partitions:
               - mountpoint: /var/mnt/storage # Where to mount the partition.
 
@@ -23,8 +27,8 @@ controlPlane:
         - op: add
           path: /machine/install/extensions
           value:
-            - image: ghcr.io/siderolabs/iscsi-tools:v0.1.1
-        
+            - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+
         - op: add
           path: /machine/kubelet/extraMounts
           value:
@@ -34,4 +38,4 @@ controlPlane:
               options:
                 - bind
                 - rshared
-                - rw      
+                - rw

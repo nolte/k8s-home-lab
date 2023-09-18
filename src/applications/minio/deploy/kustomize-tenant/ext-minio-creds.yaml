@@ -26,4 +26,4 @@ spec:
   - secretKey: CONSOLE_SECRET_KEY
     remoteRef:
       key: services/s3/users/console-admin
-      property: secretkey  
+      property: secretkey

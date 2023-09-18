@@ -4,11 +4,12 @@
 
 * [camel-k](../src/applications/camel-k) [what-is-camel](https://camel.apache.org/manual/faq/what-is-camel.html)
 * [RabbitMQ](../src/applications/rabbitmq/)
-* []
 
-kamel run hello.groovy -n camel-k 
+```sh
+kamel run hello.groovy -n camel-k
 
- kamel run write.groovy -n knative-eventing --dev
+kamel run write.groovy -n knative-eventing --dev
+```
 
 
 ```sh

@@ -1,15 +1,17 @@
 # ESP Home
 
 <!--description-start-->
-Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection Informations from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System. 
+Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection information from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System.
 <!--description-end-->
 
+<!-- vale off -->
 <!--header-start-->
-**Deployment:** [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/esphome) *wrapper from the [k8s-at-home/charts](https://github.com/k8s-at-home/charts/tree/master/charts/stable/esphome) Chart*   
-**Web**: [esphome.io](https://esphome.io/)   
+**Deployment:** [esphome/esphome](https://hub.docker.com/r/esphome/esphome/tags) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*
+**Web**: [esphome.io](https://esphome.io/)  
 <!--header-end-->
+<!-- vale on -->
 
-## Preconditions 
+## Preconditions
 
 Create a Secret with a private key, for access to the Private Git Repo, with existing Smart Home Configurations.
 
@@ -27,14 +29,14 @@ Required Endpoints and secrets for use [nolte/esphome-configs](https://github.co
 <!--preconditions-esphome-config-start-->
 ```sh
 kubectl -n esphome create secret generic esphome-config \
-  --from-literal=WIFI_DOMAIN="fritz.local" \
+  --from-literal=WIFI_DOMAIN=".fritz.box" \
   --from-literal=WIFI_SSID="$(pass network/wifi/ssid)" \
   --from-literal=WIFI_PASSWORD="$(pass network/wifi/password)" \
   --from-literal=WIFI_FALLBACK_PASSWORD="$(pass network/wifi/password)" \
   --from-literal=MQTT_ENDPOINT="$(kubectl -n mosquitto get svc mosquitto -ojson | jq -r '.status.loadBalancer.ingress[0].ip')" \
   --from-literal=MQTT_PORT="1883" \
   --from-literal=MQTT_USERNAME="esphome" \
-  --from-literal=MQTT_PASSWORD="notset" 
+  --from-literal=MQTT_PASSWORD="notset"
 ```
 <!--preconditions-esphome-config-end-->
 

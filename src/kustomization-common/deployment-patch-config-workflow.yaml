@@ -1,5 +1,5 @@
 - op: add
   path: /spec/sources/0/helm/parameters/-
-  value:             
+  value:
     name:  configurationWorkflows.post-install.source.revision
     value: "master"

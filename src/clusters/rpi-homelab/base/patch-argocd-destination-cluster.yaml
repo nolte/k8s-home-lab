@@ -1,4 +1,3 @@
 - op: add
   path: /spec/destination/name
   value: rpi
-  

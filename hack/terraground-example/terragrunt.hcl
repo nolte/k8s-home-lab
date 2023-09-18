@@ -3,7 +3,7 @@ remote_state {
   generate = {
     path      = "backend.gen.tf"
     if_exists = "overwrite"
-  }  
+  }
   config = {
     bucket = "terraform-state"
     endpoint = get_env("AWS_S3_ENDPOINT")

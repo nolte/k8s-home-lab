@@ -22,11 +22,11 @@ spec:
           create: false
           fqdn: vault.smart-home.k8sservices.local
           tls:
-            secretName: cert-manager/wildcard-duckdns-org-tls      
+            secretName: cert-manager/wildcard-duckdns-org-tls
           routes:
           - services:
             - name: vault
-              port: 8200         
+              port: 8200
     path: charts/stable/projectcontour-mixin/
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: main
@@ -56,7 +56,7 @@ spec:
     path: charts/stable/argo-workflow-mixin/
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: main
-    
+
   - helm:
       parameters:
         - name: vault.server.ha.replicas
@@ -75,7 +75,7 @@ spec:
     targetRevision: 0.25.0
 
   - helm:
-      releaseName: vault-config 
+      releaseName: vault-config
     path: charts/stable/vault/
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: main

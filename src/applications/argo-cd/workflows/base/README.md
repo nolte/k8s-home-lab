@@ -1,4 +1,4 @@
-# ArgoCD Application 
+# ArgoCD Application
 
 **Hack** for mange ArgoCD Applications, extra permissions for "argo-workflow-mixin".
 

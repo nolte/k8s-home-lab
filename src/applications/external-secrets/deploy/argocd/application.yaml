@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: external-secrets
   #annotations:
-  #  argocd.argoproj.io/sync-wave: "-44"  
+  #  argocd.argoproj.io/sync-wave: "-44"
 spec:
   destination:
     name: in-cluster
@@ -19,4 +19,4 @@ spec:
         - name: fullnameOverride
           value: "external-secrets"
         # - name: env.VAULT_ADDR
-        #   value: "http://vault.vault.svc:8200"          
+        #   value: "http://vault.vault.svc:8200"

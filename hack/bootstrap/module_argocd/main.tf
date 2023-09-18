@@ -29,5 +29,3 @@ resource "helm_release" "argocd_apps" {
     var.values_file != "" ? file(join("/", [path.module, var.values_file])) : ""
   ]
 }
-
-

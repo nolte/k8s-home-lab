@@ -8,7 +8,7 @@ spec:
     semaphore:
       configMapKeyRef:
         name: synchronization-config
-        key: workflow  
+        key: workflow
   templates:
     - name: exec
       steps:

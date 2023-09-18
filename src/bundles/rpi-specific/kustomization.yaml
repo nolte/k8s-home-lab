@@ -23,4 +23,3 @@ resources:
   - ../../../src/applications/reflector/deploy/argocd
   - ../../../src/applications/cert-manager/deploy/argocd
   #- ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
-  

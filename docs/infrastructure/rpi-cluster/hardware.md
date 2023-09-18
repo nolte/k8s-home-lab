@@ -10,7 +10,7 @@
 
 ### RPI4 (Storage Node)
 
-Extra Modules: 
+Extra Modules:
 
 * [Geekworm Power Management X735](https://www.amazon.de/
 Geekworm-Raspberry-Management-Abschaltautomatik-Expansion/dp/B07R45W1LN), [v2.1](https://wiki.geekworm.com/index.php/X735)
@@ -19,19 +19,19 @@ Geekworm-Raspberry-Management-Abschaltautomatik-Expansion/dp/B07R45W1LN), [v2.1]
 
 ### RPI4 (GIPO)
 
-Extra Modules: 
+Extra Modules:
 
-* pinout the GIPO with a flat ribbon cable.
+* pin-out the GIPO with a flat ribbon cable.
 
 ### RPI2 (Display)
 
-Extra Modules: 
+Extra Modules:
 
 * [7,5 Inch E-Paper Display HAT](https://www.waveshare.com/wiki/7.5inch_e-Paper_HAT)
 
 ### RPI2 (HifyBarry)
 
-Extra Modules: 
+Extra Modules:
 
 * [HiFiBerry Digi](https://www.hifiberry.com/digis/)
 

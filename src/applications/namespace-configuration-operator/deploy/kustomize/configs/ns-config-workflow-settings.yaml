@@ -7,12 +7,12 @@ spec:
     matchLabels:
       de.noltarium.workflows/enabled: "true"
   templates:
-  - objectTemplate: |  
+  - objectTemplate: |
       apiVersion: v1
       kind: ConfigMap
       metadata:
         name: tf-static-endpoints
-        namespace: {{ .Name }}  
+        namespace: {{ .Name }}
       data:
         AWS_S3_ENDPOINT: http://minio.minio.svc
         KEYCLOAK_URL: http://keycloak.keycloak.svc

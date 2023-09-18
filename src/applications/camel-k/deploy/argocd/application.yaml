@@ -12,7 +12,7 @@ spec:
     repoURL: https://apache.github.io/camel-k/charts
     targetRevision: 2.0.0
 
-    
+
     #path: helm/camel-k/
     #repoURL: https://github.com/apache/camel-k.git
     #targetRevision: main

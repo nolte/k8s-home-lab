@@ -2,17 +2,17 @@
 
 <!--maintenance-description-start-->
 
-For installation and maintenance, mostly implemented with [Ansible](https://www.ansible.com/). As execution layer we use a preconfigured Argo Workflows, with some ClusterWorkflowTemplates, like call Ansible Playbooks from Git. 
+For installation and maintenance, mostly implemented with [Ansible](https://www.ansible.com/). As execution layer we use a preconfigured Argo Workflows, with some ClusterWorkflowTemplates, like call Ansible Playbooks from Git.
 
-* [nolte/ansible_playbook-baseline-online-server](https://github.com/nolte/ansible_playbook-baseline-online-server), for baseline Installation. 
+* [nolte/ansible_playbook-baseline-online-server](https://github.com/nolte/ansible_playbook-baseline-online-server), for baseline Installation.
 * [nolte/ansible_playbook-baseline-k3s](https://github.com/nolte/ansible_playbook-baseline-k3s), for install the [k3s](https://k3s.io/) based Cluster.
-* *(private)* A extra Repository with your Ansible Inventory. 
+* *(private)* A extra Repository with your Ansible Inventory.
 
 <!--maintenance-description-end-->
 
 ## Precondition
 
-For Github SSH Access, we need a set of Git Repository specific [deployment keys](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys). 
+For GitHub SSH Access, we need a set of Git Repository specific [deployment keys](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys).
 
 *Inventory Project Deployment Key.*
 <!--preconditions-git-creds-inventory-start-->

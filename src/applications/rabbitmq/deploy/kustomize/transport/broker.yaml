@@ -5,4 +5,4 @@ metadata:
   name: transport
   annotations:
     # A single RabbitMQ cluster per Knative Eventing installation
-    rabbitmq.com/topology-allowed-namespaces: "*"  
+    rabbitmq.com/topology-allowed-namespaces: "*"

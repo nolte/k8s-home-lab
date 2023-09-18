@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: minio-tenant
   #annotations:
-  #  argocd.argoproj.io/sync-wave: "30"  
+  #  argocd.argoproj.io/sync-wave: "30"
 spec:
   destination:
     name: in-cluster
@@ -11,5 +11,5 @@ spec:
   project: default
   source:
     path: src/applications/minio/deploy/kustomize-tenant
-    repoURL: https://github.com/nolte/argo-charts.git
+    repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master

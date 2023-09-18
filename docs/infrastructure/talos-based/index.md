@@ -4,13 +4,16 @@ Download the latest Talos iso from [siderolabs/talos](https://github.com/siderol
 
 ```sh
 dd TBD
+
+sudo dd if=talos-amd64.iso of=/dev/sda1 conv=fsync bs=4M
+sudo dd if=talos-amd64.iso of=/dev/sda && sudo syncStep
 ```
 
 For the First setup we will be start with a small single node Cluster.
 
 ## Generate the Cluster config files
 
-Generate the Talos Config files 
+Generate the Talos Config files
 
 ```sh
 talhelper genconfig
@@ -18,17 +21,19 @@ talhelper genconfig
 
 
 ```sh
-talosctl apply-config --insecure --nodes 192.168.178.86 --file ./clusterconfig/-k8ssmarthome01.yaml
+talosctl apply-config --insecure --nodes 192.168.178.23 --file ./clusterconfig/-k8ssmarthome01.yaml
 ```
 
 ```sh
-talosctl -n 192.168.178.86 --talosconfig ./clusterconfig/talosconfig bootstrap 
+talosctl -n 192.168.178.23 --talosconfig ./clusterconfig/talosconfig bootstrap
+
+talosctl -n 192.168.178.23 --talosconfig ./clusterconfig/talosconfig apply machineconfig --file ./clusterconfig/-k8ssmarthome01.yaml
 ```
 
 Generate the initial kubeconfig file into your Local FS.
 
 ```sh
-talosctl -n 192.168.178.86 --talosconfig ./clusterconfig/talosconfig kubeconfig ./clusterconfig/kubeconfig
+talosctl -n 192.168.178.23 --talosconfig ./clusterconfig/talosconfig kubeconfig ./clusterconfig/kubeconfig
 ```
 
 using the generated Kubeconfig,
@@ -40,5 +45,5 @@ export KUBECONFIG=$(pwd)/clusterconfig/kubeconfig
 after this you can be add the new running cluster to your CD toolset, like ArgoCD.
 
 ```sh
-argocd cluster add admin@ --name talos-smart-home 
+argocd cluster add admin@ --name talos-smart-home
 ```

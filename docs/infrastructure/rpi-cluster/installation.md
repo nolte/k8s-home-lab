@@ -11,7 +11,7 @@
 ??? example "Required Manifests"
 
      Adding Required Workflows and ArgoCD Applications to the Management Cluster, inside the `rpi-homelab-management` Namespace.
-     
+
     {%
        include-markdown "../../../src/clusters/rpi-homelab/README.md"
        start="<!--bootstrap-jobs-start-->"
@@ -21,7 +21,7 @@
 Adding Secrets from your local Password Manager.
 
 ??? example "Environment variable"
-    
+
     Must be added to the Management Cluster.
 
     ??? example "Secret Git Private Key, for Inventory Project"
@@ -55,7 +55,7 @@ This will be execute the required Ansible Playbooks for Configure the OS and man
 
 ## ArgoCD add Cluster
 
-For use the RPI Cluster as ArgoCD Application Destination: 
+For use the RPI Cluster as ArgoCD Application Destination:
 
 Set the Kubeconfig from your Remote Cluster.
 
