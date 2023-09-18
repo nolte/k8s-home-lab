@@ -14,7 +14,7 @@ Private DNS Service
 <!--header-end-->
 
 
-**Port Foward:**
+**Port Forward:**
 
 <!--port-forward-start-->
 ```sh

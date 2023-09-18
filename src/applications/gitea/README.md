@@ -27,7 +27,7 @@ browse \
 ```
 <!--httpproxies-end-->
 
-**Currently Problems with OIDC and Usergroups,** look [#23794](https://github.com/go-gitea/gitea/issues/23794)
+**Currently Problems with OIDC and user groups,** look [#23794](https://github.com/go-gitea/gitea/issues/23794)
 
 <!--links-start-->
 * [gitea.io](https://gitea.io/en-us/)

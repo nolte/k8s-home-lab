@@ -1,3 +1,4 @@
+<!-- vale off -->
 # Zertifikate
 
 Für die Nutzung von [Lets Encrypt](https://letsencrypt.org/) im lokalen Heimnetz nutzen wir [duckdns.org](https://www.duckdns.org) als Dynamic DNS (DDNS) Service. Dort wird die Lokale IP des Ingress Controllers einer Domain zugeordnet, durch diese Limitierung ist es leider aktuell nicht möglich mehr als einen Cluster pro Domain zu betreiben.
@@ -70,3 +71,4 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
     argo wait \
       -n argocd @latest
     ```
+<!-- vale on -->

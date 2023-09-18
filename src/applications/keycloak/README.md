@@ -12,7 +12,7 @@ Identity and access management solution.
 **Web:** [keycloak.org](https://www.keycloak.org/)
 <!--header-end-->
 
-## Usefull Commands
+## Useful Commands
 
 <!--port-forward-start-->
 ```sh
@@ -66,7 +66,7 @@ browse \
 
 ## External OIDC Identity Provider
 
-For Sign in with your Personal Accounts we use Github as External Identity Provider (IdP).
+For Sign in with your Personal Accounts we use GitHub as External Identity Provider (IdP).
 
 <!--identity-providers-github-app-vault-start-->
 ```sh

@@ -17,9 +17,9 @@
 ---
 
 
-## Usefull Commands
+## Useful Commands
 
-??? example "Start port foward"
+??? example "Start port forward"
     {%
        include-markdown "../../src/applications/harbor/README.md"
        start="<!--port-forward-start-->"

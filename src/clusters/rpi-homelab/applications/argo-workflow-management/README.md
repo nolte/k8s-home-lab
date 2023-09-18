@@ -12,7 +12,7 @@ For installation and maintenance, mostly implemented with [Ansible](https://www.
 
 ## Precondition
 
-For Github SSH Access, we need a set of Git Repository specific [deployment keys](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys).
+For GitHub SSH Access, we need a set of Git Repository specific [deployment keys](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys).
 
 *Inventory Project Deployment Key.*
 <!--preconditions-git-creds-inventory-start-->

@@ -10,16 +10,16 @@ API Based Secret Management
 **Configuration:** `./src/applications/vault/configuration`  
 **Deployment:** [hashicorp/vault-helm](https://github.com/hashicorp/vault-helm)  
 **Terraform Provider:** [hashicorp/vault](https://registry.terraform.io/providers/hashicorp/vault/latest/docs)  
-**Web:** [vaultproject.io](https://www.vaultproject.io/)  
+**Web:** [Vaultproject.io](https://www.vaultproject.io/)  
 <!--header-end-->
 
 ## User Access
 
 *Access Configuration:* `./src/applications/keycloak/configuration`
 
-more informations at the [keycloak](/services/keycloak/) page
+more information at the [keycloak](/services/keycloak/) page
 
-## Usefull Commands
+## Useful Commands
 
 **Port Forward**
 <!--port-forward-start-->
@@ -76,7 +76,7 @@ export KUBE_CONFIG_PATH=~/.kube/config
 
 ### Initial
 
-For the Initial deployment you must generate the Root Token an some useal keys.
+For the Initial deployment you must generate the Root Token an some unseal keys.
 
 
 <!--vault-init-start-->

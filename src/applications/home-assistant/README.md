@@ -1,4 +1,4 @@
-# Home Assisant
+# Home Assistant
 
 <!--description-start-->
 Used as basement for a cloudless Smart Home Eco system.

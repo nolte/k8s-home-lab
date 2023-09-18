@@ -29,7 +29,7 @@
 ## Access (Port Forward)
 
 
-??? example "Start port foward Mopidy"
+??? example "Start port forward Mopidy"
 
     {%
        include-markdown "../../src/bundles/audio-station/README.md"
@@ -38,7 +38,7 @@
     %}  
 
 
-??? example "Start port foward snapcast server"
+??? example "Start port forward Snapcast server"
 
     {%
        include-markdown "../../src/bundles/audio-station/README.md"

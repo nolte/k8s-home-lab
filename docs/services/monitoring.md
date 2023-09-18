@@ -4,7 +4,7 @@
 
 ## Prometheus
 
-??? example "Start port foward"
+??? example "Start port forward"
 
     {%
        include-markdown "../../src/applications/monitoring/README.md"
@@ -14,7 +14,7 @@
 
 ## Grafana
 
-??? example "Start port foward"
+??? example "Start port forward"
 
     {%
        include-markdown "../../src/applications/monitoring/README.md"
@@ -22,7 +22,7 @@
        end="<!--grafana-port-forward-end-->"
     %}
 
-??? example "Admin Zugang"
+??? example "Admin Access"
 
     **Username:**
     {%
@@ -47,7 +47,7 @@
 *Sources:* [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter/)
 
 
-??? example "Start port foward"
+??? example "Start port forward"
 
     {%
        include-markdown "../../src/applications/speedtest-exporter/README.md"
@@ -57,7 +57,7 @@
 
 ## Blackbox Exporter
 
-??? example "Start port foward"
+??? example "Start port forward"
 
     {%
        include-markdown "../../src/applications/blackbox-exporter/README.md"

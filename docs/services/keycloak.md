@@ -17,16 +17,16 @@
 ---
 
 
-## Usefull Commands
+## Useful Commands
 
-??? example "Start port foward"
+??? example "Start port forward"
     {%
        include-markdown "../../src/applications/keycloak/README.md"
        start="<!--port-forward-start-->"
        end="<!--port-forward-end-->"
     %}
 
-## Usefull Env
+## Useful Env
 
 ??? example "Using Ingress"
     {%

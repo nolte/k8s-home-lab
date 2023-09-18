@@ -17,7 +17,7 @@
 ---
 
 
-??? example "Start port foward"
+??? example "Start port forward"
 
     {%
        include-markdown "../../src/applications/home-assistant/README.md"

@@ -1,7 +1,7 @@
 # ESP Home
 
 <!--description-start-->
-Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection informations from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System.
+Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Products like this. The Devices will be used for collection information from different Sensors like DHT22 etc. This Service is a part, of the SmartHome Eco System.
 <!--description-end-->
 
 <!-- vale off -->

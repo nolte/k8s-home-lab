@@ -29,7 +29,7 @@ After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, 
     **Deprecated** Please try to use allways `kind:apply_bootstrapping` and after this you can install the required Resources like [rpiCluster](./infrastructure/rpi-cluster/installation.md) or [Kind DevOpsStation](./infrastructure/local-kind-devops-station/installation.md), by submit some ArgoWorkflow.
 
 
-??? example "Start port foward"
+??? example "Start port forward"
     {%
        include-markdown "../src/applications/argo-cd/README.md"
        start="<!--port-forward-start-->"

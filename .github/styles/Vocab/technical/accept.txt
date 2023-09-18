@@ -1,8 +1,16 @@
 Ansible
-Terragrunt
-Statefile
-subfolder
+Blackbox
+DuckDNS
+ESPHome
+Gitea
+Home Assistant
 kustomization
 Kustomize
-ESPHome
+Mopidy
 Mosquitto
+RPI[s]?
+Snapcast
+Statefile
+subfolder
+Terragrunt
+Hetzner

@@ -1,7 +1,7 @@
 # rest980
 
 <!--description-start-->
-Rest API for the Staubsauger
+Rest API for the Vacuum Cleaner
 <!--description-end-->
 
 <!--header-start-->

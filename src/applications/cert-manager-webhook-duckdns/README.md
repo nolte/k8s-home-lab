@@ -13,7 +13,7 @@ argo submit \
 <!--workflow-deploy-end-->
 ## Preconditions
 
-Create the Duckdns Token by hand,
+Create the DuckDNS Token by hand,
 <!--classic-secret-start-->
 ```sh
 kubectl -n cert-manager \

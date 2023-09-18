@@ -65,4 +65,3 @@ argo submit -n argocd \
   -p revision="master" \
   -p action="init"
 ```
-terragrunt

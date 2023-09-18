@@ -24,7 +24,7 @@
    end="<!--vault-init-end-->"
 %}
 
-## Usefull Commands
+## Useful Commands
 
 ??? example "Start port foward"
     {%

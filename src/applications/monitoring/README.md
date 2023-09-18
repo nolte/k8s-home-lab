@@ -1,4 +1,4 @@
-# kube-prometheus-stack (Monitoring)
+# kube Prometheus Stack (Monitoring)
 
 Using The Prometheus Operator all in one chart based by [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 
