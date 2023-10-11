@@ -12,7 +12,7 @@ spec:
   sources:
   - chart: app-template
     repoURL: https://bjw-s.github.io/helm-charts
-    targetRevision: 2.0.2
+    targetRevision: 2.0.3
     helm:
       releaseName: mosquitto
       parameters: []
