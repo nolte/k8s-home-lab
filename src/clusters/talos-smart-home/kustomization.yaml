@@ -117,6 +117,37 @@ patchesJSON6902:
       name: mosquitto
       version: v1alpha1
 
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  workflow.enabled
+          value: "false"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  externalSecrets.enabled
+          value: "false"          
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: minio.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: minio-tenant
+      version: v1alpha1
+
+
 resources:
   - ../../../src/applications/argo-cd/deploy/argocd
   - ../../../src/applications/argo-cd/workflows
@@ -126,4 +157,6 @@ resources:
   - ../../../src/applications/namespace-configuration-operator/deploy/argocd
   - ../../../src/applications/stakater-reloader/deploy/argocd
   - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/applications//minio/deploy/argocd
+  - ../../../src/applications/local-path-provisioner/deploy/argocd
   - ../../bundles/smart-home

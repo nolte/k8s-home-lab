@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-provisioner
+spec:
+  destination:
+    name: in-cluster
+    namespace: local-path-storage
+  project: default
+  source:
+    helm:
+      parameters: []
+      valueFiles: []
+      releaseName: local-path-provisioner
+      values: |
+        storageClass:
+          create: true
+          defaultClass: true      
+        nodePathMap:
+          - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+            paths:
+              - /var/mnt/storage/local-path-provisioner      
+    
+    path: deploy/chart/local-path-provisioner/
+    repoURL: https://github.com/rancher/local-path-provisioner.git
+    targetRevision: master
+    # https://github.com/bitnami/charts/blob/master/bitnami/metallb/values.yaml
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged

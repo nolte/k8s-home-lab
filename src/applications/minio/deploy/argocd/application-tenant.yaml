@@ -9,7 +9,9 @@ spec:
     name: in-cluster
     namespace: minio
   project: default
-  source:
-    path: src/applications/minio/deploy/tenant
+  sources:
+  - path: src/applications/minio/deploy/tenant
     repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master
+    helm:
+      parameters: []
