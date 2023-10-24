@@ -1,0 +1,94 @@
+# Default values for minio-tenant.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+externalSecrets:
+  enabled: true
+  secretstore:
+    create: true
+    serviceAccount:
+      create: true
+  secrets:
+    minio-creds-secret:
+      data:
+        - name: accesskey
+          key: services/s3/users/admin
+          property: accesskey
+
+        - name: secretkey  
+          key: services/s3/users/admin
+          property: secretkey
+    console-secret:
+      data:
+      - name: CONSOLE_PBKDF_PASSPHRASE
+        key: services/s3/users/console-admin
+        property: passphrase
+      - name: CONSOLE_PBKDF_SALT
+        key: services/s3/users/console-admin
+        property: salt
+      - name: CONSOLE_ACCESS_KEY
+        key: services/s3/users/console-admin
+        property: accesskey
+      - name: CONSOLE_SECRET_KEY
+        key: services/s3/users/console-admin
+        property: secretkey
+
+workflow:
+  enabled: true
+  configurationWorkflows:
+    post-sync:
+      type: terragrunt
+      workflow: true
+      script:
+        image: alpine/terragrunt:latest
+      terraform:
+        action: run-all apply
+      source:
+        repo: https://github.com/nolte/k8s-home-lab.git
+        path: ./src/applications/minio/configuration/baseline
+        revision: master
+
+      extraEnv:  
+        - name: KUBE_IN_CLUSTER_CONFIG
+          value: "true"
+
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-creds-secret
+              key: accesskey
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-creds-secret
+              key: secretkey
+
+
+projectContour:
+  enabled: false
+  httpProxy:
+    create: true
+    fqdn: "minio.dev44-just-homestyle.duckdns.org"
+    tls:
+      secretName: httpproxy-tls
+    routes:
+    - services:
+      - name: minio
+        port: 80
+
+  certificate:
+    create: true
+    name: certificate
+    dnsNames:
+      # Ingress domain
+      - "{{ tpl .Values.httpProxy.fqdn . }}"
+      # Internal domain
+      - minio-hl-svc
+      - minio-hl-svc.default.svc.cluster.local
+    issuerRef:
+      kind: ClusterIssuer
+      name: selfsigned-cluster-issuer
