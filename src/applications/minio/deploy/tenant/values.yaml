@@ -19,7 +19,7 @@ externalSecrets:
           key: services/s3/users/admin
           property: accesskey
 
-        - name: secretkey  
+        - name: secretkey
           key: services/s3/users/admin
           property: secretkey
     console-secret:
@@ -52,7 +52,7 @@ workflow:
         path: ./src/applications/minio/configuration/baseline
         revision: master
 
-      extraEnv:  
+      extraEnv:
         - name: KUBE_IN_CLUSTER_CONFIG
           value: "true"
 

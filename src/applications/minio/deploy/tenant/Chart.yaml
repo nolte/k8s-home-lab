@@ -40,4 +40,3 @@ dependencies:
     repository: https://nolte.github.io/helm-charts-repo/
     version: 0.1.0
     alias: projectContour
-

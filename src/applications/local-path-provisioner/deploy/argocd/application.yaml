@@ -15,12 +15,12 @@ spec:
       values: |
         storageClass:
           create: true
-          defaultClass: true      
+          defaultClass: true
         nodePathMap:
           - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
             paths:
-              - /var/mnt/storage/local-path-provisioner      
-    
+              - /var/mnt/storage/local-path-provisioner
+
     path: deploy/chart/local-path-provisioner/
     repoURL: https://github.com/rancher/local-path-provisioner.git
     targetRevision: master

@@ -130,7 +130,7 @@ patchesJSON6902:
         path: /spec/sources/0/helm/parameters/-
         value:
           name:  externalSecrets.enabled
-          value: "false"          
+          value: "false"
       - op: add
         path: /spec/sources/0/helm/parameters/-
         value:

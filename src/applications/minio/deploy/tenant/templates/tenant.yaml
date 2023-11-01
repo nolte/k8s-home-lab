@@ -6,7 +6,7 @@ metadata:
   name: minio
   ## Optionally pass labels to be applied to the statefulset pods
   labels:
-    {{- include "minio-tenant.labels" . | nindent 4 }}  
+    {{- include "minio-tenant.labels" . | nindent 4 }}
   ## Annotations for MinIO Tenant Pods
   annotations:
     prometheus.io/path: /minio/v2/metrics/cluster
