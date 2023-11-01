@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: arangodb
+spec:
+  destination:
+    name: in-cluster
+    namespace: arangodb
+  project: default
+  source:
+    path: chart/kube-arangodb
+    repoURL: https://github.com/arangodb/kube-arangodb.git
+    targetRevision: 1.2.32
+
+    helm:
+      releaseName: arangodb
+      # https://github.com/arangodb/kube-arangodb/blob/1.2.32/chart/kube-arangodb/values.yaml
+      values: |
+        # tbd
