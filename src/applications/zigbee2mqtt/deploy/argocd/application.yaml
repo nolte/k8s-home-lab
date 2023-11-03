@@ -10,7 +10,7 @@ spec:
   source:
     chart: zigbee2mqtt
     repoURL: https://charts.truecharts.org/
-    targetRevision: 8.0.3
+    targetRevision: 8.0.9
     helm:
       releaseName: zigbee2mqtt
       # https://github.com/arangodb/kube-arangodb/blob/1.2.32/chart/kube-arangodb/values.yaml
