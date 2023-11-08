@@ -7,14 +7,66 @@ spec:
     name: in-cluster
     namespace: zigbee2mqtt
   project: default
-  source:
-    chart: zigbee2mqtt
+  sources:
+  - chart: zigbee2mqtt
+    # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
     repoURL: https://charts.truecharts.org/
     targetRevision: 8.0.11
     helm:
       releaseName: zigbee2mqtt
-      # https://github.com/arangodb/kube-arangodb/blob/1.2.32/chart/kube-arangodb/values.yaml
       values: |
+
+        fallbackDefaults:
+          # -- Default PVC Size
+          pvcSize: 5Gi
+          # -- Default VCT Size
+          vctSize: 5Gi
+
+
+        persistence:
+          configmap-vol:
+            enabled: true
+            type: configmap
+            objectName: zigbee2mqtt-extra-config
+            expandObjectName: false
+            mountPath: /mnt/data
+            items:
+              - key: devices.yaml
+                path: devices.yaml
+              - key: groups.yaml
+                path: groups.yaml
+
+        configmap:
+          extra-config:
+            enabled: true
+            namespace: zigbee2mqtt
+            annotations:
+              reloader.stakater.com/auto: "true"
+            data:
+              devices.yaml: |
+                '0x8cf681fffe28e088':
+                  friendly_name: 'workroom_blind_01' 
+                '0x04cd15fffe382c92':
+                  friendly_name: 'workroom_blind_02'
+                '0x18fc2600000120ab':
+                  friendly_name: 'bedroom_window_contact_01'
+                '0x040d84fffe8d433e':
+                  # ikea 4 button
+                  friendly_name: 'remote_01'
+                '0x8cf681fffe338337':
+                  friendly_name: 'remote_02'
+                '0x8cf681fffe36d4fc':
+                  friendly_name: 'remote_03'
+                '0x0017880106367978':
+                  friendly_name: 'remote_04'
+                '0x00178801086a34a7':
+                  friendly_name: 'remote_05'                  
+              groups.yaml: |
+                '1':
+                  friendly_name: 'blind_workroom'
+                  devices:
+                    - '0x8cf681fffe28e088'
+                    - '0x04cd15fffe382c92'
         deviceList:
           - name: zigbee
             enabled: true
@@ -42,3 +94,5 @@ spec:
                     ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyACM0"
                     ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
                     ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
+                    ZIGBEE2MQTT_CONFIG_GROUPS: /mnt/data/groups.yaml
+                    ZIGBEE2MQTT_CONFIG_DEVICES: /mnt/data/devices.yaml
