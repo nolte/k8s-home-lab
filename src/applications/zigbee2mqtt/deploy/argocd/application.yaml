@@ -45,7 +45,7 @@ spec:
             data:
               devices.yaml: |
                 '0x8cf681fffe28e088':
-                  friendly_name: 'workroom_blind_01' 
+                  friendly_name: 'workroom_blind_01'
                 '0x04cd15fffe382c92':
                   friendly_name: 'workroom_blind_02'
                 '0x18fc2600000120ab':
@@ -60,7 +60,7 @@ spec:
                 '0x0017880106367978':
                   friendly_name: 'remote_04'
                 '0x00178801086a34a7':
-                  friendly_name: 'remote_05'                  
+                  friendly_name: 'remote_05'
               groups.yaml: |
                 '1':
                   friendly_name: 'blind_workroom'

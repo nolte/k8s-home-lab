@@ -14,4 +14,3 @@ Useed service set:
 * [Mosquitto](../services/mosquitto.md) *MQTT Broker, for Connect the Cluster with other IoT Devices*
 * [zigbee2mqtt](../services/zigbee2mqtt.md) *Build your own Zigbee Gateway*
 * [minio](../services/minio.md) *used for longtime storage*
-
