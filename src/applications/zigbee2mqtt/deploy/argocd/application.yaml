@@ -61,6 +61,14 @@ spec:
                   friendly_name: 'remote_04'
                 '0x00178801086a34a7':
                   friendly_name: 'remote_05'
+                '0x00124b002934f92c':
+                  friendly_name: 'snzb_02_01'
+                '0x00124b00292c174d':
+                  friendly_name: 'snzb_02_02'
+                '0x00124b00292c19a9':
+                  friendly_name: 'snzb_02_03'
+                '0x00124b00292c4376':
+                  friendly_name: 'snzb_02_03'
               groups.yaml: |
                 '1':
                   friendly_name: 'blind_workroom'
