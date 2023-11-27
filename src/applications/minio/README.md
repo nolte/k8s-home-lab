@@ -8,7 +8,7 @@ Self Hosted S3 Storage
 
 <!--header-start-->
 **Namespace:** `minio`  
-**Deployment:**   
+**Deployment:**  
 **Terraform Provider:** [aminueza/minio](https://registry.terraform.io/providers/aminueza/minio/latest/docs)  
 **Web:** [min.io](https://min.io/)  
 <!--header-end-->
@@ -16,11 +16,11 @@ Self Hosted S3 Storage
 ## User Access
 
 
-Load Access Key and Secret Key direct from the k8s secret `minio-creds-secret`. 
+Load Access Key and Secret Key direct from the k8s secret `minio-creds-secret`.
 
 ```sh
-export AWS_ACCESS_KEY_ID=$(kubectl -n minio get secrets minio-creds-secret -ojson | jq -r '.data.secretkey' | base64 -d) 
- 
+export AWS_ACCESS_KEY_ID=$(kubectl -n minio get secrets minio-creds-secret -ojson | jq -r '.data.secretkey' | base64 -d)
+
 export AWS_SECRET_ACCESS_KEY=$(kubectl -n minio get secrets minio-creds-secret -ojson | jq -r '.data.accesskey' | base64 -d)
 ```
 
@@ -63,4 +63,3 @@ export MINIO_ENDPOINT=$(kubectl -n minio get httpproxies.projectcontour.io minio
 kubectl -n vault port-forward svc/vault 8200
 ```
 <!--port-forward-end-->
-
