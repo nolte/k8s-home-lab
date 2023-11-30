@@ -50,6 +50,12 @@ spec:
                   friendly_name: 'workroom_blind_02'
                 '0x18fc2600000120ab':
                   friendly_name: 'bedroom_window_contact_01'
+                '0x18fc260000079e3e':
+                  friendly_name: 'window_contact_02'
+                '0x18fc260000067d50':
+                  friendly_name: 'window_contact_03'
+                '0x18fc260000076b59':
+                  friendly_name: 'window_contact_04'
                 '0x040d84fffe8d433e':
                   # ikea 4 button
                   friendly_name: 'remote_01'
