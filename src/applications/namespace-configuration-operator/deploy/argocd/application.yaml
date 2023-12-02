@@ -10,7 +10,7 @@ spec:
   source:
     chart: namespace-configuration-operator
     repoURL: https://redhat-cop.github.io/namespace-configuration-operator
-    targetRevision: v1.2.5
+    targetRevision: v1.2.6
     helm:
       releaseName: namespace-configuration-operator
       values: |
