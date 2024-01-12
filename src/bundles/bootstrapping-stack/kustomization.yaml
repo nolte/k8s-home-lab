@@ -9,6 +9,7 @@ generatorOptions:
 
 
 patches:
+
   - path: ../../kustomization-common/deployment-patch.yaml
     target:
       group: argoproj.io
@@ -17,8 +18,19 @@ patches:
       version: v1alpha1
 
 
+  - path: ../../kustomization-common/application-project-default-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+
+
+
 resources:
   - ../../../src/applications/argo-workflows/deploy/argocd
   #- ../../../src/applications/argo-workflow-templates/deploy/argocd
   - ../../../src/applications/argo-workflow-global-steps/deploy/argocd
   - ../../../src/applications/argo-cd/deploy/argocd-workflows
+  - ../../../src/applications/argo-cd/deploy/argocd
