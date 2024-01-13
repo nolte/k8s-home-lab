@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: management-workflows
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  project: default
+  source:
+    path: src/applications/management-workflows/deploy/kustomize
+    repoURL: https://github.com/nolte/k8s-home-lab.git
+    targetRevision: feature/seed-flavors

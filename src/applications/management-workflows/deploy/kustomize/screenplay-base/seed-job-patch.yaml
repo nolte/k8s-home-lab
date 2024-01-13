@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: seed-job-patch
+spec:
+  entrypoint: exec
+  templates:
+  - name: exec
+    inputs:
+      parameters:
+        - default: seed-job
+          name: argocdAppName
+        - name: bootstrapStepNumber
+          # default: "1"
+
+        - name: argoJobSourcesPath
+          # default: "src/bundles/00-bootstrapping-minimal"
+    resource:
+      action: patch
+      mergeStrategy: json
+      flags:
+      - applications.argoproj.io
+      - "{{inputs.parameters.argocdAppName}}"
+      manifest: |
+        - op: replace
+          path: /spec/source/path
+          value: "{{=sprig.trim(inputs.parameters.argoJobSourcesPath)}}"
+        - op: add
+          path: /metadata/annotations/de.noltarium.bootstrapping~1steps
+          value: "{{inputs.parameters.bootstrapStepNumber}}"

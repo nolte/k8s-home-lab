@@ -1,0 +1,3 @@
+- op: add
+  path: /spec/sources/1/helm/valueFiles/-
+  value: https://raw.githubusercontent.com/nolte/k8s-home-lab/feature/seed-flavors/src/applications/argo-cd/deploy/argocd/values.yaml

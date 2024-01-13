@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 commonLabels:
   argocd.argoproj.io/instance: seed-job
+
 kind: Kustomization
 namespace: argocd
 
@@ -9,6 +10,13 @@ generatorOptions:
 
 
 patches:
+
+  - path: ./argocd-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1
 
   - path: ../../kustomization-common/deployment-patch.yaml
     target:
@@ -25,12 +33,11 @@ patches:
       name: .*
       version: v1alpha1
 
-
-
-
 resources:
   - ../../../src/applications/argo-workflows/deploy/argocd
   #- ../../../src/applications/argo-workflow-templates/deploy/argocd
   - ../../../src/applications/argo-workflow-global-steps/deploy/argocd
   - ../../../src/applications/argo-cd/deploy/argocd-workflows
   - ../../../src/applications/argo-cd/deploy/argocd
+  - ../../../src/applications/management-workflows/deploy/argocd
+  
