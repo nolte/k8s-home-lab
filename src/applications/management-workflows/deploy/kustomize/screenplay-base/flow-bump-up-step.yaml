@@ -9,8 +9,16 @@ spec:
       configMapKeyRef:
         name: synchronization-config
         key: workflow
+  arguments:
+    parameters:
+      - name: configmapname
   templates:
     - name: exec
+      inputs:
+        parameters:
+          - default: screenplay-bootstrap
+            name: configmapname
+
       steps:
         - - name: get-seed-job-infos
             templateRef:
@@ -23,14 +31,16 @@ spec:
               template: exec
             arguments:
               parameters:
-              - name: argocdAppName
-                value: "{{item}}"
+                - name: argocdAppName
+                  value: "{{item}}"
             withParam: "{{steps.get-seed-job-infos.outputs.parameters.resources}}"
 
         - - arguments:
               parameters:
+                - name: argocdAppName
+                  value: "{{item}}"              
                 - name: configPathStep
-                  value: '{{steps.get-seed-job-infos.outputs.parameters.bootstrapStep}}'
+                  value: "{{inputs.parameters.configmapname}}"
             name: get-path
             templateRef:
               name: seed-cm-get
@@ -39,21 +49,20 @@ spec:
         - - arguments:
               parameters:
                 - name: bootstrapStepNumber
-                  value: '{{steps.get-path.outputs.parameters.bootstrapStepNext}}'
+                  value: "{{steps.get-path.outputs.parameters.bootstrapStepNext}}"
                 - name: argoJobSourcesPath
-                  value: '{{steps.get-path.outputs.parameters.bootstrapStepNextPath}}'
+                  value: "{{steps.get-path.outputs.parameters.bootstrapStepNextPath}}"
             name: patch
             when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: seed-job-patch
               template: exec
-#
+
         - - name: get-seed-job-wait-patched
             when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: seed-job-wait
               template: exec
-
 
         - - name: get-seed-job-sub-synced-after-patch
             when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
@@ -62,29 +71,16 @@ spec:
               template: exec
             arguments:
               parameters:
-              - name: argocdAppName
-                value: "{{item}}"
+                - name: argocdAppName
+                  value: "{{item}}"
             withParam: "{{steps.get-seed-job-infos.outputs.parameters.resources}}"
-
 
         - - name: self-retry
             when: "'{{ steps.get-path.outputs.parameters.bootstrapStepNextPath }}' != 'null'"
             templateRef:
               name: flow-bump-up-step
               template: exec
-
-
-#
-#        - - name: get-seed-job-resources-infos
-#            templateRef:
-#              name: seed-job-get
-#              template: exec
-
-#    - name: whalesay
-#      inputs:
-#        parameters:
-#        - name: message
-#      container:
-#        image: docker/whalesay:latest
-#        command: [cowsay]
-#        args: ["{{inputs.parameters.message}}"]
+            arguments:
+              parameters:
+                - name: configPathStep
+                  value: "{{inputs.parameters.configmapname}}"

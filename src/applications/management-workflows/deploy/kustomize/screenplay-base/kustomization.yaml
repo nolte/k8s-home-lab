@@ -21,6 +21,10 @@ configMapGenerator:
       - state.4.path="./src/bundles/25-baseline-services"
     name: screenplay-bootstrap
 
+  - literals:
+      - state.0.path="./src/bundles/00-bootstrapping-minimal"
+    name: screenplay-minimal
+
 
 resources:
   - flow-bump-up-step.yaml
