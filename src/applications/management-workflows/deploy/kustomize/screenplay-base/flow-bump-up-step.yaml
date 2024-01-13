@@ -36,10 +36,10 @@ spec:
             withParam: "{{steps.get-seed-job-infos.outputs.parameters.resources}}"
 
         - - arguments:
-              parameters:
-                - name: argocdAppName
-                  value: "{{item}}"              
+              parameters:            
                 - name: configPathStep
+                  value: "{{steps.get-seed-job-infos.outputs.parameters.bootstrapStep}}"
+                - name: configmapname
                   value: "{{inputs.parameters.configmapname}}"
             name: get-path
             templateRef:
