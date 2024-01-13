@@ -28,4 +28,4 @@ resources:
   - seed-job-get.yaml
   - seed-job-patch.yaml
   - seed-job-wait.yaml
-  - flow-start-install.yaml
+  #- flow-start-install.yaml
