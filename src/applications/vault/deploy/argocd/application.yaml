@@ -42,7 +42,7 @@ spec:
             name: argo-workflows-execution
           type: Role
           vaultInjector:
-            create: false
+            create: true
             name: argo-workflows-execution
         roleBinding:
           tfState:
