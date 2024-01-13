@@ -82,5 +82,5 @@ spec:
               template: exec
             arguments:
               parameters:
-                - name: configPathStep
+                - name: configmapname
                   value: "{{inputs.parameters.configmapname}}"
