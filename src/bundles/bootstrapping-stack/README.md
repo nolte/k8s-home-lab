@@ -1,13 +1,14 @@
 # Bootstrapping 
 
 <!--description-start-->
-Minnimal selection from tools, required for configure different Flavors of Platform deployments.
+Minimal selection of tools, required to configure different Flavors of Platform deployments.
 <!--description-end-->
 
 ## Services
 
 <!--service-set-start-->
 * ArgoCD
-* ArgoWorkflows
+* Argo Workflows
     * Workflow Steps
+* Management Workflows
 <!--service-set-end-->
