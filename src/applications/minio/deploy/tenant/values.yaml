@@ -54,7 +54,7 @@ workflow:
 
       extraEnv:
         - name: KUBE_IN_CLUSTER_CONFIG
-          value: "true"
+          value: '"true"'
 
         - name: MINIO_ACCESS_KEY
           valueFrom:
