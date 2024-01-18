@@ -40,7 +40,22 @@ externalSecrets:
 workflow:
   enabled: true
   serviceAccount:
-    create: true  
+    create: true
+
+  role:
+    tfState:
+      create: true
+    type: ClusterRole
+    vaultInjector:
+      create: true
+
+  roleBinding:
+    tfState:
+      create: true
+    type: Role
+    vaultInjector:
+      create: true
+
   configurationWorkflows:
     post-sync:
       type: terragrunt
