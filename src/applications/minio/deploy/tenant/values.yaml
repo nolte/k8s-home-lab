@@ -39,6 +39,8 @@ externalSecrets:
 
 workflow:
   enabled: true
+  serviceAccount:
+    create: true  
   configurationWorkflows:
     post-sync:
       type: terragrunt
