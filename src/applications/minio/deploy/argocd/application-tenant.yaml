@@ -13,6 +13,6 @@ spec:
   sources:
   - path: src/applications/minio/deploy/tenant
     repoURL: https://github.com/nolte/k8s-home-lab.git
-    targetRevision: master
+    targetRevision: feature/seed-flavors
     helm:
       parameters: []
