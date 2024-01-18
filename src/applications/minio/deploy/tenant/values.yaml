@@ -45,13 +45,6 @@ workflow:
   cmTfStaticEndpoints:
     create: true
 
-  role:
-    tfState:
-      create: true
-    type: ClusterRole
-    vaultInjector:
-      create: true
-
   roleBinding:
     tfState:
       create: true
