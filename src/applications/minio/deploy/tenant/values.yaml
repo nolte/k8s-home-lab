@@ -80,6 +80,8 @@ workflow:
               name: minio-creds-secret
               key: secretkey
 
+        - name: MINIO_ENDPOINT
+          value: minio-hl.minio.svc:9000
 
 projectContour:
   enabled: false
