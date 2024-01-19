@@ -1,6 +1,6 @@
 
-generate "provider" {
-  path      = "provider.gen.tf"
+generate "provider_basement" {
+  path      = "provider-basements.gen.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
 
