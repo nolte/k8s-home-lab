@@ -7,7 +7,9 @@ remote_state {
   disable_dependency_optimization = true
   disable_init = true
   config = {
-    endpoint = get_env("AWS_S3_ENDPOINT", "http://minio.minio.svc")
+    endpoints = {
+      s3 = get_env("AWS_S3_ENDPOINT", "http://minio.minio.svc")
+    }
     bucket = "terraform-state"
     key = "terraform.tfstate"
     region = "main"
