@@ -16,7 +16,7 @@ remote_state {
   config = merge(
     local.root_config.remote_state.config,
     {     
-      key = "test.tfstate"
+      key = "powerdns/baseline.tfstate"
     },
   )
 }
