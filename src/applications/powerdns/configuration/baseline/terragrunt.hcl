@@ -4,23 +4,11 @@ include {
 }
 
 locals {
-  root_config = read_terragrunt_config("../../../../terraground-common/state-s3.hcl")
+  state_key = "powerdns/baseline.tfstate" 
+  backend_config = read_terragrunt_config("../../../../terraground-common/state-s3-generate.hcl")
 }
 
-remote_state {
-  backend                           = local.root_config.remote_state.backend
-  generate                          = local.root_config.remote_state.generate
-  disable_dependency_optimization   = local.root_config.remote_state.disable_dependency_optimization
-  disable_init                      = local.root_config.remote_state.disable_init 
-  
-  config = merge(
-    local.root_config.remote_state.config,
-    {     
-      key = "powerdns/baseline.tfstate"
-    },
-  )
-}
-
+generate = local.backend_config.generate
 
 generate "provider" {
   path      = "provider.gen.tf"
