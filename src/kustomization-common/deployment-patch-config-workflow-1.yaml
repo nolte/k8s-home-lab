@@ -1,5 +1,5 @@
 - op: add
-  path: /spec/sources/0/helm/parameters/-
+  path: /spec/sources/1/helm/parameters/-
   value:
     name:  configurationWorkflows.post-install.source.revision
     value: "feature/seed-flavors"
