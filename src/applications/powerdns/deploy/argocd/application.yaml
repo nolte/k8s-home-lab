@@ -52,7 +52,7 @@ spec:
                   {{- end }}
               extraEnv:
                 - name: PDNS_SERVER_URL
-                  value: http://powerdns-webserver.{{.Release.Namespace}}.svc:8081
+                  value: http://powerdns.{{.Release.Namespace}}.svc:8081
               source:
                 repo: https://github.com/nolte/k8s-home-lab.git
                 path: ./src/applications/powerdns/configuration/baseline
@@ -62,7 +62,7 @@ spec:
       path: charts/stable/argo-workflow-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
-    
+
 
     - chart: app-template
       repoURL: https://bjw-s.github.io/helm-charts
@@ -74,7 +74,7 @@ spec:
             main:
               strategy: Recreate
               containers:
-                main:    
+                main:
                   image:
                     # https://hub.docker.com/r/powerdns/pdns-recursor-50/tags
                     repository: powerdns/pdns-auth-48
@@ -83,17 +83,17 @@ spec:
                   env:
                     # -- Config dir
                     PDNS_AUTH_API_KEY: "supersecretpw"
-                  
+
           configMaps:
             config:
               enabled: true
-              annotations: 
+              annotations:
                 reloader.stakater.com/match: "true"
               data:
-                # https://doc.powerdns.com/authoritative/settings.html#local-port              
+                # https://doc.powerdns.com/authoritative/settings.html#local-port
                 pdns-extra.conf: |
                   local-port=1053
-                  loglevel=6                       
+                  loglevel=6
           persistence:
             config:
               enabled: true
@@ -109,14 +109,13 @@ spec:
                   port: 8081
             dns:
               type: ClusterIP
-              controller: main            
+              controller: main
               ports:
                 udp:
                   enabled: true
                   port: 1053
-                  protocol: UDP                            
+                  protocol: UDP
                 tcp:
                   enabled: true
                   port: 1053
                   protocol: TCP
-                
