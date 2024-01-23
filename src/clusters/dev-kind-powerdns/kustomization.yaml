@@ -7,269 +7,269 @@ generatorOptions:
   disableNameSuffixHash: true
 
 resources:
-- ../../../src/bundles/25-baseline-services
-- ../../../src/bundles/devops-services
+  - ../../../src/bundles/25-baseline-services
+  - ../../../src/bundles/devops-services
 
 labels:
-- includeSelectors: true
-  pairs:
-    argocd.argoproj.io/instance: seed-job
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job
 
 patches:
-- patch: |-
-    - op: replace
-      path: /spec/sources/0/helm/parameters
-      value: []
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: forecastle.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: forecastle
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/source/helm/parameters
-      value: []
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: home-assistant.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: home-assistant
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/source/helm/parameters
-      value: []
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: esphome.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: esphome
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/source/helm/parameters
-      value:
-        - name: console.ingress.enabled
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
           value: "true"
-  target:
-    group: argoproj.io
-    kind: Application
-    name: minio-operator
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/source/path
-      value: "src/applications/minio/deploy/kustomize-tenant-ingress"
-  target:
-    group: argoproj.io
-    kind: Application
-    name: minio-tenant
-    version: v1alpha1
-- patch: |-
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: argo.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: argo-workflows
-    version: v1alpha1
-- patch: |-
-    - op: add
-      path: /spec/sources/1/helm/valueFiles/-
-      value: values-ingress.yaml
-    - op: add
-      path: /spec/sources/1/helm/valueFiles/-
-      value: values-oidc.yaml
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: argocd.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: argocd
-    version: v1alpha1
-- patch: |-
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: vault.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: vault
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/sources/0/helm/parameters
-      value: []
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: keycloak.dev44-just-homestyle.duckdns.org
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  configurationWorkflows.post-install.source.revision
-        value: master
-  target:
-    group: argoproj.io
-    kind: Application
-    name: keycloak
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/sources/0/helm/parameters
-      value: []
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: "harbor.dev44-just-homestyle.duckdns.org"
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  externalURL
-        value: "https://harbor.dev44-just-homestyle.duckdns.org"
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  expose.ingress.hosts.core
-        value: harbor.dev44-just-homestyle.duckdns.org
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  expose.ingress.hosts.notary
-        value: notary.dev44-just-homestyle.duckdns.org
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  expose.type
-        value: clusterIP
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  expose.tls.enabled
-        value: "false"
-  target:
-    group: argoproj.io
-    kind: Application
-    name: harbor
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/sources/1/helm/parameters
-      value: []
-    - op: add
-      path: /spec/sources/1/helm/parameters/-
-      value:
-        name:  admin.existingSecret
-        value: "gitea-admin-secret"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.create
-        value: "true"
-    - op: add
-      path: /spec/sources/0/helm/parameters/-
-      value:
-        name:  httpProxy.fqdn
-        value: gitea.dev44-just-homestyle.duckdns.org
-  target:
-    group: argoproj.io
-    kind: Application
-    name: gitea
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/source/helm/parameters
-      value: []
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name:  externalsecrets.enabled
-        value: "true"
-  target:
-    group: argoproj.io
-    kind: Application
-    name: external-dns
-    version: v1alpha1
-- patch: |-
-    - op: replace
-      path: /spec/source/helm/parameters
-      value: []
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name:  contour.extraArgs[0]
-        value: "--ingress-status-address=172.18.0.2"
-  target:
-    group: argoproj.io
-    kind: Application
-    name: project-contour
-    version: v1alpha1
-- path: ../../kustomization-common/deployment-patch-config-workflow.yaml
-  target:
-    group: argoproj.io
-    kind: Application
-    name: powerdns
-    version: v1alpha1
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: forecastle.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: forecastle
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: home-assistant.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: home-assistant
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: esphome.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: esphome
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value:
+          - name: console.ingress.enabled
+            value: "true"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: minio-operator
+      version: v1alpha1
+  # - patch: |-
+  #     - op: replace
+  #       path: /spec/sources/0/path
+  #       value: "src/applications/minio/deploy/kustomize-tenant-ingress"
+  #   target:
+  #     group: argoproj.io
+  #     kind: Application
+  #     name: minio-tenant
+  #     version: v1alpha1
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: argo.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argo-workflows
+      version: v1alpha1
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valueFiles/-
+        value: values-ingress.yaml
+      - op: add
+        path: /spec/sources/1/helm/valueFiles/-
+        value: values-oidc.yaml
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: argocd.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: vault.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: vault
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: keycloak.dev44-just-homestyle.duckdns.org
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  configurationWorkflows.post-install.source.revision
+          value: master
+    target:
+      group: argoproj.io
+      kind: Application
+      name: keycloak
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: "harbor.dev44-just-homestyle.duckdns.org"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  externalURL
+          value: "https://harbor.dev44-just-homestyle.duckdns.org"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  expose.ingress.hosts.core
+          value: harbor.dev44-just-homestyle.duckdns.org
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  expose.ingress.hosts.notary
+          value: notary.dev44-just-homestyle.duckdns.org
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  expose.type
+          value: clusterIP
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  expose.tls.enabled
+          value: "false"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: harbor
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/sources/1/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  admin.existingSecret
+          value: "gitea-admin-secret"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: gitea.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: gitea
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  enabled
+          value: "true"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: external-dns
+      version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/source/helm/parameters
+        value: []
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name:  contour.extraArgs[0]
+          value: "--ingress-status-address=172.18.0.2"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: project-contour
+      version: v1alpha1
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: powerdns
+      version: v1alpha1
