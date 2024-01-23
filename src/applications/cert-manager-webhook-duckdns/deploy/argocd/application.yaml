@@ -14,9 +14,12 @@ spec:
       jsonPointers:
         - /spec/duration
   sources:
-    - chart: cert-manager-webhook-duckdns
-      repoURL: https://ebrianne.github.io/helm-charts
-      targetRevision: 1.2.4
+    - path: deploy/cert-manager-webhook-duckdns
+      repoURL: https://github.com/ebrianne/cert-manager-webhook-duckdns.git
+      targetRevision: master
+      # chart: cert-manager-webhook-duckdns
+      # repoURL: https://ebrianne.github.io/helm-charts
+      # targetRevision: 1.2.4
       helm:
         releaseName: cert-manager-webhook-duckdns
         parameters:
