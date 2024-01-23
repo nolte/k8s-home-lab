@@ -3,3 +3,9 @@
   value:
     name:  configurationWorkflows.post-install.source.revision
     value: "feature/seed-flavors"
+# ugly hack if 2 util charts exists
+- op: add
+  path: /spec/sources/1/helm/parameters/-
+  value:
+    name:  configurationWorkflows.post-install.source.revision
+    value: "feature/seed-flavors"

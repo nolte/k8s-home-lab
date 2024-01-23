@@ -232,10 +232,10 @@ patches:
       version: v1alpha1
   - patch: |-
       - op: replace
-        path: /spec/sources/1/helm/parameters
+        path: /spec/sources/2/helm/parameters
         value: []
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  admin.existingSecret
           value: "gitea-admin-secret"
@@ -288,3 +288,17 @@ patches:
       kind: Application
       name: powerdns
       version: v1alpha1
+
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: keycloak
+      version: v1alpha1
+    
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: vault
+      version: v1alpha1    
