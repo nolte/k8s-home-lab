@@ -97,6 +97,27 @@ patches:
       - op: add
         path: /spec/sources/0/helm/parameters/-
         value:
+          name:  projectContour.enabled
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  projectContour.httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  projectContour.httpProxy.fqdn
+          value: minio.dev44-just-homestyle.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: minio-tenant
+      version: v1alpha1
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
           name:  httpProxy.create
           value: "true"
       - op: add
