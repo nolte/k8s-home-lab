@@ -33,27 +33,43 @@ spec:
               kind: Certificate
               jsonPointers:
               - /spec/duration
-            source:
+            sources:
               # chart: cert-manager-webhook-duckdns
               # repoURL: https://nolte.github.io/helm-charts-repo
               # targetRevision: 0.2.2
-              path: charts/stable/cert-manager-webhook-duckdns/
-              repoURL: https://github.com/nolte/helm-charts-repo.git
-              targetRevision: main
+            - path: deploy/cert-manager-webhook-duckdns
+              repoURL: https://github.com/ebrianne/cert-manager-webhook-duckdns.git
+              targetRevision: master
               helm:
                 releaseName: cert-manager-webhook-duckdns
                 parameters:
-                  - name: certmanagerwebhookduckdns.fullnameOverride
+                  - name: fullnameOverride
                     value: "cert-manager-webhook-duckdns"
-                  - name: certmanagerwebhookduckdns.clusterIssuer.email
+                  - name: clusterIssuer.email
                     value: "{{inputs.parameters.issuerEmail}}"
-                  - name: certmanagerwebhookduckdns.clusterIssuer.production.create
+                  - name: clusterIssuer.production.create
                     value: "true"
-                  - name: certmanagerwebhookduckdns.clusterIssuer.staging.create
+                  - name: clusterIssuer.staging.create
                     value: "true"
-                  - name: certmanagerwebhookduckdns.secret.existingSecret
+                  - name: secret.existingSecret
                     value: "true"
-                  - name: certmanagerwebhookduckdns.secret.existingSecretName
+                  - name: secret.existingSecretName
                     value: "duckdns-token"
-                  - name: externalsecrets.enabled
-                    value: "{{inputs.parameters.externalsecrets-enabled}}"
+    - chart: external-secrets-manifests
+      repoURL: https://nolte.github.io/helm-charts-repo/
+      targetRevision: 1.0.1
+      helm:
+        releaseName: external-secrets-manifests
+        values: |
+          enabled: {{inputs.parameters.externalsecrets-enabled}}
+          secretstore:
+            create: true
+            serviceAccount:
+              create: true
+          secrets:
+            duckdns-token:
+              data:
+                - key: third-party-services/duckdns.org/api
+                  name: token
+                  property: token                  
+                  
