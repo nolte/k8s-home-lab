@@ -14,7 +14,8 @@ remote_state {
   config = merge(
     local.root_config.remote_state.config,
     {
-      key = "keycloak.tfstate"
+      key = "keycloak.tfstate",
+      disable_bucket_update = true
     },
   )
 }
