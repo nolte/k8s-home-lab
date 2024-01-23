@@ -1,0 +1,80 @@
+---
+version: '3'
+
+
+vars:
+  TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/develop/src"
+
+includes:
+  kind: 
+    taskfile: "{{.TASK_COLLECTION_BASE}}/taskfile-include-kind.yaml"
+    vars:
+      KIND_CREATE_EXTRA_ARGS: "--config {{.GIT_ROOT}}/hack/kind.yaml"
+    
+  k8s: 
+    taskfile: "{{.TASK_COLLECTION_BASE}}/taskfile-include-k8s.yaml"
+    vars:
+      ARGOCD_EXTRA_ARGS: "-f {{.GIT_ROOT}}/src/applications/argo-cd/deploy/argocd/values.yaml"
+
+tasks:
+  serviceset-minnimal:
+    desc: minimal sericeset
+    cmds:
+      - task: serviceset
+        vars:
+          SCREEN_PLAY_CONFIGMAP_NAME: screenplay-minimal
+
+  serviceset-baseline:
+    desc: baseline sericeset
+    cmds:
+      - task: serviceset
+        vars:
+          SCREEN_PLAY_CONFIGMAP_NAME: screenplay-bootstrap
+
+  serviceset:
+    cmds:
+    - |
+      argocd --core app wait argocd/management-workflows
+    - |
+      kubectl wait pod \
+        --for=condition=ready \
+        --timeout=60s \
+        -n argo \
+        -l app.kubernetes.io/instance=argo-workflows
+    - |
+      argo submit \
+        -n argocd \
+        --from workflowtemplate/flow-bump-up-step \
+        --parameter configmapname={{.SCREEN_PLAY_CONFIGMAP_NAME}}
+
+  bootstrap:
+    desc: bootstrap services
+    cmds:
+    - |
+      kubectl wait pod --for=condition=ready --timeout=60s -n argocd -l app.kubernetes.io/instance=argocd
+    - |
+      kind export kubeconfig
+      kubectl apply -f src/seed/app-seed-bootstrapping.yaml -n argocd
+    - |
+      kubectl config set-context --current --namespace=argocd
+      argocd --core app sync argocd/seed-job
+      argocd --core app wait argocd/seed-job
+ 
+    silent: true
+
+  recreate:
+    desc: recreate
+    cmds:
+    - task: kind:recreate
+    - task: k8s:bootstrap
+    - sleep 45
+    - task: bootstrap
+    - task: serviceset-minnimal
+    silent: true
+
+  maxfs:
+    desc: set max file handles
+    cmds:
+      - sudo sysctl -w fs.inotify.max_user_watches=2099999999
+      - sudo sysctl -w fs.inotify.max_user_instances=2099999999
+      - sudo sysctl -w fs.inotify.max_queued_events=2099999999  

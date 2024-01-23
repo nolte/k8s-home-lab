@@ -53,18 +53,18 @@ spec:
             ports:
               http:
                 port: 8010
-        
+
         configMaps:
             config:
               enabled: true
-              annotations: 
+              annotations:
                 reloader.stakater.com/match: "true"
               data:
                 # original from https://github.com/meyayl/docker-languagetool/blob/main/entrypoint.sh
                 ngramsget.sh: |
                   #!/bin/bash
-                  set -eo pipefail        
-                  
+                  set -eo pipefail
+
                   fix_dir_owner(){
                     local _PATH
                     _PATH="${1}"
@@ -125,13 +125,13 @@ spec:
                       if [ -n "${download_ngrams_for_langs}" ]; then
                         echo "WARNING: No base path for ngram language modules provided, skipping download of ${download_ngrams_for_langs}."
                       else
-                        echo "WARNING: No base path for ngram language modules provided." 
+                        echo "WARNING: No base path for ngram language modules provided."
                       fi
                     fi
                   }
                   handle_ngrams
 
-        
+
         persistence:
           configinc:
             enabled: true

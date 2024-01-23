@@ -6,9 +6,7 @@ The local environment will be used as temporary Boostrapping/Management Cluster.
 
 ```sh
 task \
-  kind:destroy \
-  kind:create \
-  kind:apply_bootstrapping
+  platform:recreate
 ```
 
 <!--kind-init-end-->
@@ -19,15 +17,11 @@ After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, 
 
     [Task](https://github.com/go-task/task) Steps, for starting with preconfigured set of Services.
 
-    | **Task Goal**          | **Chart Config**                      | **Kurz Beschreibung**                                                                                                                                                                                                                   |
-    |------------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    | `apply`                | `-`                                   | Ein "blanker" Kind Cluster mit ArgoCD, dieses setting dient als Grundlage aller Kind Deployments.                                                                                                                                       |
-    | `apply_devops_station` | `values-kind-deployments.yaml`        | Breitstellung eines Vollständig Konfigurierten DevOps Clusters mit diversen unterstützenden Tools wie z.B. Vault, Harbor etc.                                                                                                           |
-    | `apply_monitoring`     | `values-kind-monitoring-node.yaml`    | Bereitstellung einer Minimal Installation der Monitoring Komponenten. Dieses Deployment wird genutzt um den eigenen Hausanschluss zu überwachen, und eventuelle geschwindigkeits Verluste frühzeitig zu bemerken und zu protokollieren. |
-    | `apply_bootstrapping`  | `values-kind-bootstrapping-node.yaml` | Stellt ein Minimales set an Services bereit, ArgoCD und Argo Workflow bilden hier die Grundlage für weitere Installationen.                                                                                                             |  
-
-    **Deprecated** Please try to use allways `kind:apply_bootstrapping` and after this you can install the required Resources like [rpiCluster](./infrastructure/rpi-cluster/installation.md) or [Kind DevOpsStation](./infrastructure/local-kind-devops-station/installation.md), by submit some ArgoWorkflow.
-
+    | **Task Goal**                        | **Description**                                                                                                 |
+    |--------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+    | `platform:serviceset-minnimal`       | Create a minimal pre-configured cluster, with Monitoring Components an some other tools.                        |
+    | `platform:serviceset-devops-station` | Create a full configured Developer Platform with Secret Management, Container Registry and many other Services. |
+    | `platform:serviceset-smart-home`     | Install Smart Home Components like Eventbus, Homeassistant, ESPHome, and other Stuff.                           |
 
 ??? example "Start port forward"
     {%
@@ -53,15 +47,16 @@ After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, 
         %}  
 
 ??? example "Argo Workflow PortForward"
-    ```sh
-    kubectl port-forward svc/argo-workflows-server 2746 -n argo
-    ```
-
+    {%
+       include-markdown "../src/applications/argo-workflows/README.md"
+       start="<!--port-forward-start-->"
+       end="<!--port-forward-end-->"
+    %}
 
 
 ??? danger "Delete Cluster"
 
-    task: `task kind:destroy`
+    task: `task platform:kind:destroy`
 
     ```sh
     kind delete cluster --name production

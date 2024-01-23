@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: influxdb2
+spec:
+  destination:
+    name: in-cluster
+    namespace: influxdb
+  project: default
+  sources:
+  - chart: influxdb2
+    # https://github.com/influxdata/helm-charts/tree/master/charts/influxdb2
+    repoURL: https://helm.influxdata.com/
+    targetRevision: 2.1.1
+    helm:
+      releaseName: influxdb2
+      

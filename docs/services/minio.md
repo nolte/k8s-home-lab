@@ -40,9 +40,12 @@
 
 
 ??? example "Start port forward"
-    ```sh
-    kubectl -n minio port-forward svc/minio 9000:80
-    ```
+    {%
+    include-markdown "../../src/applications/minio/README.md"
+    start="<!--port-forward-start-->"
+    end="<!--port-forward-end-->"
+    %}
+
 
 <!--s3-state-tf-env-vars-port-forward-start-->
 ```sh

@@ -42,30 +42,47 @@ spec:
       releaseName: home-assistant
       parameters: []
       values: |
-        image:
-          repository: ghcr.io/home-assistant/home-assistant
-          tag: 2023.12.1
+
         service:
           main:
             ports:
               http:
                 port: 8123
-        controller:
-          type: statefulset
-          annotations:
-            reloader.stakater.com/auto: "true"
-        hostNetwork: true
-        resources:
-          requests:
-            cpu: 126m
-            memory: 411M
-          limits:
-            memory: 4417M
+        controllers:
+            main:
+              containers:
+                main:
+                  image:
+                    repository: ghcr.io/home-assistant/home-assistant
+                    tag: 2023.12.1
+
+              type: statefulset
+              annotations:
+                reloader.stakater.com/auto: "true"
+
+            # resources:
+            #   requests:
+            #     cpu: 126m
+            #     memory: 411M
+            #   limits:
+            #     memory: 4417M
+
+        defaultPodOptions:
+          hostNetwork: true
 
         persistence:
           config:
             enabled: true
             #type: emptyDir
             type: hostPath
-            mountPath: /config
+            globalMounts:
+              - path: /config
+                readOnly: false
             hostPath: /var/mnt/storage/home-assistant
+        # persistence:
+        #   # Configure the main configuration storage location
+        #   config:
+        #     enabled: true
+        #     existingClaim: home-assistant-config
+        #     globalMounts:
+        #       - path: /config

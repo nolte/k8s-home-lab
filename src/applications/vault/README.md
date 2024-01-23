@@ -81,25 +81,25 @@ For the Initial deployment you must generate the Root Token an some unseal keys.
 
 <!--vault-init-start-->
 ```sh
-pass insert -m -f \
+gopass insert -m -f \
   private/services/vault.just-homestyle.duckdns.org/root  <<<$(kubectl exec -n vault -ti vault-0 -- vault operator init -format=json)
 ```
 
 ```sh
 kubectl exec \
   -n vault \
-  -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[0]' -r) \
+  -ti vault-0 -- vault operator unseal $(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[0]' -r) \
   && kubectl exec \
     -n vault \
-    -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[1]' -r) \
+    -ti vault-0 -- vault operator unseal $(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[1]' -r) \
   && kubectl exec \
     -n vault \
-    -ti vault-0 -- vault operator unseal $(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[2]' -r)
+    -ti vault-0 -- vault operator unseal $(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.unseal_keys_b64[2]' -r)
 ```
 
 ```sh
 kubectl create secret generic -n vault vault-initial-keys \
-  --from-literal "root_token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)"
+  --from-literal "root_token=$(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)"
 ```
 <!--vault-init-end-->
 
@@ -116,14 +116,14 @@ port-forward
 <!--env-vars-port-forward-start-->
 ```sh
 export VAULT_ADDR=http://localhost:8200 \
-    && vault login token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
+    && vault login token=$(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
 ```
 <!--env-vars-port-forward-end-->
 
 <!--env-vars-start-->
 ```sh
 export VAULT_ADDR=https://$(kubectl -n vault get httpproxies.projectcontour.io http-proxy -ojson  | jq '.spec.virtualhost.fqdn'  -r) \
-    && vault login token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
+    && vault login token=$(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
 ```
 <!--env-vars-end-->
 
@@ -131,7 +131,7 @@ export VAULT_ADDR=https://$(kubectl -n vault get httpproxies.projectcontour.io h
 <!--login-port-forward-start-->
 ```sh
 export VAULT_ADDR=http://localhost:8200 \
-    && vault login token=$(pass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
+    && vault login token=$(gopass private/services/vault.just-homestyle.duckdns.org/root | jq '.root_token' -r)
 ```
 <!--login-port-forward-end-->
 

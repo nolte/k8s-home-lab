@@ -36,7 +36,7 @@ spec:
             withParam: "{{steps.get-seed-job-infos.outputs.parameters.resources}}"
 
         - - arguments:
-              parameters:            
+              parameters:
                 - name: configPathStep
                   value: "{{steps.get-seed-job-infos.outputs.parameters.bootstrapStep}}"
                 - name: configmapname

@@ -8,7 +8,7 @@
 
 # Personal Cluster
 
-This project will be used to create different flavours/collections of services running on Kubernetes.
+This project will be used to create different flavors/collections of services running on Kubernetes.
 
 K8S clusters will be configured for different use cases such as [SmartHome](./docs/service-sets/smart-home.md), [DevOps services](./docs/service-sets/devops.md) or private storage.
 
@@ -38,7 +38,7 @@ The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io
 | `src/bundles`              | Will Be combine a different set of Services, into one "Product".             |
 | `src/clusters`             | Represent the Different Clusters with the different Service Set for each one. |
 | `src/kustomization-common` | Reusable Kustomize overlays, like Namespace Handling etc.                   |
-| `src/terraground-common`   | Shared Terragrunt Configs, like Statefile Handling or Module Versions.      |
+| `src/terraground-common`   | Shared Terragrunt Configs, like state-file Handling or Module Versions.      |
 | `src/talos-configs`        | The [Talos](https://www.talos.dev/) K8S Cluster configs.                     |
 
 For more Information take a look into the `README.md` inside the subfolder like [/src/applications](./src/applications/README.md).
@@ -61,7 +61,7 @@ docker run \
     polinux/mkdocs
 ```
 
-or you will be use the task alias `task docs`, for starting the mkdocs Container.
+Or you will be use the task alias `task docs`, for starting the mkdocs Container.
 
 
 ### Local Deploy
@@ -75,3 +75,4 @@ or you will be use the task alias `task docs`, for starting the mkdocs Container
 * For Bootstrapping take a look to [nolte/ansible_playbook-baseline-online-server](https://github.com/nolte/ansible_playbook-baseline-online-server#start-ssh-agent)
 * For Install k3s [nolte/ansible_playbook-baseline-k3s](https://github.com/nolte/ansible_playbook-baseline-k3s)
 * [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/) as Classic Helm Chart Repository.
+* [nolte/taskfiles](https://github.com/nolte/taskfiles), collection of reusable task.

@@ -23,7 +23,7 @@ Start the Workflow:
 argo submit \
   -n argocd \
   --from workflowtemplate/flow-bump-up-step \
-  --parameter configmapname=screenplay-minimal
+  --parameter configmapname=<screenplay-configmap-name>
 ```
 
 ## Development
