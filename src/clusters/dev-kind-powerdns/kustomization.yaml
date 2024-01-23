@@ -10,7 +10,7 @@ resources:
 - ../../../src/bundles/25-baseline-services
 - ../../../src/bundles/devops-services
 
-commonLabels:
+labels:
 - includeSelectors: true
   pairs:
     argocd.argoproj.io/instance: seed-job
