@@ -55,21 +55,21 @@ spec:
                     value: "true"
                   - name: secret.existingSecretName
                     value: "duckdns-token"
-    - chart: external-secrets-manifests
-      repoURL: https://nolte.github.io/helm-charts-repo/
-      targetRevision: 1.0.1
-      helm:
-        releaseName: external-secrets-manifests
-        values: |
-          enabled: {{inputs.parameters.externalsecrets-enabled}}
-          secretstore:
-            create: true
-            serviceAccount:
-              create: true
-          secrets:
-            duckdns-token:
-              data:
-                - key: third-party-services/duckdns.org/api
-                  name: token
-                  property: token                  
-                  
+            - chart: external-secrets-manifests
+              repoURL: https://nolte.github.io/helm-charts-repo/
+              targetRevision: 1.0.1
+              helm:
+                releaseName: external-secrets-manifests
+                values: |
+                  enabled: {{inputs.parameters.externalsecrets-enabled}}
+                  secretstore:
+                    create: true
+                    serviceAccount:
+                      create: true
+                  secrets:
+                    duckdns-token:
+                      data:
+                        - key: third-party-services/duckdns.org/api
+                          name: token
+                          property: token                  
+                          
