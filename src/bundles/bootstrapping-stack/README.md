@@ -1,4 +1,4 @@
-# Bootstrapping 
+# Bootstrapping
 
 <!--description-start-->
 Minimal selection of tools, required to configure different Flavors of Platform deployments.

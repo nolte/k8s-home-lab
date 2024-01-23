@@ -23,5 +23,6 @@ resources:
   - ../../../src/applications/mosquitto/deploy/argocd
   - ../../../src/applications/esphome/deploy/argocd
   - ../../../src/applications/home-assistant/deploy/argocd
+  - ../../../src/applications/influxdb/deploy/argocd
   # - ../../../src/applications/rest980/deploy/argocd
   - ../../../src/applications/zigbee2mqtt/deploy/argocd
