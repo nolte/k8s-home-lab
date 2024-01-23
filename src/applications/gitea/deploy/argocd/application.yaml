@@ -60,6 +60,11 @@ spec:
                 action: apply
               extraSourceElements:
                 - "source /vault/secrets/gitea"
+                - "export CURRENT_DIR=$(pwd)"
+                - "cd /src/src/applications/keycloak/configuration/baseline"
+                - "terragrunt init"
+                - "terraform init"
+                - "cd $CURRENT_DIR"
               extraAnnotations:
                 # Load a Secret for Terraform State file access
                 vault.hashicorp.com/agent-inject-secret-gitea: secrets-tf/services/IdentityAccessManagement/users/admin
