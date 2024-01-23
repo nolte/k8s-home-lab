@@ -9,6 +9,8 @@ generatorOptions:
 resources:
   - ../../../src/bundles/25-baseline-services
   - ../../../src/bundles/devops-services
+  - ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
+  - ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd-workflow
 
 labels:
   - includeSelectors: true
