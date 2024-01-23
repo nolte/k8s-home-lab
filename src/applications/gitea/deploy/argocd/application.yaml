@@ -111,7 +111,7 @@ spec:
                 - key: services/IdentityAccessManagement/clients/gitea
                   name: key
                   property: client_id
-                - key: sesecretsrvices/IdentityAccessManagement/clients/gitea
+                - key: services/IdentityAccessManagement/clients/gitea
                   name: secret
                   property: client_secret
             gitea-admin-secret:
