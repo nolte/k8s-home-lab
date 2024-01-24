@@ -27,6 +27,9 @@ locals {
 remote_state {
   backend = local.root_config.remote_state.backend
   generate = local.root_config.remote_state.generate
+  disable_init = local.root_config.remote_state.disable_init
+  disable_dependency_optimization = local.root_config.remote_state.disable_dependency_optimization
+
   config = merge(
     local.root_config.remote_state.config,
     {
