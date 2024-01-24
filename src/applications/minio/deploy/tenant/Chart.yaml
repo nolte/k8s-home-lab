@@ -27,7 +27,7 @@ dependencies:
   - name: argo-workflow-mixin
     condition: workflow.enabled
     repository: https://nolte.github.io/helm-charts-repo/
-    version: 0.8.0
+    version: 0.8.4
     alias: workflow
   - name: external-secrets-manifests
     condition: externalSecrets.enabled
