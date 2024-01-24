@@ -55,6 +55,12 @@ spec:
               workflow: true
               terraform:
                 action: apply
+              extraEnv:
+                - name: HARBOR_URL
+                  value: http://harbor-portal.harbor.svc:8081
+              extraEnvFrom: 
+                - secretRef:
+                    name: harbor-core
               extraSourceElements:
                 - "source /vault/secrets/keycloak"
                 - "export CURRENT_DIR=$(pwd)"
