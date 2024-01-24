@@ -59,3 +59,6 @@ spec:
       chart: argocd-apps
       repoURL: https://argoproj.github.io/argo-helm
       targetRevision: 1.4.1
+    - repoURL: 'https://github.com/nolte/k8s-home-lab.git'
+      targetRevision: feature/seed-flavors
+      ref: values
