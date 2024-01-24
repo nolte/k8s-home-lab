@@ -294,6 +294,13 @@ patches:
       name: keycloak
       version: v1alpha1
 
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1      
+
   - path: ../../kustomization-common/deployment-patch-config-workflow-1.yaml
     target:
       group: argoproj.io
