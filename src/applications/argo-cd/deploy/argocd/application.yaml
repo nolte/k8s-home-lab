@@ -45,6 +45,13 @@ spec:
         releaseName: external-secrets-manifests
         valueFiles: []
         parameters: []
+    - path: charts/stable/projectcontour-mixin/
+      repoURL: https://nolte.github.io/helm-charts-repo/
+      targetRevision: main
+      helm:
+        releaseName: projectcontour-mixin
+        valueFiles: []
+        parameters: []
     - helm:
         parameters: []
         releaseName: argocd

@@ -1,0 +1,5 @@
+apiVersionOverrides:
+  certmanager: cert-manager.io/v1
+server:
+  extraArgs:
+    - "--insecure"
