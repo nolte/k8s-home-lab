@@ -95,7 +95,7 @@ spec:
             existingSecret: keycloak-admin-auth
             passwordSecretKey: password
             adminUser: admin
-        parameters: []
+        # parameters: []
       chart: keycloak
       repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 18.2.1
