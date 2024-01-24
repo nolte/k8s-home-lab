@@ -59,7 +59,7 @@ spec:
                 - name: HARBOR_USERNAME
                   value: admin
                 - name: HARBOR_URL
-                  value: http://harbor-portal.harbor.svc:8081
+                  value: http://harbor.harbor.svc:8080
                 - name: HARBOR_PASSWORD
                   valueFrom:
                     secretKeyRef:
