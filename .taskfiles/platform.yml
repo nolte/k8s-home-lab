@@ -14,7 +14,7 @@ includes:
   k8s: 
     taskfile: "{{.TASK_COLLECTION_BASE}}/taskfile-include-k8s.yaml"
     vars:
-      ARGOCD_EXTRA_ARGS: "-f {{.GIT_ROOT}}/src/applications/argo-cd/deploy/argocd/values.yaml"
+      ARGOCD_EXTRA_ARGS: "-f {{.GIT_ROOT}}/src/applications/argo-cd/deploy/chart-values/values-argocd.yaml"
 
 tasks:
 

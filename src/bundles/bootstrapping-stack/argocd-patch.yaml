@@ -1,6 +1,6 @@
 - op: add
-  path: /spec/sources/1/helm/valueFiles/-
-  value: https://raw.githubusercontent.com/nolte/k8s-home-lab/feature/seed-flavors/src/applications/argo-cd/deploy/argocd/values.yaml
-- op: add
   path: /spec/sources/2/helm/valueFiles/-
-  value: https://raw.githubusercontent.com/nolte/k8s-home-lab/feature/seed-flavors/src/applications/argo-cd/deploy/argocd/values-argocd-apps.yaml
+  value: https://raw.githubusercontent.com/nolte/k8s-home-lab/feature/seed-flavors/src/applications/argo-cd/deploy/chart-values/values-argocd.yaml
+- op: add
+  path: /spec/sources/3/helm/valueFiles/-
+  value: https://raw.githubusercontent.com/nolte/k8s-home-lab/feature/seed-flavors/src/applications/argo-cd/deploy/chart-values/values-argocd-apps.yaml
