@@ -10,9 +10,9 @@
 - op: add
   path: /spec/sources/3/helm/valueFiles/-
   value: $values/src/applications/argo-cd/deploy/chart-values/values-argocd-oidc-upstream.yaml
-# - op: add
-#   path: /spec/sources/3/helm/valueFiles/-
-#   value: $values/src/applications/argo-cd/deploy/chart-values/values-argocd-ingress-upstream.yaml
+- op: add
+  path: /spec/sources/3/helm/valueFiles/-
+  value: $values/src/applications/argo-cd/deploy/chart-values/values-argocd-ingress-upstream.yaml
 - op: add
   path: /spec/sources/2/helm/valueFiles/-
   value: $values/src/applications/argo-cd/deploy/chart-values/values-argocd-ingress.yaml
