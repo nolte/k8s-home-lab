@@ -296,7 +296,7 @@ patches:
   
   - patch: |-
       - op: add
-        path: /spec/sources/2/helm/parameters/-
+        path: /spec/sources/3/helm/parameters/-
         value:
           name:  postconfig.revision
           value: "feature/seed-flavors"
