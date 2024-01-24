@@ -62,7 +62,7 @@ generate "versions" {
         }
         harbor = {
           source = "goharbor/harbor"
-          version = "3.9.0"
+          version = "3.10.6"
         }
       }
     }
