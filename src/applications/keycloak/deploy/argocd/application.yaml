@@ -81,10 +81,10 @@ spec:
             type: ClusterIP
           
           # tls.enabled: true
-          production: true	
- 	        proxy: edge	
-          # spi:	
-          #   hostnameVerificationPolicy: ANY	
+          production: true
+          proxy: edge
+          # spi:
+          #   hostnameVerificationPolicy: ANY
           
           extraEnvVars:
             - name: TZ
