@@ -1,14 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 labels:
-    - includeSelectors: true
-      pairs:
-        argocd.argoproj.io/instance: seed-job
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job
 kind: Kustomization
 namespace: argocd
 
 generatorOptions:
- disableNameSuffixHash: true
-
+  disableNameSuffixHash: true
 
 patches:
   - path: ../../kustomization-common/deployment-patch.yaml
@@ -22,17 +21,13 @@ patches:
       labelSelector: de.noltarium.workflows/enabled=true
     path: ../../kustomization-common/app-namespace-workflow-support-patch.yaml
 
-
 patchesJson6902:
-- target:
-    group: argoproj.io
-    kind: Application
-    name: monitoring
-    version: v1alpha1
-  path: ../../kustomization-common/deployment-serverside-patch.yaml
-
-
-
+  - target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
+    path: ../../kustomization-common/deployment-serverside-patch.yaml
 
 resources:
   - ../../../src/bundles/20-baseline-services

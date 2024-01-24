@@ -6,28 +6,27 @@ generatorOptions:
   disableNameSuffixHash: true
 
 patches:
-- path: ../../kustomization-common/deployment-patch.yaml
-  target:
-    group: argoproj.io
-    kind: Application
-    name: .*
-    version: v1alpha1
-- path: ../../kustomization-common/deployment-serverside-patch.yaml
-  target:
-    group: argoproj.io
-    kind: Application
-    name: monitoring
-    version: v1alpha1
-
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+  - path: ../../kustomization-common/deployment-serverside-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
 
 resources:
-- ../../../src/bundles/05-bootstrapping-ingress
-- ../../../src/applications/namespace-configuration-operator/deploy/argocd
-- ../../../src/applications/stakater-forecastle/deploy/argocd
-- ../../../src/applications/stakater-reloader/deploy/argocd
-- ../../../src/applications/tf-operator/deploy/argocd
-- ../../../src/applications/external-secrets/deploy/argocd
+  - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/applications/namespace-configuration-operator/deploy/argocd
+  - ../../../src/applications/stakater-forecastle/deploy/argocd
+  - ../../../src/applications/stakater-reloader/deploy/argocd
+  - ../../../src/applications/tf-operator/deploy/argocd
+  - ../../../src/applications/external-secrets/deploy/argocd
 labels:
-- includeSelectors: true
-  pairs:
-    argocd.argoproj.io/instance: seed-job
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job

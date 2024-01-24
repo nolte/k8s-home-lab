@@ -6,26 +6,25 @@ generatorOptions:
   disableNameSuffixHash: true
 
 patches:
-- path: ../../kustomization-common/deployment-patch.yaml
-  target:
-    group: argoproj.io
-    kind: Application
-    name: .*
-    version: v1alpha1
-- path: ../../kustomization-common/deployment-serverside-patch.yaml
-  target:
-    group: argoproj.io
-    kind: Application
-    name: monitoring
-    version: v1alpha1
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+  - path: ../../kustomization-common/deployment-serverside-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
 
-
-  #- ../../../src/applications/argo-cd/deploy/argocd
+    #- ../../../src/applications/argo-cd/deploy/argocd
 resources:
-- ../../../src/bundles/bootstrapping-stack
-- ../../../src/applications/monitoring/deploy/argocd
-- ../../../src/applications/argo-events/deploy/argocd
+  - ../../../src/bundles/bootstrapping-stack
+  - ../../../src/applications/monitoring/deploy/argocd
+  - ../../../src/applications/argo-events/deploy/argocd
 labels:
-- includeSelectors: true
-  pairs:
-    argocd.argoproj.io/instance: seed-job
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job

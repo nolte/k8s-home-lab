@@ -4,13 +4,12 @@ kind: Kustomization
 namespace: argocd
 
 labels:
-    - includeSelectors: true
-      pairs:
-        argocd.argoproj.io/instance: seed-job
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job
 
 generatorOptions:
- disableNameSuffixHash: true
-
+  disableNameSuffixHash: true
 
 patches:
   - path: ../../kustomization-common/deployment-patch.yaml

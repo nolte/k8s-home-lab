@@ -5,8 +5,7 @@ kind: Kustomization
 namespace: argocd
 
 generatorOptions:
- disableNameSuffixHash: true
-
+  disableNameSuffixHash: true
 
 patches:
   - path: deployment-patch.yaml
@@ -15,7 +14,6 @@ patches:
       kind: Application
       name: .*
       version: v1alpha1
-
 
 resources:
   - ../../../src/applications/pihole/deploy/argocd
