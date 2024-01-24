@@ -199,27 +199,27 @@ patches:
           name:  httpProxy.fqdn
           value: "harbor.dev44-just-homestyle.duckdns.org"
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  externalURL
           value: "https://harbor.dev44-just-homestyle.duckdns.org"
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.ingress.hosts.core
           value: harbor.dev44-just-homestyle.duckdns.org
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.ingress.hosts.notary
           value: notary.dev44-just-homestyle.duckdns.org
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.type
           value: clusterIP
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.tls.enabled
           value: "false"
