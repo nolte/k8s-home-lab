@@ -10,7 +10,8 @@ resources:
   - ../../../src/bundles/25-baseline-services
   - ../../../src/bundles/devops-services
   - ../../../src/bundles/certificate-duckdns
-
+  - ../../../src/applications/languagetool/deploy/argocd
+  
 labels:
   - includeSelectors: true
     pairs:
