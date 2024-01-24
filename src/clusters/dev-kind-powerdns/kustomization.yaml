@@ -293,10 +293,16 @@ patches:
       kind: Application
       name: keycloak
       version: v1alpha1
-    
-  - path: ../../kustomization-common/deployment-patch-config-workflow-1.yaml
+  
+  - patch: |-
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name:  postconfig.revision
+          value: "feature/seed-flavors"
     target:
       group: argoproj.io
       kind: Application
       name: vault
       version: v1alpha1    
+  
