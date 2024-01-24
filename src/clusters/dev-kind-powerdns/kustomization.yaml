@@ -9,7 +9,7 @@ generatorOptions:
 resources:
   - ../../../src/bundles/25-baseline-services
   - ../../../src/bundles/devops-services
-   ../../../src/bundles/certificate-duckdns
+  - ../../../src/bundles/certificate-duckdns
 
 labels:
   - includeSelectors: true

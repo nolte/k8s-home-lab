@@ -17,7 +17,14 @@ includes:
       ARGOCD_EXTRA_ARGS: "-f {{.GIT_ROOT}}/src/applications/argo-cd/deploy/argocd/values.yaml"
 
 tasks:
-  serviceset-minnimal:
+
+  recreate-minimal:
+    desc: Recreate Minimal Config.
+    deps: [recreate]
+    cmds:
+      - task: serviceset-minimal
+
+  serviceset-minimal:
     desc: minimal sericeset
     cmds:
       - task: serviceset
@@ -31,6 +38,19 @@ tasks:
         vars:
           SCREEN_PLAY_CONFIGMAP_NAME: screenplay-bootstrap
 
+  recreate-devops-services:
+    desc: Recreate Full Devops Cluster with Tools like Harbor Vault etc.
+    deps: [recreate]
+    cmds:
+      - task: serviceset-devops-services
+
+  serviceset-devops-services:
+    desc: Full Devops Cluster with Tools like Harbor Vault etc.
+    cmds:
+      - task: serviceset
+        vars:
+          SCREEN_PLAY_CONFIGMAP_NAME: screenplay-devops-services
+  
   serviceset:
     cmds:
     - |
@@ -69,7 +89,7 @@ tasks:
     - task: k8s:bootstrap
     - sleep 45
     - task: bootstrap
-    - task: serviceset-minnimal
+    # - task: serviceset-minnimal
     silent: true
 
   maxfs:
