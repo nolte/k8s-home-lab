@@ -1,3 +1,9 @@
-fqdn:  argocd.smart-home.k8sservices.local
-tls:
-  secretName: cert-manager/wildcard-duckdns-org-tls
+httpProxy:
+  create: true
+  fqdn:  argocd.dev44-just-homestyle.duckdns.org
+  tls:
+    secretName: cert-manager/wildcard-duckdns-org-tls
+  routes:
+  - services:
+    - name: argocd-server
+      port: 80
