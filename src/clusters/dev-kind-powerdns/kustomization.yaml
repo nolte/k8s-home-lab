@@ -312,4 +312,10 @@ patches:
       kind: Application
       name: vault
       version: v1alpha1    
-  
+  - path: ./argocd-patch-oidc.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1      
+    
