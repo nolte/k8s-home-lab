@@ -11,6 +11,7 @@ spec:
     - helm:
         releaseName: argo-workflow-mixin
         parameters: []
+        valueFiles: []
         values: |-
           cmTfStaticEndpoints:
             create: true
