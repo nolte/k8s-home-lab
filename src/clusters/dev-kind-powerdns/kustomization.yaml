@@ -122,28 +122,28 @@ patches:
       kind: Application
       name: argo-workflows
       version: v1alpha1
-  - patch: |-
-      - op: add
-        path: /spec/sources/1/helm/valueFiles/-
-        value: values-ingress.yaml
-      - op: add
-        path: /spec/sources/1/helm/valueFiles/-
-        value: values-oidc.yaml
-      - op: add
-        path: /spec/sources/0/helm/parameters/-
-        value:
-          name:  httpProxy.create
-          value: "true"
-      - op: add
-        path: /spec/sources/0/helm/parameters/-
-        value:
-          name:  httpProxy.fqdn
-          value: argocd.dev44-just-homestyle.duckdns.org
-    target:
-      group: argoproj.io
-      kind: Application
-      name: argocd
-      version: v1alpha1
+  # - patch: |-
+  #     - op: add
+  #       path: /spec/sources/1/helm/valueFiles/-
+  #       value: values-ingress.yaml
+  #     - op: add
+  #       path: /spec/sources/1/helm/valueFiles/-
+  #       value: values-oidc.yaml
+  #     - op: add
+  #       path: /spec/sources/0/helm/parameters/-
+  #       value:
+  #         name:  httpProxy.create
+  #         value: "true"
+  #     - op: add
+  #       path: /spec/sources/0/helm/parameters/-
+  #       value:
+  #         name:  httpProxy.fqdn
+  #         value: argocd.dev44-just-homestyle.duckdns.org
+  #   target:
+  #     group: argoproj.io
+  #     kind: Application
+  #     name: argocd
+  #     version: v1alpha1
   - patch: |-
       - op: add
         path: /spec/sources/0/helm/parameters/-
