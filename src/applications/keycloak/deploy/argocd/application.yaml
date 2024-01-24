@@ -79,11 +79,18 @@ spec:
         values: |
           service:
             type: ClusterIP
-          extraEnv: |
-            - name: PROXY_ADDRESS_FORWARDING
-              value: "true"
+          
+          # tls.enabled: true
+          production: true	
+ 	        proxy: edge	
+          # spi:	
+          #   hostnameVerificationPolicy: ANY	
+          
+          extraEnvVars:
             - name: TZ
               value: Europe/Berlin
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
           auth:
             existingSecret: keycloak-admin-auth
             passwordSecretKey: password
