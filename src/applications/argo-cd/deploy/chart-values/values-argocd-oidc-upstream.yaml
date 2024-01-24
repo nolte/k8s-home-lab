@@ -1,5 +1,6 @@
 apiVersionOverrides:
   certmanager: cert-manager.io/v1
+
 server:
   config:
     url: https://argocd.dev44-just-homestyle.duckdns.org
@@ -8,7 +9,7 @@ server:
       issuer: https://keycloak.dev44-just-homestyle.duckdns.org/realms/devops-services
       clientID: argocd
       clientSecret: $argocd-oidc-secret:oidc.keycloak.clientSecret
-      requestedScopes: ["openid", "profile", "email", "groups"]
+      requestedScopes: ["openid", "email", "groups"]
   rbacConfig:
     policy.csv: |
       # Grant all members of the group 'my-org:team-alpha; the ability to sync apps in 'my-project'
