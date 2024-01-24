@@ -44,23 +44,23 @@ spec:
       helm:
         releaseName: external-secrets-manifests
         valueFiles: []
-        parameters: []
+        # parameters: []
     - path: charts/stable/projectcontour-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
       helm:
         releaseName: projectcontour-mixin
         valueFiles: []
-        parameters: []
+        # parameters: []
     - helm:
-        parameters: []
+        # parameters: []
         releaseName: argocd
         valueFiles: []
       chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
       targetRevision: 5.52.0
     - helm:
-        parameters: []
+        # parameters: []
         releaseName: argocd-apps
         valueFiles: []
       chart: argocd-apps
