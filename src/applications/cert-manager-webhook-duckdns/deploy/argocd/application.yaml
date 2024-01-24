@@ -28,9 +28,9 @@ spec:
           # - name: certmanagerwebhookduckdns.clusterIssuer.email
           #   value: "{{inputs.parameters.issuerEmail}}"
           - name: clusterIssuer.production.create
-            value: "false"
+            value: "true"
           - name: clusterIssuer.staging.create
-            value: "false"
+            value: "true"
           - name: secret.existingSecret
             value: "true"
           - name: secret.existingSecretName
