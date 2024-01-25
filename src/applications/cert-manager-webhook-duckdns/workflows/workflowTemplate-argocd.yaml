@@ -22,8 +22,6 @@ spec:
           kind: Application
           metadata:
             name: {{inputs.parameters.name-prefix}}cert-manager-webhook-duckdns
-            labels:
-              argocd.argoproj.io/instance: seed-job
           spec:
             destination:
               name: {{inputs.parameters.destination-name}}
@@ -36,9 +34,6 @@ spec:
               jsonPointers:
               - /spec/duration
             sources:
-              # chart: cert-manager-webhook-duckdns
-              # repoURL: https://nolte.github.io/helm-charts-repo
-              # targetRevision: 0.2.2
             - path: deploy/cert-manager-webhook-duckdns
               repoURL: https://github.com/ebrianne/cert-manager-webhook-duckdns.git
               targetRevision: master
