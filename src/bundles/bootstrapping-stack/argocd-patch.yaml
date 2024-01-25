@@ -4,3 +4,6 @@
 - op: add
   path: /spec/sources/4/helm/valueFiles/-
   value: $values/src/applications/argo-cd/deploy/chart-values/values-argocd-apps.yaml
+- op: add
+  path: /spec/sources/0/helm/valueFiles/-
+  value: $values/src/applications/argo-cd/deploy/chart-values/values-argocd-workflows.yaml
