@@ -5,7 +5,7 @@ metadata:
 spec:
   destination:
     name: in-cluster
-    namespace: cert-manager
+    namespace: argocd
   project: default
   # hack for ignore changed duration format from 43800h to 43800h0m0s
   ignoreDifferences:
