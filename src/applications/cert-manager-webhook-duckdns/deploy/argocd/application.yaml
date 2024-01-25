@@ -14,25 +14,6 @@ spec:
       jsonPointers:
         - /spec/duration
   sources:
-    
-    - chart: external-secrets-manifests
-      repoURL: https://nolte.github.io/helm-charts-repo/
-      targetRevision: 1.0.1
-      helm:
-        releaseName: external-secrets-manifests
-        values: |
-          enabled: true
-          secretstore:
-            create: true
-            serviceAccount:
-              create: true
-          secrets:
-            duckdns-token:
-              data:
-                - key: third-party-services/duckdns.org/api
-                  name: token
-                  property: token
-
     - path: src/applications/cert-manager-webhook-duckdns/deploy/workflow-app
       repoURL: https://github.com/nolte/k8s-home-lab.git
       targetRevision: feature/seed-flavors
