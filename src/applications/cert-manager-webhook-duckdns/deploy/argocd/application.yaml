@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager-webhook-duckdns
+  name: cert-manager-webhook-duckdns-workflows
 spec:
   destination:
     name: in-cluster
@@ -14,39 +14,7 @@ spec:
       jsonPointers:
         - /spec/duration
   sources:
-    - path: deploy/cert-manager-webhook-duckdns
-      repoURL: https://github.com/ebrianne/cert-manager-webhook-duckdns.git
-      targetRevision: master
-      # chart: cert-manager-webhook-duckdns
-      # repoURL: https://ebrianne.github.io/helm-charts
-      # targetRevision: 1.2.4
-      helm:
-        releaseName: cert-manager-webhook-duckdns
-        parameters:
-          - name: fullnameOverride
-            value: "cert-manager-webhook-duckdns"
-          # - name: certmanagerwebhookduckdns.clusterIssuer.email
-          #   value: "{{inputs.parameters.issuerEmail}}"
-          - name: clusterIssuer.production.create
-            value: "false"
-          - name: clusterIssuer.staging.create
-            value: "false"
-          - name: secret.existingSecret
-            value: "true"
-          - name: secret.existingSecretName
-            value: "duckdns-token"
-          #- name: externalsecrets.enabled
-          #  value: "false"
-        values: |
-          fullnameOverride: cert-manager-webhook-duckdns
-          clusterIssuer:
-            staging:
-              create: true
-            production:
-              create: true
-          secret:
-            existingSecret: true
-            existingSecretName: duckdns-token
+    
     - chart: external-secrets-manifests
       repoURL: https://nolte.github.io/helm-charts-repo/
       targetRevision: 1.0.1
@@ -64,3 +32,7 @@ spec:
                 - key: third-party-services/duckdns.org/api
                   name: token
                   property: token
+
+    - path: src/applications/cert-manager-webhook-duckdns/deploy/workflow-app
+      repoURL: https://github.com/nolte/k8s-home-lab.git
+      targetRevision: feature/seed-flavors

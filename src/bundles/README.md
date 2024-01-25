@@ -1,16 +1,6 @@
-# Clusters
+# Bundles
 
 <!--intro-start-->
-The Cluster structure are the Final configuration from the Seed Job.
-
-**InScope:** Configure Ingress, Service Auth (oidc), etc  
-
+Pre configured Service Combination, used for Boostraping the Clusters and share Service combinations between different infrastructures.
 <!--intro-end-->
-
-
-## Cluster Structure
-
-<!--structure-start-->
-
-<!--structure-end-->
 

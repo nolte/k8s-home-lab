@@ -89,7 +89,9 @@ tasks:
     - task: k8s:bootstrap
     - sleep 45
     - task: bootstrap
-    # - task: serviceset-minnimal
+    - |
+      argocd --core app sync argocd/argocd
+      argocd --core app wait argocd/argocd    
     silent: true
 
   maxfs:

@@ -1,10 +1,16 @@
-# Overview
+# Overview  
 
 {%
    include-markdown "../../../src/clusters/dev-kind-powerdns/README.md"
    start="<!--intro-start-->"
    end="<!--intro-end-->"
- %}
+%}
+
+{%
+   include-markdown "../../../src/clusters/dev-kind-powerdns/README.md"
+   start="<!--cmd-recreate-start-->"
+   end="<!--cmd-recreate-end-->"
+%}
 
 ## Terraform
 
@@ -50,11 +56,7 @@ For Development it is useful to execute the Terraform scripts from our Local Dev
            end="<!--tf-env-vars-end-->"
         %}
 
-{%
-   include-markdown "../../../src/clusters/dev-kind-powerdns/README.md"
-   start="<!--cmd-recreate-start-->"
-   end="<!--cmd-recreate-end-->"
-%}
+
 
 
 ## Third Party Secrets
