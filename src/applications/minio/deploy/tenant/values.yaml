@@ -51,6 +51,8 @@ workflow:
     type: Role
     vaultInjector:
       create: true
+    executor:
+      create: true
 
   configurationWorkflows:
     post-sync:
@@ -61,7 +63,7 @@ workflow:
       terraform:
         action: apply
       source:
-        repo: https://github.com/nolte/k8s-home-lab.git
+         repo: https://github.com/nolte/k8s-home-lab.git
         path: ./src/applications/minio/configuration/baseline
         revision: feature/seed-flavors
 
