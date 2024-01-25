@@ -46,9 +46,9 @@ spec:
     - repoURL: 'https://github.com/nolte/k8s-home-lab.git'
       targetRevision: feature/seed-flavors
       path: src/applications/argo-cd/deploy
-      directory:
-        includes: "src/applications/argo-cd/deploy/chart-values/*"
-        recurse: false
+      #directory:
+      #  includes: "src/applications/argo-cd/deploy/chart-values/*"
+      #  recurse: false
 
         #excludes: "*"      
       ref: values
