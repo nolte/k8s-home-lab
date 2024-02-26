@@ -15,6 +15,7 @@ includes:
     taskfile: .taskfiles/platform.yml
     vars: 
       TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/develop/src"
+  
   argocd: .taskfiles/argocd.yml
   # serviceset: .taskfiles/Taskfile_servicesets.yml
 
