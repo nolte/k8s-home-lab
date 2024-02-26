@@ -13,12 +13,12 @@ patches:
       kind: Application
       name: argocd
       version: v1alpha1
-  - path: ../../kustomization-common/deployment-patch.yaml
-    target:
-      group: argoproj.io
-      kind: Application
-      name: .*
-      version: v1alpha1
+  # - path: ../../kustomization-common/deployment-patch.yaml
+  #   target:
+  #     group: argoproj.io
+  #     kind: Application
+  #     name: .*
+  #     version: v1alpha1
   - path: ../../kustomization-common/application-project-default-patch.yaml
     target:
       group: argoproj.io
