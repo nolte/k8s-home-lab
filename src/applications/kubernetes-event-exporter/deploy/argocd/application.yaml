@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-event-exporter
+spec:
+  destination:
+    name: in-cluster
+    namespace: eventsbus
+  project: default
+  sources:
+  - chart: kubernetes-event-exporter
+    # https://artifacthub.io/packages/helm/bitnami/kubernetes-event-exporter
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 2.13.2
+    helm:
+      releaseName: kubernetes-event-exporter
+      values: |
+        image:
+          registry: docker.io
+          repository: nolte/kubernetes-event-exporter
+          tag: dirty      
+        extraVolumeMounts: 
+        - name: secret-volume
+          readOnly: true
+          mountPath: "/etc/secret-volume"        
+        extraVolumes:
+          - name: secret-volume
+            secret:
+              #secretName: k8s-event-exporter
+               secretName: my-cluster-clients-ca-cert
+        config:
+          route:
+            routes:
+              - match:
+                  - receiver: "kafka"        
+          receivers:
+            - name: "kafka"
+              kafka:
+                clientId: "kubernetes"
+                topic: "k8s-events"
+                brokers:
+                  - "my-cluster-kafka-bootstrap.eventsbus.svc:9093"
+                  #- "my-cluster-kafka-bootstrap.eventsbus.svc:9093"
+                  # - my-cluster-kafka-0:9093
+                compressionCodec: "snappy"
+                tls:
+                  enable: true
+                  insecureSkipVerify: true
+                  # certFile: "/etc/secret-volume/user.crt"
+                  # keyFile: "/etc/secret-volume/user.key"
+                  caFile: "/etc/secret-volume/ca.crt"
+                sasl:
+                  enable: true
+                  username: "k8s-event-exporter"
+                  password: "EU4gzRCb33x6k6gvMMmhqi55JiDCLlZW"
+                
