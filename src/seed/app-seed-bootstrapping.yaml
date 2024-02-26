@@ -15,8 +15,6 @@ spec:
     path: src/bundles/bootstrapping-stack
     repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: feature/seed-flavors
-    kustomize:
-      version: v5.3.0
   syncPolicy:
     automated:
       prune: true

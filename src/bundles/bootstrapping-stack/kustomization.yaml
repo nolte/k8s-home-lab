@@ -13,12 +13,12 @@ patches:
       kind: Application
       name: argocd
       version: v1alpha1
-  # - path: ../../kustomization-common/deployment-patch.yaml
-  #   target:
-  #     group: argoproj.io
-  #     kind: Application
-  #     name: .*
-  #     version: v1alpha1
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
   - path: ../../kustomization-common/application-project-default-patch.yaml
     target:
       group: argoproj.io
@@ -29,10 +29,10 @@ patches:
     #- ../../../src/applications/argo-workflow-templates/deploy/argocd
 resources:
   - ../../../src/applications/argo-workflows/deploy/argocd
-  # - ../../../src/applications/argo-workflow-global-steps/deploy/argocd
-  # - ../../../src/applications/argo-cd/deploy/argocd-workflows
-  # - ../../../src/applications/argo-cd/deploy/argocd
-  # - ../../../src/applications/management-workflows/deploy/argocd
+  - ../../../src/applications/argo-workflow-global-steps/deploy/argocd
+  - ../../../src/applications/argo-cd/deploy/argocd-workflows
+  - ../../../src/applications/argo-cd/deploy/argocd
+  - ../../../src/applications/management-workflows/deploy/argocd
 
 labels:
   - includeSelectors: true
