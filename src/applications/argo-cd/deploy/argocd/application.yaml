@@ -32,8 +32,7 @@ spec:
     - helm:
         # parameters: []
         releaseName: argocd
-        valueFiles: 
-          - $values/src/applications/argo-cd/deploy/chart-values/values-argocd.yaml
+        valueFiles: []
       chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
       targetRevision: 5.53.8
