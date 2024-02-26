@@ -30,8 +30,8 @@ repoServer:
   volumes:
     - emptyDir: {}
       name: custom-tools
-server:
-  config:
+configs:
+  cm:
     accounts.seedmanager: apiKey
     helm.path.v3.14.2: /custom-tools/helm_3_14_2
     kustomize.buildOptions: --load-restrictor LoadRestrictionsNone
