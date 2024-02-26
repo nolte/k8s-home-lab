@@ -5,7 +5,7 @@ repoServer:
       value: "50" 
   initContainers:
     - args:
-        - wget -qO- https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.1.3/kustomize_v4.1.3_linux_amd64.tar.gz | tar -xvzf - && mv kustomize /custom-tools/kustomize_4_1_3 && chmod +x /custom-tools/kustomize_4_1_3
+        - wget -qO- https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.3.0/kustomize_v5.3.0_linux_amd64.tar.gz | tar -xvzf - && mv kustomize /custom-tools/kustomize_5_3_0 && chmod +x /custom-tools/kustomize_5_3_0
       command:
         - sh
         - "-c"
@@ -15,7 +15,7 @@ repoServer:
         - mountPath: /custom-tools
           name: custom-tools
     - args:
-        - wget -qO- https://get.helm.sh/helm-v3.6.0-linux-amd64.tar.gz | tar -xvzf - && mv linux-amd64/helm /custom-tools/helm_3_6_0
+        - wget -qO- https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz | tar -xvzf - && mv linux-amd64/helm /custom-tools/helm_3_14_2
       command:
         - sh
         - "-c"
@@ -33,9 +33,9 @@ repoServer:
 server:
   config:
     accounts.seedmanager: apiKey
-    helm.path.v3.6.0: /custom-tools/helm_3_6_0
+    helm.path.v3.14.2: /custom-tools/helm_3_14_2
     kustomize.buildOptions: --load-restrictor LoadRestrictionsNone
-    kustomize.path.v4.1.3: /custom-tools/kustomize_4_1_3
+    kustomize.path.v5.3.0: /custom-tools/kustomize_5_3_0
     # hack for https://github.com/coredns/helm/issues/37#issuecomment-918469766
     configManagementPlugins: |-
       - name: kustomized-helm
