@@ -37,60 +37,79 @@ spec:
     helm:
       releaseName: esphome
       values: |
-        sidecars:
-          gitsync:
-            env:
-              - name: "GIT_SYNC_BRANCH"
-                value: "master"
-              - name: "GIT_SYNC_REPO"
-                value: "https://github.com/nolte/esphome-configs.git"
-              - name: "GIT_SYNC_ROOT"
-                value: "/config"
-              - name: "GIT_SYNC_DEST"
-                value: "repo"
-            image: registry.k8s.io/git-sync/git-sync:v3.6.8
-            imagePullPolicy: IfNotPresent
-            name: git-sync
-            volumeMounts:
-            - mountPath: /config
-              name: config
-        initContainers:
-          gitinit:
-            env:
-              - name: "GIT_SYNC_BRANCH"
-                value: "master"
-              - name: "GIT_SYNC_REPO"
-                value: "https://github.com/nolte/esphome-configs.git"
-              - name: "GIT_SYNC_ROOT"
-                value: "/config"
-              - name: "GIT_SYNC_DEST"
-                value: "repo"
-              - name: "GIT_SYNC_ONE_TIME"
-                value: "true"
-            image: registry.k8s.io/git-sync/git-sync:v3.6.8
-            imagePullPolicy: IfNotPresent
-            name: git-init
-            volumeMounts:
-            - mountPath: /config
-              name: config
-        image:
-          repository: esphome/esphome
-          # https://hub.docker.com/r/esphome/esphome/tags
-          tag: "2023.6"
+
+        controllers:
+          main:
+            type: statefulset
+            annotations:
+              reloader.stakater.com/auto: "true"          
+            initContainers:
+              gitinit:
+                env:
+                  - name: "GITSYNC_BRANCH"
+                    value: "master"
+                  - name: "GITSYNC_REPO"
+                    value: "https://github.com/nolte/esphome-configs.git"
+                  - name: "GITSYNC_ROOT"
+                    value: "/config"
+                  - name: "GIT_SYNC_DEST"
+                    value: "repo"
+                  - name: "GITSYNC_ONE_TIME"
+                    value: "true"
+                image:
+                  repository: registry.k8s.io/git-sync/git-sync
+                  tag: "v4.2.1"
+                imagePullPolicy: IfNotPresent
+                name: git-init
+
+            containers:
+              gitsync:
+                dependsOn: main
+                env:
+                  - name: "GITSYNC_BRANCH"
+                    value: "master"
+                  - name: "GITSYNC_REPO"
+                    value: "https://github.com/nolte/esphome-configs.git"
+                  - name: "GITSYNC_ROOT"
+                    value: "/config"
+                  - name: "GIT_SYNC_DEST"
+                    value: "repo"
+                image:
+                  repository: registry.k8s.io/git-sync/git-sync
+                  tag: "v4.2.1"
+                imagePullPolicy: IfNotPresent
+                name: git-init
+                # volumeMounts:
+                # - mountPath: /config
+                #   name: config                
+              main:
+                envFrom:
+                  - secretRef: 
+                      name: esphome-config            
+                image:
+                  repository: esphome/esphome
+                  # https://hub.docker.com/r/esphome/esphome/tags
+                  tag: "2024.2.1"
         service:
           main:
             ports:
               http:
                 port: 6052
-        hostNetwork: true
-        envFrom:
-          - secretRef:
-              name: esphome-config
+        defaultPodOptions:
+          hostNetwork: true
+          dnsConfig:
+            nameservers:
+              - 192.168.178.1          
         persistence:
           config:
             enabled: true
             type: emptyDir
-            mountPath: /config
-            subPath: repo
-            #type: hostPath
-            #hostPath: /var/mnt/storage/esphome
+            advancedMounts:
+              main: # the controller with the "main" identifier
+                main:
+                  - path: /config
+                    subPath: repo
+                gitinit:
+                  - path: /config
+                gitsync:
+                  - path: /config
