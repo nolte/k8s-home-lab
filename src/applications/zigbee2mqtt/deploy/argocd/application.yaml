@@ -11,7 +11,7 @@ spec:
   - chart: zigbee2mqtt
     # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
     repoURL: https://charts.truecharts.org/
-    targetRevision: 11.2.0
+    targetRevision: 11.6.2
     helm:
       releaseName: zigbee2mqtt
       values: |
@@ -75,6 +75,8 @@ spec:
                   friendly_name: 'snzb_02_03'
                 '0x00124b00292c4376':
                   friendly_name: 'snzb_02_04'
+                '0x842712fffe19f074':
+                  friendly_name: 'snzb_06p_01'
               groups.yaml: |
                 '1':
                   friendly_name: 'blind_workroom'
