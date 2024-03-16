@@ -37,12 +37,11 @@ spec:
     helm:
       releaseName: esphome
       values: |
-
         controllers:
           main:
             type: statefulset
             annotations:
-              reloader.stakater.com/auto: "true"          
+              reloader.stakater.com/auto: "true"
             initContainers:
               gitinit:
                 env:
@@ -59,8 +58,7 @@ spec:
                 image:
                   repository: registry.k8s.io/git-sync/git-sync
                   tag: "v4.2.1"
-                imagePullPolicy: IfNotPresent
-                name: git-init
+                  pullPolicy: IfNotPresent
 
             containers:
               gitsync:
@@ -77,21 +75,21 @@ spec:
                 image:
                   repository: registry.k8s.io/git-sync/git-sync
                   tag: "v4.2.1"
-                imagePullPolicy: IfNotPresent
-                name: git-init
+                  pullPolicy: IfNotPresent
                 # volumeMounts:
                 # - mountPath: /config
-                #   name: config                
+                #   name: config
               main:
                 envFrom:
-                  - secretRef: 
-                      name: esphome-config            
+                  - secretRef:
+                      name: esphome-config
                 image:
                   repository: esphome/esphome
                   # https://hub.docker.com/r/esphome/esphome/tags
                   tag: "2024.2.1"
         service:
           main:
+            controller: main
             ports:
               http:
                 port: 6052
@@ -99,7 +97,7 @@ spec:
           hostNetwork: true
           dnsConfig:
             nameservers:
-              - 192.168.178.1          
+              - 192.168.178.1
         persistence:
           config:
             enabled: true
