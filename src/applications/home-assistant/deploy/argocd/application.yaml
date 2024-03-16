@@ -42,9 +42,9 @@ spec:
       releaseName: home-assistant
       parameters: []
       values: |
-
         service:
           main:
+            controller: main
             ports:
               http:
                 port: 8123
