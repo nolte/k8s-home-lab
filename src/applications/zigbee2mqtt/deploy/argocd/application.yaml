@@ -82,7 +82,7 @@ spec:
                 '0x00124b002fa167ca':
                   friendly_name: 'snzb_03_02'
                 '0x00158d000ab750e6':
-                  friendly_name: 'djt11lm_02'
+                  friendly_name: 'djt11lm_01'
               groups.yaml: |
                 '1':
                   friendly_name: 'blind_workroom'
