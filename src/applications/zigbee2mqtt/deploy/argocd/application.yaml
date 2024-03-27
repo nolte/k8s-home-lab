@@ -56,6 +56,8 @@ spec:
                   friendly_name: 'window_contact_03'
                 '0x18fc260000076b59':
                   friendly_name: 'window_contact_04'
+                '0x18fc26000005ef3c':
+                  friendly_name: 'window_contact_05'                  
                 '0x040d84fffe8d433e':
                   # ikea 4 button
                   friendly_name: 'remote_01'
