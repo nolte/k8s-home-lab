@@ -53,8 +53,9 @@ spec:
               containers:
                 main:
                   image:
+                    # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2024.3.1
+                    tag: 2024.4.3
 
               type: statefulset
               annotations:
