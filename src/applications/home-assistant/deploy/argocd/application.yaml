@@ -55,7 +55,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2024.5.1
+                    tag: 2024.6.4
 
               type: statefulset
               annotations:
