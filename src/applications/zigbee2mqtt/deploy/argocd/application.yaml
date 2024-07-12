@@ -103,6 +103,8 @@ spec:
                   friendly_name: 'sjcgq11lm_08'
                 '0x00158d000af414eb':
                   friendly_name: 'sjcgq11lm_09'
+                '0x00158d000af0ae1c':
+                  friendly_name: 'sjcgq11lm_10'
               groups.yaml: |
                 '1':
                   friendly_name: 'blind_workroom'
