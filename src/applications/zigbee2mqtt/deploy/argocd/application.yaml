@@ -86,9 +86,9 @@ spec:
                 '0x00158d000ab750e6':
                   friendly_name: 'djt11lm_01'
                 '0x00158d000ad8555a':
-                  friendly_name: 'sjcgq11lm_01'
-                '0x00158d000ad88d45':
                   friendly_name: 'sjcgq11lm_02'
+                '0x00158d000ad88d45':
+                  friendly_name: 'sjcgq11lm_01' 
                 '0x00158d000ad894ef':
                   friendly_name: 'sjcgq11lm_03'
                 '0x00158d000ad8935b':
