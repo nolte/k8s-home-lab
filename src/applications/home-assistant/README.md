@@ -31,7 +31,10 @@ kubectl -n home-assistant create secret generic home-assistant-creds \
   --from-literal=FRITZBOX_PASSWORD="$(pass network/homeassistant/fritzbox/password)" \
   --from-literal=GITHUB_ACCESS_TOKEN="$(pass internet/github.com/nolte/servics/home-assistant/token)" \
   --from-literal=HUE_ENDPOINT=192.168.178.29 \
+  --from-literal=TELEGRAM_API_KEY="$(pass internet/telegram.me/homeassist/api_key)" \
+  --from-literal=TELEGRAM_NOTIFICATION_CHAT_ID="$(pass internet/telegram.me/homeassist/channel_id)" \
   --from-literal=INFLUX_TOKEN=$(kubectl -n influxdb get secrets influxdb2-auth -ojson | jq '.data."admin-token"' -r | base64 -d)
+  
 ```
 <!--secret-home-assistant-creds-end-->
 
