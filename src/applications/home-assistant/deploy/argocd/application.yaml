@@ -52,7 +52,7 @@ spec:
             main:
               containers:
                 main:
-                  env:
+                  envFrom:
                     - secret: home-assistant-creds
                   image:
                     # https://github.com/home-assistant/core/releases
