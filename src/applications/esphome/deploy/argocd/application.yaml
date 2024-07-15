@@ -80,6 +80,9 @@ spec:
                 # - mountPath: /config
                 #   name: config
               main:
+                env:
+                  - name: "TZ"
+                    value: "europe/berlin"
                 envFrom:
                   - secretRef:
                       name: esphome-config
