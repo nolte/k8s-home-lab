@@ -82,7 +82,7 @@ spec:
               main:
                 env:
                   - name: "TZ"
-                    value: "europe/berlin"
+                    value: "Europe/Berlin"
                 envFrom:
                   - secretRef:
                       name: esphome-config
