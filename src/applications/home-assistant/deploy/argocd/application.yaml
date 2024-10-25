@@ -57,7 +57,41 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2024.8.1
+                    tag: 2024.10.4
+                  probes:
+                    liveness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Readiness probe configuration
+                    readiness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Startup probe configuration
+                    startup:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        timeoutSeconds: 1
+                        ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+                        periodSeconds: 5
+                        failureThreshold: 30
+
 
               type: statefulset
               annotations:
