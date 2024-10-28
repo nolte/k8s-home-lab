@@ -1,5 +1,6 @@
 projects:
-  - clusterResourceWhitelist:
+  baseline:
+    clusterResourceWhitelist:
       - group: "*"
         kind: "*"
     description: Baseline Relevant Projects
@@ -10,25 +11,25 @@ projects:
     namespace: argocd
     sourceRepos:
       - "*"
-  - clusterResourceWhitelist:
+  seed:
+    clusterResourceWhitelist:
       - group: "*"
         kind: "*"
     description: CICD Seed Jobs
     destinations:
       - namespace: "*"
         server: "*"
-    name: seed
     namespace: argocd
     sourceRepos:
       - "*"
-  - clusterResourceWhitelist:
+  cicd:
+    clusterResourceWhitelist:
       - group: "*"
         kind: "*"
     description: CICD Tools
     destinations:
       - namespace: "*"
         server: "*"
-    name: cicd
     namespace: argocd
     sourceRepos:
       - "*"
