@@ -19,21 +19,25 @@ Generate the Talos Config files
 talhelper genconfig
 ```
 
-
 ```sh
-talosctl apply-config --insecure --nodes 192.168.178.23 --file ./clusterconfig/-k8ssmarthome01.yaml
+export CONTROL_PLANE_IP=$(cat talconfig.yaml | yq '.nodes[0].ipAddress')
+
 ```
 
 ```sh
-talosctl -n 192.168.178.23 --talosconfig ./clusterconfig/talosconfig bootstrap
+talosctl apply-config --insecure --nodes $CONTROL_PLANE_IP --file ./clusterconfig/-k8ssmarthome01.yaml
+```
 
-talosctl -n 192.168.178.23 --talosconfig ./clusterconfig/talosconfig apply machineconfig --file ./clusterconfig/-k8ssmarthome01.yaml
+```sh
+talosctl -n $CONTROL_PLANE_IP --talosconfig ./clusterconfig/talosconfig bootstrap
+
+talosctl -n $CONTROL_PLANE_IP --talosconfig ./clusterconfig/talosconfig apply machineconfig --file ./clusterconfig/-k8ssmarthome01.yaml
 ```
 
 Generate the initial kubeconfig file into your Local FS.
 
 ```sh
-talosctl -n 192.168.178.23 --talosconfig ./clusterconfig/talosconfig kubeconfig ./clusterconfig/kubeconfig
+talosctl -n $CONTROL_PLANE_IP --talosconfig ./clusterconfig/talosconfig kubeconfig ./clusterconfig/kubeconfig
 ```
 
 using the generated Kubeconfig,

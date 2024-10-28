@@ -1,0 +1,42 @@
+clusterName: smart-home-02
+talosVersion: v1.8.1
+kubernetesVersion: v1.31.1
+endpoint: https://192.168.178.104:6443
+allowSchedulingOnMasters: true
+nodes:
+  - hostname: k8ssmarthome02
+    ipAddress: 192.168.178.104
+    installDisk: /dev/vdb
+    controlPlane: true
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.178.1
+
+# controlPlane:
+#   patches:
+#     - |-
+#         - op: add
+#           path: /machine/disks
+#           value:
+#           - device: /dev/sdb # The name of the disk to use.
+#             partitions:
+#               - mountpoint: /var/mnt/storage # Where to mount the partition.
+
+
+#         - op: add
+#           path: /machine/install/extensions
+#           value:
+#             - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+
+#         - op: add
+#           path: /machine/kubelet/extraMounts
+#           value:
+#             - destination: /var/mnt/storage
+#               type: bind
+#               source: /var/mnt/storage
+#               options:
+#                 - bind
+#                 - rshared
+#                 - rw
