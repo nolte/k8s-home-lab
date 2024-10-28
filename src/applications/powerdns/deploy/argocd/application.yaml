@@ -52,32 +52,70 @@ spec:
                   {{- end }}
               extraEnv:
                 - name: PDNS_SERVER_URL
-                  value: http://powerdns-webserver.{{.Release.Namespace}}.svc:8081
+                  value: http://powerdns.{{.Release.Namespace}}.svc:8081
               source:
                 repo: https://github.com/nolte/k8s-home-lab.git
                 path: ./src/applications/powerdns/configuration/baseline
-                revision: master
+                revision: feature/seed-flavors
 
 
       path: charts/stable/argo-workflow-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
-    - chart: powerdns
-      repoURL: https://k8s-at-home.com/charts
-      targetRevision: 5.0.0
+
+
+    - chart: app-template
+      repoURL: https://bjw-s.github.io/helm-charts
+      targetRevision: 2.4.0
       helm:
-        valueFiles: []
-        parameters:
-          - name: powerdns.powerdns.api_key
-            value: "supersecretpw"
-          - name: powerdns.powerdns.domain
-            value: "k8sservices.local"
+        releaseName: powerdns
         values: |
-          powerdns:
-            strategyType: RollingUpdate
-            deployment:
+          controllers:
+            main:
+              strategy: Recreate
+              containers:
+                main:
+                  image:
+                    # https://hub.docker.com/r/powerdns/pdns-recursor-50/tags
+                    repository: powerdns/pdns-auth-48
+                    tag: "4.8.4"
+
+                  env:
+                    # -- Config dir
+                    PDNS_AUTH_API_KEY: "supersecretpw"
+
+          configMaps:
+            config:
+              enabled: true
               annotations:
-                reloader.stakater.com/auto: "true"
-            service:
-              annotations:
-                metallb.universe.tf/allow-shared-ip: powerdns
+                reloader.stakater.com/match: "true"
+              data:
+                # https://doc.powerdns.com/authoritative/settings.html#local-port
+                pdns-extra.conf: |
+                  local-port=1053
+                  loglevel=6
+          persistence:
+            config:
+              enabled: true
+              type: configMap
+              name: powerdns-config
+              globalMounts:
+                - path: /etc/powerdns/pdns.d/pdns-extra.conf
+                  subPath: pdns-extra.conf
+          service:
+            main:
+              ports:
+                http:
+                  port: 8081
+            dns:
+              type: ClusterIP
+              controller: main
+              ports:
+                udp:
+                  enabled: true
+                  port: 1053
+                  protocol: UDP
+                tcp:
+                  enabled: true
+                  port: 1053
+                  protocol: TCP

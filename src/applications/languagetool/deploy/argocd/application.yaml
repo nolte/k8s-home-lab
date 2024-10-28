@@ -1,0 +1,151 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: languagetool
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"
+spec:
+  destination:
+    name: in-cluster
+    namespace: languagetool
+  project: default
+  sources:
+  - chart: app-template
+    repoURL: https://bjw-s.github.io/helm-charts
+    targetRevision: 2.4.0
+    helm:
+      releaseName: languagetool
+      parameters: []
+      values: |
+        configMaps:
+          config:
+            enabled: true
+            data:
+              spelling.txt: |
+                ArgoCD
+                Ansible
+
+        controllers:
+          main:
+            # strategy: Recreate
+            initContainers:
+              ngrams:
+                image:
+                  repository: meyay/languagetool
+                  tag: latest
+                  pullPolicy: IfNotPresent
+                env:
+                  download_ngrams_for_langs: en,de
+                  langtool_languageModel: /ngrams
+                command:
+                  - /configinc/ngramsget.sh
+            containers:
+              main:
+                image:
+                  repository: meyay/languagetool
+                  tag: latest
+                  pullPolicy: IfNotPresent
+                env:
+                  # download_ngrams_for_langs: en,de
+                  langtool_languageModel: /ngrams
+        service:
+          main:
+            ports:
+              http:
+                port: 8010
+
+        configMaps:
+            config:
+              enabled: true
+              annotations:
+                reloader.stakater.com/match: "true"
+              data:
+                # original from https://github.com/meyayl/docker-languagetool/blob/main/entrypoint.sh
+                ngramsget.sh: |
+                  #!/bin/bash
+                  set -eo pipefail
+
+                  fix_dir_owner(){
+                    local _PATH
+                    _PATH="${1}"
+                    find "${_PATH}"  ! \( -user  languagetool -group languagetool \) -exec chown languagetool:languagetool {} \;
+                  }
+
+                  # download ngrams
+
+                  declare -A ngrams_filesnames
+                  ngrams_filesnames[en]=ngrams-en-20150817.zip
+                  ngrams_filesnames[de]=ngrams-de-20150819.zip
+                  ngrams_filesnames[es]=ngrams-es-20150915.zip
+                  ngrams_filesnames[fr]=ngrams-fr-20150913.zip
+                  ngrams_filesnames[nl]=ngrams-nl-20181229.zip
+
+                  download_and_extract_ngrams(){
+                    local _LANG
+                    _LANG="${1}"
+                    local _BASE_URL
+                    _BASE_URL="https://languagetool.org/download/ngram-data"
+
+                    if [ ! -d "${langtool_languageModel}/${_LANG}" ]; then
+                      if [ ! -e "${langtool_languageModel}\ngrams-${_LANG}.zip" ]; then
+                        echo "INFO: Downloading \"${_LANG}\" ngrams."
+                        wget  -O "${langtool_languageModel}\ngrams-${_LANG}.zip" "${_BASE_URL}/${ngrams_filesnames[${_LANG}]}"
+                      fi
+                      if [ -e "${langtool_languageModel}\ngrams-${_LANG}.zip" ]; then
+                        echo "INFO: Extracting \"${_LANG}\" ngrams."
+                        unzip  "${langtool_languageModel}\ngrams-${_LANG}.zip" -d "${langtool_languageModel}"
+                        rm "${langtool_languageModel}\ngrams-${_LANG}.zip"
+                      fi
+                    else
+                      echo "INFO: Skipping download of ngrams model for language ${_LANG}: already exists."
+                    fi
+                    if [ -n "${langtool_languageModel}" ]; then
+                      fix_dir_owner "${langtool_languageModel}/${_LANG}/"
+                    fi
+                  }
+
+                  handle_ngrams(){
+                    if [ -n "${langtool_languageModel}" ]; then
+                      if [ -n "${download_ngrams_for_langs}" ] && [ -n "${langtool_languageModel}" ] ; then
+                        IFS=',' read -ra langs <<< "${download_ngrams_for_langs}"
+                        for lang in "${langs[@]}"; do
+                          case "${lang}" in
+                            en|de|es|fr|nl)
+                              download_and_extract_ngrams "${lang}"
+                              ;;
+                            none)
+                              ;;
+                            *)
+                              echo "ERROR: Unknown ngrams language. Supported languages are \"en\", \"de\", \"es\", \"fr\" and \"nl\"."
+                              exit 1
+                          esac
+                        done
+                      fi
+                    else
+                      if [ -n "${download_ngrams_for_langs}" ]; then
+                        echo "WARNING: No base path for ngram language modules provided, skipping download of ${download_ngrams_for_langs}."
+                      else
+                        echo "WARNING: No base path for ngram language modules provided."
+                      fi
+                    fi
+                  }
+                  handle_ngrams
+
+
+        persistence:
+          configinc:
+            enabled: true
+            mountPath: /conf/config
+            type: configMap
+            name: languagetool-config
+            defaultMode: 0500
+
+          # Configure an NFS mount to store backups on
+          ngrams:
+            enabled: true
+            # type: emptyDir
+            type: persistentVolumeClaim
+            accessMode: ReadWriteOnce
+            size: 25Gi
+            globalMounts:
+              - path: /ngrams

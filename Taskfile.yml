@@ -2,40 +2,25 @@
 version: '3'
 
 vars:
+  PYTHON_VENVS_BASEDIR: ~/.venvs/
+  TASK_COLLECTION_BASE: https://raw.githubusercontent.com/nolte/taskfiles/develop/src
   GIT_ROOT:
     sh: git rev-parse --show-toplevel
 
 includes:
-  chart: .taskfiles/Taskfile_chart.yml
-  kind: .taskfiles/Taskfile_kind.yml
-  argocd: .taskfiles/Taskfile_argocd.yml
-  serviceset: .taskfiles/Taskfile_servicesets.yml
+  pre-commit: "{{.TASK_COLLECTION_BASE}}/taskfile-include-pre-commit.yaml"
+  mkdocs: "{{.TASK_COLLECTION_BASE}}/taskfile-include-mkdocs.yaml"
+
+  platform: 
+    taskfile: .taskfiles/platform.yml
+    vars: 
+      TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/develop/src"
+  
+  argocd: .taskfiles/argocd.yml
+  # serviceset: .taskfiles/Taskfile_servicesets.yml
 
 tasks:
   default:
     cmds:
     - task -l
-    silent: true
-
-  spelling:
-    cmds:
-      - |
-        vale --glob='!*/.terraform/*' .
-  docs:
-
-    cmds:
-    - |
-      docker run \
-        -ti --rm \
-        --name mkdocs \
-        -p 9000:9000 \
-        -e "ADD_MODULES=mkdocs-include-markdown-plugin pymdown-extensions mkdocs-material" \
-        -e "LIVE_RELOAD_SUPPORT=true" \
-        -e "FAST_MODE=true" \
-        -e "DOCS_DIRECTORY=/mydocs" \
-        -e "AUTO_UPDATE=true" \
-        -e "UPDATE_INTERVAL=1" \
-        -e "DEV_ADDR=0.0.0.0:9000" \
-        -v $(pwd):/mydocs \
-        polinux/mkdocs
     silent: true

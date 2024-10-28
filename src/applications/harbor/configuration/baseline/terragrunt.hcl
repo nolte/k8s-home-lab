@@ -3,9 +3,9 @@ include {
   path = "../../../../terraground-common/terraground.hcl"
 }
 
-dependency "vault" {
-  config_path = "../../../vault/configuration/baseline"
-}
+# dependency "vault" {
+#   config_path = "../../../vault/configuration/baseline"
+# }
 
 dependency "keycloak" {
   config_path = "../../../keycloak/configuration/baseline"
@@ -13,7 +13,8 @@ dependency "keycloak" {
 
 inputs = {
   realm_id = dependency.keycloak.outputs.realm_id
-  vault_secrets_engine_path = dependency.vault.outputs.secrets_engine_path
+  vault_secrets_engine_path = "secrets-tf"
+  # vault_secrets_engine_path = dependency.vault.outputs.secrets_engine_path
   harbor_fqdn = "harbor.dev44-just-homestyle.duckdns.org"
   keycloak_fqdn = dependency.keycloak.outputs.keycloak_fqdn
   super_admins_group_id = dependency.keycloak.outputs.super_admins_group_id
@@ -27,6 +28,9 @@ locals {
 remote_state {
   backend = local.root_config.remote_state.backend
   generate = local.root_config.remote_state.generate
+  disable_init = local.root_config.remote_state.disable_init
+  disable_dependency_optimization = local.root_config.remote_state.disable_dependency_optimization
+
   config = merge(
     local.root_config.remote_state.config,
     {
@@ -58,7 +62,7 @@ generate "versions" {
         }
         harbor = {
           source = "goharbor/harbor"
-          version = "3.9.0"
+          version = "3.10.6"
         }
       }
     }

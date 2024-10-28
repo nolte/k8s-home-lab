@@ -21,7 +21,7 @@ remote_state {
 }
 
 
-generate "provider" {
+generate "providers" {
   path      = "provider.gen.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF

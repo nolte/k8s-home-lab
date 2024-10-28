@@ -1,11 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
-commonLabels:
-  argocd.argoproj.io/instance: seed-job
 kind: Kustomization
 namespace: argocd
 
 generatorOptions:
- disableNameSuffixHash: true
+  disableNameSuffixHash: true
 
 patches:
   - path: ../../kustomization-common/deployment-patch.yaml
@@ -14,14 +12,12 @@ patches:
       kind: Application
       name: .*
       version: v1alpha1
-
-patchesJson6902:
-- target:
-    group: argoproj.io
-    kind: Application
-    name: monitoring
-    version: v1alpha1
-  path: ../../kustomization-common/deployment-serverside-patch.yaml
+  - path: ../../kustomization-common/deployment-serverside-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
 
 resources:
   - ../../../src/bundles/05-bootstrapping-ingress
@@ -30,3 +26,7 @@ resources:
   - ../../../src/applications/stakater-reloader/deploy/argocd
   - ../../../src/applications/tf-operator/deploy/argocd
   - ../../../src/applications/external-secrets/deploy/argocd
+labels:
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job

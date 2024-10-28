@@ -1,0 +1,85 @@
+dex:
+  enabled: false
+  
+repoServer:
+  env:
+    # https://stackoverflow.com/a/76265196
+    - name: ARGOCD_GIT_ATTEMPTS_COUNT
+      value: "50" 
+  initContainers:
+    - args:
+        - wget -qO- https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.3.0/kustomize_v5.3.0_linux_amd64.tar.gz | tar -xvzf - && mv kustomize /custom-tools/kustomize_5_3_0 && chmod +x /custom-tools/kustomize_5_3_0
+      command:
+        - sh
+        - "-c"
+      image: alpine:3.19
+      name: download-tools-kustomize
+      volumeMounts:
+        - mountPath: /custom-tools
+          name: custom-tools
+    - args:
+        - wget -qO- https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz | tar -xvzf - && mv linux-amd64/helm /custom-tools/helm_3_14_2
+      command:
+        - sh
+        - "-c"
+      image: alpine:3.19
+      name: download-tools-helm
+      volumeMounts:
+        - mountPath: /custom-tools
+          name: custom-tools
+  volumeMounts:
+    - mountPath: /custom-tools
+      name: custom-tools
+  volumes:
+    - emptyDir: {}
+      name: custom-tools
+configs:
+  cm:
+    accounts.seedmanager: apiKey
+    helm.path.v3.14.2: /custom-tools/helm_3_14_2
+    kustomize.buildOptions: --load-restrictor LoadRestrictionsNone
+    kustomize.path.v5.3.0: /custom-tools/kustomize_5_3_0
+    # hack for https://github.com/coredns/helm/issues/37#issuecomment-918469766
+    configManagementPlugins: |-
+      - name: kustomized-helm
+        init:
+          command: ["sh", "-c"]
+          args: ["helm repo add ${helm_dependency_name} ${helm_dependency_repo} && helm dependency update ${helm_base}"]
+        generate:
+          command: ["sh", "-c"]
+          args: ["helm template ${helm_dependency_name} ${helm_base} ${helm_args} > ${helm_base}/all.yaml && kustomize build"]
+    resource.customizations: |
+
+      cert-manager.io/Certificate:
+        knownTypeFields:
+        - field: spec.template.spec
+          type: core/v1/PodSpec
+      admissionregistration.k8s.io/MutatingWebhookConfiguration:
+        ignoreDifferences: |
+          jsonPointers:
+          - /webhooks/0/failurePolicy
+          - /webhooks/0/clientConfig/caBundle
+      admissionregistration.k8s.io/ValidatingWebhookConfiguration:
+        ignoreDifferences: |
+          jsonPointers:
+          - /webhooks/0/failurePolicy
+      apiextensions.k8s.io/CustomResourceDefinition:
+        ignoreDifferences: |
+          jsonPointers:
+          - /spec/0/preserveUnknownFields
+          - /spec/preserveUnknownFields
+
+      argoproj.io/Application:
+        health.lua: |
+          hs = {}
+          hs.status = "Progressing"
+          hs.message = ""
+          if obj.status ~= nil then
+            if obj.status.health ~= nil then
+              hs.status = obj.status.health.status
+              if obj.status.health.message ~= nil then
+                hs.message = obj.status.health.message
+              end
+            end
+          end
+          return hs

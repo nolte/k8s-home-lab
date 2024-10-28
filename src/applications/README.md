@@ -1,6 +1,9 @@
 # Applications
 
+<!--intro-start-->
 This subdirectory will give the Structure for all Used Application/Services, and the Configuration.
+<!--intro-end-->
+
 
 ## Application Structure
 

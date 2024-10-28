@@ -1,7 +1,8 @@
-# Cluster Configs
+# HomeLab Configuration
 
+<!--intro-start-->
 This Structure will be used for manage the k8s Clusters.
-
+<!--intro-end-->
 
 <!--structure-start-->
 ```

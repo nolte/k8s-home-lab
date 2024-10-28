@@ -8,12 +8,29 @@
 
 # Personal Cluster
 
-This project will be used to create different flavours/collections of services running on Kubernetes.
-
-K8S clusters will be configured for different use cases such as [SmartHome](./docs/service-sets/smart-home.md), [DevOps services](./docs/service-sets/devops.md) or private storage.
+This project will be used to create different flavors/collections of services running on Kubernetes.
 
 The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) for deployment/control of K8S manifests from the repository (SCM) and [Argo Workflow](https://argoproj.github.io/argo-workflows/) as a process automation tool.
 
+## Service Sets
+
+K8S clusters will be configured for different use cases such as [SmartHome](./docs/service-sets/smart-home.md), [DevOps services](./docs/service-sets/devops.md) or private storage.
+
+### Developer Cluster
+
+A combination of services like Secret Management, Git and Container Registry. This combination can be used for some Infrastructure as Code (IaC) base management process.
+
+*(more information at [src/clusters/dev-kind-powerdns](src/clusters/dev-kind-powerdns/README.md))*.
+
+### Smart Home 
+
+Services for hosting a `cloud-less` smart home system with MQTT Broker, zigbee gateway, Home-Assistant and many more.
+
+*(more information at [src/clusters/smart-home](src/clusters/smart-home/README.md))*
+
+### Monitoring
+
+*(planed)* Monitoring service set, for testing network connections and many more.
 
 ## Project Structure
 
@@ -29,42 +46,11 @@ The basics of the deployment process are [ArgoCD](https://argo-cd.readthedocs.io
 ```
 <!--structure-end-->
 
-
-| **Folder**                 | **Description**                                                              |
-|----------------------------|------------------------------------------------------------------------------|
-| `docs`                     | Folder for [mkdocs](https://www.mkdocs.org/) based documentation.            |
-| `hack`                     | Useful scripts for local Cluster Bootstrapping.                              |
-| `src/applications`         | Preconfigured ArgoCD Applications, for deploy different type of Services.    |
-| `src/bundles`              | Will Be combine a different set of Services, into one "Product".             |
-| `src/clusters`             | Represent the Different Clusters with the different Service Set for each one. |
-| `src/kustomization-common` | Reusable Kustomize overlays, like Namespace Handling etc.                   |
-| `src/terraground-common`   | Shared Terragrunt Configs, like Statefile Handling or Module Versions.      |
-| `src/talos-configs`        | The [Talos](https://www.talos.dev/) K8S Cluster configs.                     |
-
-For more Information take a look into the `README.md` inside the subfolder like [/src/applications](./src/applications/README.md).
-
 ## Docs
 
-```sh
-docker run \
-    -ti --rm \
-    --name mkdocs \
-    -p 9000:9000 \
-    -e "ADD_MODULES=mkdocs-include-markdown-plugin pymdown-extensions mkdocs-material" \
-    -e "LIVE_RELOAD_SUPPORT=true" \
-    -e "FAST_MODE=true" \
-    -e "DOCS_DIRECTORY=/mydocs" \
-    -e "AUTO_UPDATE=true" \
-    -e "UPDATE_INTERVAL=1" \
-    -e "DEV_ADDR=0.0.0.0:9000" \
-    -v $(pwd):/mydocs \
-    polinux/mkdocs
-```
+You can use the task alias `task mkdocs:start`, for starting the mkdocs server for local development.
 
-or you will be use the task alias `task docs`, for starting the mkdocs Container.
-
-
-### Local Deploy
+## Local Deploy
 
 ```sh
  kustomize build .  --load-restrictor LoadRestrictionsNone | kubectl apply -f -
@@ -75,3 +61,4 @@ or you will be use the task alias `task docs`, for starting the mkdocs Container
 * For Bootstrapping take a look to [nolte/ansible_playbook-baseline-online-server](https://github.com/nolte/ansible_playbook-baseline-online-server#start-ssh-agent)
 * For Install k3s [nolte/ansible_playbook-baseline-k3s](https://github.com/nolte/ansible_playbook-baseline-k3s)
 * [nolte/helm-charts-repo](https://github.com/nolte/helm-charts-repo/) as Classic Helm Chart Repository.
+* [nolte/taskfiles](https://github.com/nolte/taskfiles), collection of reusable task.

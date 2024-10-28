@@ -5,8 +5,7 @@ kind: Kustomization
 namespace: argocd
 
 generatorOptions:
- disableNameSuffixHash: true
-
+  disableNameSuffixHash: true
 
 patches:
   - path: deployment-patch.yaml

@@ -98,6 +98,7 @@ resource "vault_kubernetes_auth_backend_role" "this" {
     "external-dns",
     "cert-manager",
     "gitea",
+    "argocd",
   ]
   token_ttl = 3600
   token_policies = [

@@ -39,6 +39,21 @@ externalSecrets:
 
 workflow:
   enabled: true
+  serviceAccount:
+    create: true
+
+  cmTfStaticEndpoints:
+    create: true
+
+  roleBinding:
+    tfState:
+      create: true
+    type: Role
+    vaultInjector:
+      create: true
+    executor:
+      create: true
+
   configurationWorkflows:
     post-sync:
       type: terragrunt
@@ -46,15 +61,15 @@ workflow:
       script:
         image: alpine/terragrunt:latest
       terraform:
-        action: run-all apply
+        action: apply
       source:
         repo: https://github.com/nolte/k8s-home-lab.git
         path: ./src/applications/minio/configuration/baseline
-        revision: master
+        revision: feature/seed-flavors
 
       extraEnv:
         - name: KUBE_IN_CLUSTER_CONFIG
-          value: "true"
+          value: '"true"'
 
         - name: MINIO_ACCESS_KEY
           valueFrom:
@@ -67,6 +82,8 @@ workflow:
               name: minio-creds-secret
               key: secretkey
 
+        - name: MINIO_ENDPOINT
+          value: minio-hl.minio.svc:9000
 
 projectContour:
   enabled: false

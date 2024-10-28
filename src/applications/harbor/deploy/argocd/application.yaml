@@ -24,7 +24,10 @@ spec:
       path: charts/stable/projectcontour-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
-    - helm:
+    - path: charts/stable/argo-workflow-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main    
+      helm:
         releaseName: argo-workflow-mixin
         parameters: []
         values: |-
@@ -52,8 +55,23 @@ spec:
               workflow: true
               terraform:
                 action: apply
+              extraEnv:
+                - name: HARBOR_USERNAME
+                  value: admin
+                - name: HARBOR_URL
+                  value: http://harbor.harbor.svc:80
+                - name: HARBOR_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: harbor-core
+                      key: HARBOR_ADMIN_PASSWORD        
               extraSourceElements:
                 - "source /vault/secrets/keycloak"
+                - "export CURRENT_DIR=$(pwd)"
+                - "cd /src/src/applications/keycloak/configuration/baseline"
+                - "terragrunt init"
+                - "terraform init"
+                - "cd $CURRENT_DIR"                
               extraAnnotations:
                 # Load a Secret for Terraform State file access
                 vault.hashicorp.com/agent-inject-secret-keycloak: secrets-tf/services/IdentityAccessManagement/users/admin

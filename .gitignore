@@ -21,3 +21,5 @@ hack/packer/builds/*.box
 .terragrunt-cache
 *.tfstate
 .vscode
+
+.task

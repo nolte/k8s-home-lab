@@ -1,0 +1,1 @@
+kubectl label --dry-run=server --overwrite ns -n esphome pod-security.kubernetes.io/enforce=privileged

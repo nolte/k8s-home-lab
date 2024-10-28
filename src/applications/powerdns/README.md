@@ -18,7 +18,7 @@ Private DNS Service
 
 <!--port-forward-start-->
 ```sh
-kubectl -n powerdns port-forward svc/powerdns-webserver 8081
+kubectl -n powerdns port-forward svc/powerdns 8081
 ```
 <!--port-forward-end-->
 

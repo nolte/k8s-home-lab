@@ -11,32 +11,39 @@ spec:
     - helm:
         releaseName: argo-workflow-mixin
         parameters: []
-        values: |-
-          cmTfStaticEndpoints:
-            create: true
-          role:
-            tfState:
-              create: false
-              name: argo-workflows-execution
-            type: ClusterRole
-            vaultInjector:
-              create: false
-              name: argo-workflows-execution
-          roleBinding:
-            tfState:
-              create: true
-            type: Role
-            vaultInjector:
-              create: true
-          serviceAccount:
-            create: true
+        valueFiles: []
       path: charts/stable/argo-workflow-mixin/
       repoURL: https://github.com/nolte/helm-charts-repo.git
       targetRevision: main
+    - path: charts/stable/external-secrets-manifests
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+      helm:
+        releaseName: external-secrets-manifests
+        valueFiles: []
+        # parameters: []
+    - path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+      helm:
+        releaseName: projectcontour-mixin
+        valueFiles: []
+        # parameters: []
     - helm:
-        parameters: []
+        # parameters: []
         releaseName: argocd
         valueFiles: []
       chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 6.7.2
+      targetRevision: 6.5.0
+    - helm:
+        # parameters: []
+        releaseName: argocd-apps
+        valueFiles: []
+      chart: argocd-apps
+      repoURL: https://argoproj.github.io/argo-helm
+      targetRevision: 1.4.1
+    - repoURL: 'https://github.com/nolte/k8s-home-lab.git'
+      targetRevision: feature/seed-flavors
+      path: src/applications/argo-cd/deploy     
+      ref: values

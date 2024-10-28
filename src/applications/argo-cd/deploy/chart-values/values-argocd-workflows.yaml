@@ -1,0 +1,24 @@
+# values for https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/argo-workflow-mixin
+cmTfStaticEndpoints:
+  create: true
+
+role:
+  tfState:
+    create: false
+    name: argo-workflows-execution
+  type: ClusterRole
+  vaultInjector:
+    create: false
+    name: argo-workflows-execution
+  executor:
+    create: false       
+roleBinding:
+  tfState:
+    create: true
+  type: Role
+  vaultInjector:
+    create: true
+  executor:
+    create: true       
+serviceAccount:
+  create: true

@@ -1,0 +1,25 @@
+# values for https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/argo-workflow-mixin
+configurationWorkflows:
+  post-install:
+    type: terragrunt
+    workflow: true
+    terraform:
+      action: apply
+    extraSourceElements:
+      - "source /vault/secrets/keycloak"
+      - "export CURRENT_DIR=$(pwd)"
+      - "cd /src/src/applications/keycloak/configuration/baseline"
+      - "terragrunt init"
+      - "terraform init"
+      - "cd $CURRENT_DIR"      
+    extraAnnotations:
+      vault.hashicorp.com/agent-inject-secret-keycloak: secrets-tf/services/IdentityAccessManagement/users/admin
+      vault.hashicorp.com/agent-inject-template-keycloak: |
+        {{- with secret "secrets-tf/services/IdentityAccessManagement/users/admin" -}}
+        export KEYCLOAK_USER={{ .Data.data.username }}
+        export KEYCLOAK_PASSWORD={{ .Data.data.password }}
+        {{- end }}
+    source:
+      repo: https://github.com/nolte/k8s-home-lab.git
+      path: ./src/applications/argo-cd/configuration/fineconf
+      revision: master

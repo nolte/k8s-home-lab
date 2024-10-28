@@ -60,6 +60,6 @@ export MINIO_ENDPOINT=$(kubectl -n minio get httpproxies.projectcontour.io minio
 **Port Forward**
 <!--port-forward-start-->
 ```sh
-kubectl -n vault port-forward svc/vault 8200
+kubectl -n minio port-forward svc/minio-hl 9000
 ```
 <!--port-forward-end-->

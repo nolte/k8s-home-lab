@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seed-job
+  labels:
+    nolte.github.io/seed: bootstrapping
+  annotations:
+    de.noltarium.bootstrapping/steps: "-1"
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  project: default
+  source:
+    path: src/bundles/bootstrapping-stack
+    repoURL: https://github.com/nolte/k8s-home-lab.git
+    targetRevision: feature/seed-flavors
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true

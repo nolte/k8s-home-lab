@@ -10,8 +10,8 @@ spec:
   sources:
   - chart: zigbee2mqtt
     # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
-    repoURL: https://charts.truecharts.org/
-    targetRevision: 11.6.2
+    repoURL: tccr.io/truecharts
+    targetRevision: 13.1.3
     helm:
       releaseName: zigbee2mqtt
       values: |
@@ -56,6 +56,8 @@ spec:
                   friendly_name: 'window_contact_03'
                 '0x18fc260000076b59':
                   friendly_name: 'window_contact_04'
+                '0x18fc26000005ef3c':
+                  friendly_name: 'window_contact_05'                  
                 '0x040d84fffe8d433e':
                   # ikea 4 button
                   friendly_name: 'remote_01'
@@ -75,6 +77,34 @@ spec:
                   friendly_name: 'snzb_02_03'
                 '0x00124b00292c4376':
                   friendly_name: 'snzb_02_04'
+                '0x842712fffe19f074':
+                  friendly_name: 'snzb_06p_01'
+                '0x00124b00291d91fe':
+                  friendly_name: 'snzb_03_01'
+                '0x00124b002fa167ca':
+                  friendly_name: 'snzb_03_02'
+                '0x00158d000ab750e6':
+                  friendly_name: 'djt11lm_01'
+                '0x00158d000ad8555a':
+                  friendly_name: 'sjcgq11lm_02'
+                '0x00158d000ad88d45':
+                  friendly_name: 'sjcgq11lm_01' 
+                '0x00158d000ad894ef':
+                  friendly_name: 'sjcgq11lm_03'
+                '0x00158d000ad8935b':
+                  friendly_name: 'sjcgq11lm_04'
+                '0x00158d000ad894bc':
+                  friendly_name: 'sjcgq11lm_05'
+                '0x00158d000ad88d94':
+                  friendly_name: 'sjcgq11lm_06'
+                '0x00158d000af40f51':
+                  friendly_name: 'sjcgq11lm_07'                  
+                '0x00158d000af411ab':
+                  friendly_name: 'sjcgq11lm_08'
+                '0x00158d000af414eb':
+                  friendly_name: 'sjcgq11lm_09'
+                '0x00158d000af0ae1c':
+                  friendly_name: 'sjcgq11lm_10'
               groups.yaml: |
                 '1':
                   friendly_name: 'blind_workroom'

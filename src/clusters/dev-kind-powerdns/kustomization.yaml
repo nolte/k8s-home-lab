@@ -3,17 +3,27 @@ kind: Kustomization
 
 namespace: argocd
 
-commonLabels:
-  argocd.argoproj.io/instance: seed-job
-
 generatorOptions:
   disableNameSuffixHash: true
 
+resources:
+  - ../../../src/bundles/25-baseline-services
+  - ../../../src/bundles/devops-services
+  - ../../../src/bundles/certificate-duckdns
+  - ../../../src/applications/languagetool/deploy/argocd
+  
+labels:
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job
 
-
-
-patchesJSON6902:
-
+patches:
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
   - patch: |-
       - op: replace
         path: /spec/sources/0/helm/parameters
@@ -33,7 +43,6 @@ patchesJSON6902:
       kind: Application
       name: forecastle
       version: v1alpha1
-
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -53,8 +62,6 @@ patchesJSON6902:
       kind: Application
       name: home-assistant
       version: v1alpha1
-
-
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -74,7 +81,6 @@ patchesJSON6902:
       kind: Application
       name: esphome
       version: v1alpha1
-
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -86,17 +92,27 @@ patchesJSON6902:
       kind: Application
       name: minio-operator
       version: v1alpha1
-
   - patch: |-
-      - op: replace
-        path: /spec/source/path
-        value: "src/applications/minio/deploy/kustomize-tenant-ingress"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  projectContour.enabled
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  projectContour.httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  projectContour.httpProxy.fqdn
+          value: minio.dev44-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
       name: minio-tenant
       version: v1alpha1
-
   - patch: |-
       - op: add
         path: /spec/sources/0/helm/parameters/-
@@ -113,14 +129,29 @@ patchesJSON6902:
       kind: Application
       name: argo-workflows
       version: v1alpha1
-
+  # - patch: |-
+  #     - op: add
+  #       path: /spec/sources/1/helm/valueFiles/-
+  #       value: values-ingress.yaml
+  #     - op: add
+  #       path: /spec/sources/1/helm/valueFiles/-
+  #       value: values-oidc.yaml
+  #     - op: add
+  #       path: /spec/sources/0/helm/parameters/-
+  #       value:
+  #         name:  httpProxy.create
+  #         value: "true"
+  #     - op: add
+  #       path: /spec/sources/0/helm/parameters/-
+  #       value:
+  #         name:  httpProxy.fqdn
+  #         value: argocd.dev44-just-homestyle.duckdns.org
+  #   target:
+  #     group: argoproj.io
+  #     kind: Application
+  #     name: argocd
+  #     version: v1alpha1
   - patch: |-
-      - op: add
-        path: /spec/sources/1/helm/valueFiles/-
-        value: values-ingress.yaml
-      - op: add
-        path: /spec/sources/1/helm/valueFiles/-
-        value: values-oidc.yaml
       - op: add
         path: /spec/sources/0/helm/parameters/-
         value:
@@ -130,30 +161,12 @@ patchesJSON6902:
         path: /spec/sources/0/helm/parameters/-
         value:
           name:  httpProxy.fqdn
-          value: argocd.dev44-just-homestyle.duckdns.org
-    target:
-      group: argoproj.io
-      kind: Application
-      name: argocd
-      version: v1alpha1
-
-  - patch: |-
-     - op: add
-       path: /spec/sources/0/helm/parameters/-
-       value:
-         name:  httpProxy.create
-         value: "true"
-     - op: add
-       path: /spec/sources/0/helm/parameters/-
-       value:
-         name:  httpProxy.fqdn
-         value: vault.dev44-just-homestyle.duckdns.org
+          value: vault.dev44-just-homestyle.duckdns.org
     target:
       group: argoproj.io
       kind: Application
       name: vault
       version: v1alpha1
-
   - patch: |-
       - op: replace
         path: /spec/sources/0/helm/parameters
@@ -173,13 +186,11 @@ patchesJSON6902:
         value:
           name:  configurationWorkflows.post-install.source.revision
           value: master
-
     target:
       group: argoproj.io
       kind: Application
       name: keycloak
       version: v1alpha1
-
   - patch: |-
       - op: replace
         path: /spec/sources/0/helm/parameters
@@ -195,27 +206,27 @@ patchesJSON6902:
           name:  httpProxy.fqdn
           value: "harbor.dev44-just-homestyle.duckdns.org"
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  externalURL
           value: "https://harbor.dev44-just-homestyle.duckdns.org"
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.ingress.hosts.core
           value: harbor.dev44-just-homestyle.duckdns.org
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.ingress.hosts.notary
           value: notary.dev44-just-homestyle.duckdns.org
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.type
           value: clusterIP
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  expose.tls.enabled
           value: "false"
@@ -224,13 +235,12 @@ patchesJSON6902:
       kind: Application
       name: harbor
       version: v1alpha1
-
   - patch: |-
       - op: replace
-        path: /spec/sources/1/helm/parameters
+        path: /spec/sources/2/helm/parameters
         value: []
       - op: add
-        path: /spec/sources/1/helm/parameters/-
+        path: /spec/sources/2/helm/parameters/-
         value:
           name:  admin.existingSecret
           value: "gitea-admin-secret"
@@ -249,22 +259,20 @@ patchesJSON6902:
       kind: Application
       name: gitea
       version: v1alpha1
-
   - patch: |-
       - op: replace
-        path: /spec/source/helm/parameters
+        path: /spec/sources/0/helm/parameters
         value: []
       - op: add
-        path: /spec/source/helm/parameters/-
+        path: /spec/sources/0/helm/parameters/-
         value:
-          name:  externalsecrets.enabled
+          name:  enabled
           value: "true"
     target:
       group: argoproj.io
       kind: Application
       name: external-dns
       version: v1alpha1
-
   - patch: |-
       - op: replace
         path: /spec/source/helm/parameters
@@ -279,7 +287,6 @@ patchesJSON6902:
       kind: Application
       name: project-contour
       version: v1alpha1
-
   - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
     target:
       group: argoproj.io
@@ -287,6 +294,42 @@ patchesJSON6902:
       name: powerdns
       version: v1alpha1
 
-resources:
-  - ../../../src/bundles/25-baseline-services
-  - ../../../src/bundles/devops-services
+  - path: ../../kustomization-common/deployment-patch-config-workflow-1.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: keycloak
+      version: v1alpha1
+
+  - path: ../../kustomization-common/deployment-patch-config-workflow.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1      
+
+  - path: ../../kustomization-common/deployment-patch-config-workflow-1.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: harbor
+      version: v1alpha1      
+  
+  - patch: |-
+      - op: add
+        path: /spec/sources/3/helm/parameters/-
+        value:
+          name:  postconfig.revision
+          value: "feature/seed-flavors"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: vault
+      version: v1alpha1    
+  - path: ./argocd-patch-oidc.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1      
+    

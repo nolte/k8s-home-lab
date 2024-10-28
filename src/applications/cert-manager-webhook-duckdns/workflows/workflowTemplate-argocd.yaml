@@ -1,0 +1,72 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: app-cert-manager-webhook-duckdns
+spec:
+  entrypoint: exec
+  templates:
+    - inputs:
+        parameters:
+          - name: name-prefix
+            default: ""
+          - name: issuerEmail
+          - name: destination-name
+            default: in-cluster
+          - name: externalsecrets-enabled
+            default: "false"
+      name: exec
+      resource:
+        action: apply
+        manifest: |
+          apiVersion: argoproj.io/v1alpha1
+          kind: Application
+          metadata:
+            name: {{inputs.parameters.name-prefix}}cert-manager-webhook-duckdns
+          spec:
+            destination:
+              name: {{inputs.parameters.destination-name}}
+              namespace: cert-manager
+            project: default
+            # hack for ignore changed duration format from 43800h to 43800h0m0s
+            ignoreDifferences:
+            - group: cert-manager.io
+              kind: Certificate
+              jsonPointers:
+              - /spec/duration
+            sources:
+            - path: deploy/cert-manager-webhook-duckdns
+              repoURL: https://github.com/ebrianne/cert-manager-webhook-duckdns.git
+              targetRevision: master
+              helm:
+                releaseName: cert-manager-webhook-duckdns
+                parameters:
+                  - name: fullnameOverride
+                    value: "cert-manager-webhook-duckdns"
+                  - name: clusterIssuer.email
+                    value: "{{inputs.parameters.issuerEmail}}"
+                  - name: clusterIssuer.production.create
+                    value: "true"
+                  - name: clusterIssuer.staging.create
+                    value: "true"
+                  - name: secret.existingSecret
+                    value: "true"
+                  - name: secret.existingSecretName
+                    value: "duckdns-token"
+            - chart: external-secrets-manifests
+              repoURL: https://nolte.github.io/helm-charts-repo/
+              targetRevision: 1.0.1
+              helm:
+                releaseName: external-secrets-manifests
+                values: |
+                  enabled: {{inputs.parameters.externalsecrets-enabled}}
+                  secretstore:
+                    create: true
+                    serviceAccount:
+                      create: true
+                  secrets:
+                    duckdns-token:
+                      data:
+                        - key: third-party-services/duckdns.org/api
+                          name: token
+                          property: token                  
+                          

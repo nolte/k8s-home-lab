@@ -3,8 +3,10 @@ kind: Kustomization
 
 namespace: argocd
 
-commonLabels:
-  argocd.argoproj.io/instance: seed-job-rpi
+labels:
+    - includeSelectors: true
+      pairs:
+        argocd.argoproj.io/instance: seed-job-rpi
 
 generatorOptions:
   disableNameSuffixHash: true

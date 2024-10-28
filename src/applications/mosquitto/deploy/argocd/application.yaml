@@ -17,11 +17,16 @@ spec:
       releaseName: mosquitto
       parameters: []
       values: |
-        image:
-          repository: eclipse-mosquitto
-          tag: 2.0.15
+        controllers:
+            main:
+              containers:
+                main:
+                  image:
+                    repository: eclipse-mosquitto
+                    tag: 2.0.15
         service:
           main:
+            controller: main
             ports:
               http:
                 port: 1883
@@ -40,10 +45,15 @@ spec:
         persistence:
           data:
             enabled: true
-            mountPath: /mosquitto/data
+            globalMounts:
+              - path: /mosquitto/data
+                readOnly: false    
             type: emptyDir
           configinc:
             enabled: true
-            mountPath: /mosquitto/config
+            globalMounts:
+              - path: /mosquitto/config
+                readOnly: false    
             type: configMap
             name: mosquitto-config
+        

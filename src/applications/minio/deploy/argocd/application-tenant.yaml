@@ -2,7 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minio-tenant
-  #annotations:
+  labels:
+    de.noltarium.workflows/enabled: "true"
   #  argocd.argoproj.io/sync-wave: "30"
 spec:
   destination:
@@ -12,6 +13,6 @@ spec:
   sources:
   - path: src/applications/minio/deploy/tenant
     repoURL: https://github.com/nolte/k8s-home-lab.git
-    targetRevision: master
+    targetRevision: feature/seed-flavors
     helm:
       parameters: []

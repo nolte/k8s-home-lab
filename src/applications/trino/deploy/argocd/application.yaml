@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: trino
+spec:
+  destination:
+    name: in-cluster
+    namespace: eventsbus
+  project: default
+  sources:
+  - chart: trino
+    # https://artifacthub.io/packages/helm/bitnami/kubernetes-event-exporter
+    repoURL:  https://trinodb.github.io/charts/
+    targetRevision: 0.18.0
+    helm:
+      releaseName: trino

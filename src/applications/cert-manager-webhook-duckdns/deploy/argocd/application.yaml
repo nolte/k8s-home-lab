@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager-webhook-duckdns
+  name: cert-manager-webhook-duckdns-workflows
 spec:
   destination:
     name: in-cluster
-    namespace: cert-manager
+    namespace: argocd
   project: default
   # hack for ignore changed duration format from 43800h to 43800h0m0s
   ignoreDifferences:
@@ -14,6 +14,9 @@ spec:
       jsonPointers:
         - /spec/duration
   sources:
+    - path: src/applications/cert-manager-webhook-duckdns/workflows
+      repoURL: https://github.com/nolte/k8s-home-lab.git
+      targetRevision: feature/seed-flavors
     - chart: cert-manager-webhook-duckdns
       repoURL: https://ebrianne.github.io/helm-charts
       targetRevision: 1.2.4
