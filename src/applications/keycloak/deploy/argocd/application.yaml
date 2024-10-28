@@ -98,7 +98,7 @@ spec:
         # parameters: []
       chart: keycloak
       repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 19.3.0
+      targetRevision: 24.0.2
     - helm:
         releaseName: external-secrets-manifests
         values: |-

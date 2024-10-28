@@ -12,7 +12,7 @@ spec:
   sources:
   - chart: external-secrets-manifests
     repoURL: https://nolte.github.io/helm-charts-repo/
-    targetRevision: 1.0.1
+    targetRevision: 1.1.0
     helm:
       releaseName: external-secrets-manifests
       values: |
@@ -31,7 +31,7 @@ spec:
   - # https://artifacthub.io/packages/helm/bitnami/external-dns
     chart: external-dns
     repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 6.31.0
+    targetRevision: 8.3.10
     helm:
       releaseName: external-dns
       values: |

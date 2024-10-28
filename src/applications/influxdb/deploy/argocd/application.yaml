@@ -11,7 +11,7 @@ spec:
   - chart: influxdb2
     # https://github.com/influxdata/helm-charts/tree/master/charts/influxdb2
     repoURL: https://helm.influxdata.com/
-    targetRevision: 2.1.1
+    targetRevision: 2.1.2
     helm:
       releaseName: influxdb2
       
