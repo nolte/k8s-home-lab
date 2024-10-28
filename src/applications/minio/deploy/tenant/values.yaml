@@ -65,7 +65,7 @@ workflow:
       source:
         repo: https://github.com/nolte/k8s-home-lab.git
         path: ./src/applications/minio/configuration/baseline
-        revision: feature/seed-flavors
+        revision: master
 
       extraEnv:
         - name: KUBE_IN_CLUSTER_CONFIG

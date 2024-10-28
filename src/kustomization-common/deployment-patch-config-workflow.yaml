@@ -2,4 +2,4 @@
   path: /spec/sources/0/helm/parameters/-
   value:
     name:  configurationWorkflows.post-install.source.revision
-    value: "feature/seed-flavors"
+    value: "master"

@@ -16,7 +16,7 @@ spec:
   sources:
     - path: src/applications/cert-manager-webhook-duckdns/workflows
       repoURL: https://github.com/nolte/k8s-home-lab.git
-      targetRevision: feature/seed-flavors
+      targetRevision: master
     - chart: cert-manager-webhook-duckdns
       repoURL: https://ebrianne.github.io/helm-charts
       targetRevision: 1.2.4

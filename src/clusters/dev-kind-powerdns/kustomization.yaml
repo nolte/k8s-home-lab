@@ -320,7 +320,7 @@ patches:
         path: /spec/sources/3/helm/parameters/-
         value:
           name:  postconfig.revision
-          value: "feature/seed-flavors"
+          value: "master"
     target:
       group: argoproj.io
       kind: Application
