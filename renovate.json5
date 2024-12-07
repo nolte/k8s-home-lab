@@ -1,10 +1,12 @@
 {
-  "extends": [
-    "config:base",
-    "group:all",
+  extends: [
+    'config:recommended',
+    'group:all',
   ],
-  "schedule": "before 5am every weekday",
-  "argocd": {
-    "fileMatch": ["src/applications/.*/deploy/argocd/application.*\\.yaml"]
-  }
+  schedule: 'before 5am every weekday',
+  argocd: {
+    fileMatch: [
+      'src/applications/.*/deploy/argocd/application.*\\.yaml',
+    ],
+  },
 }
