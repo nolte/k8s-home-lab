@@ -11,20 +11,21 @@ spec:
   - chart: zigbee2mqtt
     # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
     repoURL: tccr.io/truecharts
-    targetRevision: 13.4.1
+    targetRevision: 13.5.1
     helm:
       releaseName: zigbee2mqtt
       values: |
-
-        fallbackDefaults:
-          # -- Default PVC Size
-          pvcSize: 5Gi
-          # -- Default VCT Size
-          vctSize: 5Gi
+        global:
+          fallbackDefaults:
+            # -- Default PVC Size
+            pvcSize: 5Gi
+            # -- Default VCT Size
+            vctSize: 5Gi
 
 
         persistence:
           configmap-vol:
+            size: 5Gi
             enabled: true
             type: configmap
             objectName: zigbee2mqtt-extra-config

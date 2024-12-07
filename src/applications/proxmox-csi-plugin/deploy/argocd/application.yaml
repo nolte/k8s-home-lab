@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: proxmox-csi
+spec:
+  destination:
+    name: in-cluster
+    namespace: csi-proxmox
+  project: default
+  source:
+    chart: proxmox-csi-plugin
+    repoURL: ghcr.io/sergelogvinov/charts
+    targetRevision: 0.2.14
+
+    helm:
+      releaseName: proxmox-csi-plugin
+      # https://github.com/sergelogvinov/proxmox-csi-plugin
+      values: |
+        # tbd
+        existingConfigSecret: proxmox-csi-plugin
+        # config:
+        #   clusters:
+        #     - url: https://192XXXX:8006/api2/json
+        #       insecure: true
+        #       token_id: "kubernetes-csi@pve!csi"
+        #       token_secret: "XXXXX"
+        #       region: pve
+        # Define storage classes
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: ""
+        tolerations:
+          - key: node-role.kubernetes.io/control-plane
+            effect: NoSchedule        
+        # See https://pve.proxmox.com/wiki/Storage
+        storageClass:
+          - name: proxmox-data-xfs
+            storage: local-lvm
+            reclaimPolicy: Delete
+            fstype: xfs
+            annotations:
+              storageclass.kubernetes.io/is-default-class: "true"
+          - name: proxmox-data
+            storage: local-lvm
+            reclaimPolicy: Delete
+            fstype: ext4
+            cache: writethrough 

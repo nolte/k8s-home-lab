@@ -1,0 +1,17 @@
+# tofu/talos/machine-config/worker.yaml.tftpl
+machine:
+  features:
+    kubePrism:
+      enabled: false
+      port: 7445
+  network:
+    hostname: ${hostname}
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.178.1    
+  nodeLabels:
+    topology.kubernetes.io/region: ${cluster_name}
+    topology.kubernetes.io/zone: ${node_name}
+  install:
+    disk: ${install_disk}

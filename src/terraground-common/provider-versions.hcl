@@ -6,5 +6,5 @@
 inputs = {
   keycloak = "4.4.0"
   minio = "2.0.1"
-  proxmox = "0.66.3"
+  proxmox = "0.68.0"
 }

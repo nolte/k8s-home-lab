@@ -10,20 +10,18 @@ spec:
   source:
     helm:
       releaseName: contour
+      parameters: []
       values: |
         envoy:
           service:
-            type: NodePort
-          # containerSecurityContext:
-          #   enabled: "false"
-          #   runAsUser: 0
-          # extraEnvVars:
-          #   - name: ENVOY_UID
-          #     value: "0"
-        contour:
-          extraArgs:
-            - --ingress-status-address=192.168.178.42
-          manageCRDs: true
+            type: LoadBalancer
+            annotations:
+              metallb.universe.tf/address-pool: production-public-ips
+              
+        #contour:
+        #  extraArgs:
+        #    - --ingress-status-address=192.168.178.105
+        #  manageCRDs: true
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 19.2.1
+    targetRevision: 19.3.1
     chart: contour

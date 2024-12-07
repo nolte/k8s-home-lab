@@ -1,0 +1,153 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+labels:
+- includeSelectors: true
+  pairs:
+    argocd.argoproj.io/instance: seed-job-talos
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+patches:
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+  
+  - path: ../../kustomization-common/deployment-serverside-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
+
+  - path: ./patch-remove-second-element.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: cert-manager-webhook-duckdns
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/valuesObject/clusterIssuer/email
+        value: nolte07@gmail.com
+
+    target:
+      group: argoproj.io
+      kind: Application
+      name: cert-manager-webhook-duckdns
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/valuesObject/dnsName
+        value: just-a-lab.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: cert-wildcard
+      version: v1alpha1
+
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  service.main.type
+          value: "LoadBalancer"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: mosquitto
+      version: v1alpha1
+
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: esphome.just-a-lab.duckdns.org
+      # - op: replace
+      #   path: /spec/sources/1/helm/parameters
+      #   value: []
+      # - op: add
+      #   path: /spec/sources/1/helm/parameters/-
+      #   value:
+      #     name: initContainers.gitsync.env[1].value
+      #     value: git@github.com:nolte/esphome-configs.git
+    target:
+      group: argoproj.io
+      kind: Application
+      name: esphome
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: home-assistant.just-a-lab.duckdns.org
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name:  persistence.config.enabled
+          value: "true"
+      #- op: add
+      #  path: /spec/sources/1/helm/parameters/-
+      #  value:
+      #    name:  persistence.config.type
+      #    value: "PersistentVolumeClaim"          
+      # - op: add
+      #   path: /spec/sources/1/helm/parameters/-
+      #   value:
+      #     name:  persistence.config.size
+      #     value: "10Gi"           
+    target:
+      group: argoproj.io
+      kind: Application
+      name: home-assistant
+      version: v1alpha1
+
+  - path: ../../kustomization-common/deployment-patch-privileged-ns.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: (metallb|project-contour|proxmox-csi|zigbee2mqtt|esphome|home-assistant)
+      version: v1alpha1
+
+
+resources:
+- ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
+- ../../../src/applications/cert-wildcard/deploy/argocd
+#- ../../../src/applications/local-path-provisioner/deploy/argocd
+- ../../../src/applications/metallb/deploy/argocd
+- ../../../src/applications/proxmox-csi-plugin/deploy/argocd
+# - ../../../src/applications/podinfo/deploy/argocd
+- ../../../src/bundles/05-bootstrapping-ingress
+- ../../../src/bundles/smart-home

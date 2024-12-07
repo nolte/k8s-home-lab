@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager-webhook-duckdns-workflows
+  name: cert-manager-webhook-duckdns
 spec:
   destination:
     name: in-cluster
-    namespace: argocd
+    namespace: cert-manager
   project: default
   # hack for ignore changed duration format from 43800h to 43800h0m0s
   ignoreDifferences:
@@ -14,32 +14,15 @@ spec:
       jsonPointers:
         - /spec/duration
   sources:
-    - path: src/applications/cert-manager-webhook-duckdns/workflows
-      repoURL: https://github.com/nolte/k8s-home-lab.git
-      targetRevision: master
-    - chart: cert-manager-webhook-duckdns
-      repoURL: https://ebrianne.github.io/helm-charts
-      targetRevision: 1.2.4
+    - path: deploy/cert-manager-webhook-duckdns
+      repoURL: https://github.com/ebrianne/cert-manager-webhook-duckdns.git
+      targetRevision: "v1.2.3"
       helm:
         releaseName: cert-manager-webhook-duckdns
-        parameters:
-          - name: fullnameOverride
-            value: "cert-manager-webhook-duckdns"
-          # - name: certmanagerwebhookduckdns.clusterIssuer.email
-          #   value: "{{inputs.parameters.issuerEmail}}"
-          - name: clusterIssuer.production.create
-            value: "false"
-          - name: clusterIssuer.staging.create
-            value: "false"
-          - name: secret.existingSecret
-            value: "true"
-          - name: secret.existingSecretName
-            value: "duckdns-token"
-          #- name: externalsecrets.enabled
-          #  value: "false"
-        values: |
+        valuesObject:
           fullnameOverride: cert-manager-webhook-duckdns
           clusterIssuer:
+            email: no-replay@local
             staging:
               create: true
             production:
@@ -47,13 +30,13 @@ spec:
           secret:
             existingSecret: true
             existingSecretName: duckdns-token
+
     - chart: external-secrets-manifests
       repoURL: https://nolte.github.io/helm-charts-repo/
       targetRevision: 1.1.0
       helm:
         releaseName: external-secrets-manifests
         values: |
-          enabled: true
           secretstore:
             create: true
             serviceAccount:

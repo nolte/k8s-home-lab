@@ -1,0 +1,42 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: production-public-ips
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.178.165-192.168.178.170
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2advertisement1
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - production-public-ips
+status: {}
+# ---
+
+# apiVersion: metallb.io/v1beta2
+# kind: BGPPeer
+# metadata:
+#   name: sample
+#   namespace: metallb-system
+# spec:
+#   myASN: 64500
+#   peerASN: 64501
+#   peerAddress: 192.168.178.1
+# ---
+# apiVersion: metallb.io/v1beta1
+# kind: BGPAdvertisement
+# metadata:
+#   name: example
+#   namespace: metallb-system
+# spec:
+#   ipAddressPools:
+#   - first-pool  
+
+# #    - peer-address: 192.168.1.1
+# #      peer-asn: 64512
+# #      my-asn: 64512

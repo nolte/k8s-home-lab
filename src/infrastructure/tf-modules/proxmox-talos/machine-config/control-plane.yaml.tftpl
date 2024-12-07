@@ -1,0 +1,32 @@
+# tofu/talos/machine-config/control-plane.yaml.tftpl
+machine:
+  features:
+    kubePrism:
+      enabled: false
+      port: 7445
+  install:
+    disk: ${install_disk}
+  network:
+    hostname: ${hostname}
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.178.1    
+  nodeLabels:
+    topology.kubernetes.io/region: ${cluster_name}
+    topology.kubernetes.io/zone: ${node_name}
+
+cluster:
+  allowSchedulingOnControlPlanes: true
+  inlineManifests:
+  - name: argocd-ns
+    contents: |
+      ---
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: argocd
+
+  - name: argocd-bootstrap
+    contents: |
+      ${indent(6, argocd_install)}

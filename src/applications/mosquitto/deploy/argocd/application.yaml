@@ -27,6 +27,8 @@ spec:
         service:
           main:
             controller: main
+            annotations:
+              metallb.universe.tf/address-pool: production-public-ips
             ports:
               http:
                 port: 1883

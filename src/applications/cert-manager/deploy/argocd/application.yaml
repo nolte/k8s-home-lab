@@ -9,27 +9,41 @@ spec:
     name: in-cluster
     namespace: cert-manager
   project: default
-  source:
-    helm:
-      parameters:
-        - name: installCRDs
-          value: 'true'
-      releaseName: cert-manager
-      values: |
-        extraArgs:
-          - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
-        ingressShim:
-          defaultIssuerName: selfsigned-cluster-issuer
-          defaultIssuerKind: ClusterIssuer
-          defaultIssuerGroup: cert-manager.io
-        prometheus:
-          enabled: true
-          servicemonitor:
+  sources:
+    - helm:
+        releaseName: argo-workflow-mixin
+        parameters: []
+        valueFiles: []
+        valuesObject:
+          serviceAccount:
+            annotations: {}
+            create: true
+      path: charts/stable/argo-workflow-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main  
+    - helm:
+        parameters:
+          - name: installCRDs
+            value: 'true'
+        releaseName: cert-manager
+        values: |
+          extraArgs:
+            # Needed for bug: https://github.com/cert-manager/cert-manager/issues/5515#issuecomment-1479054700
+            - --enable-certificate-owner-ref=true
+            - --dns01-recursive-nameservers-only
+            - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
+          ingressShim:
+            defaultIssuerName: selfsigned-cluster-issuer
+            defaultIssuerKind: ClusterIssuer
+            defaultIssuerGroup: cert-manager.io
+          prometheus:
             enabled: true
-    #path: src/applications/cert-manager/deploy/chart
-    #repoURL: https://github.com/nolte/k8s-home-lab.git
-    #targetRevision: master
-    chart: cert-manager
-    repoURL: 'https://charts.jetstack.io'
-    # https://artifacthub.io/packages/helm/cert-manager/cert-manager
-    targetRevision: v1.16.1
+            servicemonitor:
+              enabled: true
+      #path: src/applications/cert-manager/deploy/chart
+      #repoURL: https://github.com/nolte/k8s-home-lab.git
+      #targetRevision: master
+      chart: cert-manager
+      repoURL: 'https://charts.jetstack.io'
+      # https://artifacthub.io/packages/helm/cert-manager/cert-manager
+      targetRevision: v1.16.1

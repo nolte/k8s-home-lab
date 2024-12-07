@@ -57,7 +57,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2024.10.4
+                    tag: 2024.11.3
                   probes:
                     liveness:
                       enabled: true
@@ -111,11 +111,13 @@ spec:
           config:
             enabled: true
             #type: emptyDir
-            type: hostPath
+            #type: hostPath
+            accessMode: "ReadWriteOnce"
+            size: 20Gi
             globalMounts:
               - path: /config
                 readOnly: false
-            hostPath: /var/mnt/storage/home-assistant
+            # hostPath: /var/mnt/storage/home-assistant
         # persistence:
         #   # Configure the main configuration storage location
         #   config:
