@@ -18,9 +18,9 @@ K8S clusters will be configured for different use cases such as [SmartHome](./do
 
 ### Developer Cluster
 
-A combination of services like Secret Management, Git and Container Registry. This combination can be used for some Infrastructure as Code (IaC) base management process.
+A combination of services like Secret Management, Git and Container Registry. This setup can be used to manage some basic infrastructure using Infrastructure as Code (IaC) tools.
 
-*(more information at [src/clusters/dev-kind-powerdns](src/clusters/dev-kind-powerdns/README.md))*.
+*(more information at [src/clusters/dev-kind-powerdns](src/clusters/dev-kind-powerdns/README.md))*.   
 
 ### Smart Home 
 
