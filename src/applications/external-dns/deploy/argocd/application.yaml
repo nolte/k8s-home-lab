@@ -31,7 +31,7 @@ spec:
   - # https://artifacthub.io/packages/helm/bitnami/external-dns
     chart: external-dns
     repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 8.3.10
+    targetRevision: 8.7.0
     helm:
       releaseName: external-dns
       values: |
