@@ -10,7 +10,7 @@ spec:
   source:
     chart: camel-k
     repoURL: https://apache.github.io/camel-k/charts
-    targetRevision: 2.4.0
+    targetRevision: 2.5.0
 
 
     #path: helm/camel-k/
