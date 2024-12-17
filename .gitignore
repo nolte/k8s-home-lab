@@ -15,11 +15,11 @@ src/clusters/dev-kind-monitoring-light
 hack/packer/output-*
 hack/packer/builds/*.box
 
-*.gen.tf
-.terraform
-*.tfvars.json
-.terragrunt-cache
-*.tfstate
-.vscode
-
 .task
+.terraform
+.terragrunt-cache
+.vscode
+*.gen.tf
+*.tfstate
+*.tfstate.backup
+*.tfvars.json

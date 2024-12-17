@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podinfo
+spec:
+  destination:
+    name: in-cluster
+    namespace: podinfo
+  project: default
+  sources:
+  - 
+    repoURL: https://stefanprodan.github.io/podinfo
+    targetRevision: 6.7.1     
+    chart: podinfo
+    helm:
+      releaseName: podinfo
+      # https://github.com/stefanprodan/podinfo/blob/master/charts/podinfo/values.yaml
+      values: |
+        ingress:
+          enabled: true
+          className: ""
+          hosts:
+            - host: podinfo.just-a-lab.duckdns.org
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+  
+      #   # tbd
+      #   operator:
+      #     replicas: 1
+      #   ingressController:
+      #     enabled: true
+      #     default: true
+      #     service:
+      #       type: NodePort
+      #   securityContext:
+      #     privileged: true
+      #   nodePort:
+      #     enabled: true

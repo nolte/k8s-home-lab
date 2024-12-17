@@ -3,6 +3,9 @@ theme:
   name: 'material'
   features:
     - content.code.copy
+    - navigation.indexes 
+    
+  section_page_name: index    
 #docs_dir: .
 repo_name: 'nolte/k8s-home-lab'
 repo_url: 'https://github.com/nolte/k8s-home-lab'

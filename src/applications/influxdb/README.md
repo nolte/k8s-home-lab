@@ -33,3 +33,19 @@ export INFLUXDB_PASSWORD=$(kubectl -n influxdb get secrets influxdb2-auth -ojson
 kubectl -n influxdb port-forward svc/influxdb2 8086:80
 ```
 <!--port-forward-end-->
+
+```sh
+export INFLUX_TOKEN=H46fEdLWVX13aZN2cAJixhMShegyjoX8zs3Y1KNXtFDl_rQ2RsI6C8rz1-kb0bJnOwkdBVUHhKCwyc9HLN7fUw==
+export INFLUX_ORG_ID=smart-home
+export INFLUX_BUCKET=home-assistant
+
+curl --request POST \
+  "http://localhost:8086/api/v2/buckets" \
+  --header "Authorization: Token ${INFLUX_TOKEN}" \
+  --header "Content-type: application/json" \
+  --data '{
+    "orgID": "'"${INFLUX_ORG_ID}"'",
+    "name": "'"${INFLUX_BUCKET}"'"
+  }'
+
+```

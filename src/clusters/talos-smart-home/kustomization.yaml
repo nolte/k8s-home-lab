@@ -145,7 +145,6 @@ patches:
     version: v1alpha1
 
 
-
       # - op: replace
       #   path: /spec/sources/1/helm/parameters
       #   value: []

@@ -89,7 +89,7 @@ spec:
                 image:
                   repository: esphome/esphome
                   # https://hub.docker.com/r/esphome/esphome/tags
-                  tag: "2024.6.6"
+                  tag: "2024.11"
         service:
           main:
             controller: main
