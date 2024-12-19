@@ -57,7 +57,7 @@ spec:
                     value: "true"
                 image:
                   repository: registry.k8s.io/git-sync/git-sync
-                  tag: "v4.2.3"
+                  tag: "v4.4.0"
                   pullPolicy: IfNotPresent
 
             containers:
@@ -74,7 +74,7 @@ spec:
                     value: "repo"
                 image:
                   repository: registry.k8s.io/git-sync/git-sync
-                  tag: "v4.2.3"
+                  tag: "v4.4.0"
                   pullPolicy: IfNotPresent
                 # volumeMounts:
                 # - mountPath: /config
@@ -90,7 +90,7 @@ spec:
                 # https://hub.docker.com/r/esphome/esphome/tags
                 image:
                   repository: docker.io/esphome/esphome
-                  tag: 2024.11.3
+                  tag: 2024.12.1
         service:
           main:
             controller: main
