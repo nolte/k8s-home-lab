@@ -9,10 +9,8 @@ spec:
   project: default
   source:
     helm:
-      parameters: []
-      valueFiles: []
       releaseName: metallb
-      values: |-
+      valuesObject:
         speaker:
           # required for services on controllplane
           ignoreExcludeLB: true 
