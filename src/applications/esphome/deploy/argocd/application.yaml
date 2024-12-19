@@ -86,9 +86,10 @@ spec:
                 envFrom:
                   - secretRef:
                       name: esphome-config
+                
+                # https://hub.docker.com/r/esphome/esphome/tags
                 image:
-                  repository: esphome/esphome
-                  # https://hub.docker.com/r/esphome/esphome/tags
+                  repository: docker.io/esphome/esphome
                   tag: "2024.11"
         service:
           main:
