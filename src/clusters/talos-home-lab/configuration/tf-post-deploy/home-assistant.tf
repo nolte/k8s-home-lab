@@ -45,6 +45,6 @@ resource "kubernetes_secret" "home-assistant-creds" {
     FRITZBOX_PASSWORD             = data.pass_password.fritzbox_password.password
     TELEGRAM_API_KEY              = data.pass_password.telegram_api_key.password
     TELEGRAM_NOTIFICATION_CHAT_ID = data.pass_password.telegram_notification_chat_id.password
-    INFLUX_TOKEN                  = data.kubernetes_secret.influxdb.data["admin-token"]
+    INFLUX_TOKEN                  = "fX6WaQW3tfT8g7s5RcxOj7kzaZYqGCcaCDHNOdBPMVwhlnN2ypkNY4GQliDEKOZovisI9uKkiAPp4iFImMc9qA==" #data.kubernetes_secret.influxdb.data["admin-token"]
   }
 }

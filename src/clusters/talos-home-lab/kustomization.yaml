@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: argocd
 
 labels:
-- includeSelectors: true
-  pairs:
-    argocd.argoproj.io/instance: seed-job-talos
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job
 
 generatorOptions:
   disableNameSuffixHash: true
@@ -18,7 +18,7 @@ patches:
       kind: Application
       name: .*
       version: v1alpha1
-  
+
   - path: ../../kustomization-common/deployment-serverside-patch.yaml
     target:
       group: argoproj.io
@@ -54,7 +54,6 @@ patches:
       name: cert-wildcard
       version: v1alpha1
 
-
   - patch: |-
       - op: replace
         path: /spec/sources/0/helm/parameters
@@ -69,7 +68,6 @@ patches:
       kind: Application
       name: mosquitto
       version: v1alpha1
-
 
   - patch: |-
       - op: replace
@@ -112,6 +110,29 @@ patches:
         path: /spec/sources/0/helm/parameters/-
         value:
           name:  httpProxy.fqdn
+          value: pihole.just-a-lab.duckdns.org
+      - op: replace
+        path: /spec/sources/1/helm/valuesObject/persistentVolumeClaim/enabled
+        value: true
+    target:
+      group: argoproj.io
+      kind: Application
+      name: pihole
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
           value: home-assistant.just-a-lab.duckdns.org
       - op: add
         path: /spec/sources/1/helm/parameters/-
@@ -127,12 +148,44 @@ patches:
       #   path: /spec/sources/1/helm/parameters/-
       #   value:
       #     name:  persistence.config.size
-      #     value: "10Gi"           
+      #     value: "10Gi"
     target:
       group: argoproj.io
       kind: Application
       name: home-assistant
       version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/valuesObject/secrets
+        value: {}
+      - op: replace
+        path: /spec/sources/1/helm/valuesObject/provider
+        value: pihole
+      - op: replace
+        path: /spec/sources/1/helm/valuesObject/txtOwnerId
+        value: smart-home-02  
+      - op: replace
+        path: /spec/sources/1/helm/valuesObject/domainFilters
+        value: 
+          - just-a-lab.duckdns.org
+      - op: replace
+        path: /spec/sources/1/helm/valuesObject/pihole	
+        value: {}
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/pihole/server	
+        value: http://pihole-web.pihole.svc        
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/pihole/secretName	
+        value: pihole-config   
+
+
+    target:
+      group: argoproj.io
+      kind: Application
+      name: external-dns
+      version: v1alpha1
+#
 
   - path: ../../kustomization-common/deployment-patch-privileged-ns.yaml
     target:
@@ -142,12 +195,14 @@ patches:
       version: v1alpha1
 
 
+
 resources:
-- ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
-- ../../../src/applications/cert-wildcard/deploy/argocd
-#- ../../../src/applications/local-path-provisioner/deploy/argocd
-- ../../../src/applications/metallb/deploy/argocd
-- ../../../src/applications/proxmox-csi-plugin/deploy/argocd
-# - ../../../src/applications/podinfo/deploy/argocd
-- ../../../src/bundles/05-bootstrapping-ingress
-- ../../../src/bundles/smart-home
+  - ../../../src/applications/cert-manager-webhook-duckdns/deploy/argocd
+  - ../../../src/applications/cert-wildcard/deploy/argocd
+  - ../../../src/applications/metallb/deploy/argocd
+  - ../../../src/applications/external-dns/deploy/argocd
+  - ../../../src/applications/proxmox-csi-plugin/deploy/argocd
+  - ../../../src/bundles/05-bootstrapping-ingress
+  - ../../../src/bundles/smart-home
+  # - ../../../src/applications/podinfo/deploy/argocd
+  #- ../../../src/applications/local-path-provisioner/deploy/argocd
