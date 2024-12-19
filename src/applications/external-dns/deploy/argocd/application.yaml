@@ -10,41 +10,40 @@ spec:
     namespace: external-dns
   project: default
   sources:
-  - chart: external-secrets-manifests
-    repoURL: https://nolte.github.io/helm-charts-repo/
-    targetRevision: 1.1.0
-    helm:
-      releaseName: external-secrets-manifests
-      values: |
-        secretstore:
-          create: true
-          serviceAccount:
-            create: true
-        secrets:
-          pdns-access:
-            data:
-              - key: services/dns/users/root
-                name: pdns_api_key
-                property: token
+    - chart: external-secrets-manifests
+      repoURL: https://nolte.github.io/helm-charts-repo/
+      targetRevision: 1.1.0
+      helm:
+        releaseName: external-secrets-manifests
+        valuesObject:
+          secretstore:
+            create: false
+            serviceAccount:
+              create: false
+          secrets:
+            pdns-access:
+              data:
+                - key: services/dns/users/root
+                  name: pdns_api_key
+                  property: token
 
+    - # https://artifacthub.io/packages/helm/bitnami/external-dns
+      chart: external-dns
+      repoURL: registry-1.docker.io/bitnamicharts
+      targetRevision: 8.7.0
+      helm:
+        releaseName: external-dns
+        valuesObject:
+          pdns:
+            apiUrl: http://powerdns.powerdns.svc
+            secretName: pdns-access
 
-  - # https://artifacthub.io/packages/helm/bitnami/external-dns
-    chart: external-dns
-    repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 8.7.0
-    helm:
-      releaseName: external-dns
-      values: |
-        pdns:
-          apiUrl: http://powerdns.powerdns.svc
-          secretName: pdns-access
-
-        provider: pdns
-        txtOwnerId: "play-external-dns"
-        domainFilters:
-          - "dev44-just-homestyle.duckdns.org"
-          - "smart-home.k8sservices.local"
-        sources:
-          - contour-httpproxy
-          - ingress
-          - service
+          provider: pdns
+          txtOwnerId: "play-external-dns"
+          domainFilters:
+            - "dev44-just-homestyle.duckdns.org"
+            - "smart-home.k8sservices.local"
+          sources:
+            - contour-httpproxy
+            - ingress
+            - service

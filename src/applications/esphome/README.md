@@ -6,7 +6,7 @@ Manage different ESP based IoT Devices, mostly based at some NodeMCU or other Pr
 
 <!-- vale off -->
 <!--header-start-->
-**Deployment:** [esphome/esphome](https://hub.docker.com/r/esphome/esphome/tags) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*
+**Deployment:** [esphome/esphome](https://hub.docker.com/r/esphome/esphome/tags) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*   
 **Web**: [esphome.io](https://esphome.io/)  
 <!--header-end-->
 <!-- vale on -->
