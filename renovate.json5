@@ -9,4 +9,15 @@
       'src/applications/.*/deploy/argocd/application.*\\.yaml',
     ],
   },
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Yet another regex',
+      fileMatch: 'src/applications/.*/deploy/argocd/application.*\\.yaml',
+      matchStrings: [
+        'repository:\\s?"?(?<depName>[^\\s"]*)"?\\s*?tag:\\s?"?(?<currentValue>[^\\s"]*)"?',
+      ],
+      datasourceTemplate: 'docker',
+    },
+  ], 
 }

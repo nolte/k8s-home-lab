@@ -17,7 +17,7 @@ spec:
           value: "false"
         - name: httpProxy.fqdn
           value: esphome.smart-home.k8sservices.local
-      values: |-
+      valuesObject:
         httpProxy:
           create: false
           fqdn: argo.smart-home.k8sservices.local
@@ -36,7 +36,7 @@ spec:
     targetRevision: 3.5.1
     helm:
       releaseName: esphome
-      values: |
+      valuesObject:
         controllers:
           main:
             type: statefulset

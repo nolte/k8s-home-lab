@@ -16,7 +16,7 @@ spec:
     helm:
       releaseName: languagetool
       parameters: []
-      values: |
+      valuesObject:
         configMaps:
           config:
             enabled: true

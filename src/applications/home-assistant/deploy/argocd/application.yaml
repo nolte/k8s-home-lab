@@ -18,7 +18,7 @@ spec:
          value: "false"
        - name: httpProxy.fqdn
          value: home-assistant.smart-home.k8sservices.local
-     values: |-
+     valuesObject:
        httpProxy:
          create: false
          fqdn: home-assistant.smart-home.k8sservices.local
@@ -41,7 +41,7 @@ spec:
     helm:
       releaseName: home-assistant
       parameters: []
-      values: |
+      valuesObject:
         service:
           main:
             controller: main
