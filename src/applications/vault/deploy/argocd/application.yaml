@@ -12,12 +12,7 @@ spec:
   sources:
   - helm:
       releaseName: projectcontour-mixin
-      parameters: []
-      #  - name: httpProxy.create
-      #    value: "false"
-      #  - name: httpProxy.fqdn
-      #    value: vault.smart-home.k8sservices.local
-      values: |-
+      valuesObject:
         httpProxy:
           create: false
           fqdn: vault.smart-home.k8sservices.local
@@ -34,7 +29,7 @@ spec:
   - helm:
       releaseName: argo-workflow-mixin
       parameters: []
-      values: |-
+      valuesObject:
         cmTfStaticEndpoints:
           create: false
         role:
@@ -64,7 +59,7 @@ spec:
           value: "1"
         - name: vault.server.raft.enabled
           value: "true"
-      values: |-
+      valuesObject:
         server:
           ingress:
             annotations:
@@ -78,7 +73,7 @@ spec:
   - helm:
       releaseName: vault-config
       parameters: []
-      values: |-
+      valuesObject:
         postconfig:
           revision: master
     path: charts/stable/vault/

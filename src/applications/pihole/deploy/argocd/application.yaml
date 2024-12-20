@@ -37,6 +37,7 @@ spec:
         valuesObject:
           persistentVolumeClaim:
             enabled: false
+            size: "10Gi"
           serviceDhcp:
             type: LoadBalancer
             annotations:
