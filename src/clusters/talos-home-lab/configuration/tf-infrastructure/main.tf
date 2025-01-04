@@ -27,6 +27,15 @@ module "talos" {
       vm_id         = 800
       cpu           = 8
       ram_dedicated = 16384
+      storage_size  = 40
+      additionalNodeLabels = {
+        "zigbee.homelab.local/present": true
+      }
+      usb = [{
+        # SONOFF Zigbee 3.0 USB Dongle Plus V2
+        host = "1a86:55d4"
+        usb3 = false
+      }]
     }
     # "ctrl-01" = {
     #   host_node     = "euclid"

@@ -35,6 +35,7 @@ data "talos_machine_configuration" "this" {
     templatefile("${path.module}/machine-config/control-plane.yaml.tftpl", {
       hostname       = each.key
       node_name      = each.value.host_node
+      additionalNodeLabels = each.value.additionalNodeLabels
       cluster_name   = var.cluster.proxmox_cluster
       install_disk   = "/dev/vdb"
       argocd_install = data.helm_template.argocd.manifest

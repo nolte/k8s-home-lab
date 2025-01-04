@@ -35,8 +35,14 @@ variable "nodes" {
     vm_id         = number
     cpu           = number
     ram_dedicated = number
+    storage_size  = optional(number, 20)
     update        = optional(bool, false)
     igpu          = optional(bool, false)
+    additionalNodeLabels = optional(map(string), {})
+    usb = optional(list(object({
+      host = string
+      usb3 = optional(bool, false)
+    })),[])
   }))
 }
 

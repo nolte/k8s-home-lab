@@ -15,6 +15,7 @@ machine:
   nodeLabels:
     topology.kubernetes.io/region: ${cluster_name}
     topology.kubernetes.io/zone: ${node_name}
+    ${indent(2,yamlencode(additionalNodeLabels))}
 
 cluster:
   allowSchedulingOnControlPlanes: true

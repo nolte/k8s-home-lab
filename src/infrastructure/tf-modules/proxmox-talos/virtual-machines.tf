@@ -41,7 +41,7 @@ resource "proxmox_virtual_environment_vm" "this" {
     discard      = "on"
     ssd          = false
     file_format  = "raw"
-    size         = 20
+    size         = each.value.storage_size
     file_id      = proxmox_virtual_environment_download_file.this["${each.value.host_node}_${each.value.update == true ? local.update_image_id : local.image_id}"].id
   }
 
@@ -67,6 +67,14 @@ resource "proxmox_virtual_environment_vm" "this" {
     # }    
   }
 
+  dynamic "usb" {
+    for_each = each.value.usb 
+    content {
+      # Passthrough iGPU
+      host = usb.value.host
+      usb3 = usb.value.usb3
+    }
+  }
   dynamic "hostpci" {
     for_each = each.value.igpu ? [1] : []
     content {
