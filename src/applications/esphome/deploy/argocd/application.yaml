@@ -45,7 +45,7 @@ spec:
             initContainers:
               gitinit:
                 env:
-                  - name: "GITSYNC_BRANCH"
+                  - name: "GITSYNC_REF"
                     value: "master"
                   - name: "GITSYNC_REPO"
                     value: "https://github.com/nolte/esphome-configs.git"
@@ -64,7 +64,7 @@ spec:
               gitsync:
                 dependsOn: main
                 env:
-                  - name: "GITSYNC_BRANCH"
+                  - name: "GITSYNC_REF"
                     value: "master"
                   - name: "GITSYNC_REPO"
                     value: "https://github.com/nolte/esphome-configs.git"
@@ -110,7 +110,7 @@ spec:
               main: # the controller with the "main" identifier
                 main:
                   - path: /config
-                    subPath: repo
+                    subPath: repo/src
                 gitinit:
                   - path: /config
                 gitsync:
