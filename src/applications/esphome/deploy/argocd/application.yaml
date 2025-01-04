@@ -33,7 +33,7 @@ spec:
     targetRevision: main
   - chart: app-template
     repoURL: https://bjw-s.github.io/helm-charts
-    targetRevision: 3.5.1
+    targetRevision: 3.6.0
     helm:
       releaseName: esphome
       valuesObject:
