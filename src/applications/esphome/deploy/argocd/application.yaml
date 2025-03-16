@@ -33,7 +33,7 @@ spec:
     targetRevision: main
   - chart: app-template
     repoURL: https://bjw-s.github.io/helm-charts
-    targetRevision: 3.6.0
+    targetRevision: 3.7.3
     helm:
       releaseName: esphome
       valuesObject:
@@ -90,7 +90,7 @@ spec:
                 # https://hub.docker.com/r/esphome/esphome/tags
                 image:
                   repository: docker.io/esphome/esphome
-                  tag: 2024.12.2
+                  tag: 2025.2.2
         service:
           main:
             controller: main
