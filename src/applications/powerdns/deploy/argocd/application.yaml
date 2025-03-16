@@ -66,7 +66,7 @@ spec:
 
     - chart: app-template
       repoURL: https://bjw-s.github.io/helm-charts
-      targetRevision: 3.6.0
+      targetRevision: 3.7.3
       helm:
         releaseName: powerdns
         values: |
@@ -78,7 +78,7 @@ spec:
                   image:
                     # https://hub.docker.com/r/powerdns/pdns-recursor-50/tags
                     repository: powerdns/pdns-auth-48
-                    tag: "4.8.4"
+                    tag: "4.8.5"
 
                   env:
                     # -- Config dir
