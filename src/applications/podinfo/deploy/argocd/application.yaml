@@ -10,7 +10,7 @@ spec:
   sources:
   - 
     repoURL: https://stefanprodan.github.io/podinfo
-    targetRevision: 6.7.1     
+    targetRevision: 6.8.0     
     chart: podinfo
     helm:
       releaseName: podinfo

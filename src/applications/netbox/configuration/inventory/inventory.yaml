@@ -1,0 +1,11 @@
+plugin: netbox.netbox.nb_inventory
+
+
+group_by:
+  - device_roles
+  - tags
+  - platforms
+# query_filters:
+#   - role: network-edge-router
+device_query_filters:
+  - has_primary_ip: 'true'

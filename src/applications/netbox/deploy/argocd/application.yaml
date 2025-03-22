@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: netbox
+  # labels:
+  #   de.noltarium.workflows/enabled: "true"
+spec:
+  destination:
+    name: in-cluster
+    namespace: netbox
+  project: default
+  sources:
+
+    # - helm:
+    #     releaseName: netbox
+    #     parameters: []
+    #     valuesObject: 
+    #       ab: "test"
+          
+    #   chart: netbox
+    #   repoURL: ghcr.io/netbox-community/netbox-chart
+    #   targetRevision: 5.0.52 # 48
+
+    - helm:
+        releaseName: netbox-operator
+        parameters: []
+        valuesObject: 
+          resourcesPreset: "xlarge"
+          netbox:
+            enabled: true
+            nameOverride: app
+            image:
+              registry: docker.io
+              repository: nolte/netbox
+              pullPolicy: IfNotPresent
+              tag: "v4.2.5"  
+            plugins: 
+              - netbox_prometheus_sd
+            resources:
+              requests:
+                cpu: 2
+                memory: 512Mi
+              limits:
+                cpu: 3
+                memory: 1024Mi
+
+            startupProbe:
+              enabled: true
+              initialDelaySeconds: 10
+              periodSeconds: 40
+              timeoutSeconds: 1
+              failureThreshold: 20
+              successThreshold: 1            
+      # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox-operator/values.yaml
+      chart: netbox-operator
+      repoURL: ghcr.io/netbox-community/netbox-chart
+      # latest version with https://github.com/netbox-community/netbox-chart/issues/581 problems
+      targetRevision: 0.3.16 #0.3.11
+
+   

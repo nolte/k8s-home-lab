@@ -100,7 +100,7 @@ spec:
                 adminGroup: /platform-super-users/gitea-admin-users
       chart: gitea
       repoURL: https://dl.gitea.io/charts/
-      targetRevision: 10.6.0
+      targetRevision: 11.0.0
 
     - helm:
         releaseName: external-secrets-manifests
