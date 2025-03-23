@@ -44,6 +44,9 @@ spec:
               reloader.stakater.com/auto: "true"
             initContainers:
               gitinit:
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  runAsUser: 0                
                 env:
                   - name: "GITSYNC_REF"
                     value: "master"
@@ -63,6 +66,11 @@ spec:
             containers:
               gitsync:
                 dependsOn: main
+                
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  runAsUser: 0                
+                
                 env:
                   - name: "GITSYNC_REF"
                     value: "master"
