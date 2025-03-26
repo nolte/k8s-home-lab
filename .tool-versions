@@ -4,6 +4,6 @@ helm-ct 3.4.0
 krew 0.4.3
 python 3.13.2
 task 3.33.0
-terraform 1.11.2
-terragrunt 0.75.10
+terraform 1.11.3
+terragrunt 0.76.8
 vault 1.19.0
