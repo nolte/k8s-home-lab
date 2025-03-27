@@ -55,6 +55,6 @@ spec:
       chart: netbox-operator
       repoURL: ghcr.io/netbox-community/netbox-chart
       # latest version with https://github.com/netbox-community/netbox-chart/issues/581 problems
-      targetRevision: 0.3.16 #0.3.11
+      targetRevision: 0.3.20 #0.3.11
 
    
