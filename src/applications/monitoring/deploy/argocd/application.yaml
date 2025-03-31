@@ -16,7 +16,17 @@ spec:
     helm:
       # skipCrds: true
        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
-      values: |
+      valuesObject:
+        # prometheus:
+        #   prometheusSpec:
+        #     additionalScrapeConfigs:
+        #       - job_name: "http_sd_ips"
+        #         http_sd_configs:
+        #           - url: http://netbox-operator-app.netbox.svc:80/api/plugins/prometheus-sd/ip-addresses?status=active
+        #             refresh_interval: 15s
+        #             authorization:
+        #               type: "Token"
+        #               credentials: "0123456789012345678901234567890123456789"
         grafana:
           enabled: false
           dashboards:
