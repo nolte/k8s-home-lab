@@ -1,0 +1,79 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grocy
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io  
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"
+spec:
+  destination:
+    name: in-cluster
+    namespace: grocy
+  project: default
+  sources:
+  - path: charts/stable/projectcontour-mixin/
+    repoURL: https://github.com/nolte/helm-charts-repo.git
+    targetRevision: main
+    helm:
+     releaseName: projectcontour-mixin
+     parameters:
+       - name: httpProxy.create
+         value: "false"
+       - name: httpProxy.fqdn
+         value: grocy.smart-home.k8sservices.local
+     valuesObject:
+       httpProxy:
+         create: false
+         fqdn: grocy.smart-home.k8sservices.local
+         tls:
+           secretName: cert-manager/wildcard-duckdns-org-tls
+         routes:
+           - services:
+             - name: grocy
+               port: 80
+
+  - chart: app-template
+    repoURL: https://bjw-s.github.io/helm-charts
+    targetRevision: 3.6.0
+    helm:
+      releaseName: grocy
+      valuesObject:
+        service:
+          main:
+            controller: main
+            ports:
+              http:
+                port: 80      
+        controllers:
+          main:
+            type: statefulset
+            annotations:
+              reloader.stakater.com/auto: "true"
+            containers:
+              main:
+                ports:
+                - containerPort: 80                
+                
+                env:
+                  - name: "TZ"
+                    value: "Europe/Berlin"
+                  - name: "GROCY_CURRENCY"
+                    value: "EUR"                               
+                    
+                # https://hub.docker.com/r/esphome/esphome/tags
+                image:
+                  repository: ghcr.io/linuxserver/grocy
+                  tag: "latest"
+                  pullPolicy: IfNotPresent
+        persistence:  
+          config:
+            enabled: true
+            type: persistentVolumeClaim
+            accessMode: ReadWriteOnce
+            size: 2Gi
+            advancedMounts:
+              main: # the controller with the "main" identifier
+                main:
+                  - path: /config
