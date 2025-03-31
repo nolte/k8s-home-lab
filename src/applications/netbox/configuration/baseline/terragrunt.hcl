@@ -3,8 +3,6 @@ include {
   path = "../../../../terraground-common/terraground.hcl"
 }
 
-
-
 inputs = {
   
   gitea_fqdn = "gitea.dev44-just-homestyle.duckdns.org"
@@ -18,14 +16,12 @@ locals {
 }
 
 
-
-
 generate "provider" {
   path      = "provider.gen.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
 provider "netbox" {
-  request_timeout = 30
+  request_timeout = 60
   skip_version_check = true
 }
 EOF

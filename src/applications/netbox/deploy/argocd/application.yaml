@@ -10,17 +10,6 @@ spec:
     namespace: netbox
   project: default
   sources:
-
-    # - helm:
-    #     releaseName: netbox
-    #     parameters: []
-    #     valuesObject: 
-    #       ab: "test"
-          
-    #   chart: netbox
-    #   repoURL: ghcr.io/netbox-community/netbox-chart
-    #   targetRevision: 5.0.52 # 48
-
     - helm:
         releaseName: netbox-operator
         parameters: []
@@ -29,6 +18,20 @@ spec:
           netbox:
             enabled: true
             nameOverride: app
+            auth:
+              existingSecret: "netbox-operator-app-superuser"            
+            postgresql:
+              auth:
+                existingSecret: "netbox-operator-postgresql"
+
+              resources:
+                requests:
+                  cpu: "1"
+                  memory: 512Mi
+                limits:
+                  cpu: "2"
+                  memory: 1Gi
+
             image:
               registry: docker.io
               repository: nolte/netbox
@@ -39,10 +42,10 @@ spec:
             resources:
               requests:
                 cpu: 2
-                memory: 512Mi
+                memory: 2Gi
               limits:
-                cpu: 3
-                memory: 1024Mi
+                cpu: 4
+                memory: 4Gi
 
             startupProbe:
               enabled: true
@@ -54,7 +57,7 @@ spec:
       # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox-operator/values.yaml
       chart: netbox-operator
       repoURL: ghcr.io/netbox-community/netbox-chart
-      # latest version with https://github.com/netbox-community/netbox-chart/issues/581 problems
-      targetRevision: 0.3.16 #0.3.11
+      targetRevision: 0.3.21 
+      
 
    
