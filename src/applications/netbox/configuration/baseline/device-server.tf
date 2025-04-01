@@ -8,13 +8,13 @@ resource "netbox_manufacturer" "intel" {
 }
 
 resource "netbox_device_role" "homelab" {
-  name      = "homelab"
+  name        = "homelab"
   description = "HomeLab device"
-  color_hex = "00bcd4"
-  vm_role = false
+  color_hex   = "00bcd4"
   tags = [
     netbox_tag.homelab.name
   ]
+
 }
 
 

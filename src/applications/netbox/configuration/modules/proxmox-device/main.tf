@@ -6,10 +6,10 @@ resource "netbox_device" "this" {
   role_id        = var.role_id
   site_id        = var.site_id
   status         = var.status
-  cluster_id = var.cluster_id
-  description = var.description
-  tags        = var.tags
-  platform_id = var.platform_id
+  cluster_id     = var.cluster_id
+  description    = var.description
+  tags           = var.tags
+  platform_id    = var.platform_id
 }
 
 resource "netbox_device_interface" "this" {
@@ -23,7 +23,7 @@ resource "netbox_ip_address" "this" {
   status     = "active"
 
   device_interface_id = netbox_device_interface.this.id
- # dns_name = format("%s.fritz.box",var.name)
+  # dns_name = format("%s.fritz.box",var.name)
   custom_fields = {
     "netboxOperatorRestorationHash" : ""
   }
@@ -40,7 +40,7 @@ locals {
       ports       = [8006]
       description = "proxmox UI"
     }
-  
+
   }
 }
 resource "netbox_service" "this" {
@@ -50,4 +50,10 @@ resource "netbox_service" "this" {
   description = each.value.description
   protocol    = "tcp"
   device_id   = netbox_device.this.id
+}
+
+resource "netbox_device_power_port" "this" {
+  device_id = netbox_device.this.id
+  name      = "power port"
+  type      = var.netbox_device_power_port_type
 }

@@ -15,12 +15,12 @@ variable "site_id" {
 
 variable "name" {
   type = string
-  
+
 }
 
 variable "primary_ip" {
   type = string
-  
+
 }
 variable "tags" {
   type = list(string)
@@ -28,7 +28,7 @@ variable "tags" {
 
 
 variable "status" {
-  type = string
+  type    = string
   default = "active"
 }
 
@@ -37,16 +37,17 @@ variable "platform_id" {
 }
 
 variable "additional_services" {
-    type = map
-  
+  type = map(any)
+
 }
 
 variable "esphome_config" {
   default = null
-  
+
+}
+variable "netbox_device_power_port_type" {
+  default = "usb-c"
 }
 variable "esphome_repo" {
   default = "https://github.com/nolte/esphome-configs.git"
-
-  
 }

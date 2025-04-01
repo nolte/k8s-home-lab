@@ -45,40 +45,40 @@ locals {
       device_type_id = netbox_device_type.nous_power_switch.id
     }
     "cam-01" = {
-      primary_ip     = "192.168.178.39/32"
-      device_type_id = netbox_device_type.diy_espcam.id
+      primary_ip          = "192.168.178.39/32"
+      device_type_id      = netbox_device_type.diy_espcam.id
       additional_services = local.webcamservices
     }
     "cam-02" = {
-      primary_ip     = "192.168.178.40/32"
-      device_type_id = netbox_device_type.diy_espcam.id
+      primary_ip          = "192.168.178.40/32"
+      device_type_id      = netbox_device_type.diy_espcam.id
       additional_services = local.webcamservices
     }
     "cam-04" = {
-      primary_ip     = "192.168.178.67/32"
-      device_type_id = netbox_device_type.diy_espcam.id
+      primary_ip          = "192.168.178.67/32"
+      device_type_id      = netbox_device_type.diy_espcam.id
       additional_services = local.webcamservices
     }
     "cam-04" = {
-      primary_ip     = "192.168.178.67/32"
-      device_type_id = netbox_device_type.diy_espcam.id
+      primary_ip          = "192.168.178.67/32"
+      device_type_id      = netbox_device_type.diy_espcam.id
       additional_services = local.webcamservices
     }
     "box-fementation-01" = {
       primary_ip     = "192.168.178.109/32"
       device_type_id = netbox_device_type.diy_esp32.id
       #additional_services = local.webcamservices
-    }    
+    }
   }
 }
 
 locals {
-  webcamservices  = {
-        cam = {
-          ports        = [80]
-          description = ""
-        }
-      }
+  webcamservices = {
+    cam = {
+      ports       = [80]
+      description = ""
+    }
+  }
 }
 
 

@@ -19,7 +19,7 @@ resource "netbox_permission" "monitoring" {
     "ipam.ipaddress"
   ]
   actions = ["view"]
-  users   = [
+  users = [
     netbox_user.monitoring.id
   ]
   constraints = jsonencode([{

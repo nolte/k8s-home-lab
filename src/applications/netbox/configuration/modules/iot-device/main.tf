@@ -9,7 +9,7 @@ resource "netbox_device" "this" {
   local_context_data = jsonencode({
     "esphome" = {
       "repo" : var.esphome_repo
-      "config" : var.esphome_config == null ? format("%s.yaml",var.name) : var.esphome_config 
+      "config" : var.esphome_config == null ? format("%s.yaml", var.name) : var.esphome_config
     }
   })
   tags        = var.tags
@@ -27,7 +27,7 @@ resource "netbox_ip_address" "this" {
   status     = "active"
 
   device_interface_id = netbox_device_interface.this.id
-  dns_name = format("%s.fritz.box",var.name)
+  dns_name            = format("%s.fritz.box", var.name)
   custom_fields = {
     "netboxOperatorRestorationHash" : ""
   }
@@ -61,4 +61,11 @@ resource "netbox_service" "this" {
   description = each.value.description
   protocol    = "tcp"
   device_id   = netbox_device.this.id
+}
+
+
+resource "netbox_device_power_port" "this" {
+  device_id = netbox_device.this.id
+  name      = "power port"
+  type      = var.netbox_device_power_port_type
 }

@@ -2,7 +2,7 @@
 
 resource "netbox_tag" "smart_home" {
   name      = "smart-home"
-  slug = "smart_home"
+  slug      = "smart_home"
   color_hex = "ffeb3b"
 }
 
@@ -12,10 +12,9 @@ resource "netbox_tag" "gardening" {
 }
 
 resource "netbox_device_role" "iot" {
-  name      = "iot"
+  name        = "iot"
   description = "SmartHome iot device"
-  color_hex = "00bcd4"
-  vm_role = false
+  color_hex   = "00bcd4"
   tags = [
     netbox_tag.gardening.name,
     netbox_tag.smart_home.name

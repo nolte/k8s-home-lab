@@ -24,6 +24,18 @@ resource "netbox_prefix" "proxmox" {
 
 resource "netbox_tag" "ansible_managed" {
   name      = "ansible-managed"
-  slug = "ansible"
+  slug      = "ansible"
+  color_hex = "8bc34a"
+}
+
+resource "netbox_tag" "proxmox_main" {
+  name      = "proxmox-main"
+  slug      = "proxmox-main"
+  color_hex = "8bc34a"
+}
+
+resource "netbox_tag" "proxmox_node" {
+  name      = "proxmox-node"
+  slug      = "proxmox-node"
   color_hex = "8bc34a"
 }
