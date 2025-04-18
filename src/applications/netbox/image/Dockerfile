@@ -1,4 +1,4 @@
-FROM ghcr.io/netbox-community/netbox:v4.2.6
+FROM ghcr.io/netbox-community/netbox:v4.2.7
 
 RUN apt -y update && apt -y install git
 
