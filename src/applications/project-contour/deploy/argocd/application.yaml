@@ -11,7 +11,7 @@ spec:
     helm:
       releaseName: contour
       parameters: []
-      values: |
+      valuesObject: 
         envoy:
           service:
             type: LoadBalancer
@@ -22,6 +22,6 @@ spec:
         #  extraArgs:
         #    - --ingress-status-address=192.168.178.105
         #  manageCRDs: true
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 19.5.8
+    repoURL: registry-1.docker.io/bitnamicharts
+    targetRevision: 19.5.9
     chart: contour

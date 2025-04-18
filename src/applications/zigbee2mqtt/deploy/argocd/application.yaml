@@ -11,7 +11,8 @@ spec:
   - chart: zigbee2mqtt
     # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
     repoURL: tccr.io/truecharts
-    targetRevision: 14.2.2
+    #targetRevision: 14.2.2
+    targetRevision: 13.8.0
     helm:
       releaseName: zigbee2mqtt
       valuesObject:
@@ -140,6 +141,6 @@ spec:
                     ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: "zigbee2mqtt"
                     ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyACM0"
                     ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
-                    ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
+                    #ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
                     ZIGBEE2MQTT_CONFIG_GROUPS: /mnt/data/groups.yaml
                     ZIGBEE2MQTT_CONFIG_DEVICES: /mnt/data/devices.yaml
