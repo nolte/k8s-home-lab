@@ -5,5 +5,5 @@ krew 0.4.3
 python 3.13.3
 task 3.33.0
 terraform 1.11.4
-terragrunt 0.77.20
-vault 1.19.1
+terragrunt 0.77.22
+vault 1.19.2
