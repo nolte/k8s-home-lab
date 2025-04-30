@@ -11,6 +11,6 @@ spec:
   - chart: trino
     # https://artifacthub.io/packages/helm/bitnami/kubernetes-event-exporter
     repoURL:  https://trinodb.github.io/charts/
-    targetRevision: 1.38.0
+    targetRevision: 1.39.0
     helm:
       releaseName: trino
