@@ -10,7 +10,7 @@ spec:
   source:
     path: chart/kube-arangodb
     repoURL: https://github.com/arangodb/kube-arangodb.git
-    targetRevision: 1.2.47
+    targetRevision: 1.2.48
 
     helm:
       releaseName: arangodb
