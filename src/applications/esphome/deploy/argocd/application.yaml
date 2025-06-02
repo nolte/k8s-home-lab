@@ -32,7 +32,7 @@ spec:
     repoURL: https://github.com/nolte/helm-charts-repo.git
     targetRevision: main
   - chart: app-template
-    repoURL: https://bjw-s.github.io/helm-charts
+    repoURL: https://bjw-s-labs.github.io/helm-charts
     targetRevision: 3.7.3
     helm:
       releaseName: esphome
