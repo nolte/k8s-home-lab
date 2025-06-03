@@ -37,12 +37,12 @@ spec:
           global:
             security:
               allowInsecureImages: true
-          image:
-            registry: gcr.io
-            repository: k8s-staging-external-dns/external-dns
-            #tag: 0.16.1-debian-12-r5
-            digest: "sha256:6bc072a532e1e29c02b45298a4570b8af6a353e82373dacc4a9b8cf6855e0201"
-            # /@sha256:6bc072a532e1e29c02b45298a4570b8af6a353e82373dacc4a9b8cf6855e0201 
+          # image:
+          #   registry: gcr.io
+          #   repository: k8s-staging-external-dns/external-dns
+          #   #tag: 0.16.1-debian-12-r5
+          #   digest: "sha256:6bc072a532e1e29c02b45298a4570b8af6a353e82373dacc4a9b8cf6855e0201"
+          #   # /@sha256:6bc072a532e1e29c02b45298a4570b8af6a353e82373dacc4a9b8cf6855e0201 
           pdns:
             apiUrl: http://powerdns.powerdns.svc
             secretName: pdns-access

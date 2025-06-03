@@ -48,7 +48,7 @@ spec:
                 port: 80      
         controllers:
           main:
-            type: statefulset
+            type: deployment
             annotations:
               reloader.stakater.com/auto: "true"
             containers:
@@ -62,11 +62,11 @@ spec:
                   - name: "GROCY_CURRENCY"
                     value: "EUR"                               
                     
-                # https://hub.docker.com/r/esphome/esphome/tags
+                # https://docs.linuxserver.io/images/docker-grocy/
                 image:
                   repository: ghcr.io/linuxserver/grocy
                   tag: "latest"
-                  pullPolicy: IfNotPresent
+                  pullPolicy: Always
         persistence:  
           config:
             enabled: true

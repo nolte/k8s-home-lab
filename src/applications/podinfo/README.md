@@ -1,3 +1,3 @@
-# cilium (CNI)
+# Podinfo 
 
-[cilium](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)
+TBD

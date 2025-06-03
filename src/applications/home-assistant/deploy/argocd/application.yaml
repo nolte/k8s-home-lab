@@ -51,6 +51,7 @@ spec:
         controllers:
             main:
               containers:
+              
                 main:
                   envFrom:
                     - secret: home-assistant-creds
@@ -93,7 +94,7 @@ spec:
                         failureThreshold: 30
 
 
-              type: statefulset
+              type: deployment
               annotations:
                 reloader.stakater.com/auto: "true"
 

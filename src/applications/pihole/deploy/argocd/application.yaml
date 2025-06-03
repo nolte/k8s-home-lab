@@ -35,20 +35,25 @@ spec:
       helm:
         releaseName: pihole
         valuesObject:
+          image:
+            repository: "pihole/pihole"
+            tag: "2025.05.1"
+            pullPolicy: IfNotPresent   
           persistentVolumeClaim:
             enabled: false
             size: "10Gi"
           serviceDhcp:
             type: LoadBalancer
             annotations:
-              metallb.universe.tf/address-pool: production-public-ips
-              metallb.universe.tf/allow-shared-ip: pihole-svc
+              metallb.io/address-pool: production-public-ips
+              metallb.io/allow-shared-ip: pihole-svc
           serviceDns:
             mixedService: true
             type: LoadBalancer
+            externalTrafficPolicy: Cluster
             annotations:
-              metallb.universe.tf/address-pool: production-public-ips
-              metallb.universe.tf/allow-shared-ip: pihole-svc
+              metallb.io/address-pool: production-public-ips
+              metallb.io/allow-shared-ip: pihole-svc
           adlists:
             - https://adaway.org/hosts.txt
             - https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt

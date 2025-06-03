@@ -25,3 +25,13 @@ Self build Zigbee Gateway, for integrate without Vendor, like Ikea or Philips Hu
 kubectl -n zigbee2mqtt port-forward svc/zigbee2mqtt 10103
 ```
 <!--port-forward-end-->
+
+
+Look for USB Devices on host system, required for mount from host into vm/container. 
+
+```sh
+root@pve:~# lsusb
+...
+Bus 003 Device 003: ID 1a86:55d4 QinHeng Electronics SONOFF Zigbee 3.0 USB Dongle Plus V2
+...
+```

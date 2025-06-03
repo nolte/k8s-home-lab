@@ -1,0 +1,86 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flathunter
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io  
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"
+spec:
+  destination:
+    name: in-cluster
+    namespace: flathunter
+  project: default
+  sources:
+  - chart: app-template
+    repoURL: https://bjw-s-labs.github.io/helm-charts
+    targetRevision: 3.6.0
+    helm:
+      releaseName: flathunter
+      valuesObject:
+        configMaps:
+          settings:
+            enabled: true
+            data:
+              config.yaml: |
+                use_proxy_list: true
+        controllers:
+          main:
+            type: statefulset
+            annotations:
+              reloader.stakater.com/auto: "true"
+            containers:
+              main:
+                command: 
+                  - python
+                args:
+                  - flathunt.py
+                  # - --config 
+                  # - /settings/config.yaml
+                env:
+                  - name: "TZ"
+                    value: "Europe/Berlin"
+                  - name: FLATHUNTER_TARGET_URLS
+                    value: https://www.immowelt.de/classified-search?distributionTypes=Rent&estateTypes=House,Apartment&locations=AD08DE1113&numberOfRoomsMax=3.5&numberOfRoomsMin=2&priceMax=1200&projectTypes=New_Build,Stock&order=DateDesc;https://www.immowelt.de/classified-search?distributionTypes=Rent&estateTypes=House,Apartment&locations=eyJwbGFjZUlkIjoiQUQwOERFMTA1OCIsInJhZGl1cyI6MywicG9seWxpbmUiOiJ5Z3RmSWt2bH1AZEJsdkBySGp0QHBOYnBAfFNiakBwWGhiQGJcXGZZcl5iT3hfQGxEel9Ab0RyXmVPYFxcaVlwWGliQHxTYWpAcE5jcEBwSGl0QGZCa3ZAZ0JtdkBxSGl0QHFOY3BAfVNhakBxWGliQGFcXGlZc15lT3tfQG9EeV9AbERzXmJPY1xcZllxWGpiQH1TYGpAcU5icEBzSGp0QGVCbnZAIn0&numberOfRoomsMax=3.5&numberOfRoomsMin=2&priceMax=1200&projectTypes=New_Build,Stock&order=DateDesc
+                    # https://www.immowelt.de/classified-search?distributionTypes=Rent&estateTypes=House,Apartment&featuresIncluded=Kitchen_Fully_Equipped&locations=AD08DE1113&numberOfRoomsMax=3.5&numberOfRoomsMin=2&priceMax=1200&projectTypes=New_Build,Stock&order=DateDesc
+
+                    # https://www.immowelt.de/classified-search?distributionTypes=Rent&estateTypes=House,Apartment&featuresIncluded=Kitchen_Fully_Equipped&locations=AD08DE1113&numberOfRoomsMax=3.5&numberOfRoomsMin=2.5&priceMax=1200&projectTypes=New_Build,Stock&order=DateDesc
+                    #https://www.immowelt.de/classified-search?distributionTypes=Rent&estateTypes=House,Apartment&featuresIncluded=Kitchen_Fully_Equipped&locations=AD08DE1113&numberOfRoomsMax=3.5&numberOfRoomsMin=2.5&priceMax=1200&projectTypes=New_Build,Stock&order=DateDesc
+                    #https://www.immonet.de/classified-search?certificateOfEligibilityNeeded=No&distributionTypes=Rent&estateTypes=Apartment&featuresIncluded=Kitchen_Fully_Equipped&locations=AD08DE1113&numberOfRoomsMax=3.5&numberOfRoomsMin=2.5&priceMax=1200&projectTypes=New_Build,Stock
+                          # https://www.immonet.de/assified-search?certificateOfEligibilityNeeded=No&distributionTypes=Rent&estateTypes=House,Apartment&featuresIncluded=Kitchen_Fully_Equipped&furnished=No,Not_Applicable&locations=AD08DE1113&numberOfRoomsMax=4&numberOfRoomsMin=2.5&priceMax=1200&projectTypes=New_Build,Stock;
+                    #alue: https://www.immobilienscout24.de/Suche/radius/wohnung-mit-einbaukueche-mieten?centerofsearchaddress=Hamburg;22041;;;;;&haspromotion=false&numberofrooms=2.5-4.0&price=-1200.0&exclusioncriteria=swapflat&pricetype=rentpermonth&geocoordinates=53.57577;10.07858;5.0&sorting=2
+                  - name: FLATHUNTER_LOOP_PERIOD_SECONDS
+                    value:  "1200"
+                  - name: FLATHUNTER_NOTIFIERS
+                    value: telegram
+                  - name: FLATHUNTER_DATABASE_LOCATION
+                    value: /db/
+                  - name: FLATHUNTER_HEADLESS_BROWSER
+                    value: "true"
+                  - name: FLATHUNTER_VERBOSE_LOG
+                    value: "true"                    
+                                        
+                envFrom:
+                  - secretRef:
+                      name: flathunter-secrets
+                
+                # https://hub.docker.com/r/esphome/esphome/tags
+                image:
+                  repository: docker.io/nolte/flathunter
+                  tag: "latest"
+                  pullPolicy: IfNotPresent
+        persistence:
+          settings:
+            enabled: true
+            type: configMap
+            name: flathunter-settings    
+          config:
+            enabled: true
+            type: persistentVolumeClaim
+            accessMode: ReadWriteOnce
+            size: 2Gi
+            advancedMounts:
+              main: # the controller with the "main" identifier
+                main:
+                  - path: /db

@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openproject
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: in-cluster
+    namespace: openproject
+  project: default
+  sources:
+    - helm:
+        releaseName: openproject
+        valuesObject:
+          develop: true
+          environment: 
+            OPENPROJECT_HOST__NAME: localhost:8080
+          persistence:
+            enabled: true
+            accessModes:
+              - "ReadWriteOnce"
+      chart: openproject
+      repoURL: https://charts.openproject.org
+      targetRevision: 9.3.0

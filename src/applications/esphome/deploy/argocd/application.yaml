@@ -39,7 +39,7 @@ spec:
       valuesObject:
         controllers:
           main:
-            type: statefulset
+            type: deployment
             annotations:
               reloader.stakater.com/auto: "true"
             initContainers:
