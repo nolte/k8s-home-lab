@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: privatellm
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io  
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "-33"
+spec:
+  destination:
+    name: in-cluster
+    namespace: privatellm
+  project: default
+  sources:  
+  # https://github.com/truecharts/public/blob/master/charts/stable/anything-llm/values.yaml
+  - chart: anything-llm
+    repoURL: tccr.io/truecharts
+    targetRevision: 3.5.36
+    helm:
+      releaseName: anything-llm
+      valuesObject:
+        workload:
+          main:
+            podSpec:
+              containers:
+                main:
+                  env:      
+                    DISABLE_TELEMETRY: "true"
+
+  # https://amikos-tech.github.io/chromadb-chart/
+  - chart: chromadb
+    repoURL: https://amikos-tech.github.io/chromadb-chart/
+    targetRevision: 0.1.24
+    helm:
+      releaseName: chromadb
+      valuesObject:
+        chromadb:
+          allowReset: "true"
+
+  # https://github.com/otwld/ollama-helm/blob/main/values.yaml
+  - chart: ollama
+    repoURL: https://otwld.github.io/ollama-helm/
+    targetRevision: 1.19.0
+    helm:
+      releaseName: ollama
+      valuesObject:
+        ollama:
+          models:
+            pull:
+              - llama2
+              - deepseek-r1
+            run:
+              - llama2
+              - deepseek-r1
+        persistentVolume:
+          # -- Enable persistence using PVC
+          enabled: true
