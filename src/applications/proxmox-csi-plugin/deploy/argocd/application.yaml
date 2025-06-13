@@ -10,7 +10,7 @@ spec:
   source:
     chart: proxmox-csi-plugin
     repoURL: ghcr.io/sergelogvinov/charts
-    targetRevision: 0.3.7
+    targetRevision: 0.3.10
 
     helm:
       releaseName: proxmox-csi-plugin

@@ -37,7 +37,7 @@ spec:
 
   - chart: app-template
     repoURL: https://bjw-s-labs.github.io/helm-charts
-    targetRevision: 4.0.1
+    targetRevision: 4.1.1
     helm:
       releaseName: home-assistant
       parameters: []
@@ -58,7 +58,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2025.5.3
+                    tag: 2025.6.0
                   probes:
                     liveness:
                       enabled: true
