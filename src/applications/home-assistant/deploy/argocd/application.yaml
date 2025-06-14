@@ -58,7 +58,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2025.6.0
+                    tag: 2025.6.1
                   probes:
                     liveness:
                       enabled: true
