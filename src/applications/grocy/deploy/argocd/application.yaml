@@ -36,7 +36,7 @@ spec:
 
   - chart: app-template
     repoURL: https://bjw-s-labs.github.io/helm-charts
-    targetRevision: 4.1.1
+    targetRevision: 4.1.2
     helm:
       releaseName: grocy
       valuesObject:
