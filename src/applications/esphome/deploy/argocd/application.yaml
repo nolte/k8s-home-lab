@@ -33,7 +33,7 @@ spec:
     targetRevision: main
   - chart: app-template
     repoURL: https://bjw-s-labs.github.io/helm-charts
-    targetRevision: 4.1.1
+    targetRevision: 4.1.2
     helm:
       releaseName: esphome
       valuesObject:
@@ -60,7 +60,7 @@ spec:
                     value: "true"
                 image:
                   repository: registry.k8s.io/git-sync/git-sync
-                  tag: "v4.4.1"
+                  tag: "v4.4.2"
                   pullPolicy: IfNotPresent
 
             containers:
@@ -82,7 +82,7 @@ spec:
                     value: "repo"
                 image:
                   repository: registry.k8s.io/git-sync/git-sync
-                  tag: "v4.4.1"
+                  tag: "v4.4.2"
                   pullPolicy: IfNotPresent
                 # volumeMounts:
                 # - mountPath: /config
@@ -98,7 +98,7 @@ spec:
                 # https://hub.docker.com/r/esphome/esphome/tags
                 image:
                   repository: docker.io/esphome/esphome
-                  tag: 2025.5.2
+                  tag: 2025.7.2
         service:
           main:
             controller: main
