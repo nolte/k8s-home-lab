@@ -1,9 +1,9 @@
-act 0.2.79
+act 0.2.80
 helm 3.18.4
 helm-ct 3.4.0
 krew 0.4.3
 python 3.13.5
 task 3.33.0
 terraform 1.12.2
-terragrunt 0.83.2
-vault 1.20.1
+terragrunt 0.84.1
+vault 1.20.2
