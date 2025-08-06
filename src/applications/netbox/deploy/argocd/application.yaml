@@ -57,7 +57,7 @@ spec:
       # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox-operator/values.yaml
       chart: netbox-operator
       repoURL: ghcr.io/netbox-community/netbox-chart
-      targetRevision: 1.0.58 
+      targetRevision: 1.0.62 
       
 
    
