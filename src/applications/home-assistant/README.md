@@ -38,6 +38,14 @@ kubectl -n home-assistant create secret generic home-assistant-creds \
 ```
 <!--secret-home-assistant-creds-end-->
 
+<!--secret-wyomingspeech-creds-start-->
+```sh
+kubectl -n home-assistant create secret generic wyomingspeech-creds \
+    --from-literal=HA_WS='ws://192.168.178.130:8123/api/websocket' \
+    --from-literal=HA_TOKEN=$(pass network/homeassistant/api/token)
+```
+<!--secret-wyomingspeech-creds-end-->
+
 ## Vault
 
 Copy Required Secrets into the Vault Secret managed.

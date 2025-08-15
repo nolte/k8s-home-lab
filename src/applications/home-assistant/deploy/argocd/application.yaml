@@ -8,53 +8,158 @@ spec:
     namespace: home-assistant
   project: default
   sources:
-  - path: charts/stable/projectcontour-mixin/
-    repoURL: https://github.com/nolte/helm-charts-repo.git
-    targetRevision: main
-    helm:
-     releaseName: projectcontour-mixin
-     parameters:
-       - name: httpProxy.create
-         value: "false"
-       - name: httpProxy.fqdn
-         value: home-assistant.smart-home.k8sservices.local
-     valuesObject:
-       httpProxy:
-         create: false
-         fqdn: home-assistant.smart-home.k8sservices.local
-         tls:
-           secretName: cert-manager/wildcard-duckdns-org-tls
-         routes:
-           - services:
-             - name: home-assistant
-               port: 8123
-           - conditions:
-             - prefix: /api
-             enableWebsockets: true # Setting this to true enables websocket for all paths that match /websocket
-             services:
-             - name: home-assistant
-               port: 8123
+    - path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+      helm:
+        releaseName: projectcontour-mixin
+        parameters:
+          - name: httpProxy.create
+            value: "false"
+          - name: httpProxy.fqdn
+            value: home-assistant.smart-home.k8sservices.local
+        valuesObject:
+          httpProxy:
+            create: false
+            fqdn: home-assistant.smart-home.k8sservices.local
+            tls:
+              secretName: cert-manager/wildcard-duckdns-org-tls
+            routes:
+              - services:
+                  - name: home-assistant
+                    port: 8123
+              - conditions:
+                  - prefix: /api
+                enableWebsockets: true # Setting this to true enables websocket for all paths that match /websocket
+                services:
+                  - name: home-assistant
+                    port: 8123
 
-  - chart: app-template
-    repoURL: https://bjw-s-labs.github.io/helm-charts
-    targetRevision: 4.1.2
-    helm:
-      releaseName: home-assistant
-      parameters: []
-      valuesObject:
-        service:
-          main:
-            controller: main
-            ports:
-              http:
-                port: 8123
-        controllers:
+    - chart: app-template
+      repoURL: https://bjw-s-labs.github.io/helm-charts
+      targetRevision: 4.1.2
+      helm:
+        releaseName: home-assistant
+        parameters: []
+        valuesObject:
+          service:
+            main:
+              controller: main
+              ports:
+                http:
+                  port: 8123
+            piper:
+              controller: piper
+              ports:
+                http:
+                  port: 5000
+                tcp:
+                  port: 10200
+                 
+            wyomingspeech:
+              controller: wyomingspeech
+              ports:
+                http:
+                  port: 10300                  
+          controllers:
+            piper:
+              containers:
+                main: 
+                  probes:
+                    liveness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Readiness probe configuration
+                    readiness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Startup probe configuration
+                    startup:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        timeoutSeconds: 1
+                        ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+                        periodSeconds: 5
+                        failureThreshold: 30                
+                  image:
+                    # https://github.com/home-assistant/addons/blob/master/piper/Dockerfile
+                    repository: rhasspy/wyoming-piper
+                    tag: latest
+                  #command: ["/bin/bash"]
+                  args:  
+                  - "--voice" 
+                  - "en_US-lessac-medium"
+            wyomingspeech:
+              containers:
+                main: 
+                  envFrom:
+                    - secret: wyomingspeech-creds
+                  probes:
+                    liveness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Readiness probe configuration
+                    readiness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Startup probe configuration
+                    startup:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        timeoutSeconds: 1
+                        ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+                        periodSeconds: 5
+                        failureThreshold: 30                
+                  image:
+                    # https://github.com/home-assistant/core/releases
+                    # https://github.com/OHF-Voice/speech-to-phrase
+                    # https://github.com/rhasspy/wyoming-addons/blob/master/speech-to-phrase/Dockerfile
+                    repository: rhasspy/wyoming-speech-to-phrase
+                    tag: latest
+                  command: ["/bin/bash"]
+                  args: 
+                  - "-c"
+                  - "cd /usr/src; exec .venv/bin/python3 -m speech_to_phrase --uri 'tcp://0.0.0.0:10300' --models-dir /models --train-dir /train --tools-dir ./tools --hass-websocket-uri $HA_WS --hass-token $HA_TOKEN --retrain-on-start;"
             main:
               containers:
-              
                 main:
                   envFrom:
                     - secret: home-assistant-creds
+
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
@@ -93,7 +198,6 @@ spec:
                         periodSeconds: 5
                         failureThreshold: 30
 
-
               type: deployment
               annotations:
                 reloader.stakater.com/auto: "true"
@@ -105,24 +209,53 @@ spec:
             #   limits:
             #     memory: 4417M
 
-        defaultPodOptions:
-          hostNetwork: true
+          defaultPodOptions:
+            hostNetwork: true
 
-        persistence:
-          config:
-            enabled: true
-            #type: emptyDir
-            #type: hostPath
-            accessMode: "ReadWriteOnce"
-            size: 20Gi
-            globalMounts:
-              - path: /config
-                readOnly: false
-            # hostPath: /var/mnt/storage/home-assistant
-        # persistence:
-        #   # Configure the main configuration storage location
-        #   config:
-        #     enabled: true
-        #     existingClaim: home-assistant-config
-        #     globalMounts:
-        #       - path: /config
+          persistence:
+            piper:
+              enabled: true
+              accessMode: "ReadWriteOnce"
+              size: 10Gi
+              advancedMounts:
+                piper:
+                  main:
+                    - path: /data
+                      readOnly: false
+            train:
+              enabled: true
+              accessMode: "ReadWriteOnce"
+              size: 10Gi
+              advancedMounts:
+                wyomingspeech:
+                  main:
+                    - path: /train
+                      readOnly: false
+            models:
+              enabled: true
+              accessMode: "ReadWriteOnce"
+              size: 10Gi
+              advancedMounts:
+                wyomingspeech:
+                  main:
+                    - path: /models
+                      readOnly: false
+            config:
+              enabled: true
+              #type: emptyDir
+              #type: hostPath
+              accessMode: "ReadWriteOnce"
+              size: 20Gi
+              advancedMounts:
+                main:
+                  main:
+                  - path: /config
+                    readOnly: false
+              # hostPath: /var/mnt/storage/home-assistant
+          # persistence:
+          #   # Configure the main configuration storage location
+          #   config:
+          #     enabled: true
+          #     existingClaim: home-assistant-config
+          #     globalMounts:
+          #       - path: /config
