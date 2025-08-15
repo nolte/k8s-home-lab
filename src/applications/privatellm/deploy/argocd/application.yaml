@@ -16,7 +16,7 @@ spec:
   # https://github.com/truecharts/public/blob/master/charts/stable/anything-llm/values.yaml
   - chart: anything-llm
     repoURL: tccr.io/truecharts
-    targetRevision: 4.1.1
+    targetRevision: 4.3.0
     helm:
       releaseName: anything-llm
       valuesObject:
@@ -41,7 +41,7 @@ spec:
   # https://github.com/otwld/ollama-helm/blob/main/values.yaml
   - chart: ollama
     repoURL: https://otwld.github.io/ollama-helm/
-    targetRevision: 1.24.0
+    targetRevision: 1.26.0
     helm:
       releaseName: ollama
       valuesObject:

@@ -31,13 +31,13 @@ spec:
       targetRevision: main
     - chart: pihole
       repoURL: https://mojo2600.github.io/pihole-kubernetes/
-      targetRevision: 2.31.0
+      targetRevision: 2.34.0
       helm:
         releaseName: pihole
         valuesObject:
           image:
             repository: "pihole/pihole"
-            tag: "2025.07.1"
+            tag: "2025.08.0"
             pullPolicy: IfNotPresent   
           persistentVolumeClaim:
             enabled: false
