@@ -1,0 +1,17 @@
+metadata:
+  name: testvmi-containerdisk
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+spec:
+  domain:
+    resources:
+      requests:
+        memory: 64M
+    devices:
+      disks:
+      - name: containerdisk
+        disk: {}
+  volumes:
+    - name: containerdisk
+      containerDisk:
+        image: vmidisks/fedora25:latest

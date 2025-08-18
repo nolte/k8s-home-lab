@@ -3,7 +3,7 @@ version: '3'
 
 
 vars:
-  TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/develop/src"
+  TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/fix/base-deployment/src"
 
 includes:
   kind: 
@@ -15,6 +15,8 @@ includes:
     taskfile: "{{.TASK_COLLECTION_BASE}}/taskfile-include-k8s.yaml"
     vars:
       ARGOCD_EXTRA_ARGS: "-f {{.GIT_ROOT}}/src/applications/argo-cd/deploy/chart-values/values-argocd.yaml"
+      KUBECTL_TIMEOUT: "240s"
+
 
 tasks:
 
@@ -71,16 +73,19 @@ tasks:
     desc: bootstrap services
     cmds:
     - |
-      kubectl wait pod --for=condition=ready --timeout=60s -n argocd -l app.kubernetes.io/instance=argocd
-    - |
       kind export kubeconfig
+    - sleep 1
+    - |
+      kubectl wait pod --for=condition=ready --timeout=120s -n argocd -l app.kubernetes.io/instance=argocd,app.kubernetes.io/component=repo-server
+    - |
       kubectl apply -f src/seed/app-seed-bootstrapping.yaml -n argocd
     - |
       kubectl config set-context --current --namespace=argocd
+      argocd --core app wait argocd/seed-job
       argocd --core app sync argocd/seed-job
       argocd --core app wait argocd/seed-job
  
-    silent: true
+    #silent: true
 
   recreate:
     desc: recreate
@@ -90,9 +95,10 @@ tasks:
     - sleep 45
     - task: bootstrap
     - |
+      argocd --core app wait argocd/argocd
       argocd --core app sync argocd/argocd
       argocd --core app wait argocd/argocd    
-    silent: true
+   # silent: true
 
   maxfs:
     desc: set max file handles

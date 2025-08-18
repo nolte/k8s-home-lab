@@ -6,7 +6,7 @@ module "talos" {
   }
 
   image = {
-    version   = "v1.9.0-beta.0"
+    version   = "v1.9.5" # "1.9.5"
     schematic = file("${path.module}/talos/image/schematic.yaml")
   }
 
@@ -14,7 +14,7 @@ module "talos" {
     name            = "smart-home-02"
     endpoint        = "192.168.178.130"
     gateway         = "192.168.178.1"
-    talos_version   = "v1.9.0-beta.0"
+    talos_version   = "v1.9.5"
     proxmox_cluster = "pve"
   }
 

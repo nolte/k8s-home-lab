@@ -1,5 +1,10 @@
 # Talos Homelab
 
+<!--cluster-description-start-->
+
+<!--cluster-description-end-->
+
+
 ## Precondition
 
 * Preconfigured Proxmox Infrastructure

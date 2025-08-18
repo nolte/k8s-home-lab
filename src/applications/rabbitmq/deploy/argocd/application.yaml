@@ -11,5 +11,5 @@ spec:
     chart: rabbitmq
     helm:
       releaseName: rabbitmq
-    repoURL: https://charts.bitnami.com/bitnamichartslegacy
+    repoURL: registry-1.docker.io/bitnamichartslegacy
     targetRevision: 16.0.13

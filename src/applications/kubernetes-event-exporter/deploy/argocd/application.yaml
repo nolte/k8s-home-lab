@@ -10,7 +10,7 @@ spec:
   sources:
   - chart: kubernetes-event-exporter
     # https://artifacthub.io/packages/helm/bitnami/kubernetes-event-exporter
-    repoURL: https://charts.bitnami.com/bitnamichartslegacy
+    repoURL: registry-1.docker.io/bitnamichartslegacy
     targetRevision: 3.6.2
     helm:
       releaseName: kubernetes-event-exporter

@@ -178,14 +178,37 @@ patches:
       - op: add
         path: /spec/sources/1/helm/valuesObject/pihole/secretName	
         value: pihole-config   
-
-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/extraArgs	
+        value: 
+          pihole-api-version: 6
     target:
       group: argoproj.io
       kind: Application
       name: external-dns
       version: v1alpha1
-#
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: grocy.just-a-lab.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: grocy
+      version: v1alpha1
+
+
 
   - path: ../../kustomization-common/deployment-patch-privileged-ns.yaml
     target:
@@ -202,6 +225,8 @@ resources:
   - ../../../src/applications/metallb/deploy/argocd
   - ../../../src/applications/external-dns/deploy/argocd
   - ../../../src/applications/proxmox-csi-plugin/deploy/argocd
+  - ../../../src/applications/flathunter/deploy/argocd  
+  - ../../../src/applications/grocy/deploy/argocd
   - ../../../src/bundles/05-bootstrapping-ingress
   - ../../../src/bundles/smart-home
   # - ../../../src/applications/podinfo/deploy/argocd

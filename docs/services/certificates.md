@@ -58,12 +58,13 @@ DuckDNS certmanager  [ebrianne/cert-manager-webhook-duckdns](https://github.com/
       -n argocd @latest
     ```
 
-3. Generieren eines Zentralen Wildcard Zertifikates
+3. Generieren eines Zentralen Wildcard Zertifikates, siehe Helm Chart, [cert-wildcard](https://github.com/nolte/helm-charts-repo/tree/main/charts/stable/cert-wildcard)
 
     ```sh
     argo submit \
       -n argocd \
       --from workflowtemplate/app-cert-wildcard \
+      -p cert-wildcard-dns-name=just-a-lab.duckdns.org \
       -p helm-values-filename=values-contour-tls-delegate.yaml
     ```
 

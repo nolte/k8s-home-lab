@@ -10,6 +10,21 @@ data "proxmox_virtual_environment_user" "cicd" {
   user_id = local.user_id
 }
 
+data "proxmox_virtual_environment_nodes" "available_nodes" {}
+
+module "baseline_node" {
+  for_each = toset(data.proxmox_virtual_environment_nodes.available_nodes.names)
+  source = "../../tf-modules/proxmox-node"
+  node_name = each.key 
+}
+
+resource "netbox_ip_address" "router" {
+  ip_address                   = "192.168.178.1/32"
+  status                       = "active"
+  description = "fritzbox"
+}
+
+
 # 
 
 # data "proxmox_virtual_environment_role" "admin" {

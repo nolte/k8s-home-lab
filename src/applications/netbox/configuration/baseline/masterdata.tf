@@ -1,5 +1,12 @@
 
 
+
+
+
+resource "netbox_cluster_type" "talos" {
+  name = "talos"
+}
+
 resource "netbox_site" "prem" {
   name = "flat"
 }
@@ -16,15 +23,28 @@ resource "netbox_prefix" "fritz_box_managed" {
   description = "Fritz box Managed Area"
 }
 
+resource "netbox_ipam_role" "homelab_proxmox" {
+  name = "homelab-proxmox"
+}
+
 resource "netbox_prefix" "proxmox" {
   prefix      = "192.168.178.160/28"
   status      = "active"
   description = "Proxmox vms"
+  role_id = netbox_ipam_role. homelab_proxmox.id
 }
 
+
+# homelab-proxmox
 resource "netbox_tag" "ansible_managed" {
   name      = "ansible-managed"
   slug      = "ansible"
+  color_hex = "8bc34a"
+}
+
+resource "netbox_tag" "proxmox" {
+  name      = "proxmox"
+  slug      = "proxmox"
   color_hex = "8bc34a"
 }
 

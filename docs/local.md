@@ -19,7 +19,7 @@ After this, you will be get a preconfigured ArgoCD and ArgoWorkflow deployment, 
 
     | **Task Goal**                        | **Description**                                                                                                 |
     |--------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-    | `platform:serviceset-minnimal`       | Create a minimal pre-configured cluster, with Monitoring Components an some other tools.                        |
+    | `platform:serviceset-minimal`       | Create a minimal pre-configured cluster, with Monitoring Components an some other tools.                        |
     | `platform:serviceset-devops-station` | Create a full configured Developer Platform with Secret Management, Container Registry and many other Services. |
     | `platform:serviceset-smart-home`     | Install Smart Home Components like Eventbus, Homeassistant, ESPHome, and other Stuff.                           |
 

@@ -10,7 +10,7 @@ locals {
       tags = [
         netbox_tag.ansible_managed.name,
         netbox_tag.proxmox_main.name,
-        netbox_tag.proxmox_node.name,
+        netbox_tag.proxmox.name,
       ]
     }
     "PC-192-168-178-23" = {
@@ -21,6 +21,7 @@ locals {
       tags = [
         netbox_tag.ansible_managed.name,
         netbox_tag.proxmox_node.name,
+        netbox_tag.proxmox.name,
       ]
     }
   }

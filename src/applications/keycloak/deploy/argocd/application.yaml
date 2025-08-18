@@ -97,7 +97,7 @@ spec:
             adminUser: admin
         # parameters: []
       chart: keycloak
-      repoURL: https://charts.bitnami.com/bitnamichartslegacy
+      repoURL: registry-1.docker.io/bitnamichartslegacy
       targetRevision: 25.0.2
     - helm:
         releaseName: external-secrets-manifests

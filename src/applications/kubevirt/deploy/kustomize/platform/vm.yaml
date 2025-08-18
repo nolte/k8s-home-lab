@@ -1,0 +1,37 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  labels:
+    kubevirt.io/vm: vm-alpine-datavolume
+  name: testvm
+spec:
+  runStrategy: Halted
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: vm-alpine-datavolume
+    spec:
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: datavolumedisk1
+        resources:
+          requests:
+            memory: 64M
+      volumes:
+      - dataVolume:
+          name: alpine-dv
+        name: datavolumedisk1
+  dataVolumeTemplates:
+  - metadata:
+      name: alpine-dv
+    spec:
+      storage:
+        resources:
+          requests:
+            storage: 2Gi
+      source:
+        http:
+          url: http://cdi-http-import-server.kubevirt/images/alpine.iso
