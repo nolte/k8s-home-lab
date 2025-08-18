@@ -9,6 +9,16 @@ Used as basement for a cloudless Smart Home Eco system.
 **Web**: [home-assistant.io](https://www.home-assistant.io/)  
 <!--header-end-->
 
+<!--description-voice-assistant-start-->
+For Local Voice Assistant Support we use the HA Integration [wyoming](https://www.home-assistant.io/integrations/wyoming/) and [ESP32-S3-BOX](https://www.home-assistant.io/voice_control/s3_box_voice_assistant/)
+<!--description-voice-assistant-end-->
+
+<!--header-voice-assistant-start-->
+**Deployment:** [rhasspy/wyoming-speech-to-phrase](https://github.com/OHF-Voice/speech-to-phrase)  
+**Deployment:** [rhasspy/wyoming-piper](https://github.com/rhasspy/wyoming-piper) ([Dockerfile](https://github.com/home-assistant/addons/blob/master/piper/Dockerfile))
+<!--header-voice-assistant-end-->
+
+
 ## Classic Secret
 
 <!--secret-git-creds-start-->

@@ -6,13 +6,30 @@
    end="<!--description-end-->"
 %}
 
----
 
 {%
    include-markdown "../../src/applications/home-assistant/README.md"
    start="<!--header-start-->"
    end="<!--header-end-->"
 %}
+
+
+---
+
+
+
+{%
+   include-markdown "../../src/applications/home-assistant/README.md"
+   start="<!--description-voice-assistant-start-->"
+   end="<!--description-voice-assistant-end-->"
+%}
+
+{%
+   include-markdown "../../src/applications/home-assistant/README.md"
+   start="<!--header-voice-assistant-start-->"
+   end="<!--header-voice-assistant-end-->"
+%}
+
 
 ---
 
@@ -50,6 +67,13 @@ Set Git Key for Clone Conf repo.
             start="<!--secret-home-assistant-creds-start-->"
             end="<!--secret-home-assistant-creds-end-->"
         %}
+
+        {%
+            include-markdown "../../src/applications/home-assistant/README.md"
+            start="<!--secret-wyomingspeech-creds-start-->"
+            end="<!--secret-wyomingspeech-creds-end-->"
+        %}
+
 
     ??? example "Vault Access"
 
