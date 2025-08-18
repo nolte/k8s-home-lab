@@ -36,4 +36,4 @@ spec:
               any: true
     chart: forecastle
     repoURL: https://stakater.github.io/stakater-charts
-    targetRevision: v1.0.158
+    targetRevision: v1.0.159
