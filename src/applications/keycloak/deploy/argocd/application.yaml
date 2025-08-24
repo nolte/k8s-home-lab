@@ -98,7 +98,7 @@ spec:
         # parameters: []
       chart: keycloak
       repoURL: registry-1.docker.io/bitnamichartslegacy
-      targetRevision: 25.0.2
+      targetRevision: 25.1.2
     - helm:
         releaseName: external-secrets-manifests
         values: |-

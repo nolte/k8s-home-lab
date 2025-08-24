@@ -23,5 +23,5 @@ spec:
         #    - --ingress-status-address=192.168.178.105
         #  manageCRDs: true
     repoURL: registry-1.docker.io/bitnamichartslegacy
-    targetRevision: 21.1.2
+    targetRevision: 21.1.4
     chart: contour
