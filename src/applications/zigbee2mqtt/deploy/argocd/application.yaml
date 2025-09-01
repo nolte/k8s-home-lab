@@ -8,138 +8,179 @@ spec:
     namespace: zigbee2mqtt
   project: default
   sources:
-  - chart: zigbee2mqtt
-    # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
-    repoURL: tccr.io/truecharts
-    targetRevision: 15.4.2
-    helm:
-      releaseName: zigbee2mqtt
-      valuesObject:
-        global:
-          fallbackDefaults:
-            # -- Default PVC Size
-            pvcSize: 5Gi
-            # -- Default VCT Size
-            vctSize: 5Gi
+    - chart: zigbee2mqtt
+      # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
+      repoURL: tccr.io/truecharts
+      targetRevision: 15.4.2
+      helm:
+        releaseName: zigbee2mqtt
+        valuesObject:
+          global:
+            fallbackDefaults:
+              # -- Default PVC Size
+              pvcSize: 5Gi
+              # -- Default VCT Size
+              vctSize: 5Gi
 
+          persistence:
+            shared:
+              enabled: true
+              type: emptyDir
+              mountPath: /shared
+              targetSelectAll: true
+            configmap-vol:
+              size: 5Gi
+              enabled: true
+              type: configmap
+              objectName: zigbee2mqtt-extra-config
+              expandObjectName: false
+              mountPath: /mnt/data
+              items:
+                - key: devices.yaml
+                  path: devices.yaml
+                - key: groups.yaml
+                  path: groups.yaml
 
-        persistence:
-          configmap-vol:
-            size: 5Gi
-            enabled: true
-            type: configmap
-            objectName: zigbee2mqtt-extra-config
-            expandObjectName: false
-            mountPath: /mnt/data
-            items:
-              - key: devices.yaml
-                path: devices.yaml
-              - key: groups.yaml
-                path: groups.yaml
+          configmap:
+            extra-config:
+              enabled: true
+              namespace: zigbee2mqtt
+              annotations:
+                reloader.stakater.com/auto: "true"
+              data:
+                devices.yaml: |
+                  '0x8cf681fffe28e088':
+                    friendly_name: 'workroom_blind_01'
+                  '0x04cd15fffe382c92':
+                    friendly_name: 'workroom_blind_02'
+                  '0x18fc2600000120ab':
+                    friendly_name: 'bedroom_window_contact_01'
+                  '0x18fc260000079e3e':
+                    friendly_name: 'window_contact_02'
+                  '0x18fc260000067d50':
+                    friendly_name: 'window_contact_03'
+                  '0x18fc260000076b59':
+                    friendly_name: 'window_contact_04'
+                  '0x18fc26000005ef3c':
+                    friendly_name: 'window_contact_05'                  
+                  '0x040d84fffe8d433e':
+                    # ikea 4 button
+                    friendly_name: 'remote_01'
+                  '0x8cf681fffe338337':
+                    friendly_name: 'remote_02'
+                  '0x8cf681fffe36d4fc':
+                    friendly_name: 'remote_03'
+                  '0x0017880106367978':
+                    friendly_name: 'remote_04'
+                  '0x00178801086a34a7':
+                    friendly_name: 'remote_05'
+                  '0x00124b002934f92c':
+                    friendly_name: 'snzb_02_01'
+                  '0x00124b00292c174d':
+                    friendly_name: 'snzb_02_02'
+                  '0x00124b00292c19a9':
+                    friendly_name: 'snzb_02_03'
+                  '0x00124b00292c4376':
+                    friendly_name: 'snzb_02_04'
+                  '0x842712fffe19f074':
+                    friendly_name: 'snzb_06p_01'
+                  '0x00124b00291d91fe':
+                    friendly_name: 'snzb_03_01'
+                  '0x00124b002fa167ca':
+                    friendly_name: 'snzb_03_02'
+                  '0x00158d000ab750e6':
+                    friendly_name: 'djt11lm_01'
+                  '0x00158d000ad8555a':
+                    friendly_name: 'sjcgq11lm_02'
+                  '0x00158d000ad88d45':
+                    friendly_name: 'sjcgq11lm_01' 
+                  '0x00158d000ad894ef':
+                    friendly_name: 'sjcgq11lm_03'
+                  '0x00158d000ad8935b':
+                    friendly_name: 'sjcgq11lm_04'
+                  '0x00158d000ad894bc':
+                    friendly_name: 'sjcgq11lm_05'
+                  '0x00158d000ad88d94':
+                    friendly_name: 'sjcgq11lm_06'
+                  '0x00158d000af40f51':
+                    friendly_name: 'sjcgq11lm_07'                  
+                  '0x00158d000af411ab':
+                    friendly_name: 'sjcgq11lm_08'
+                  '0x00158d000af414eb':
+                    friendly_name: 'sjcgq11lm_09'
+                  '0x00158d000af0ae1c':
+                    friendly_name: 'sjcgq11lm_10'
+                  '0x00158d000af3fad3':
+                    friendly_name: 'sjcgq11lm_11'
+                  '0xa4c138b4fd2b25a4':
+                    friendly_name: 'ts0601_soil_3_01'
+                  '0xa4c138e0a56ee76f':
+                    friendly_name: 'ts0601_soil_3_02'
+                  '0xa4c13854eaf30df1':
+                    friendly_name: 'ts0601_soil_3_03'
+                  '0xa4c1387b3c982531':
+                    friendly_name: 'ts0601_soil_3_04'
+                  '0xa4c138d8282e89f5':
+                    friendly_name: 'ts0601_soil_3_05'
+                  '0xa4c138958dd0d386':
+                    friendly_name: 'ts0601_soil_3_06'
+                  '0xa4c13875d9763e7c':
+                    friendly_name: 'ts0601_soil_3_07'
+                  '0xa4c1388e4b932883':
+                    friendly_name: 'ts0601_soil_3_08'
+                  '0xa4c138e912919b7d':
+                    friendly_name: 'ts0601_soil_3_09'
+                  '0xa4c13888578cd558':
+                    friendly_name: 'ts0601_soil_3_10'
+                  '0xa4c1380dfd79f7e3':
+                    friendly_name: 'ts0601_soil_3_11'
+                  '0xb40e060fffe0e3c2':
+                    friendly_name: 'pump'
 
-        configmap:
-          extra-config:
-            enabled: true
-            namespace: zigbee2mqtt
-            annotations:
-              reloader.stakater.com/auto: "true"
-            data:
-              devices.yaml: |
-                '0x8cf681fffe28e088':
-                  friendly_name: 'workroom_blind_01'
-                '0x04cd15fffe382c92':
-                  friendly_name: 'workroom_blind_02'
-                '0x18fc2600000120ab':
-                  friendly_name: 'bedroom_window_contact_01'
-                '0x18fc260000079e3e':
-                  friendly_name: 'window_contact_02'
-                '0x18fc260000067d50':
-                  friendly_name: 'window_contact_03'
-                '0x18fc260000076b59':
-                  friendly_name: 'window_contact_04'
-                '0x18fc26000005ef3c':
-                  friendly_name: 'window_contact_05'                  
-                '0x040d84fffe8d433e':
-                  # ikea 4 button
-                  friendly_name: 'remote_01'
-                '0x8cf681fffe338337':
-                  friendly_name: 'remote_02'
-                '0x8cf681fffe36d4fc':
-                  friendly_name: 'remote_03'
-                '0x0017880106367978':
-                  friendly_name: 'remote_04'
-                '0x00178801086a34a7':
-                  friendly_name: 'remote_05'
-                '0x00124b002934f92c':
-                  friendly_name: 'snzb_02_01'
-                '0x00124b00292c174d':
-                  friendly_name: 'snzb_02_02'
-                '0x00124b00292c19a9':
-                  friendly_name: 'snzb_02_03'
-                '0x00124b00292c4376':
-                  friendly_name: 'snzb_02_04'
-                '0x842712fffe19f074':
-                  friendly_name: 'snzb_06p_01'
-                '0x00124b00291d91fe':
-                  friendly_name: 'snzb_03_01'
-                '0x00124b002fa167ca':
-                  friendly_name: 'snzb_03_02'
-                '0x00158d000ab750e6':
-                  friendly_name: 'djt11lm_01'
-                '0x00158d000ad8555a':
-                  friendly_name: 'sjcgq11lm_02'
-                '0x00158d000ad88d45':
-                  friendly_name: 'sjcgq11lm_01' 
-                '0x00158d000ad894ef':
-                  friendly_name: 'sjcgq11lm_03'
-                '0x00158d000ad8935b':
-                  friendly_name: 'sjcgq11lm_04'
-                '0x00158d000ad894bc':
-                  friendly_name: 'sjcgq11lm_05'
-                '0x00158d000ad88d94':
-                  friendly_name: 'sjcgq11lm_06'
-                '0x00158d000af40f51':
-                  friendly_name: 'sjcgq11lm_07'                  
-                '0x00158d000af411ab':
-                  friendly_name: 'sjcgq11lm_08'
-                '0x00158d000af414eb':
-                  friendly_name: 'sjcgq11lm_09'
-                '0x00158d000af0ae1c':
-                  friendly_name: 'sjcgq11lm_10'
-                '0x00158d000af3fad3':
-                  friendly_name: 'sjcgq11lm_11'                 
-              groups.yaml: |
-                '1':
-                  friendly_name: 'blind_workroom'
-                  devices:
-                    - '0x8cf681fffe28e088'
-                    - '0x04cd15fffe382c92'
-        deviceList:
-          - name: zigbee
-            enabled: true
-            type: device
-            hostPath: /dev/ttyACM0 # /dev/ttyUSB0
-            # readOnly: true
-        securityContext:
-          container:
-            privileged: true
-        workload:
-          main:
-            podSpec:
-              containers:
-                main:
-                  env:
-                    ZIGBEE2MQTT_DATA: "/data"
-                    ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: "{{ .Values.service.main.ports.main.port }}"
-                    # User defined
-                    USE_CUSTOM_CONFIG_FILE: false
-                    # This values are required for the autogenerated file to work.
-                    ZIGBEE2MQTT_CONFIG_EXPIRIMENTAL_NEW_API: true
-                    ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: true
-                    ZIGBEE2MQTT_CONFIG_MQTT_SERVER: "mqtt://192.168.178.165:1883"
-                    ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: "zigbee2mqtt"
-                    ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyACM0"
-                    ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
-                    #ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
-                    ZIGBEE2MQTT_CONFIG_GROUPS: /mnt/data/groups.yaml
-                    ZIGBEE2MQTT_CONFIG_DEVICES: /mnt/data/devices.yaml
+                groups.yaml: |
+                  '1':
+                    friendly_name: 'blind_workroom'
+                    devices:
+                      - '0x8cf681fffe28e088'
+                      - '0x04cd15fffe382c92'
+          deviceList:
+            - name: zigbee
+              enabled: true
+              type: device
+              hostPath: /dev/ttyACM0 # /dev/ttyUSB0
+              # readOnly: true
+          securityContext:
+            container:
+              privileged: true
+          initContainers:
+            prepare-config:
+              enabled: true
+              imageSelector: image
+              type: init              
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - >
+                  cp -rfL /mnt/data/*.yaml /shared/
+
+          workload:
+            main:
+              podSpec:
+                containers:
+                  main:
+                    env:
+                      ZIGBEE2MQTT_DATA: "/data"
+                      ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: "{{ .Values.service.main.ports.main.port }}"
+                      # User defined
+                      USE_CUSTOM_CONFIG_FILE: false
+                      # This values are required for the autogenerated file to work.
+                      ZIGBEE2MQTT_CONFIG_EXPIRIMENTAL_NEW_API: true
+                      ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: true
+                      ZIGBEE2MQTT_CONFIG_MQTT_SERVER: "mqtt://192.168.178.165:1883"
+                      ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: "zigbee2mqtt"
+                      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyACM0"
+                      ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
+                      #ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
+                      ZIGBEE2MQTT_CONFIG_GROUPS: /shared/groups.yaml
+                      ZIGBEE2MQTT_CONFIG_DEVICES: /shared/devices.yaml
