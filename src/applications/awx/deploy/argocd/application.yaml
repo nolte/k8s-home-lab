@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: awx
+  #annotations:
+  #  argocd.argoproj.io/sync-wave: "15"
+spec:
+  destination:
+    name: in-cluster
+    namespace: awx
+  project: default
+  sources:
+    - chart: external-secrets-manifests
+      repoURL: https://nolte.github.io/helm-charts-repo/
+      targetRevision: 1.1.0
+      helm:
+        releaseName: external-secrets-manifests
+        valuesObject:
+          secretstore:
+            create: false
+            serviceAccount:
+              create: false
+         
+    - # https://github.com/ansible-community/awx-operator-helm/releases/tag/awx-operator-3.2.0
+      # https://github.com/ansible-community/awx-operator-helm/blob/main/charts/awx-operator/values.yaml
+      chart: awx-operator
+      repoURL: https://ansible-community.github.io/awx-operator-helm/
+      targetRevision: 3.2.0
+      helm:
+        releaseName: awx-operator
+        valuesObject: 
+          AWX:
+            # enable use of awx-deploy template
+            enabled: true
+            name: awx
+            spec:
+              admin_user: admin

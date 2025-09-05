@@ -11,53 +11,16 @@ spec:
   project: default
   sources:
     - helm:
-        releaseName: netbox-operator
+        releaseName: netbox
         parameters: []
-        valuesObject: 
-          resourcesPreset: "xlarge"
-          netbox:
-            enabled: true
-            nameOverride: app
-            auth:
-              existingSecret: "netbox-operator-app-superuser"            
-            postgresql:
-              auth:
-                existingSecret: "netbox-operator-postgresql"
-
-              resources:
-                requests:
-                  cpu: "1"
-                  memory: 512Mi
-                limits:
-                  cpu: "2"
-                  memory: 1Gi
-
-            image:
-              registry: docker.io
-              repository: nolte/netbox
-              pullPolicy: IfNotPresent
-              tag: "v4.2.5"  
-            plugins: 
-              - netbox_prometheus_sd
-            resources:
-              requests:
-                cpu: 2
-                memory: 2Gi
-              limits:
-                cpu: 4
-                memory: 4Gi
-
-            startupProbe:
-              enabled: true
-              initialDelaySeconds: 10
-              periodSeconds: 40
-              timeoutSeconds: 1
-              failureThreshold: 20
-              successThreshold: 1            
-      # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox-operator/values.yaml
-      chart: netbox-operator
+        # valuesObject:           
+      # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox/values.yaml
+      chart: netbox
       repoURL: ghcr.io/netbox-community/netbox-chart
-      targetRevision: 1.0.83 
-      
+      targetRevision: 6.1.17
 
+  ignoreDifferences:
+    - group: v1
+      kind: Secret
+      name: netbox-postgresql
    

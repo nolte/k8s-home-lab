@@ -27,7 +27,7 @@ kubectl -n netbox port-forward svc/netbox-operator-app 8081:80
 
 <!--admin-password-start-->
 ```sh
-kubectl -n netbox get secrets netbox-operator-app-superuser -ojson | jq '.data.password' -r | base64 -d
+kubectl -n netbox get secrets netbox-superuser -ojson | jq '.data.password' -r | base64 -d
 ```
 <!--admin-password-end-->
 
@@ -63,7 +63,7 @@ kubectl -n netbox create secret generic netbox-operator-postgresql \
 
 ```sh
 export NETBOX_SERVER_URL=http://localhost:8081
-export NETBOX_API_TOKEN=$(kubectl -n netbox get secrets netbox-operator-app-superuser -ojson | jq '.data.api_token' -r | base64 -d)
+export NETBOX_API_TOKEN=$(kubectl -n netbox get secrets netbox-superuser -ojson | jq '.data.api_token' -r | base64 -d)
 ```
 
 ```
