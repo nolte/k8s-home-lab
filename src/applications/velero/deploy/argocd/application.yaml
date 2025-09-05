@@ -18,4 +18,4 @@ spec:
           value: 'false'
     repoURL: https://vmware-tanzu.github.io/helm-charts
     # https://github.com/vmware-tanzu/helm-charts/tree/main/charts/velero
-    targetRevision: 10.1.0
+    targetRevision: 10.1.1
