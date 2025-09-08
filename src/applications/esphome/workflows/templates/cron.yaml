@@ -1,0 +1,27 @@
+{{- $dot := . }}
+
+{{- range $key,$value := .Values.crons }}
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: esphome-{{ $key }}
+spec:
+  concurrencyPolicy: "Replace"
+  startingDeadlineSeconds: 0
+  susspend: true
+  schedules:
+    - "0 2 * * *"
+  workflowSpec:
+    workflowTemplateRef:
+      name: esphome
+      arguments:
+        parameters:
+          - name: device-config
+            value: "{{ $value.config}}"
+          - name: device-address
+            value: "{{ $value.address}}" 
+          - name: repo
+            value: "{{ $dot.Values.configs.repo}}"
+          - name: revision
+            value: "{{ $dot.Values.configs.revision}}"  
+{{- end }} 

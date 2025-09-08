@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
   name: esphome
+  namespace: {{.Release.Namespace}}
 spec:
   entrypoint: exec
   volumeClaimTemplates:                 # define volume, same syntax as k8s Pod spec
@@ -17,15 +18,15 @@ spec:
     - inputs:
         artifacts:
           - git:
-              repo: '{{inputs.parameters.inventory-repo}}'
-              revision: '{{inputs.parameters.inventory-revision}}'
+              repo: '{{"{{"}}inputs.parameters.repo {{"}}"}}'
+              revision: '{{"{{"}}inputs.parameters.revision{{"}}"}}'
             name: inventory-source
             path: /src
         parameters:
           - name: device-address
           - name: device-config
-          - name: inventory-repo
-          - name: inventory-revision
+          - name: repo
+          - name: revision
       name: exec
       script:
         volumeMounts:                     # same syntax as k8s Pod spec
@@ -41,17 +42,9 @@ spec:
               name: "esphome-config"
         command:
           - bash
-        image: ghcr.io/esphome/esphome:2025.8.3
+        image: {{.Values.image.repository}}:{{.Values.image.tag}}
         source: |
           cd /src/src
+          esphome run {{"{{"}}inputs.parameters.device-config{{"}}"}} \
+            --device={{"{{"}}inputs.parameters.device-address{{"}}"}} --no-logs
 
-          esphome run {{inputs.parameters.device-config}} \
-            --device={{inputs.parameters.device-address}} --no-logs
-        #volumeMounts:
-        #  - mountPath: /etc/ssh-key
-        #    name: ssh-key-volume
-      #volumes:
-      #  - name: ssh-key-volume
-      #    secret:
-      #      defaultMode: 256
-      #      secretName: ansible-ssh

@@ -145,6 +145,8 @@ spec:
     targetRevision: main  
 
 
-  - path: src/applications/esphome/workflows
+  - helm:
+      releaseName: flows
+    path: src/applications/esphome/workflows
     repoURL: https://github.com/nolte/k8s-home-lab.git
     targetRevision: master
