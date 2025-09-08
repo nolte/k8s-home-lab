@@ -8,7 +8,7 @@ metadata:
 spec:
   concurrencyPolicy: "Replace"
   startingDeadlineSeconds: 0
-  susspend: true
+  suspend: {{ $value.suspend}}
   schedules:
     - "0 2 * * *"
   workflowSpec:

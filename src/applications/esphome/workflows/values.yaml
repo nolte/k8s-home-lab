@@ -21,6 +21,8 @@ crons:
   "nous-a1t-05":
     config: "nous-a1t-05.yaml"
     address: "192.168.178.76"
+    suspend: true
   "gosund-sp111-01":
     config: gosund-sp111-01.yaml
     address: "192.168.178.41"
+    suspend: true
