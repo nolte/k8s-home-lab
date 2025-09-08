@@ -45,3 +45,19 @@ kubectl -n esphome create secret generic esphome-config \
 kubectl -n esphome port-forward svc/esphome 6052
 ```
 <!--port-forward-end-->
+
+## Vault
+
+Copy Required Secrets into the Vault Secret managed, like Wifi Connection.
+
+<!--vault-secrets-start-->
+```sh
+
+vault kv put \
+  secrets-tf/services/wifi/private \
+  domain=".fritz.box" \
+  ssid="$(pass network/wifi/ssid)" \
+  password="$(pass network/wifi/password)"
+
+```
+<!--vault-secrets-end-->

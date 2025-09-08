@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: esphome
+spec:
+  entrypoint: exec
+  volumeClaimTemplates:                 # define volume, same syntax as k8s Pod spec
+  - metadata:
+      name: workdir                     # name of volume claim
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi 
+
+  templates:
+    - inputs:
+        artifacts:
+          - git:
+              repo: '{{inputs.parameters.inventory-repo}}'
+              revision: '{{inputs.parameters.inventory-revision}}'
+            name: inventory-source
+            path: /src
+        parameters:
+          - name: device-address
+          - name: device-config
+          - name: inventory-repo
+          - name: inventory-revision
+      name: exec
+      script:
+        volumeMounts:                     # same syntax as k8s Pod spec
+        - name: workdir
+          mountPath:  /mnt/build_dir
+        env:
+          - name: ESPHOME_BUILD_PATH
+            value: /mnt/build_dir
+          - name: TZ
+            value: Europe/Berlin
+        envFrom:
+          - secretRef:
+              name: "esphome-config"
+        command:
+          - bash
+        image: ghcr.io/esphome/esphome:2025.8.3
+        source: |
+          cd /src/src
+
+          esphome run {{inputs.parameters.device-config}} \
+            --device={{inputs.parameters.device-address}} --no-logs
+        #volumeMounts:
+        #  - mountPath: /etc/ssh-key
+        #    name: ssh-key-volume
+      #volumes:
+      #  - name: ssh-key-volume
+      #    secret:
+      #      defaultMode: 256
+      #      secretName: ansible-ssh
