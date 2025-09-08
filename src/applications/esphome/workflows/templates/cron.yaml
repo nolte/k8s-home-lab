@@ -24,4 +24,5 @@ spec:
             value: "{{ $dot.Values.configs.repo}}"
           - name: revision
             value: "{{ $dot.Values.configs.revision}}"  
+---
 {{- end }} 
