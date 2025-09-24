@@ -17,7 +17,7 @@ spec:
       # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox/values.yaml
       chart: netbox
       repoURL: ghcr.io/netbox-community/netbox-chart
-      targetRevision: 6.1.17
+      targetRevision: 7.0.2
 
   ignoreDifferences:
     - group: v1
