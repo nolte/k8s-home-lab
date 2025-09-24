@@ -26,3 +26,16 @@ crons:
     config: gosund-sp111-01.yaml
     address: "192.168.178.41"
     suspend: true
+  "gosund-sp111-03":
+    config: gosund-sp111-03.yaml
+    address: "192.168.178.43"
+    suspend: true
+  "gosund-sp111-04":
+    config: gosund-sp111-04.yaml
+    address: "192.168.178.45"
+    suspend: true
+  "gosund-sp111-06":
+    config: gosund-sp111-06.yaml
+    address: "192.168.178.47"
+    suspend: true    
+

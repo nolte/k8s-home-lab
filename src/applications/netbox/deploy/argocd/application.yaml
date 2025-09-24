@@ -13,7 +13,22 @@ spec:
     - helm:
         releaseName: netbox
         parameters: []
-        # valuesObject:           
+        valuesObject:
+          postgresql:
+            auth:
+              existingSecret: "netbox-postgresql"
+              secretKeys:
+                adminPasswordKey: "postgres-password"
+                userPasswordKey: "password"
+          redis:
+            auth:
+              existingSecret: "netbox-redis"
+              existingSecretPasswordKey: "redis-password"
+          scriptsPersistence:
+            enabled: true          
+          storages:
+            default:
+              BACKEND: "django.core.files.storage.FileSystemStorage"           
       # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox/values.yaml
       chart: netbox
       repoURL: ghcr.io/netbox-community/netbox-chart
