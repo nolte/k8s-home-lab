@@ -12,4 +12,4 @@ spec:
     helm:
       releaseName: rabbitmq
     repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 16.0.13
+    targetRevision: 16.0.14
