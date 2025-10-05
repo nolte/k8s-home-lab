@@ -33,6 +33,8 @@ spec:
         cmTfStaticEndpoints:
           create: false
         role:
+          executor:
+            create: true
           tfState:
             create: true
             name: argo-workflows-execution
@@ -41,6 +43,8 @@ spec:
             create: true
             name: argo-workflows-execution
         roleBinding:
+          executor:
+            create: true
           tfState:
             create: true
           type: Role
