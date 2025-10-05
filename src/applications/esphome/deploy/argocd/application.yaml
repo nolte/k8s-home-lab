@@ -98,7 +98,7 @@ spec:
                 # https://hub.docker.com/r/esphome/esphome/tags
                 image:
                   repository: docker.io/esphome/esphome
-                  tag: 2025.9.1
+                  tag: 2025.9.3
         service:
           main:
             controller: main
