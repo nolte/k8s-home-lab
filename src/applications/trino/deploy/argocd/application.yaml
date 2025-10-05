@@ -10,6 +10,6 @@ spec:
   sources:
   - chart: trino
     repoURL:  https://trinodb.github.io/charts/
-    targetRevision: 1.40.0
+    targetRevision: 1.41.0
     helm:
       releaseName: trino
