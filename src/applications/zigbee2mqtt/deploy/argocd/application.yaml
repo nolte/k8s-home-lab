@@ -11,7 +11,7 @@ spec:
     - chart: zigbee2mqtt
       # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
       repoURL: tccr.io/truecharts
-      targetRevision: 15.11.0
+      targetRevision: 15.12.1
       helm:
         releaseName: zigbee2mqtt
         valuesObject:
