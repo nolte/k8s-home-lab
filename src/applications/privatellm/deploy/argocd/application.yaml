@@ -41,7 +41,7 @@ spec:
   # https://github.com/otwld/ollama-helm/blob/main/values.yaml
   - chart: ollama
     repoURL: https://otwld.github.io/ollama-helm/
-    targetRevision: 1.33.0
+    targetRevision: 1.34.0
     helm:
       releaseName: ollama
       valuesObject:
