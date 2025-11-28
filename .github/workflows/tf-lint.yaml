@@ -8,6 +8,6 @@ on:
 
 jobs:
   lint:
-    uses: nolte/gh-plumbing/.github/workflows/reusable-tf-lint.yaml@v1.1.11
+    uses: nolte/gh-plumbing/.github/workflows/reusable-tf-lint.yaml@v1.1.12
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
