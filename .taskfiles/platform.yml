@@ -3,7 +3,7 @@ version: '3'
 
 
 vars:
-  TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/fix/base-deployment/src"
+  TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/develop/src"
 
 includes:
   kind: 

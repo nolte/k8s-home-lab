@@ -3,7 +3,7 @@ version: '3'
 
 vars:
   PYTHON_VENVS_BASEDIR: ~/.venvs/
-  TASK_COLLECTION_BASE: https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/fix/base-deployment/src
+  TASK_COLLECTION_BASE: https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/develop/src
   GIT_ROOT:
     sh: git rev-parse --show-toplevel
 
@@ -15,7 +15,7 @@ includes:
   platform: 
     taskfile: .taskfiles/platform.yml
     vars: 
-      TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/fix/base-deployment/src"
+      TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/develop/src"
   
   argocd: .taskfiles/argocd.yml
   # serviceset: .taskfiles/Taskfile_servicesets.yml
