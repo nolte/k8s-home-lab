@@ -157,6 +157,27 @@ patches:
 
   - patch: |-
       - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: music.just-a-lab.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: music-assistant
+      version: v1alpha1
+
+
+  - patch: |-
+      - op: replace
         path: /spec/sources/0/helm/valuesObject/secrets
         value: {}
       - op: replace
@@ -214,7 +235,7 @@ patches:
     target:
       group: argoproj.io
       kind: Application
-      name: (metallb|project-contour|proxmox-csi|zigbee2mqtt|esphome|home-assistant)
+      name: (metallb|project-contour|proxmox-csi|zigbee2mqtt|esphome|home-assistant|music-assistant)
       version: v1alpha1
 
 
@@ -227,6 +248,7 @@ resources:
   - ../../../src/applications/proxmox-csi-plugin/deploy/argocd
   - ../../../src/applications/flathunter/deploy/argocd  
   - ../../../src/applications/grocy/deploy/argocd
+  - ../../../src/applications/music-assistant/deploy/argocd
   - ../../../src/bundles/05-bootstrapping-ingress
   - ../../../src/bundles/smart-home
   # - ../../../src/applications/podinfo/deploy/argocd

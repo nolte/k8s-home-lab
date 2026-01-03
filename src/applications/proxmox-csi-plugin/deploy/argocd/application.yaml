@@ -10,12 +10,12 @@ spec:
   source:
     chart: proxmox-csi-plugin
     repoURL: ghcr.io/sergelogvinov/charts
-    targetRevision: 0.5.3
+    targetRevision: 0.5.4
 
     helm:
       releaseName: proxmox-csi-plugin
       # https://github.com/sergelogvinov/proxmox-csi-plugin
-      values: |
+      valuesObject:
         # tbd
         existingConfigSecret: proxmox-csi-plugin
         # config:

@@ -1,0 +1,219 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: music-assistant
+  annotations:
+    argocd.argoproj.io/sync-wave: "-80"
+spec:
+  destination:
+    name: in-cluster
+    namespace: music-assistant
+  project: default
+  sources:
+    - path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+      helm:
+        releaseName: projectcontour-mixin
+        parameters:
+          - name: httpProxy.create
+            value: "false"
+          - name: httpProxy.fqdn
+            value: music.smart-home.k8sservices.local
+        valuesObject:
+          httpProxy:
+            create: false
+            fqdn: music.smart-home.k8sservices.local
+            tls:
+              secretName: cert-manager/wildcard-duckdns-org-tls
+            routes:
+              - services:
+                  - name: music-assistant-main
+                    port: 8095
+              - conditions:
+                  - prefix: /ws
+                enableWebsockets: true # Setting this to true enables websocket for all paths that match /websocket
+                services:
+                  - name: music-assistant-main
+                    port: 8095         
+    - chart: app-template
+      repoURL: https://bjw-s-labs.github.io/helm-charts
+      targetRevision: 4.5.0
+      helm:
+        releaseName: music-assistant
+        parameters: []
+        valuesObject:
+          configMaps:
+            config:
+              data:
+                minimal: test
+            snapcast-config:
+              data:
+                snapserver.conf: |
+                  [http]
+                  doc_root = /usr/share/snapserver/snapweb
+
+                  [stream]
+                  stream = tcp://0.0.0.0:4953?name=mopidy_tcp
+          service:
+            main:
+              controller: main
+              ports:
+                http:
+                  port: 8095
+                tcp:
+                  port: 8927
+            snapcast:
+              controller: snapcast
+              ports:
+                http:
+                  port: 1780
+                tcp:
+                  port: 1705
+                snap:
+                  port: 1704
+                stream:
+                  port: 4953            
+          controllers:
+            snapcast:           
+              containers:
+                main: 
+                  env:                   
+                    - name: TZ
+                      value: "Europe/Berlin"               
+                  probes:
+                    liveness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Readiness probe configuration
+                    readiness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Startup probe configuration
+                    startup:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        timeoutSeconds: 1
+                        ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+                        periodSeconds: 5
+                        failureThreshold: 30
+
+                  image:
+                    # https://github.com/firefrei/docker-snapcast
+                    repository: ghcr.io/firefrei/snapcast/server
+                    tag: latest #v0.34.0
+                  securityContext:
+                    allowPrivilegeEscalation: true
+
+            main:
+              containers:
+                main:
+                  env:                   
+                    - name: TZ
+                      value: "Europe/Berlin"
+                  image:
+                    # https://www.music-assistant.io/installation/#docker-image
+                    repository: ghcr.io/music-assistant/server
+                    tag: 2.7.3
+                  probes:
+                    liveness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Readiness probe configuration
+                    readiness:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        periodSeconds: 10
+                        timeoutSeconds: 1
+                        failureThreshold: 3
+
+                    # -- Startup probe configuration
+                    startup:
+                      enabled: true
+                      custom: false
+                      type: TCP
+                      spec:
+                        initialDelaySeconds: 0
+                        timeoutSeconds: 1
+                        ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+                        periodSeconds: 5
+                        failureThreshold: 30
+                  securityContext:
+                    allowPrivilegeEscalation: true                                
+                      
+              type: deployment
+              annotations:
+                reloader.stakater.com/auto: "true"
+          defaultPodOptions:
+            hostNetwork: true
+          persistence:      
+            config:
+              enabled: true
+              accessMode: "ReadWriteOnce"
+              size: 5Gi
+              advancedMounts:
+                main:
+                  main:
+                  - path: /data
+                    readOnly: false
+            snapserver-config:
+              name: music-assistant-snapcast-config
+              # -- Enables or disables the persistence item
+              enabled: true
+              type: configMap
+              advancedMounts:
+                snapcast:
+                  main:
+                  - path: /app/config
+                    readOnly: true
+            snapcastaudio:
+              enabled: true
+              type: emptyDir
+              advancedMounts:
+                snapcast:
+                  main:
+                  - path: /audio
+                    readOnly: false
+            snapcastdata:
+              enabled: true
+              type: emptyDir
+              advancedMounts:
+                snapcast:
+                  main:
+                  - path: /data
+                    readOnly: false
+            snapcastdataroot:
+              enabled: true
+              type: emptyDir
+              advancedMounts:
+                snapcast:
+                  main:
+                  - path: /app/certs
+                    readOnly: false
