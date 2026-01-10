@@ -51,11 +51,10 @@ spec:
             piper:
               controller: piper
               ports:
-                # http:
-                #   port: 5000
                 tcp:
                   port: 10200
-
+                web:
+                  port: 5000
             wyomingspeech:
               controller: wyomingspeech
               ports:
@@ -108,7 +107,7 @@ spec:
                   - "--data-dir"
                   - "/data"
                   - "--voice"
-                  - "en_US-lessac-medium"
+                  - "de_DE-thorsten-high"
             wyomingspeech:
               containers:
                 main:
