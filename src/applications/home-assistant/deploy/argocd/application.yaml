@@ -51,8 +51,8 @@ spec:
             piper:
               controller: piper
               ports:
-                http:
-                  port: 5000
+                # http:
+                #   port: 5000
                 tcp:
                   port: 10200
 
