@@ -32,7 +32,7 @@ spec:
       # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox/values.yaml
       chart: netbox
       repoURL: ghcr.io/netbox-community/netbox-chart
-      targetRevision: 7.3.0
+      targetRevision: 7.3.1
 
   ignoreDifferences:
     - group: v1
