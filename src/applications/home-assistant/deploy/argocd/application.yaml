@@ -102,7 +102,7 @@ spec:
                     # https://github.com/home-assistant/addons/blob/master/piper/Dockerfile
                     # https://hub.docker.com/r/rhasspy/wyoming-piper/tags
                     repository: rhasspy/wyoming-piper
-                    tag: 2.1.2
+                    tag: 2.2.1
                   #command: ["/bin/bash"]
                   args: 
                   - "--data-dir"
@@ -168,7 +168,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2026.1.2
+                    tag: 2026.1.3
                   probes:
                     liveness:
                       enabled: true
