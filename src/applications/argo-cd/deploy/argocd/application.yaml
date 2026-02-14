@@ -35,7 +35,7 @@ spec:
         valueFiles: []
       chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 9.4.1
+      targetRevision: 9.4.2
     - helm:
         # parameters: []
         releaseName: argocd-apps
