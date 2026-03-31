@@ -1,0 +1,16 @@
+---
+- name: root ssh access
+  hosts: tags_proxmox-node
+  become: true
+  tasks:
+
+      # free-form (string) arguments, all arguments on one line
+    - name: join pvecm cluster
+      ansible.builtin.command: "pvecm add {{ hostvars[proxmox_join_node].primary_ip4 }}"
+    
+    - name: Print the gateway for each host when defined
+      ansible.builtin.debug:
+        msg: "{{ hostvars[proxmox_join_node].primary_ip4 }}"
+
+
+  handlers: []

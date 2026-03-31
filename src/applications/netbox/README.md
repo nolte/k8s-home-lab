@@ -18,7 +18,7 @@ Use [netbox-community/netbox](https://github.com/netbox-community/netbox), for k
 **Port Forward**
 <!--port-forward-start-->
 ```sh
-kubectl -n netbox port-forward svc/netbox-operator-app 8081:80
+kubectl -n netbox port-forward svc/netbox 8081:80
 ```
 <!--port-forward-end-->
 
@@ -87,4 +87,10 @@ export ANSIBLE_INVENTORY=$(pwd)/configuration/inventory/inventory.yaml
 
 task esphome:run \
   DEVICE_FILE="$(jq -r '"\(.local_context_data[0].esphome.config) --device=\(.ansible_host)"' <<< $(ansible-inventory -i $ANSIBLE_INVENTORY --list | jq '._meta.hostvars["nous-a1t-08"]' -r))"
+```
+
+```sh
+kubectl -n netbox create secret generic netbox-postgresql \
+  --from-literal=postgresql-password="supersecret" \
+  --from-literal=password="password"
 ```

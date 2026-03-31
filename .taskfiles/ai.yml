@@ -1,0 +1,11 @@
+---
+version: '3'
+
+tasks:
+
+  spell:
+    desc: login
+    cmds:
+    - |
+      echo  "Bitte überprüfe auschließlich die Rechtschreibung und Grammatik des folgenden Textes: $(cat docs/ai/data/mission.md)" | gemini-cli prompt --model models/gemini-2.0-flash-exp -
+    silent: true

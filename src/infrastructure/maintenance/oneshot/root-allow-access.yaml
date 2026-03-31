@@ -1,0 +1,14 @@
+---
+- name: root ssh access
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Set authorized keys for root
+      become: true
+      ansible.posix.authorized_key:
+        user: root
+        state: present
+        key: "{{ management.ssh.public}}"
+
+  handlers: []

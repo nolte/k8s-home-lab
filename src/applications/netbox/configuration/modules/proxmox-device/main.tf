@@ -43,14 +43,16 @@ locals {
 
   }
 }
-resource "netbox_service" "this" {
-  for_each    = merge(local.services, var.additional_services)
-  name        = each.key
-  ports       = each.value.ports
-  description = each.value.description
-  protocol    = "tcp"
-  device_id   = netbox_device.this.id
-}
+# https://github.com/e-breuninger/terraform-provider-netbox/issues/741
+# resource "netbox_service" "this" {
+#   depends_on = [ netbox_device.this ]
+#   for_each    = merge(local.services, var.additional_services)
+#   name        = each.key
+#   ports       = each.value.ports
+#   description = each.value.description
+#   protocol    = "tcp"
+#   device_id   = netbox_device.this.id
+# }
 
 resource "netbox_device_power_port" "this" {
   device_id = netbox_device.this.id

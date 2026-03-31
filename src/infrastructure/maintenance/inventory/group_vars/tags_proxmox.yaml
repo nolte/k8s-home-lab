@@ -1,0 +1,4 @@
+ansible_user: root
+proxmox_cluster_name: homelab
+
+proxmox_join_node: PC-192-168-178-10

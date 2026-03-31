@@ -10,11 +10,16 @@ spec:
   sources:
     - chart: zigbee2mqtt
       # https://github.com/truecharts/charts/blob/master/charts/stable/zigbee2mqtt/values.yaml
-      repoURL: tccr.io/truecharts
-      targetRevision: 15.15.3
+      repoURL: oci://oci.trueforge.org/truecharts/zigbee2mqtt
+      targetRevision: 15.16.1
       helm:
         releaseName: zigbee2mqtt
         valuesObject:
+          service:
+            main:
+              ports:
+                main:
+                  port: 8080
           global:
             fallbackDefaults:
               # -- Default PVC Size
@@ -25,7 +30,7 @@ spec:
           persistence:
             shared:
               enabled: true
-              type: emptyDir
+              type: pvc
               mountPath: /shared
               targetSelectAll: true
             configmap-vol:
@@ -49,6 +54,8 @@ spec:
                 reloader.stakater.com/auto: "true"
               data:
                 devices.yaml: |
+                  '0x187a3efffe39a802':
+                    friendly_name: 'water_meter_01'
                   '0x8cf681fffe28e088':
                     friendly_name: 'workroom_blind_01'
                   '0x04cd15fffe382c92':
@@ -170,7 +177,7 @@ spec:
                 containers:
                   main:
                     env:
-                      ZIGBEE2MQTT_DATA: "/data"
+                      ZIGBEE2MQTT_DATA: "/shared"
                       ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: "{{ .Values.service.main.ports.main.port }}"
                       # User defined
                       USE_CUSTOM_CONFIG_FILE: false

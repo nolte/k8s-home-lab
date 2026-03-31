@@ -1,0 +1,11 @@
+---
+- name: root ssh access
+  hosts: tags_proxmox-main
+  become: true
+  tasks:
+
+      # free-form (string) arguments, all arguments on one line
+    - name: Create pvecm cluster
+      ansible.builtin.command: pvecm create {{proxmox_cluster_name}}
+
+  handlers: []

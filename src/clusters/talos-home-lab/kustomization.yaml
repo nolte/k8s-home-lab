@@ -229,6 +229,45 @@ patches:
       name: grocy
       version: v1alpha1
 
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: kamerplanter.just-a-lab.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: kamerplanter
+      version: v1alpha1
+
+  - patch: |-
+      - op: replace
+        path: /spec/sources/0/helm/parameters
+        value: []
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.create
+          value: "true"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name:  httpProxy.fqdn
+          value: ollama.just-a-lab.duckdns.org
+    target:
+      group: argoproj.io
+      kind: Application
+      name: ollama
+      version: v1alpha1
 
 
   - path: ../../kustomization-common/deployment-patch-privileged-ns.yaml
@@ -249,6 +288,8 @@ resources:
   - ../../../src/applications/flathunter/deploy/argocd
   - ../../../src/applications/grocy/deploy/argocd
   - ../../../src/applications/music-assistant/deploy/argocd
+  - ../../../src/applications/kamerplanter/deploy/argocd
+  - ../../../src/applications/ollama/deploy/argocd  
   - ../../../src/bundles/05-bootstrapping-ingress
   - ../../../src/bundles/smart-home
   # - ../../../src/applications/podinfo/deploy/argocd

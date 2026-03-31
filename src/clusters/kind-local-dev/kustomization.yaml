@@ -1,0 +1,45 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+labels:
+  - includeSelectors: true
+    pairs:
+      argocd.argoproj.io/instance: seed-job
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+
+patches:
+  - path: ../../kustomization-common/deployment-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: .*
+      version: v1alpha1
+
+
+  - path: ../../kustomization-common/deployment-serverside-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: external-secrets
+      version: v1alpha1
+
+  - path: ./esphome-workflows-only-patch.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      name: esphome
+      version: v1alpha1
+
+resources:
+
+  - ../../../src/bundles/00-bootstrapping-minimal
+  - ../../../src/applications/vault/deploy/argocd
+  - ../../../src/applications/netbox/deploy/argocd
+  - ../../../src/applications/external-secrets/deploy/argocd
+  - ../../../src/applications/awx/deploy/argocd
+  - ../../../src/applications/esphome/deploy/argocd

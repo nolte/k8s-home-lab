@@ -35,7 +35,7 @@ generate "versions" {
       required_providers {
         netbox = {
           source = "e-breuninger/netbox"
-          version = "3.10.0"
+          version = "4.2.0"
         }
       }
     }

@@ -1,0 +1,8 @@
+management:
+  ssh:
+    public: "{{ lookup('community.general.passwordstore', 'test_env/test/ed25519_public')}}"
+
+users:
+  - name: ansible
+    unauthorized_keys:
+      - "{{ management.ssh.public}}"
