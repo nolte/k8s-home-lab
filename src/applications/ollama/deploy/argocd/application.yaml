@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: in-cluster
+    namespace: ollama
+  project: default
+  sources:
+    - path: charts/stable/projectcontour-mixin/
+      repoURL: https://github.com/nolte/helm-charts-repo.git
+      targetRevision: main
+      helm:
+        releaseName: projectcontour-mixin
+        parameters:
+          - name: httpProxy.create
+            value: "false"
+          - name: httpProxy.fqdn
+            value: ollama.smart-home.k8sservices.local
+        valuesObject:
+          httpProxy:
+            create: false
+            fqdn: ollama.smart-home.k8sservices.local
+            tls:
+              secretName: cert-manager/wildcard-duckdns-org-tls
+            routes:
+              - services:
+                  - name: ollama
+                    port: 11434
+    - chart: ollama
+      repoURL: https://otwld.github.io/ollama-helm/
+      targetRevision: 1.53.0
+      helm:
+        releaseName: ollama
+        valuesObject:
+          persistentVolume:
+            enabled: true
+            size: 20Gi
+            annotations:
+              helm.sh/resource-policy: keep
+          ollama:
+            models:
+              run:
+                - gemma3:4b
+          extraEnv:
+            - name: OLLAMA_NUM_PARALLEL
+              value: "1"
+            - name: OLLAMA_MAX_LOADED_MODELS
+              value: "1"
+            - name: OLLAMA_KEEP_ALIVE
+              value: "10m"
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              cpu: "6"
+              memory: 10Gi
