@@ -31,7 +31,7 @@ spec:
   # https://amikos-tech.github.io/chromadb-chart/
   - chart: chromadb
     repoURL: https://amikos-tech.github.io/chromadb-chart/
-    targetRevision: 0.1.24
+    targetRevision: 0.2.2
     helm:
       releaseName: chromadb
       valuesObject:
@@ -41,7 +41,7 @@ spec:
   # https://github.com/otwld/ollama-helm/blob/main/values.yaml
   - chart: ollama
     repoURL: https://otwld.github.io/ollama-helm/
-    targetRevision: 1.42.0
+    targetRevision: 1.54.0
     helm:
       releaseName: ollama
       valuesObject:
