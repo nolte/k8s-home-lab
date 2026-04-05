@@ -25,7 +25,7 @@ spec:
       # https://github.com/ansible-community/awx-operator-helm/blob/main/charts/awx-operator/values.yaml
       chart: awx-operator
       repoURL: https://ansible-community.github.io/awx-operator-helm/
-      targetRevision: 3.2.0
+      targetRevision: 3.2.1
       helm:
         releaseName: awx-operator
         valuesObject: 

@@ -154,7 +154,7 @@ spec:
                     # https://hub.docker.com/r/rhasspy/wyoming-speech-to-phrase
                     # 
                     repository: rhasspy/wyoming-speech-to-phrase
-                    tag: 1.4.1
+                    tag: 1.4.3
                   command: ["/bin/bash"]
                   args: 
                   - "-c"
@@ -168,7 +168,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2026.2.2
+                    tag: 2026.4.1
                   probes:
                     liveness:
                       enabled: true
