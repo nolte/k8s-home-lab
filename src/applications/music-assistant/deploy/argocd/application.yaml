@@ -38,7 +38,7 @@ spec:
                     port: 8095
     - chart: app-template
       repoURL: https://bjw-s-labs.github.io/helm-charts
-      targetRevision: 5.0.0
+      targetRevision: 5.0.1
       helm:
         releaseName: music-assistant
         parameters: []
@@ -131,7 +131,7 @@ spec:
                   image:
                     # https://www.music-assistant.io/installation/#docker-image
                     repository: ghcr.io/music-assistant/server
-                    tag: 2.8.6
+                    tag: 2.9.1
                   probes:
                     liveness:
                       enabled: true
