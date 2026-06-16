@@ -42,12 +42,20 @@ spec:
             backend:
               containers:
                 main:
+                  image:
+                    tag: "0.0.13"
                   env:
                     CORS_ORIGINS: '["https://kamerplanter.just-a-lab.duckdns.org/"]'
                     KAMERPLANTER_MODE: light
             frontend:
+              initContainers:
+                init-runtime-config:
+                  image:
+                    tag: "0.0.13"
               containers:
                 main:
+                  image:
+                    tag: "0.0.13"
                   env:
                     KAMERPLANTER_MODE: light
             arangodb:
@@ -60,6 +68,18 @@ spec:
                     limits:
                       cpu: "1"
                       memory: 1Gi
+            # celery-worker and celery-beat share the kamerplanter-backend
+            # image; pin them to the same version as the backend.
+            celery-worker:
+              containers:
+                main:
+                  image:
+                    tag: "0.0.13"
+            celery-beat:
+              containers:
+                main:
+                  image:
+                    tag: "0.0.13"
 
   destination:
     server: https://kubernetes.default.svc
