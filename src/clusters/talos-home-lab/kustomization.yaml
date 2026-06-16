@@ -277,6 +277,519 @@ patches:
       name: (metallb|project-contour|proxmox-csi|zigbee2mqtt|esphome|home-assistant|music-assistant)
       version: v1alpha1
 
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/valuesObject/speaker/resources
+        value:
+          limits:
+            memory: "1Gi"
+          requests:
+            memory: "500Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: metallb
+      version: v1alpha1
+
+  # MetalLB Controller
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/valuesObject/controller
+        value:
+          resources:
+            limits:
+              memory: "256Mi"
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: metallb
+      version: v1alpha1
+
+  # Project Contour - Envoy + Contour
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/valuesObject/envoy/resources
+        value:
+          limits:
+            memory: "512Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+      - op: add
+        path: /spec/source/helm/valuesObject/contour
+        value:
+          resources:
+            limits:
+              memory: "256Mi"
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: project-contour
+      version: v1alpha1
+
+  # Monitoring - Prometheus Operator + Prometheus
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/valuesObject/prometheusOperator
+        value:
+          resources:
+            limits:
+              memory: "512Mi"
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+      - op: add
+        path: /spec/source/helm/valuesObject/prometheus
+        value:
+          prometheusSpec:
+            resources:
+              limits:
+                memory: "1Gi"
+              requests:
+                cpu: "100m"
+                memory: "256Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: monitoring
+      version: v1alpha1
+
+  # Argo Events Controller
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name: controller.resources.requests.cpu
+          value: "25m"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name: controller.resources.requests.memory
+          value: "64Mi"
+      - op: add
+        path: /spec/source/helm/parameters/-
+        value:
+          name: controller.resources.limits.memory
+          value: "256Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argo-events
+      version: v1alpha1
+
+  # Proxmox CSI Plugin
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/valuesObject/controller
+        value:
+          resources:
+            limits:
+              memory: "256Mi"
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+      - op: add
+        path: /spec/source/helm/valuesObject/node
+        value:
+          resources:
+            limits:
+              memory: "256Mi"
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: proxmox-csi
+      version: v1alpha1
+
+  # Cert-Manager (sources[1] uses values string, so use parameters)
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: resources.requests.cpu
+          value: "25m"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: resources.requests.memory
+          value: "64Mi"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: resources.limits.memory
+          value: "256Mi"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: webhook.resources.requests.memory
+          value: "32Mi"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: webhook.resources.limits.memory
+          value: "128Mi"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: cainjector.resources.requests.memory
+          value: "64Mi"
+      - op: add
+        path: /spec/sources/1/helm/parameters/-
+        value:
+          name: cainjector.resources.limits.memory
+          value: "256Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: cert-manager
+      version: v1alpha1
+
+  # Cert-Manager Webhook DuckDNS
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/resources
+        value:
+          limits:
+            memory: "128Mi"
+          requests:
+            cpu: "10m"
+            memory: "32Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: cert-manager-webhook-duckdns
+      version: v1alpha1
+
+  # External DNS
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/resources
+        value:
+          limits:
+            memory: "256Mi"
+          requests:
+            cpu: "25m"
+            memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: external-dns
+      version: v1alpha1
+
+  # Mosquitto (sources[0] uses values string, so use parameters)
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name: controllers.main.containers.main.resources.requests.cpu
+          value: "10m"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name: controllers.main.containers.main.resources.requests.memory
+          value: "32Mi"
+      - op: add
+        path: /spec/sources/0/helm/parameters/-
+        value:
+          name: controllers.main.containers.main.resources.limits.memory
+          value: "128Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: mosquitto
+      version: v1alpha1
+
+  # Flathunter
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/controllers/main/containers/main/resources
+        value:
+          limits:
+            memory: "256Mi"
+          requests:
+            cpu: "25m"
+            memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: flathunter
+      version: v1alpha1
+
+  # Pihole
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/resources
+        value:
+          limits:
+            memory: "512Mi"
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: pihole
+      version: v1alpha1
+
+  # ArgoCD (sources[3] = argo-cd chart)
+  - patch: |-
+      - op: add
+        path: /spec/sources/3/helm/valuesObject
+        value:
+          server:
+            resources:
+              limits:
+                memory: "512Mi"
+              requests:
+                cpu: "50m"
+                memory: "128Mi"
+          controller:
+            resources:
+              limits:
+                memory: "1Gi"
+              requests:
+                cpu: "100m"
+                memory: "256Mi"
+          repoServer:
+            resources:
+              limits:
+                memory: "1Gi"
+              requests:
+                cpu: "100m"
+                memory: "256Mi"
+          redis:
+            resources:
+              limits:
+                memory: "256Mi"
+              requests:
+                cpu: "25m"
+                memory: "64Mi"
+          applicationSet:
+            resources:
+              limits:
+                memory: "256Mi"
+              requests:
+                cpu: "25m"
+                memory: "64Mi"
+          notifications:
+            resources:
+              limits:
+                memory: "256Mi"
+              requests:
+                cpu: "25m"
+                memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argocd
+      version: v1alpha1
+
+  # Argo Workflows (sources[2] uses values string, so use parameters)
+  - patch: |-
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name: controller.resources.requests.cpu
+          value: "50m"
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name: controller.resources.requests.memory
+          value: "128Mi"
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name: controller.resources.limits.memory
+          value: "512Mi"
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name: server.resources.requests.cpu
+          value: "25m"
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name: server.resources.requests.memory
+          value: "64Mi"
+      - op: add
+        path: /spec/sources/2/helm/parameters/-
+        value:
+          name: server.resources.limits.memory
+          value: "256Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: argo-workflows
+      version: v1alpha1
+
+  # ESPHome (sources[1] = app-template)
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/main/containers/main/resources
+        value:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/main/containers/gitsync/resources
+        value:
+          limits:
+            memory: "128Mi"
+          requests:
+            cpu: "10m"
+            memory: "32Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: esphome
+      version: v1alpha1
+
+  # Home Assistant (sources[1] = app-template, multiple controllers)
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/main/containers/main/resources
+        value:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: "200m"
+            memory: "512Mi"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/piper/containers/main/resources
+        value:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/wyomingspeech/containers/main/resources
+        value:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: home-assistant
+      version: v1alpha1
+
+  # Music Assistant (sources[1] = app-template, multiple controllers)
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/main/containers/main/resources
+        value:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/snapcast/containers/main/resources
+        value:
+          limits:
+            memory: "256Mi"
+          requests:
+            cpu: "25m"
+            memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: music-assistant
+      version: v1alpha1
+
+  # Grocy (sources[1] = app-template)
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/main/containers/main/resources
+        value:
+          limits:
+            memory: "256Mi"
+          requests:
+            cpu: "25m"
+            memory: "64Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: grocy
+      version: v1alpha1
+
+  # Kamerplanter (sources[1] = custom chart with app-template pattern)
+  - patch: |-
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/backend/containers/main/resources
+        value:
+          limits:
+            memory: "256Mi"
+          requests:
+            cpu: "25m"
+            memory: "64Mi"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/frontend/containers/main/resources
+        value:
+          limits:
+            memory: "256Mi"
+          requests:
+            cpu: "25m"
+            memory: "64Mi"
+      - op: add
+        path: /spec/sources/1/helm/valuesObject/controllers/arangodb/containers/main/resources
+        value:
+          limits:
+            memory: "512Mi"
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: kamerplanter
+      version: v1alpha1
+
+  # Zigbee2MQTT (truecharts)
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/resources
+        value:
+          limits:
+            memory: "512Mi"
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: zigbee2mqtt
+      version: v1alpha1
+
+  # InfluxDB2
+  - patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valuesObject
+        value:
+          resources:
+            limits:
+              memory: "1Gi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+    target:
+      group: argoproj.io
+      kind: Application
+      name: influxdb2
+      version: v1alpha1
 
 
 resources:
@@ -289,7 +802,7 @@ resources:
   - ../../../src/applications/grocy/deploy/argocd
   - ../../../src/applications/music-assistant/deploy/argocd
   - ../../../src/applications/kamerplanter/deploy/argocd
-  - ../../../src/applications/ollama/deploy/argocd  
+  - ../../../src/applications/ollama/deploy/argocd
   - ../../../src/bundles/05-bootstrapping-ingress
   - ../../../src/bundles/smart-home
   # - ../../../src/applications/podinfo/deploy/argocd

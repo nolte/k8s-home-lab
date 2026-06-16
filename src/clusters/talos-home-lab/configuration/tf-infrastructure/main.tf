@@ -25,8 +25,9 @@ module "talos" {
       ip            = "192.168.178.130"
       mac_address   = "BC:24:11:2E:C8:00"
       vm_id         = 800
-      cpu           = 8
-      ram_dedicated = 16384
+      cpu           = 20
+      cpu_type      = "host"
+      ram_dedicated = 24000
       storage_size  = 40
       additionalNodeLabels = {
         "zigbee.homelab.local/present": true

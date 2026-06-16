@@ -23,3 +23,6 @@ hack/packer/builds/*.box
 *.tfstate
 *.tfstate.backup
 *.tfvars.json
+
+# Stray talosctl config artifact (empty context)
+/src/clusters/talos

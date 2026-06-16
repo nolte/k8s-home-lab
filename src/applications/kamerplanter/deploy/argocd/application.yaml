@@ -31,10 +31,10 @@ spec:
                 enableWebsockets: true # Setting this to true enables websocket for all paths that match /websocket
                 services:
                   - name: kamerplanter-frontend
-                    port: 80  
-    - chart: kamerplanter
-      repoURL:  oci://ghcr.io/nolte/charts/kamerplanter
-      targetRevision: 0.0.3
+                    port: 80
+    - path: helm/kamerplanter
+      repoURL: https://github.com/nolte/kamerplanter.git
+      targetRevision: v0.0.13
       helm:
         valuesObject:
 
@@ -42,15 +42,7 @@ spec:
             backend:
               containers:
                 main:
-                  envFrom:
-                    - secretRef:
-                        name: kamerplanter-secrets
                   env:
-                    ARANGODB_HOST: kamerplanter-arangodb
-                    ARANGODB_PORT: "8529"
-                    ARANGODB_DATABASE: kamerplanter
-                    ARANGODB_USERNAME: root
-                    REDIS_URL: redis://kamerplanter-valkey:6379/0
                     CORS_ORIGINS: '["https://kamerplanter.just-a-lab.duckdns.org/"]'
                     KAMERPLANTER_MODE: light
             frontend:
@@ -61,9 +53,13 @@ spec:
             arangodb:
               containers:
                 main:
-                  envFrom:
-                    - secretRef:
-                        name: kamerplanter-secrets
+                  resources:
+                    requests:
+                      cpu: 250m
+                      memory: 512Mi
+                    limits:
+                      cpu: "1"
+                      memory: 1Gi
 
   destination:
     server: https://kubernetes.default.svc
