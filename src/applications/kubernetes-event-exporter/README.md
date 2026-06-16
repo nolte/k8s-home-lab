@@ -1,4 +1,4 @@
-# kubernetes-event-exporter 
+# kubernetes-event-exporter
 
 <!--description-start-->
 

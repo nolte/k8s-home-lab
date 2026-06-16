@@ -1,4 +1,4 @@
-# grocy 
+# grocy
 
 <!--description-start-->
 household management solution
@@ -6,5 +6,5 @@ household management solution
 
 <!--header-start-->
 **Deployment:** [ghcr.io/linuxserver/grocy](https://github.com/linuxserver/docker-grocy) *wrapper from the [bjw-s/helm-charts](https://github.com/bjw-s/helm-charts/tree/main/charts/library/common) common chart*  
-**Web**: [grocy/grocy](https://github.com/grocy/grocy)   
+**Web**: [grocy/grocy](https://github.com/grocy/grocy)  
 <!--header-end-->

@@ -10,4 +10,3 @@ Ansible automation Platform.
 **Web**: [ansible/awx](https://github.com/ansible/awx/)  
 <!--header-end-->
 <!-- vale on -->
-

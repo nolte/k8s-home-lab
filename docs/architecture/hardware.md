@@ -18,4 +18,3 @@ Old Intel Nuc with 8GB Ram.
 Nice Flagship with 32GB DDR5 and many Power ;)
 
 ## Hetzner Cloud (Public)
-

@@ -12,7 +12,7 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 1Gi 
+          storage: 1Gi
 
   templates:
     - inputs:
@@ -47,4 +47,3 @@ spec:
           cd /src/src
           esphome run {{"{{"}}inputs.parameters.device-config{{"}}"}} \
             --device={{"{{"}}inputs.parameters.device-address{{"}}"}} --no-logs
-

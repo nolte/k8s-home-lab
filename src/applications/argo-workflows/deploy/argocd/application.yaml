@@ -38,7 +38,7 @@ spec:
             create: true
             name: argo-workflows-execution
           executor:
-            create: true            
+            create: true
         roleBinding:
           tfState:
             create: false
@@ -46,7 +46,7 @@ spec:
           vaultInjector:
             create: false
           executor:
-            create: true            
+            create: true
         serviceAccount:
           annotations: {}
           create: false

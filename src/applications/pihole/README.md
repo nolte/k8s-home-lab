@@ -20,7 +20,7 @@ kubectl -n pihole \
 <!--admin-password-end-->
 
 
-Use the External IP, as our local DNS Server. You can set this inside each client, or use DHCP for share this Service. 
+Use the External IP, as our local DNS Server. You can set this inside each client, or use DHCP for share this Service.
 
 <!--external-ip-start-->
 ```sh

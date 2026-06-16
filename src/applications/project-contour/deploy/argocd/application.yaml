@@ -11,13 +11,13 @@ spec:
     helm:
       releaseName: contour
       parameters: []
-      valuesObject: 
+      valuesObject:
         envoy:
           service:
             type: LoadBalancer
             annotations:
               metallb.universe.tf/address-pool: production-public-ips
-              
+
         #contour:
         #  extraArgs:
         #    - --ingress-status-address=192.168.178.105

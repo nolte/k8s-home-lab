@@ -23,10 +23,9 @@ The **Scope**, from this Overlay Layer are Configure Ingress, Service Auth (oidc
 | | | └─📝 seed.yaml        # (optional) ArgoCD Application for automatic Deployments
 | | ├─🎁 patch-XXX.yaml     # (optional) kustomize patch for specific settings
 | | ├─🎁 patch-YYY.yaml     # (optional) more patch
-| | ├─📦 kustomization.yaml # Seed Job Config with all Deployments from the Cluster 
+| | ├─📦 kustomization.yaml # Seed Job Config with all Deployments from the Cluster
 | | └─📝 README.md          # Cluster Description  
-| └─📁 cluster ...          # ArgoCD manifests, required 
+| └─📁 cluster ...          # ArgoCD manifests, required
 └─📝 ...
 ```
 <!--structure-end-->
-

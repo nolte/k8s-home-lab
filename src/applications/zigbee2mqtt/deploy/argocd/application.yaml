@@ -62,7 +62,7 @@ spec:
                   '0x18fc260000076b59':
                     friendly_name: 'window_contact_04'
                   '0x18fc26000005ef3c':
-                    friendly_name: 'window_contact_05'                  
+                    friendly_name: 'window_contact_05'
                   '0x040d84fffe8d433e':
                     # ikea 4 button
                     friendly_name: 'remote_01'
@@ -93,7 +93,7 @@ spec:
                   '0x00158d000ad8555a':
                     friendly_name: 'sjcgq11lm_02'
                   '0x00158d000ad88d45':
-                    friendly_name: 'sjcgq11lm_01' 
+                    friendly_name: 'sjcgq11lm_01'
                   '0x00158d000ad894ef':
                     friendly_name: 'sjcgq11lm_03'
                   '0x00158d000ad8935b':
@@ -103,7 +103,7 @@ spec:
                   '0x00158d000ad88d94':
                     friendly_name: 'sjcgq11lm_06'
                   '0x00158d000af40f51':
-                    friendly_name: 'sjcgq11lm_07'                  
+                    friendly_name: 'sjcgq11lm_07'
                   '0x00158d000af411ab':
                     friendly_name: 'sjcgq11lm_08'
                   '0x00158d000af414eb':
@@ -156,7 +156,7 @@ spec:
             prepare-config:
               enabled: true
               imageSelector: image
-              type: init              
+              type: init
               command:
                 - /bin/sh
                 - -c

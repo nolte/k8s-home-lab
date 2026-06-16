@@ -79,13 +79,13 @@ spec:
         values: |
           service:
             type: ClusterIP
-          
+
           # tls.enabled: true
           production: true
           proxy: edge
           # spi:
           #   hostnameVerificationPolicy: ANY
-          
+
           extraEnvVars:
             - name: TZ
               value: Europe/Berlin

@@ -12,11 +12,11 @@ includes:
   mkdocs: "{{.TASK_COLLECTION_BASE}}/taskfile-include-mkdocs.yaml"
   ai:
     taskfile: .taskfiles/ai.yml
-  platform: 
+  platform:
     taskfile: .taskfiles/platform.yml
-    vars: 
+    vars:
       TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/develop/src"
-  
+
   argocd: .taskfiles/argocd.yml
   # serviceset: .taskfiles/Taskfile_servicesets.yml
 

@@ -11,7 +11,7 @@ MetalLB is a load-balancer implementation for bare-metal Kubernetes clusters. It
 <!--header-start-->
 **Namespace:** `metallb-system`  
 **Deployment:**  
-**Terraform Provider:** 
+**Terraform Provider:**
 **Web:** [metallb.io](https://metallb.io/)  
 <!--header-end-->
 

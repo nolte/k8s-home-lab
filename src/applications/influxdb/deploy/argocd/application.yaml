@@ -14,4 +14,3 @@ spec:
     targetRevision: 2.1.2
     helm:
       releaseName: influxdb2
-      

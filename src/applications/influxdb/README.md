@@ -21,7 +21,7 @@ kubectl -n influxdb get secrets influxdb2-auth -ojson | jq '.data."admin-passwor
 
 
 ```sh
-export INFLUXDB_USERNAME=admin 
+export INFLUXDB_USERNAME=admin
 export INFLUXDB_PASSWORD=$(kubectl -n influxdb get secrets influxdb2-auth -ojson | jq '.data."admin-password"' -r | base64 -d)
 ```
 

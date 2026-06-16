@@ -18,11 +18,11 @@ spec:
         image:
           registry: docker.io
           repository: nolte/kubernetes-event-exporter
-          tag: dirty      
-        extraVolumeMounts: 
+          tag: dirty
+        extraVolumeMounts:
         - name: secret-volume
           readOnly: true
-          mountPath: "/etc/secret-volume"        
+          mountPath: "/etc/secret-volume"
         extraVolumes:
           - name: secret-volume
             secret:
@@ -32,7 +32,7 @@ spec:
           route:
             routes:
               - match:
-                  - receiver: "kafka"        
+                  - receiver: "kafka"
           receivers:
             - name: "kafka"
               kafka:
@@ -53,4 +53,3 @@ spec:
                   enable: true
                   username: "k8s-event-exporter"
                   password: "EU4gzRCb33x6k6gvMMmhqi55JiDCLlZW"
-                

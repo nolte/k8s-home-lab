@@ -45,4 +45,3 @@ variable "nodes" {
     })),[])
   }))
 }
-

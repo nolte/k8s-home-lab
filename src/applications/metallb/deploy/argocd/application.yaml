@@ -13,7 +13,7 @@ spec:
       valuesObject:
         speaker:
           # required for services on controllplane
-          ignoreExcludeLB: true 
+          ignoreExcludeLB: true
     chart: metallb
     repoURL: https://metallb.github.io/metallb
     targetRevision: 0.15.3

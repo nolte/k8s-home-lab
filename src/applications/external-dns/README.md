@@ -15,7 +15,7 @@
 <!--preconditions-esphome-config-start-->
 ```sh
 kubectl -n external-dns create secret generic pihole-config \
-  --from-literal=pihole_password="admin" 
+  --from-literal=pihole_password="admin"
 ```
 <!--preconditions-esphome-config-end-->
 

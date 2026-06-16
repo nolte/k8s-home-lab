@@ -15,7 +15,7 @@ data "proxmox_virtual_environment_nodes" "available_nodes" {}
 module "baseline_node" {
   for_each = toset(data.proxmox_virtual_environment_nodes.available_nodes.names)
   source = "../../tf-modules/proxmox-node"
-  node_name = each.key 
+  node_name = each.key
 }
 
 resource "netbox_ip_address" "router" {
@@ -25,7 +25,7 @@ resource "netbox_ip_address" "router" {
 }
 
 
-# 
+#
 
 # data "proxmox_virtual_environment_role" "admin" {
 #   role_id = "Administrator"

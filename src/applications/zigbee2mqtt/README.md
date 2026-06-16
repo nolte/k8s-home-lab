@@ -27,7 +27,7 @@ kubectl -n zigbee2mqtt port-forward svc/zigbee2mqtt 10103
 <!--port-forward-end-->
 
 
-Look for USB Devices on host system, required for mount from host into vm/container. 
+Look for USB Devices on host system, required for mount from host into vm/container.
 
 ```sh
 root@pve:~# lsusb

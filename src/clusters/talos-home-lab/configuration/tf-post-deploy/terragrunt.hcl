@@ -31,7 +31,7 @@ generate "versions" {
         pass = {
           source = "digipost/pass"
           version = "1.7.1"
-        }  
+        }
       }
     }
 EOF

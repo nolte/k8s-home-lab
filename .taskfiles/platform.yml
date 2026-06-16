@@ -6,12 +6,12 @@ vars:
   TASK_COLLECTION_BASE: "https://raw.githubusercontent.com/nolte/taskfiles/refs/heads/develop/src"
 
 includes:
-  kind: 
+  kind:
     taskfile: "{{.TASK_COLLECTION_BASE}}/taskfile-include-kind.yaml"
     vars:
       KIND_CREATE_EXTRA_ARGS: "--config {{.GIT_ROOT}}/hack/kind.yaml"
-    
-  k8s: 
+
+  k8s:
     taskfile: "{{.TASK_COLLECTION_BASE}}/taskfile-include-k8s.yaml"
     vars:
       ARGOCD_EXTRA_ARGS: "-f {{.GIT_ROOT}}/src/applications/argo-cd/deploy/chart-values/values-argocd.yaml"
@@ -52,7 +52,7 @@ tasks:
       - task: serviceset
         vars:
           SCREEN_PLAY_CONFIGMAP_NAME: screenplay-devops-services
-  
+
   serviceset:
     cmds:
     - |
@@ -84,7 +84,7 @@ tasks:
       argocd --core app wait argocd/seed-job
       argocd --core app sync argocd/seed-job
       argocd --core app wait argocd/seed-job
- 
+
     #silent: true
 
   recreate:
@@ -97,7 +97,7 @@ tasks:
     - |
       argocd --core app wait argocd/argocd
       argocd --core app sync argocd/argocd
-      argocd --core app wait argocd/argocd    
+      argocd --core app wait argocd/argocd
    # silent: true
 
   maxfs:
@@ -105,4 +105,4 @@ tasks:
     cmds:
       - sudo sysctl -w fs.inotify.max_user_watches=2099999999
       - sudo sysctl -w fs.inotify.max_user_instances=2099999999
-      - sudo sysctl -w fs.inotify.max_queued_events=2099999999  
+      - sudo sysctl -w fs.inotify.max_queued_events=2099999999

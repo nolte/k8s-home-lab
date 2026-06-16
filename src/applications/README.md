@@ -21,13 +21,13 @@ We try to find a Reuseable folder structure, for handle different kindes of Serv
 | └─📁 ...                   # additional config scripts
 |─📁 deploy                  # Folder with k8s manifests
 | |─📁 argocd                # ArgoCD manifests, required for Deploy the Application to K8S Cluster.
-| | |─📝 application.yaml    # 
-| | └─📦 kustomization.yaml  # 
+| | |─📝 application.yaml    #
+| | └─📦 kustomization.yaml  #
 | |─📁 kustomize             # (optional) Place for Application Specific Manifests.
-| | |─📦 kustomization.yaml  # 
-| | └─📝 ...                 # 
+| | |─📦 kustomization.yaml  #
+| | └─📝 ...                 #
 | |─📁 image                 # (optional) Required files for crate a Image.
-| | └─📝 Dockerfile          # 
+| | └─📝 Dockerfile          #
 └─📝 README.md               # The Application Specific Readme, used as Service Documentation.
 ```
 <!--structure-end-->

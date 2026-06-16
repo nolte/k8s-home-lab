@@ -20,9 +20,9 @@ K8S clusters will be configured for different use cases such as [SmartHome](./do
 
 A combination of services like Secret Management, Git and Container Registry. This setup can be used to manage some basic infrastructure using Infrastructure as Code (IaC) tools.
 
-*(more information at [src/clusters/dev-kind-powerdns](src/clusters/dev-kind-powerdns/README.md))*.   
+*(more information at [src/clusters/dev-kind-powerdns](src/clusters/dev-kind-powerdns/README.md))*.  
 
-### Smart Home 
+### Smart Home
 
 Services for hosting a `cloud-less` smart home system with MQTT Broker, zigbee gateway, Home-Assistant and many more.
 

@@ -8,9 +8,9 @@ spec:
     namespace: kube-system
   project: default
   sources:
-  - 
+  -
     repoURL: https://helm.cilium.io
-    targetRevision: 1.19.3     
+    targetRevision: 1.19.3
     chart: cilium
     helm:
       releaseName: cilium
@@ -18,12 +18,12 @@ spec:
       values: |
         # tbd
         ipam:
-          mode: kubernetes 
+          mode: kubernetes
         kubeProxyReplacement: false
- 
+
         cgroup:
           autoMount:
-            enabled: false 
+            enabled: false
           hostRoot: /sys/fs/cgroup
         operator:
           replicas: 1
@@ -37,7 +37,7 @@ spec:
           # hostNetwork:
           #   enabled: true
         securityContext:
-          privileged: true        
+          privileged: true
           capabilities:
             ciliumAgent:
               - CHOWN
@@ -51,10 +51,10 @@ spec:
               - FOWNER
               - SETGID
               - SETUID
-            cleanCiliumState:  
+            cleanCiliumState:
               - NET_ADMIN
               - SYS_ADMIN
               - SYS_RESOURCE
-                  
+
         # nodePort:
         #   enabled: true

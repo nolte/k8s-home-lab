@@ -4,7 +4,7 @@ metadata:
   name: flathunter
   finalizers:
     # The default behaviour is foreground cascading deletion
-    - resources-finalizer.argocd.argoproj.io  
+    - resources-finalizer.argocd.argoproj.io
   #annotations:
   #  argocd.argoproj.io/sync-wave: "-33"
 spec:
@@ -32,11 +32,11 @@ spec:
               reloader.stakater.com/auto: "true"
             containers:
               main:
-                command: 
+                command:
                   - python
                 args:
                   - flathunt.py
-                  # - --config 
+                  # - --config
                   # - /settings/config.yaml
                 env:
                   - name: "TZ"
@@ -59,12 +59,12 @@ spec:
                   - name: FLATHUNTER_HEADLESS_BROWSER
                     value: "true"
                   - name: FLATHUNTER_VERBOSE_LOG
-                    value: "true"                    
-                                        
+                    value: "true"
+
                 envFrom:
                   - secretRef:
                       name: flathunter-secrets
-                
+
                 # https://hub.docker.com/r/esphome/esphome/tags
                 image:
                   repository: docker.io/nolte/flathunter
@@ -74,7 +74,7 @@ spec:
           settings:
             enabled: true
             type: configMap
-            name: flathunter-settings    
+            name: flathunter-settings
           config:
             enabled: true
             type: persistentVolumeClaim
