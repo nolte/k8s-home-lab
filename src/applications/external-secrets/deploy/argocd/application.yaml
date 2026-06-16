@@ -20,10 +20,10 @@ spec:
           value: "external-secrets"
         # - name: env.VAULT_ADDR
         #   value: "http://vault.vault.svc:8200"
-      valuesObject: 
+      valuesObject:
         crds:
-          conversion: 
-            strategy: None  
+          conversion:
+            strategy: None
   syncPolicy:
     syncOptions:
     - ServerSideApply=true

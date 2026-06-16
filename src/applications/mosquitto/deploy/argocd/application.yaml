@@ -49,13 +49,12 @@ spec:
             enabled: true
             globalMounts:
               - path: /mosquitto/data
-                readOnly: false    
+                readOnly: false
             type: emptyDir
           configinc:
             enabled: true
             globalMounts:
               - path: /mosquitto/config
-                readOnly: false    
+                readOnly: false
             type: configMap
             name: mosquitto-config
-        

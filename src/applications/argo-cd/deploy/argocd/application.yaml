@@ -45,5 +45,5 @@ spec:
       targetRevision: 2.0.4
     - repoURL: 'https://github.com/nolte/k8s-home-lab.git'
       targetRevision: master
-      path: src/applications/argo-cd/deploy     
+      path: src/applications/argo-cd/deploy
       ref: values

@@ -14,7 +14,7 @@ spec:
         releaseName: openproject
         valuesObject:
           develop: true
-          environment: 
+          environment:
             OPENPROJECT_HOST__NAME: localhost:8080
           persistence:
             enabled: true

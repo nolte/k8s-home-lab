@@ -11,7 +11,7 @@ resources:
   - ../../../src/bundles/devops-services
   - ../../../src/bundles/certificate-duckdns
   - ../../../src/applications/languagetool/deploy/argocd
-  
+
 labels:
   - includeSelectors: true
     pairs:
@@ -306,15 +306,15 @@ patches:
       group: argoproj.io
       kind: Application
       name: argocd
-      version: v1alpha1      
+      version: v1alpha1
 
   - path: ../../kustomization-common/deployment-patch-config-workflow-1.yaml
     target:
       group: argoproj.io
       kind: Application
       name: harbor
-      version: v1alpha1      
-  
+      version: v1alpha1
+
   - patch: |-
       - op: add
         path: /spec/sources/3/helm/parameters/-
@@ -325,11 +325,10 @@ patches:
       group: argoproj.io
       kind: Application
       name: vault
-      version: v1alpha1    
+      version: v1alpha1
   - path: ./argocd-patch-oidc.yaml
     target:
       group: argoproj.io
       kind: Application
       name: argocd
-      version: v1alpha1      
-    
+      version: v1alpha1

@@ -30,7 +30,7 @@ spec:
           node-role.kubernetes.io/control-plane: ""
         tolerations:
           - key: node-role.kubernetes.io/control-plane
-            effect: NoSchedule        
+            effect: NoSchedule
         # See https://pve.proxmox.com/wiki/Storage
         storageClass:
           - name: proxmox-data-xfs
@@ -43,4 +43,4 @@ spec:
             storage: local-lvm
             reclaimPolicy: Delete
             fstype: ext4
-            cache: writethrough 
+            cache: writethrough

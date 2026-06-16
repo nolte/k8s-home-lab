@@ -35,7 +35,7 @@ spec:
                 enableWebsockets: true # Setting this to true enables websocket for all paths that match /websocket
                 services:
                   - name: music-assistant-main
-                    port: 8095         
+                    port: 8095
     - chart: app-template
       repoURL: https://bjw-s-labs.github.io/helm-charts
       targetRevision: 5.0.0
@@ -73,14 +73,14 @@ spec:
                 snap:
                   port: 1704
                 stream:
-                  port: 4953            
+                  port: 4953
           controllers:
-            snapcast:           
+            snapcast:
               containers:
-                main: 
-                  env:                   
+                main:
+                  env:
                     - name: TZ
-                      value: "Europe/Berlin"               
+                      value: "Europe/Berlin"
                   probes:
                     liveness:
                       enabled: true
@@ -125,7 +125,7 @@ spec:
             main:
               containers:
                 main:
-                  env:                   
+                  env:
                     - name: TZ
                       value: "Europe/Berlin"
                   image:
@@ -166,14 +166,14 @@ spec:
                         periodSeconds: 5
                         failureThreshold: 30
                   securityContext:
-                    allowPrivilegeEscalation: true                                
-                      
+                    allowPrivilegeEscalation: true
+
               type: deployment
               annotations:
                 reloader.stakater.com/auto: "true"
           defaultPodOptions:
             hostNetwork: true
-          persistence:      
+          persistence:
             config:
               enabled: true
               accessMode: "ReadWriteOnce"

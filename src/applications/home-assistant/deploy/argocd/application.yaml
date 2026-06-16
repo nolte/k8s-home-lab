@@ -55,16 +55,16 @@ spec:
                   port: 5000
                 tcp:
                   port: 10200
-                 
+
             wyomingspeech:
               controller: wyomingspeech
               ports:
                 http:
-                  port: 10300                  
+                  port: 10300
           controllers:
             piper:
               containers:
-                main: 
+                main:
                   probes:
                     liveness:
                       enabled: true
@@ -97,21 +97,21 @@ spec:
                         timeoutSeconds: 1
                         ## This means it has a maximum of 5*30=150 seconds to start up before it fails
                         periodSeconds: 5
-                        failureThreshold: 30                
+                        failureThreshold: 30
                   image:
                     # https://github.com/home-assistant/addons/blob/master/piper/Dockerfile
                     # https://hub.docker.com/r/rhasspy/wyoming-piper/tags
                     repository: rhasspy/wyoming-piper
                     tag: 2.2.2
                   #command: ["/bin/bash"]
-                  args: 
+                  args:
                   - "--data-dir"
-                  - "/data" 
-                  - "--voice" 
+                  - "/data"
+                  - "--voice"
                   - "en_US-lessac-medium"
             wyomingspeech:
               containers:
-                main: 
+                main:
                   envFrom:
                     - secret: wyomingspeech-creds
                   probes:
@@ -146,17 +146,17 @@ spec:
                         timeoutSeconds: 1
                         ## This means it has a maximum of 5*30=150 seconds to start up before it fails
                         periodSeconds: 5
-                        failureThreshold: 30                
+                        failureThreshold: 30
                   image:
                     # https://github.com/home-assistant/core/releases
                     # https://github.com/OHF-Voice/speech-to-phrase
                     # https://github.com/rhasspy/wyoming-addons/blob/master/speech-to-phrase/Dockerfile
                     # https://hub.docker.com/r/rhasspy/wyoming-speech-to-phrase
-                    # 
+                    #
                     repository: rhasspy/wyoming-speech-to-phrase
                     tag: 1.4.3
                   command: ["/bin/bash"]
-                  args: 
+                  args:
                   - "-c"
                   - "cd /usr/src; exec .venv/bin/python3 -m speech_to_phrase --uri 'tcp://0.0.0.0:10300' --models-dir /models --train-dir /train --tools-dir ./tools --hass-websocket-uri $HA_WS --hass-token $HA_TOKEN --retrain-on-start;"
             main:

@@ -4,7 +4,7 @@ metadata:
   name: privatellm
   finalizers:
     # The default behaviour is foreground cascading deletion
-    - resources-finalizer.argocd.argoproj.io  
+    - resources-finalizer.argocd.argoproj.io
   #annotations:
   #  argocd.argoproj.io/sync-wave: "-33"
 spec:
@@ -12,7 +12,7 @@ spec:
     name: in-cluster
     namespace: privatellm
   project: default
-  sources:  
+  sources:
   # https://github.com/truecharts/public/blob/master/charts/stable/anything-llm/values.yaml
   - chart: anything-llm
     repoURL: tccr.io/truecharts
@@ -25,7 +25,7 @@ spec:
             podSpec:
               containers:
                 main:
-                  env:      
+                  env:
                     DISABLE_TELEMETRY: "true"
 
   # https://amikos-tech.github.io/chromadb-chart/

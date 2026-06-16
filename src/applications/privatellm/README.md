@@ -1,12 +1,12 @@
-# PrivateLLM Service 
+# PrivateLLM Service
 
 <!--description-start-->
 
 <!--description-end-->
 
 <!--header-start-->
-**Deployment:** 
-**Web**: 
+**Deployment:**
+**Web**:
 <!--header-end-->
 
 

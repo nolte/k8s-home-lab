@@ -8,9 +8,9 @@ spec:
     namespace: podinfo
   project: default
   sources:
-  - 
+  -
     repoURL: https://stefanprodan.github.io/podinfo
-    targetRevision: 6.11.2     
+    targetRevision: 6.11.2
     chart: podinfo
     helm:
       releaseName: podinfo
@@ -24,7 +24,7 @@ spec:
               paths:
                 - path: /
                   pathType: ImplementationSpecific
-  
+
       #   # tbd
       #   operator:
       #     replicas: 1

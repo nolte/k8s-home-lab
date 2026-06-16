@@ -1,11 +1,11 @@
 dex:
   enabled: false
-  
+
 repoServer:
   env:
     # https://stackoverflow.com/a/76265196
     - name: ARGOCD_GIT_ATTEMPTS_COUNT
-      value: "50" 
+      value: "50"
   initContainers:
     - args:
         - wget -qO- https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.3.0/kustomize_v5.3.0_linux_amd64.tar.gz | tar -xvzf - && mv kustomize /custom-tools/kustomize_5_3_0 && chmod +x /custom-tools/kustomize_5_3_0

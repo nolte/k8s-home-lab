@@ -7,8 +7,8 @@ Use [netbox-community/netbox](https://github.com/netbox-community/netbox), for k
 <!--header-start-->
 **Deployment:** Helm, [netbox-community/netbox-chart/](https://github.com/netbox-community/netbox-chart/)  
 **Terraform Provider:** [e-breuninger/terraform-provider-netbox](https://github.com/e-breuninger/terraform-provider-netbox)  
-**Promehteus SD**: [FlxPeters/netbox-plugin-prometheus-sd](https://github.com/FlxPeters/netbox-plugin-prometheus-sd)   
-**Web**: [netbox.readthedocs.io](https://netbox.readthedocs.io/en/stable/)   
+**Promehteus SD**: [FlxPeters/netbox-plugin-prometheus-sd](https://github.com/FlxPeters/netbox-plugin-prometheus-sd)  
+**Web**: [netbox.readthedocs.io](https://netbox.readthedocs.io/en/stable/)  
 **Ansible Inventory**: [docs.ansible.com](https://docs.ansible.com/ansible/latest/collections/netbox/netbox/nb_inventory_inventory.html)
 <!--header-end-->
 
@@ -51,8 +51,8 @@ kubectl -n netbox create secret generic netbox-operator-app-superuser \
 
 kubectl -n netbox create secret generic netbox-operator-postgresql \
     --from-literal=postgres-password="$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)" \
-    --from-literal=password="$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)" 
-    
+    --from-literal=password="$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)"
+
 ```
 
 <!--links-start-->
@@ -67,7 +67,7 @@ export NETBOX_API_TOKEN=$(kubectl -n netbox get secrets netbox-superuser -ojson 
 ```
 
 ```
-terragrunt apply -parallelism 1 -auto-approve 
+terragrunt apply -parallelism 1 -auto-approve
 ```
 
 ## Ansible Usage
@@ -88,6 +88,3 @@ export ANSIBLE_INVENTORY=$(pwd)/configuration/inventory/inventory.yaml
 task esphome:run \
   DEVICE_FILE="$(jq -r '"\(.local_context_data[0].esphome.config) --device=\(.ansible_host)"' <<< $(ansible-inventory -i $ANSIBLE_INVENTORY --list | jq '._meta.hostvars["nous-a1t-08"]' -r))"
 ```
-
-
-

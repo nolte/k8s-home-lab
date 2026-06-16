@@ -25,10 +25,10 @@ spec:
               existingSecret: "netbox-redis"
               existingSecretPasswordKey: "redis-password"
           scriptsPersistence:
-            enabled: true          
+            enabled: true
           storages:
             default:
-              BACKEND: "django.core.files.storage.FileSystemStorage"           
+              BACKEND: "django.core.files.storage.FileSystemStorage"
       # https://github.com/netbox-community/netbox-chart/blob/main/charts/netbox/values.yaml
       chart: netbox
       repoURL: ghcr.io/netbox-community/netbox-chart
@@ -38,4 +38,3 @@ spec:
     - group: v1
       kind: Secret
       name: netbox-postgresql
-   

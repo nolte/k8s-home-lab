@@ -1,4 +1,4 @@
-# flathunters 
+# flathunters
 
 [flathunters/flathunter]https://github.com/flathunters/flathunter?tab=readme-ov-file)
 

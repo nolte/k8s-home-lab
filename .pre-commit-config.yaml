@@ -6,6 +6,7 @@ repos:
             args: ['--unsafe']
             exclude: (?x)(
               .*/deploy/.*/templates/.* |
+              .*/workflows/templates/.* |
               .*/examples/.* |
               .*/rabbitmq/.*/.*/transport/.*
               )

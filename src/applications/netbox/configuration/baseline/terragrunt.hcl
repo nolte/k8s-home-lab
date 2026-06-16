@@ -4,7 +4,7 @@ include {
 }
 
 inputs = {
-  
+
   gitea_fqdn = "gitea.dev44-just-homestyle.duckdns.org"
   #keycloak_fqdn = dependency.keycloak.outputs.keycloak_fqdn
   #super_admins_group_id = dependency.keycloak.outputs.super_admins_group_id

@@ -19,10 +19,10 @@ spec:
         - name: device-config
           value: "{{ $value.config}}"
         - name: device-address
-          value: "{{ $value.address}}" 
+          value: "{{ $value.address}}"
         - name: repo
           value: "{{ $dot.Values.configs.repo}}"
         - name: revision
-          value: "{{ $dot.Values.configs.revision}}"  
+          value: "{{ $dot.Values.configs.revision}}"
 ---
-{{- end }} 
+{{- end }}

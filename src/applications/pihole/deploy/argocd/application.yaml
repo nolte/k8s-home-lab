@@ -38,7 +38,7 @@ spec:
           image:
             repository: "pihole/pihole"
             tag: "2026.04.1"
-            pullPolicy: IfNotPresent   
+            pullPolicy: IfNotPresent
           persistentVolumeClaim:
             enabled: false
             size: "10Gi"

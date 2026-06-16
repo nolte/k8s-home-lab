@@ -20,7 +20,7 @@ spec:
             create: false
             serviceAccount:
               create: false
-         
+
     - # https://github.com/ansible-community/awx-operator-helm/releases/tag/awx-operator-3.2.0
       # https://github.com/ansible-community/awx-operator-helm/blob/main/charts/awx-operator/values.yaml
       chart: awx-operator
@@ -28,7 +28,7 @@ spec:
       targetRevision: 3.2.1
       helm:
         releaseName: awx-operator
-        valuesObject: 
+        valuesObject:
           AWX:
             # enable use of awx-deploy template
             enabled: true

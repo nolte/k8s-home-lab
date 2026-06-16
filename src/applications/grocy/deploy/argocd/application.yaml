@@ -4,7 +4,7 @@ metadata:
   name: grocy
   finalizers:
     # The default behaviour is foreground cascading deletion
-    - resources-finalizer.argocd.argoproj.io  
+    - resources-finalizer.argocd.argoproj.io
   #annotations:
   #  argocd.argoproj.io/sync-wave: "-33"
 spec:
@@ -45,7 +45,7 @@ spec:
             controller: main
             ports:
               http:
-                port: 80      
+                port: 80
         controllers:
           main:
             type: deployment
@@ -54,20 +54,20 @@ spec:
             containers:
               main:
                 ports:
-                - containerPort: 80                
-                
+                - containerPort: 80
+
                 env:
                   - name: "TZ"
                     value: "Europe/Berlin"
                   - name: "GROCY_CURRENCY"
-                    value: "EUR"                               
-                    
+                    value: "EUR"
+
                 # https://docs.linuxserver.io/images/docker-grocy/
                 image:
                   repository: ghcr.io/linuxserver/grocy
                   tag: "latest"
                   pullPolicy: Always
-        persistence:  
+        persistence:
           config:
             enabled: true
             type: persistentVolumeClaim

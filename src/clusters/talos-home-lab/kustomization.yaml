@@ -143,7 +143,7 @@ patches:
       #  path: /spec/sources/1/helm/parameters/-
       #  value:
       #    name:  persistence.config.type
-      #    value: "PersistentVolumeClaim"          
+      #    value: "PersistentVolumeClaim"
       # - op: add
       #   path: /spec/sources/1/helm/parameters/-
       #   value:
@@ -185,23 +185,23 @@ patches:
         value: pihole
       - op: replace
         path: /spec/sources/1/helm/valuesObject/txtOwnerId
-        value: smart-home-02  
+        value: smart-home-02
       - op: replace
         path: /spec/sources/1/helm/valuesObject/domainFilters
-        value: 
+        value:
           - just-a-lab.duckdns.org
       - op: replace
-        path: /spec/sources/1/helm/valuesObject/pihole	
+        path: /spec/sources/1/helm/valuesObject/pihole
         value: {}
       - op: add
-        path: /spec/sources/1/helm/valuesObject/pihole/server	
-        value: http://pihole-web.pihole.svc        
+        path: /spec/sources/1/helm/valuesObject/pihole/server
+        value: http://pihole-web.pihole.svc
       - op: add
-        path: /spec/sources/1/helm/valuesObject/pihole/secretName	
-        value: pihole-config   
+        path: /spec/sources/1/helm/valuesObject/pihole/secretName
+        value: pihole-config
       - op: add
-        path: /spec/sources/1/helm/valuesObject/extraArgs	
-        value: 
+        path: /spec/sources/1/helm/valuesObject/extraArgs
+        value:
           pihole-api-version: 6
     target:
       group: argoproj.io
@@ -246,7 +246,7 @@ resources:
   - ../../../src/applications/metallb/deploy/argocd
   - ../../../src/applications/external-dns/deploy/argocd
   - ../../../src/applications/proxmox-csi-plugin/deploy/argocd
-  - ../../../src/applications/flathunter/deploy/argocd  
+  - ../../../src/applications/flathunter/deploy/argocd
   - ../../../src/applications/grocy/deploy/argocd
   - ../../../src/applications/music-assistant/deploy/argocd
   - ../../../src/bundles/05-bootstrapping-ingress
