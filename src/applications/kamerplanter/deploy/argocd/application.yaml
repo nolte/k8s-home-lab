@@ -34,30 +34,68 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.13
+      targetRevision: v0.0.16
       helm:
         valuesObject:
-
+          # Persistent image store (NFR-013 local-fs). Mounted at
+          # /data/attachments (STORAGE_LOCAL_FS_ROOT) on the backend pod.
+          # Override the chart default (20Gi) down to a 2Gi volume.
+          persistence:
+            backend-attachments:
+              size: 2Gi
           controllers:
             backend:
+              # The chart's backend controller overrides defaultPodOptions'
+              # securityContext (runAsUser/runAsGroup) and thereby drops the
+              # fsGroup, so the backend-attachments PVC mounts as root:root and
+              # the uid-1000 process can't write — storage health_check fails
+              # and readiness stays 503. Re-add fsGroup so the volume is
+              # group-owned by 1000 and writable.
+              pod:
+                securityContext:
+                  fsGroup: 1000
               containers:
                 main:
                   image:
-                    tag: "0.0.13"
+                    tag: "0.0.16"
+                  envFrom:
+                    - secretRef:
+                        name: kamerplanter-secrets
+                    - secretRef:
+                        name: kamerplanter-vapid
                   env:
                     CORS_ORIGINS: '["https://kamerplanter.just-a-lab.duckdns.org/"]'
                     KAMERPLANTER_MODE: light
+                    # REQ-034 §4a.3 — operator opt-in for the *external* Pl@ntNet
+                    # recognition path in Light mode. Light mode (REQ-027) has no
+                    # consent subsystem, so sending a gallery photo to a third
+                    # party is a deliberate operator decision. Without this the
+                    # backend reports Pl@ntNet as unavailable in the quality-check
+                    # picker regardless of the configured PLANTNET_API_KEY.
+                    IDENTIFICATION_EXTERNAL_IN_LIGHT_MODE: "true"
+                  # Image upload decodes the photo in-memory (Pillow quality
+                  # assessment); a few-MB JPEG balloons to 100+ MB decoded, so
+                  # the chart's 256Mi limit OOMKills the pod on upload. Raise it.
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 256Mi
+                    limits:
+                      cpu: "1"
+                      memory: 1Gi
             frontend:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.13"
+                    tag: "0.0.16"
+                  # The init container generates runtime-config.js consumed by
+                  # the frontend; this is the ONLY place the mode takes effect.
+                  env:
+                    KAMERPLANTER_MODE: light
               containers:
                 main:
                   image:
-                    tag: "0.0.13"
-                  env:
-                    KAMERPLANTER_MODE: light
+                    tag: "0.0.16"
             arangodb:
               containers:
                 main:
@@ -74,18 +112,19 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.13"
+                    tag: "0.0.16"
             celery-beat:
               containers:
                 main:
                   image:
-                    tag: "0.0.13"
+                    tag: "0.0.16"
 
   destination:
     server: https://kubernetes.default.svc
     namespace: kamerplanter
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:
