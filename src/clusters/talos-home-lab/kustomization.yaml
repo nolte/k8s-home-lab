@@ -728,14 +728,17 @@ patches:
 
   # Kamerplanter (sources[1] = custom chart with app-template pattern)
   - patch: |-
+      # Image upload decodes the photo in-memory (Pillow quality assessment);
+      # a few-MB JPEG balloons to 100+ MB decoded, so the tuned 256Mi limit
+      # OOMKilled the backend (exitCode 137) on upload. Raise to 2Gi.
       - op: add
         path: /spec/sources/1/helm/valuesObject/controllers/backend/containers/main/resources
         value:
           limits:
-            memory: "256Mi"
+            memory: "2Gi"
           requests:
-            cpu: "25m"
-            memory: "64Mi"
+            cpu: "100m"
+            memory: "512Mi"
       - op: add
         path: /spec/sources/1/helm/valuesObject/controllers/frontend/containers/main/resources
         value:
