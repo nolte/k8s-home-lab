@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.16
+      targetRevision: v0.0.17
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
@@ -43,6 +43,9 @@ spec:
           persistence:
             backend-attachments:
               size: 2Gi
+            # REQ-029-A — writable /tmp for the read-only inference-service.
+            inference-service-tmp:
+              enabled: true
           controllers:
             backend:
               # The chart's backend controller overrides defaultPodOptions'
@@ -57,7 +60,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.16"
+                    tag: "0.0.17"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -65,6 +68,7 @@ spec:
                         name: kamerplanter-vapid
                   env:
                     CORS_ORIGINS: '["https://kamerplanter.just-a-lab.duckdns.org/"]'
+                    INFERENCE_SERVICE_ENABLED: true
                     KAMERPLANTER_MODE: light
                     # REQ-034 §4a.3 — operator opt-in for the *external* Pl@ntNet
                     # recognition path in Light mode. Light mode (REQ-027) has no
@@ -73,21 +77,29 @@ spec:
                     # backend reports Pl@ntNet as unavailable in the quality-check
                     # picker regardless of the configured PLANTNET_API_KEY.
                     IDENTIFICATION_EXTERNAL_IN_LIGHT_MODE: "true"
+                    # REQ-029-A — where the backend reaches the DINOv2 inference
+                    # service (single-release service name). INFERENCE_SERVICE_ENABLED
+                    # is intentionally NOT set yet: the local recognition path is
+                    # flipped on only AFTER the reference index is populated, else
+                    # recognition returns no results. See the deploy doc.
+                    INFERENCE_SERVICE_URL: "http://kamerplanter-inference-service:8000"
                   # Image upload decodes the photo in-memory (Pillow quality
                   # assessment); a few-MB JPEG balloons to 100+ MB decoded, so
-                  # the chart's 256Mi limit OOMKills the pod on upload. Raise it.
+                  # the chart's 256Mi limit OOMKills the pod on upload. Even the
+                  # raised 1Gi limit still OOMKilled (exitCode 137) under real
+                  # upload load, so bump to 2Gi.
                   resources:
                     requests:
                       cpu: 100m
-                      memory: 256Mi
+                      memory: 512Mi
                     limits:
                       cpu: "1"
-                      memory: 1Gi
+                      memory: 2Gi
             frontend:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.16"
+                    tag: "0.0.17"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
@@ -95,7 +107,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.16"
+                    tag: "0.0.17"
             arangodb:
               containers:
                 main:
@@ -112,12 +124,48 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.16"
+                    tag: "0.0.17"
+                  # REQ-029-A — the reference-image acquisition Celery task runs
+                  # here and calls the inference-service directly (not gated by
+                  # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
+                  env:
+                    INFERENCE_SERVICE_URL: "http://kamerplanter-inference-service:8000"
+                  # The worker does the same in-memory Pillow image decoding as
+                  # the backend (thumbnail generation §8.2 + reference-image
+                  # acquisition) with --concurrency=2, so the chart's 512Mi limit
+                  # OOMKilled it repeatedly (exitCode 137). Match the backend's
+                  # 2Gi headroom.
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 512Mi
+                    limits:
+                      cpu: "1"
+                      memory: 2Gi
             celery-beat:
               containers:
                 main:
                   image:
-                    tag: "0.0.16"
+                    tag: "0.0.17"
+            # REQ-029-A — DINOv2 recognition stack (single-release). Enabled here;
+            # the chart ships both controllers disabled by default. The vectordb
+            # pod will CrashLoop until kamerplanter-secrets carries POSTGRES_PASSWORD
+            # (and the inference-service needs VECTORDB_PASSWORD in the same Secret).
+            vectordb:
+              enabled: true
+            inference-service:
+              enabled: true
+          # REQ-029-A — expose the recognition controllers + lock down traffic.
+          service:
+            vectordb:
+              enabled: true
+            inference-service:
+              enabled: true
+          networkpolicies:
+            vectordb:
+              enabled: true
+            inference-service:
+              enabled: true
 
   destination:
     server: https://kubernetes.default.svc
