@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.17
+      targetRevision: v0.0.18
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
@@ -60,7 +60,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.17"
+                    tag: "0.0.18"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -69,6 +69,7 @@ spec:
                   env:
                     CORS_ORIGINS: '["https://kamerplanter.just-a-lab.duckdns.org/"]'
                     INFERENCE_SERVICE_ENABLED: true
+                    PEST_DETECTION_ENABLED: true
                     KAMERPLANTER_MODE: light
                     # REQ-034 §4a.3 — operator opt-in for the *external* Pl@ntNet
                     # recognition path in Light mode. Light mode (REQ-027) has no
@@ -99,7 +100,7 @@ spec:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.17"
+                    tag: "0.0.18"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
@@ -107,7 +108,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.17"
+                    tag: "0.0.18"
             arangodb:
               containers:
                 main:
@@ -124,7 +125,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.17"
+                    tag: "0.0.18"
                   # REQ-029-A — the reference-image acquisition Celery task runs
                   # here and calls the inference-service directly (not gated by
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
@@ -146,7 +147,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.17"
+                    tag: "0.0.18"
             # REQ-029-A — DINOv2 recognition stack (single-release). Enabled here;
             # the chart ships both controllers disabled by default. The vectordb
             # pod will CrashLoop until kamerplanter-secrets carries POSTGRES_PASSWORD
@@ -155,6 +156,16 @@ spec:
               enabled: true
             inference-service:
               enabled: true
+              # Pin to the coordinated release tag like every other controller.
+              # The chart default floats on ``:latest`` with pullPolicy
+              # IfNotPresent, so a node that cached an older ``:latest`` never
+              # re-pulls — the pod kept serving a pre-REQ-044 image without the
+              # ``/pest/*`` routes, so /admin/pests/status reported the service
+              # as unreachable. An explicit semver tag forces a fresh pull.
+              containers:
+                main:
+                  image:
+                    tag: "0.0.18"
           # REQ-029-A — expose the recognition controllers + lock down traffic.
           service:
             vectordb:
