@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.18
+      targetRevision: v0.0.19
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
@@ -60,7 +60,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.18"
+                    tag: "0.0.19"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -68,6 +68,13 @@ spec:
                         name: kamerplanter-vapid
                   env:
                     CORS_ORIGINS: '["https://kamerplanter.just-a-lab.duckdns.org/"]'
+                    # Home Assistant runs in-cluster (home-assistant.home-assistant.svc),
+                    # so the HA URL configured in system settings resolves to a private
+                    # address. The SSRF guard (url_safety.py) rejects private HA endpoints
+                    # unless this is set — required for the in-cluster HA integration,
+                    # otherwise the backend crashes on startup (get_ha_client validates
+                    # the URL in the FastAPI lifespan). Deliberate self-hosted opt-in.
+                    HA_ALLOW_PRIVATE_ENDPOINT: "true"
                     INFERENCE_SERVICE_ENABLED: true
                     PEST_DETECTION_ENABLED: true
                     KAMERPLANTER_MODE: light
@@ -100,7 +107,7 @@ spec:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.18"
+                    tag: "0.0.19"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
@@ -108,7 +115,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.18"
+                    tag: "0.0.19"
             arangodb:
               containers:
                 main:
@@ -125,7 +132,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.18"
+                    tag: "0.0.19"
                   # REQ-029-A — the reference-image acquisition Celery task runs
                   # here and calls the inference-service directly (not gated by
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
@@ -147,7 +154,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.18"
+                    tag: "0.0.19"
             # REQ-029-A — DINOv2 recognition stack (single-release). Enabled here;
             # the chart ships both controllers disabled by default. The vectordb
             # pod will CrashLoop until kamerplanter-secrets carries POSTGRES_PASSWORD
@@ -165,7 +172,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.18"
+                    tag: "0.0.19"
           # REQ-029-A — expose the recognition controllers + lock down traffic.
           service:
             vectordb:
