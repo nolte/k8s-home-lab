@@ -26,13 +26,13 @@ spec:
               secretName: cert-manager/wildcard-duckdns-org-tls
             routes:
               - services:
-                  - name: home-assistant
+                  - name: home-assistant-main
                     port: 8123
               - conditions:
                   - prefix: /api
                 enableWebsockets: true # Setting this to true enables websocket for all paths that match /websocket
                 services:
-                  - name: home-assistant
+                  - name: home-assistant-main
                     port: 8123
 
     - chart: app-template
@@ -44,6 +44,7 @@ spec:
         valuesObject:
           service:
             main:
+              enabled: true
               controller: main
               ports:
                 http:
@@ -249,6 +250,8 @@ spec:
               #type: emptyDir
               #type: hostPath
               accessMode: "ReadWriteOnce"
+              storageClass: proxmox-data-xfs 
+              volumeName: home-assistant-config
               size: 20Gi
               advancedMounts:
                 main:
@@ -263,3 +266,4 @@ spec:
           #     existingClaim: home-assistant-config
           #     globalMounts:
           #       - path: /config
+
