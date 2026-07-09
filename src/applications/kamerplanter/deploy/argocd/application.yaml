@@ -78,6 +78,15 @@ spec:
                     INFERENCE_SERVICE_ENABLED: true
                     PEST_DETECTION_ENABLED: true
                     KAMERPLANTER_MODE: light
+                    # REQ-046 — enable the weather subsystem. Ships disabled by
+                    # default (weather_enabled=False in settings.py). Uses public
+                    # keyless sources (Open-Meteo/DWD); Home Assistant is NOT
+                    # required. Must ALSO be set on the celery worker (runs the
+                    # fetch/frost tasks) and beat (registers the daily schedules),
+                    # otherwise the widget stays empty. NOTE: the admin weather
+                    # endpoint additionally needs a valid Fernet FERNET_KEY in
+                    # kamerplanter-secrets (44-char url-safe base64, not hex).
+                    WEATHER_ENABLED: "true"
                     # REQ-034 §4a.3 — operator opt-in for the *external* Pl@ntNet
                     # recognition path in Light mode. Light mode (REQ-027) has no
                     # consent subsystem, so sending a gallery photo to a third
@@ -138,6 +147,9 @@ spec:
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
                   env:
                     INFERENCE_SERVICE_URL: "http://kamerplanter-inference-service:8000"
+                    # REQ-046 — the worker executes the weather-fetch and
+                    # frost-forecast Celery tasks; both early-return unless set.
+                    WEATHER_ENABLED: "true"
                   # The worker does the same in-memory Pillow image decoding as
                   # the backend (thumbnail generation §8.2 + reference-image
                   # acquisition) with --concurrency=2, so the chart's 512Mi limit
@@ -155,6 +167,10 @@ spec:
                 main:
                   image:
                     tag: "0.0.19"
+                  # REQ-046 — beat only registers the daily weather-fetch (06:00)
+                  # and frost-forecast (06:10) schedules when weather is enabled.
+                  env:
+                    WEATHER_ENABLED: "true"
             # REQ-029-A — DINOv2 recognition stack (single-release). Enabled here;
             # the chart ships both controllers disabled by default. The vectordb
             # pod will CrashLoop until kamerplanter-secrets carries POSTGRES_PASSWORD
