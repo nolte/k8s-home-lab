@@ -13,13 +13,13 @@ spec:
         releaseName: projectcontour-mixin
         parameters:
           - name: httpProxy.create
-            value: "false"
+            value: "true"
           - name: httpProxy.fqdn
-            value: kamerplanter.smart-home.k8sservices.local
+            value: kamerplanter.just-a-lab.duckdns.org
         valuesObject:
           httpProxy:
             create: false
-            fqdn: kamerplanter.smart-home.k8sservices.local
+            fqdn: kamerplanter.just-a-lab.duckdns.org
             tls:
               secretName: cert-manager/wildcard-duckdns-org-tls
             routes:
@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.19
+      targetRevision: v0.0.20
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
@@ -60,7 +60,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.19"
+                    tag: "0.0.20"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -87,6 +87,12 @@ spec:
                     # endpoint additionally needs a valid Fernet FERNET_KEY in
                     # kamerplanter-secrets (44-char url-safe base64, not hex).
                     WEATHER_ENABLED: "true"
+                    #HA_TOKEN: fofa
+                    # Temporär deaktiviert: unresolvbare HA_URL killt den Startup
+                    # (get_ha_client validiert im FastAPI-Lifespan per DNS).
+                    # Wieder aktivieren mit Image >= 0.0.20 (Startup-Fix).
+                    #HA_URL: https://home-assistant.just-a-lab.duckdns.org/
+                    #HA_URL: http://home-assistant-main.home-assistant.svc:8123/
                     # REQ-034 §4a.3 — operator opt-in for the *external* Pl@ntNet
                     # recognition path in Light mode. Light mode (REQ-027) has no
                     # consent subsystem, so sending a gallery photo to a third
@@ -116,7 +122,7 @@ spec:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.19"
+                    tag: "0.0.20"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
@@ -124,7 +130,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.19"
+                    tag: "0.0.20"
             arangodb:
               containers:
                 main:
@@ -141,7 +147,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.19"
+                    tag: "0.0.20"
                   # REQ-029-A — the reference-image acquisition Celery task runs
                   # here and calls the inference-service directly (not gated by
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
@@ -166,7 +172,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.19"
+                    tag: "0.0.20"
                   # REQ-046 — beat only registers the daily weather-fetch (06:00)
                   # and frost-forecast (06:10) schedules when weather is enabled.
                   env:
@@ -188,7 +194,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.19"
+                    tag: "0.0.20"
           # REQ-029-A — expose the recognition controllers + lock down traffic.
           service:
             vectordb:
