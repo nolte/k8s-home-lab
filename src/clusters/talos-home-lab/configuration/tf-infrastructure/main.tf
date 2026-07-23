@@ -30,7 +30,7 @@ module "talos" {
       ram_dedicated = 24000
       storage_size  = 40
       additionalNodeLabels = {
-        "zigbee.homelab.local/present": true
+        "zigbee.homelab.local/present" : true
       }
       usb = [{
         # SONOFF Zigbee 3.0 USB Dongle Plus V2
