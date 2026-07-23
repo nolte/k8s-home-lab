@@ -33,7 +33,7 @@ export TALOS_NODE_CONFIG=$(pwd)/clusterconfig/smart-home-02-k8ssmarthome02.yaml
 ```
 
 
-1.  Apply the first config 
+1.  Apply the first config
 
 ```sh
 talosctl apply-config --insecure --nodes $CONTROL_PLANE_IP --file $TALOS_NODE_CONFIG

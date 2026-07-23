@@ -23,4 +23,4 @@ patches:
 resources:
 
   - ../../../src/bundles/00-bootstrapping-minimal
-  - ../../../src/applications/privatellm/deploy/argocd 
+  - ../../../src/applications/privatellm/deploy/argocd

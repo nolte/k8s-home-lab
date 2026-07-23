@@ -9,13 +9,13 @@ This Service set are the Minimized Set off Applications, for works with k8s, lik
 Deploy all Compontents into our local [KinD](../../architecture/distribution/#kind) Cluster.
 
 ```sh
-task platform:recreate-minimal 
+task platform:recreate-minimal
 ```
 
 more information at [Local Environment](../../local/)
 
 ## Production Usage
 
-This is only a temporary set of applications. 
+This is only a temporary set of applications.
 
 <!-- vale on -->

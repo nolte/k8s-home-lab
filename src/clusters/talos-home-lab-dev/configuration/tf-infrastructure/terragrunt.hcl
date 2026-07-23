@@ -11,7 +11,7 @@ generate "provider" {
 provider "proxmox" {
 #   endpoint = var.proxmox.endpoint
 #   insecure = var.proxmox.insecure
-# 
+#
 #   api_token = var.proxmox.api_token
 #   ssh {
 #     agent    = true
@@ -65,7 +65,7 @@ generate "versions" {
         netbox = {
           source = "e-breuninger/netbox"
           version = "3.10.0"
-        }             
+        }
       }
     }
 EOF

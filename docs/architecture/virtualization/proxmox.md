@@ -4,7 +4,7 @@ In conclusion, Proxmox is a powerful and versatile virtualization platform that 
 
 ## Installation
 
-1. Create Boot Device 
+1. Create Boot Device
 
 https://enterprise.proxmox.com/iso/proxmox-ve_8.3-1.iso
 ```sh

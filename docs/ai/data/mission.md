@@ -8,5 +8,3 @@ In diesem Projekt sollen die generierten Inhalte in Markdown formatiert werden, 
 Um die generierten Inhalte möglichst transparent und reproduzierbar zu halten, werden die Fragestellungen vorgehalten. Für eine möglichst einfache Art der Kommunikation wird das CLI eliben/gemini-cli verwendet.
 
 Dabei wurde auch schon diese Fragestellung durch die Nutzung von KI generiert, um z.B. eine möglichst gute Lesbarkeit und eine geringe Anzahl an Rechtschreibfehlern zu ermöglichen.
-
-

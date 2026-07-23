@@ -2,4 +2,4 @@
 
 * Netbox as Configuration Store
 * AWX or Argo Workflow for Script automation
-* Vault as Central Secret Store 
+* Vault as Central Secret Store

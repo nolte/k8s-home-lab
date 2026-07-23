@@ -45,10 +45,8 @@ https://github.com/eliben/gemini-cli?tab=readme-ov-file
 ```sh
 export GEMINI_API_KEY=$(pass internet/google.com/ai/token)
 
-cat docs/ai/data/mission.md | gemini-cli prompt --model models/gemini-2.0-flash-exp - 
+cat docs/ai/data/mission.md | gemini-cli prompt --model models/gemini-2.0-flash-exp -
 
-echo  "Bitte überprüfe den Folgenden Text \"$(cat docs/ai/data/mission.md)\" auf Rechtschreibung" | gemini-cli prompt --model models/gemini-2.0-flash-exp - 
+echo  "Bitte überprüfe den Folgenden Text \"$(cat docs/ai/data/mission.md)\" auf Rechtschreibung" | gemini-cli prompt --model models/gemini-2.0-flash-exp -
 
 ```
-
-

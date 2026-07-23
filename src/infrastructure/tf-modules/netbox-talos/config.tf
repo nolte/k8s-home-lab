@@ -56,7 +56,7 @@ data "talos_machine_configuration" "this" {
 resource "talos_machine_configuration_apply" "this" {
   # depends_on = [proxmox_virtual_environment_vm.this]
   for_each                    = toset(local.vmnodes)
-  node                        = replace(local.allIps[each.key].ip_address, "/24", "") 
+  node                        = replace(local.allIps[each.key].ip_address, "/24", "")
   client_configuration        = talos_machine_secrets.this.client_configuration
   machine_configuration_input = data.talos_machine_configuration.this[each.key].machine_configuration
 

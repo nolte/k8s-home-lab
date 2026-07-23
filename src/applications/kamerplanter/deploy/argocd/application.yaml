@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.21
+      targetRevision: v0.0.23
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
@@ -60,7 +60,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.21"
+                    tag: "0.0.23"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -122,7 +122,7 @@ spec:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.21"
+                    tag: "0.0.23"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
@@ -130,7 +130,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.21"
+                    tag: "0.0.23"
             arangodb:
               containers:
                 main:
@@ -147,7 +147,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.21"
+                    tag: "0.0.23"
                   # REQ-029-A — the reference-image acquisition Celery task runs
                   # here and calls the inference-service directly (not gated by
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
@@ -172,7 +172,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.21"
+                    tag: "0.0.23"
                   # REQ-046 — beat only registers the daily weather-fetch (06:00)
                   # and frost-forecast (06:10) schedules when weather is enabled.
                   env:
@@ -194,7 +194,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.21"
+                    tag: "0.0.23"
           # REQ-029-A — expose the recognition controllers + lock down traffic.
           service:
             vectordb:

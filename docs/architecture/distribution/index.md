@@ -6,7 +6,7 @@ Used for development, or Clusters Bootstrapping. For more information take a loo
 
 ## k3s
 
-Deprecated way for running kubernetes on different devices, more informations at [k3s.io](https://k3s.io/). 
+Deprecated way for running kubernetes on different devices, more informations at [k3s.io](https://k3s.io/).
 
 ## Talos
 

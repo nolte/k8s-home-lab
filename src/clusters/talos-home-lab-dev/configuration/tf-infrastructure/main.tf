@@ -83,7 +83,7 @@ locals {
         role_id = data.netbox_device_role.homelab.id
         site_id = data.netbox_site.flat.id
       }
-    }    
+    }
   }
 }
 

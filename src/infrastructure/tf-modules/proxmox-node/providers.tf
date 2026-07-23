@@ -4,6 +4,6 @@ terraform {
     proxmox = {
       source = "bpg/proxmox"
     }
-   
+
   }
 }

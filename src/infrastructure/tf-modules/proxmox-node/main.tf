@@ -1,5 +1,5 @@
 variable "node_name" {
-  
+
 }
 
 resource "proxmox_virtual_environment_apt_standard_repository" "pve_no_subscription" {

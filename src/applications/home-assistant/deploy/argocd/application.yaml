@@ -250,7 +250,7 @@ spec:
               #type: emptyDir
               #type: hostPath
               accessMode: "ReadWriteOnce"
-              storageClass: proxmox-data-xfs 
+              storageClass: proxmox-data-xfs
               volumeName: home-assistant-config
               size: 20Gi
               advancedMounts:
@@ -266,4 +266,3 @@ spec:
           #     existingClaim: home-assistant-config
           #     globalMounts:
           #       - path: /config
-

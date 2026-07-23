@@ -64,11 +64,11 @@ resource "proxmox_virtual_environment_vm" "this" {
     #   # do not use this in production, configure your own ssh key instead!
     #   username = "user"
     #   password = "password"
-    # }    
+    # }
   }
 
   dynamic "usb" {
-    for_each = var.nodes[each.key].usb 
+    for_each = var.nodes[each.key].usb
     content {
       # Passthrough iGPU
       host = usb.value.host
