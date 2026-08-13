@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.23
+      targetRevision: v0.1.0
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
@@ -60,7 +60,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.23"
+                    tag: "0.1.0"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -106,6 +106,23 @@ spec:
                     # flipped on only AFTER the reference index is populated, else
                     # recognition returns no results. See the deploy doc.
                     INFERENCE_SERVICE_URL: "http://kamerplanter-inference-service:8000"
+                    # REQ-033 — MCP tool interface (Streamable HTTP) served
+                    # in-process by this backend under /api/v1/mcp. The chart
+                    # ships it OFF (values.yaml MCP_SERVER_ENABLED=false), where
+                    # every /mcp/* route answers 404; this turns it on for the
+                    # lab install. No extra pod and no extra egress — sessions
+                    # live in the Valkey instance the backend already uses.
+                    # Callers authenticate with a `kp_` API key; in Light mode
+                    # (KAMERPLANTER_MODE=light above) the key is issued to the
+                    # anonymous system user every request resolves to anyway, so
+                    # it grants no new authority — it only makes the existing
+                    # access reachable from an external LLM client. Reachable
+                    # from outside through the existing /api HTTPProxy route.
+                    # MCP_IDEMPOTENCY_TTL_HOURS (24) and MCP_AUDIT_RETENTION_DAYS
+                    # (90) keep the chart defaults; the cleanup Celery beat
+                    # schedules are registered unconditionally, so worker/beat
+                    # need no flag of their own.
+                    MCP_SERVER_ENABLED: "true"
                   # Image upload decodes the photo in-memory (Pillow quality
                   # assessment); a few-MB JPEG balloons to 100+ MB decoded, so
                   # the chart's 256Mi limit OOMKills the pod on upload. Even the
@@ -122,7 +139,7 @@ spec:
               initContainers:
                 init-runtime-config:
                   image:
-                    tag: "0.0.23"
+                    tag: "0.1.0"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
@@ -130,7 +147,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.23"
+                    tag: "0.1.0"
             arangodb:
               containers:
                 main:
@@ -147,7 +164,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.23"
+                    tag: "0.1.0"
                   # REQ-029-A — the reference-image acquisition Celery task runs
                   # here and calls the inference-service directly (not gated by
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
@@ -172,7 +189,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.23"
+                    tag: "0.1.0"
                   # REQ-046 — beat only registers the daily weather-fetch (06:00)
                   # and frost-forecast (06:10) schedules when weather is enabled.
                   env:
@@ -194,7 +211,7 @@ spec:
               containers:
                 main:
                   image:
-                    tag: "0.0.23"
+                    tag: "0.1.0"
           # REQ-029-A — expose the recognition controllers + lock down traffic.
           service:
             vectordb:
