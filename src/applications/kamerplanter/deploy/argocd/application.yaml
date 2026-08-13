@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.0.23
+      targetRevision: v0.1.0
       helm:
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
