@@ -34,8 +34,25 @@ spec:
                     port: 80
     - path: helm/kamerplanter
       repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: v0.1.0
+      targetRevision: develop
       helm:
+        # IMAGE PINNING INVARIANT (nolte/kamerplanter#1210, #1025, #1024).
+        #
+        # This overlay must NOT carry per-controller ``image.tag`` overrides.
+        # Every Kamerplanter image in the chart is pinned as
+        # ``latest@sha256:<digest>``; the digest identifies the bytes and cannot
+        # move. A ``tag: "0.2.0"`` here replaces that digest with a mutable tag,
+        # and the chart's ``pullPolicy: IfNotPresent`` then degrades to "keep
+        # whatever is already cached on the node" — measured in #1024, where a
+        # rollout restart silently kept an old image and the inference-service
+        # served pre-REQ-044 code for weeks. The failure is invisible from
+        # every side except the running container.
+        #
+        # Division of responsibility:
+        #   * ``targetRevision`` above selects the chart **version**;
+        #   * the chart's values.yaml selects the **bytes**.
+        # Renovate keeps the digests current via the grouped "kamerplanter
+        # images" PR; with tags pinned here those merges never reached prod.
         valuesObject:
           # Persistent image store (NFR-013 local-fs). Mounted at
           # /data/attachments (STORAGE_LOCAL_FS_ROOT) on the backend pod.
@@ -59,8 +76,6 @@ spec:
                   fsGroup: 1000
               containers:
                 main:
-                  image:
-                    tag: "0.1.0"
                   envFrom:
                     - secretRef:
                         name: kamerplanter-secrets
@@ -138,16 +153,10 @@ spec:
             frontend:
               initContainers:
                 init-runtime-config:
-                  image:
-                    tag: "0.1.0"
                   # The init container generates runtime-config.js consumed by
                   # the frontend; this is the ONLY place the mode takes effect.
                   env:
                     KAMERPLANTER_MODE: light
-              containers:
-                main:
-                  image:
-                    tag: "0.1.0"
             arangodb:
               containers:
                 main:
@@ -159,12 +168,11 @@ spec:
                       cpu: "1"
                       memory: 1Gi
             # celery-worker and celery-beat share the kamerplanter-backend
-            # image; pin them to the same version as the backend.
+            # image. They stay on the chart's digest like every other
+            # controller — no tag override here (see the invariant above).
             celery-worker:
               containers:
                 main:
-                  image:
-                    tag: "0.1.0"
                   # REQ-029-A — the reference-image acquisition Celery task runs
                   # here and calls the inference-service directly (not gated by
                   # INFERENCE_SERVICE_ENABLED), so the worker needs the URL too.
@@ -188,8 +196,6 @@ spec:
             celery-beat:
               containers:
                 main:
-                  image:
-                    tag: "0.1.0"
                   # REQ-046 — beat only registers the daily weather-fetch (06:00)
                   # and frost-forecast (06:10) schedules when weather is enabled.
                   env:
@@ -202,16 +208,15 @@ spec:
               enabled: true
             inference-service:
               enabled: true
-              # Pin to the coordinated release tag like every other controller.
-              # The chart default floats on ``:latest`` with pullPolicy
-              # IfNotPresent, so a node that cached an older ``:latest`` never
-              # re-pulls — the pod kept serving a pre-REQ-044 image without the
-              # ``/pest/*`` routes, so /admin/pests/status reported the service
-              # as unreachable. An explicit semver tag forces a fresh pull.
-              containers:
-                main:
-                  image:
-                    tag: "0.1.0"
+              # The semver tag override that used to live here is gone (#1210).
+              # It was added when the chart still floated on a bare ``:latest``
+              # with pullPolicy IfNotPresent, so a node holding a cached
+              # ``:latest`` never re-pulled and the pod kept serving a
+              # pre-REQ-044 image without the ``/pest/*`` routes. #987 fixed
+              # that at the source: the chart now pins
+              # ``latest@sha256:<digest>``, which is content-addressed and
+              # cannot go stale. Re-adding a tag here would reintroduce exactly
+              # the staleness it was meant to cure.
           # REQ-029-A — expose the recognition controllers + lock down traffic.
           service:
             vectordb:
