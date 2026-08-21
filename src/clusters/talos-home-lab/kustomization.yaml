@@ -739,14 +739,14 @@ patches:
       #     requests:
       #       cpu: "100m"
       #       memory: "512Mi"
-      - op: add
-        path: /spec/sources/1/helm/valuesObject/controllers/frontend/containers/main/resources
-        value:
-          limits:
-            memory: "256Mi"
-          requests:
-            cpu: "25m"
-            memory: "64Mi"
+      #- op: add
+      #  path: /spec/sources/1/helm/valuesObject/controllers/frontend/containers/main/resources
+      #  value:
+      #    limits:
+      #      memory: "256Mi"
+      #    requests:
+      #      cpu: "25m"
+      #      memory: "64Mi"
       - op: add
         path: /spec/sources/1/helm/valuesObject/controllers/arangodb/containers/main/resources
         value:

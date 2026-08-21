@@ -32,9 +32,10 @@ spec:
                 services:
                   - name: kamerplanter-frontend
                     port: 80
-    - path: helm/kamerplanter
-      repoURL: https://github.com/nolte/kamerplanter.git
-      targetRevision: develop
+    - path: .
+      repoURL: oci://ghcr.io/nolte/charts/kamerplanter
+      targetRevision: 0.2.1
+
       helm:
         # IMAGE PINNING INVARIANT (nolte/kamerplanter#1210, #1025, #1024).
         #
