@@ -37,7 +37,7 @@ spec:
 
     - chart: app-template
       repoURL: https://bjw-s-labs.github.io/helm-charts
-      targetRevision: 5.0.1
+      targetRevision: 5.1.0
       helm:
         releaseName: home-assistant
         parameters: []
@@ -102,7 +102,7 @@ spec:
                     # https://github.com/home-assistant/addons/blob/master/piper/Dockerfile
                     # https://hub.docker.com/r/rhasspy/wyoming-piper/tags
                     repository: rhasspy/wyoming-piper
-                    tag: 2.4.0
+                    tag: 2.4.2
                   #command: ["/bin/bash"]
                   args:
                   - "--data-dir"
@@ -168,7 +168,7 @@ spec:
                   image:
                     # https://github.com/home-assistant/core/releases
                     repository: ghcr.io/home-assistant/home-assistant
-                    tag: 2026.8.1
+                    tag: 2026.8.2
                   probes:
                     liveness:
                       enabled: true
