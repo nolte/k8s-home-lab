@@ -9,6 +9,15 @@
       '/src/applications/.*/deploy/argocd/application.*\\.yaml/',
     ],
   },
+  // Plain Kubernetes manifests carrying a digest-pinned `image:`. Without this
+  // the pin in src/applications/kamerplanter/deploy/delivery-check/cronjob.yaml
+  // would be unmanaged and would silently rot, which is the opposite of the
+  // image-pinning invariant this repository states for that very application.
+  kubernetes: {
+    managerFilePatterns: [
+      '/src/applications/.*/deploy/.*/cronjob\\.yaml/',
+    ],
+  },
   customManagers: [
     {
       customType: 'regex',

@@ -1,0 +1,30 @@
+---
+# Hop 4 of the delivery chain, watched from inside the cluster
+# (nolte/kamerplanter#1236).
+#
+# WHY A SEPARATE APPLICATION rather than a third `source` on the kamerplanter
+# Application beside it: that Application carries the image-pinning invariant
+# (#1210/#1025/#1024) and a long list of operator overrides addressed by
+# `/spec/sources/<n>/...` JSON-patch paths from
+# `src/clusters/talos-home-lab/kustomization.yaml`. Appending a source would
+# renumber nothing today but would make those index-addressed patches one edit
+# away from pointing at the wrong source. A watcher must not be able to break
+# the thing it watches.
+#
+# It also keeps the failure domains apart: this Application can be out of sync,
+# unhealthy or deleted without that showing up as a problem with Kamerplanter
+# itself — and, conversely, a broken Kamerplanter sync does not stop the watcher
+# from being applied.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kamerplanter-delivery-check
+spec:
+  destination:
+    name: in-cluster
+    namespace: kamerplanter
+  project: default
+  source:
+    path: src/applications/kamerplanter/deploy/delivery-check
+    repoURL: https://github.com/nolte/k8s-home-lab.git
+    targetRevision: master
