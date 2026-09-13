@@ -34,7 +34,7 @@ spec:
                     port: 80
     - path: .
       repoURL: oci://ghcr.io/nolte/charts/kamerplanter
-      targetRevision: 0.2.1
+      targetRevision: 0.3.0
 
       helm:
         # IMAGE PINNING INVARIANT (nolte/kamerplanter#1210, #1025, #1024).
