@@ -1,0 +1,33 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# NO top-level `namespace:` here, deliberately. Kustomize's namespace
+# transformer OVERWRITES an explicitly set `metadata.namespace` rather than only
+# filling in a missing one — measured: with `namespace: kamerplanter` set, the
+# Role and RoleBinding that grant read access to the ArgoCD Application were
+# rewritten from `argocd` into `kamerplanter`. The manifests would still apply
+# cleanly, the CronJob would still run, and every run would fail with HTTP 403 →
+# exit 1 → "undetermined" forever. That is a watcher that is red for its own
+# configuration, which is exactly the trap this check was written to avoid.
+#
+# So every resource carries its own `metadata.namespace` and nothing rewrites it.
+
+resources:
+  - rbac.yaml
+  - cronjob.yaml
+  - prometheusrule.yaml
+
+configMapGenerator:
+  # The hash suffix is kept on purpose: editing the script produces a new
+  # ConfigMap name, kustomize rewrites the CronJob's volume reference, and the
+  # next Job runs the new code. Without it a script change would land in the
+  # cluster and never be picked up — an inert fix, which is the failure class
+  # this whole check exists to catch.
+  #
+  # Only the check itself is listed. test_check_delivery_sync.py lives beside it
+  # and must NOT be shipped into the cluster.
+  - name: kamerplanter-delivery-check-script
+    namespace: kamerplanter
+    files:
+      - check_delivery_sync.py

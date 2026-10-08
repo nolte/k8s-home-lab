@@ -1,0 +1,161 @@
+---
+# How the hop-4 check alerts (nolte/kamerplanter#1236).
+#
+# THERE IS NO OPERATED DELIVERY PATH ON THIS CLUSTER — measured 2026-09-01:
+#   * Alertmanager runs, and every route in
+#     `alertmanager-monitoring-kube-prometheus-alertmanager-generated` ends in
+#     the `"null"` receiver. Nothing is delivered anywhere.
+#   * `argocd-notifications-controller` runs with a stock
+#     `argocd-notifications-cm` (`argocdUrl: https://argocd.example.com`, no
+#     triggers, no services, no templates). Nothing is delivered there either.
+# So these alerts are VISIBLE (Prometheus and the Alertmanager UI) and are not
+# DELIVERED. That is stated here rather than papered over, and inventing a
+# notification channel nobody operates would have been worse. Wiring one
+# receiver into Alertmanager is the smallest thing that would close the gap, and
+# it is an operator decision, not this file's.
+#
+# WHAT IS OPERATED, and why these expressions work:
+#   * `ruleNamespaceSelector: {}` and `ruleSelector: {matchLabels: {release:
+#     monitoring}}` on the Prometheus CR, so a PrometheusRule in THIS namespace
+#     carrying `release: monitoring` is evaluated. Hence the label below.
+#   * kube-state-metrics v2.18 is an UP target and exports
+#     `kube_pod_container_status_last_terminated_exitcode`. That is what keeps
+#     the check's three answer classes distinct in the alerting layer instead of
+#     collapsing them into "the job failed": exit 3 is the incident, exits 1 and
+#     2 are "cannot tell", and they must never read the same.
+#
+# THE FRESHNESS BOUND. `..._last_terminated_exitcode` describes the last
+# termination of a pod that still exists, and `failedJobsHistoryLimit: 1` keeps
+# a failed pod around after the problem is fixed. Without the 3h bound below, a
+# single drift would fire forever. 3h > the hourly schedule, so a still-drifting
+# deployment re-fires on the next run; a fixed one ages out.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kamerplanter-delivery-check
+  namespace: kamerplanter
+  labels:
+    # Selected by the kube-prometheus-stack Prometheus. Removing this label does
+    # not break anything visibly — it silently stops the rules being evaluated.
+    release: monitoring
+spec:
+  groups:
+    - name: kamerplanter-delivery-hop4
+      rules:
+        - alert: KamerplanterDeliveryHopFourDrift
+          # Exit 3 — and only exit 3 — is the incident.
+          expr: |
+            (
+              kube_pod_container_status_last_terminated_exitcode{
+                namespace="kamerplanter", container="check",
+                pod=~"kamerplanter-delivery-check-.*"
+              } == 3
+            )
+            and on(namespace, pod)
+            (
+              time() - kube_pod_container_status_last_terminated_timestamp{
+                namespace="kamerplanter", container="check"
+              } < 10800
+            )
+          for: 20m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Kamerplanter is not running the chart version ArgoCD declares"
+            description: >-
+              The delivery-hop-4 check exited 3 (drift): the ArgoCD Application
+              declares one chart version and the running workloads were rendered
+              from another, or a rollout has not reached every pod, or a pod is
+              serving a different image digest than its spec pins. This is the
+              2026-08-17 failure shape and ArgoCD's own `Synced`/`Healthy`
+              report does NOT contradict it — the check reads the workloads, not
+              ArgoCD's self-report. Read the reason with
+              `kubectl -n kamerplanter logs {{ $labels.pod }}`.
+        - alert: KamerplanterDeliveryCheckUndetermined
+          # Exits 1 and 2 — the "not disclosed" and "unknown" answer classes,
+          # plus a bad invocation. Deliberately a different alert with a
+          # different severity: it says the check could not run, NOT that the
+          # deployment is wrong. Collapsing it into the alert above would make
+          # every drift alert unbelievable.
+          # `=~` is a LABEL matcher in PromQL, not a value comparison, so the
+          # two exit codes are two value comparisons unioned with `or`.
+          expr: |
+            (
+              (
+                kube_pod_container_status_last_terminated_exitcode{
+                  namespace="kamerplanter", container="check",
+                  pod=~"kamerplanter-delivery-check-.*"
+                } == 1
+              )
+              or
+              (
+                kube_pod_container_status_last_terminated_exitcode{
+                  namespace="kamerplanter", container="check",
+                  pod=~"kamerplanter-delivery-check-.*"
+                } == 2
+              )
+            )
+            and on(namespace, pod)
+            (
+              time() - kube_pod_container_status_last_terminated_timestamp{
+                namespace="kamerplanter", container="check"
+              } < 10800
+            )
+          for: 20m
+          labels:
+            severity: warning
+          annotations:
+            summary: "The Kamerplanter delivery-hop-4 check could not be determined"
+            description: >-
+              The check exited 1 (undetermined) or 2 (usage). This says NOTHING
+              about whether the deployment is current — the measurement did not
+              happen. Usual causes: the workloads carry no `helm.sh/chart` label,
+              the Application's `targetRevision` is not a fixed chart version, or
+              the Application owns no workload in the namespace. The reason is
+              the `::error::` line in
+              `kubectl -n kamerplanter logs {{ $labels.pod }}`.
+        - alert: KamerplanterDeliveryCheckStale
+          # A check that stopped running is indistinguishable from one that is
+          # green, which is exactly the failure class this whole issue is about.
+          # So the watcher gets a watcher.
+          expr: |
+            time() - max(
+              kube_cronjob_status_last_schedule_time{
+                namespace="kamerplanter", cronjob="kamerplanter-delivery-check"
+              }
+            ) > 10800
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: "The Kamerplanter delivery-hop-4 check has not run for 3h"
+            description: >-
+              The CronJob is scheduled hourly but kube-state-metrics reports no
+              schedule in the last three hours. Nothing is measuring hop 4 right
+              now, so its silence means nothing.
+        - alert: KamerplanterDeliveryCheckNotRunning
+          # The case the staleness rule structurally cannot see: a metric that
+          # never appears at all. `for: 26h` covers the window between this rule
+          # landing and the CronJob's first schedule, so a fresh install does not
+          # fire on its way up.
+          expr: |
+            absent(
+              kube_cronjob_info{
+                namespace="kamerplanter", cronjob="kamerplanter-delivery-check"
+              }
+            )
+            or
+            absent(
+              kube_cronjob_status_last_schedule_time{
+                namespace="kamerplanter", cronjob="kamerplanter-delivery-check"
+              }
+            )
+          for: 26h
+          labels:
+            severity: warning
+          annotations:
+            summary: "The Kamerplanter delivery-hop-4 CronJob is missing or has never run"
+            description: >-
+              kube-state-metrics reports no such CronJob, or reports one that has
+              never been scheduled. Either it was deleted, or it is suspended, or
+              the CronJob controller is not acting on it.
