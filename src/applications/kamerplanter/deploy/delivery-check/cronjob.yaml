@@ -1,0 +1,110 @@
+---
+# The hop-4 delivery check (nolte/kamerplanter#1236).
+#
+# WHY A CRONJOB AND NOT A CRONWORKFLOW
+# ------------------------------------
+# This repository's one precedent for a periodic cluster-side task is a
+# CronWorkflow (`src/applications/esphome/workflows/templates/cron.yaml`), and
+# CLAUDE.md names Argo Workflows as the process-automation tool. That precedent
+# was measured and deliberately not followed, for one reason: what is operated
+# here can see a failed Job and cannot see a failed Workflow.
+#
+# Measured on the production cluster, 2026-09-01:
+#   * kube-state-metrics v2.18 runs with `jobs` and `cronjobs` collectors
+#     enabled and is an UP Prometheus target;
+#   * Prometheus therefore carries `kube_job_status_failed`,
+#     `kube_pod_container_status_last_terminated_exitcode` and friends;
+#   * there is NO ServiceMonitor for argo-workflows, so Workflow outcomes are
+#     scraped by nothing.
+# A CronWorkflow here would run and fail in silence — a tree falling in a
+# forest. A CronJob lands in the observation path that already exists.
+#
+# WHY THE SCRIPT COMES FROM A CONFIGMAP
+# -------------------------------------
+# Shipping an image would mean a build, a registry and a publish lane this
+# repository does not have, and would put a fourth delivery hop in front of the
+# thing that watches delivery hops. A stock Python image plus the script as data
+# has no build step, no egress at run time beyond the API server, and no
+# dependency to install: the check imports the standard library only.
+#
+# The image is pinned by digest, which is this repository's own stated invariant
+# (see the comment in ../argocd/application.yaml). `pullPolicy: IfNotPresent`
+# beside a digest is safe: a digest is content-addressed, so "keep what is
+# cached" and "pull the pinned bytes" are the same thing.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kamerplanter-delivery-check
+  namespace: kamerplanter
+spec:
+  # Hourly. The 2026-08-17 incident lasted days, so hourly is far more resolution
+  # than the failure needs; it is chosen to keep the alert's freshness window
+  # (3h, see prometheusrule.yaml) comfortably longer than the schedule without
+  # being so long that a resolved drift keeps firing.
+  schedule: "23 * * * *"
+  timeZone: Etc/UTC
+  concurrencyPolicy: Forbid
+  # A missed window is not worth catching up on: the next run measures the same
+  # present-tense fact. 300s keeps a briefly-unschedulable window from being
+  # silently skipped, which would look identical to a green run.
+  startingDeadlineSeconds: 300
+  # Both histories are kept at 1 so exactly one terminated pod of each outcome
+  # exists for kube-state-metrics to expose. The alert rules bound on the
+  # termination timestamp so a fixed drift stops firing rather than lingering.
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      # No retries. A retry would replace the failed pod's exit code with a
+      # later one and, worse, could turn a genuine `drift` (3) into a run that
+      # merely looks noisy. One measurement per schedule, reported as it was.
+      backoffLimit: 0
+      activeDeadlineSeconds: 300
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: kamerplanter-delivery-check
+            app.kubernetes.io/part-of: kamerplanter
+        spec:
+          restartPolicy: Never
+          serviceAccountName: kamerplanter-delivery-check
+          automountServiceAccountToken: true
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            # The container name is part of the alert-rule selector; renaming it
+            # silently detaches the alerts. See prometheusrule.yaml.
+            - name: check
+              image: docker.io/library/python:3.14-alpine@sha256:3f818d6811ff5f3f2b5e5d836df3d25c2dd2e588d3b4981338a8ba17e422f74f
+              imagePullPolicy: IfNotPresent
+              command:
+                - python3
+                - /opt/delivery-check/check_delivery_sync.py
+                - --application=kamerplanter
+                - --argocd-namespace=argocd
+                - --grace-minutes=60
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 200m
+                  memory: 128Mi
+              volumeMounts:
+                - name: script
+                  mountPath: /opt/delivery-check
+                  readOnly: true
+          volumes:
+            - name: script
+              configMap:
+                name: kamerplanter-delivery-check-script
+                defaultMode: 0444

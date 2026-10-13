@@ -13,3 +13,23 @@ repos:
           - id: end-of-file-fixer
           - id: trailing-whitespace
             args: ['--markdown-linebreak-ext=md']
+    - repo: local
+      hooks:
+          # The hop-4 delivery check (nolte/kamerplanter#1236) ships as a Python
+          # script inside a ConfigMap, so nothing else in this repository would
+          # ever execute it before it reaches the cluster. Its self-test runs on
+          # the standard library alone and is wired into the gate that already
+          # exists here rather than introducing a Python test lane.
+          - id: delivery-check-selftest
+            name: kamerplanter delivery-check self-test
+            #
+            # `language: python` rather than `system`: this repository pins a
+            # python version in `.tool-versions`, so a bare `python3` resolves
+            # to the asdf shim and fails with "No version is set" whenever that
+            # exact version is not installed locally. A gate that is red for an
+            # environment reason is a gate that gets ignored. pre-commit builds
+            # its own venv here instead; the test needs no dependency.
+            entry: python src/applications/kamerplanter/deploy/delivery-check/test_check_delivery_sync.py
+            language: python
+            pass_filenames: false
+            files: ^src/applications/kamerplanter/deploy/delivery-check/.*\.py$

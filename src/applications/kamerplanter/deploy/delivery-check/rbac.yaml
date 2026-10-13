@@ -1,0 +1,71 @@
+---
+# Least privilege for the hop-4 delivery check (nolte/kamerplanter#1236).
+#
+# The check only ever reads. It needs two namespaces:
+#   * `argocd`        — one Application object, to learn the DECLARED chart
+#                       version (`targetRevision`) and ArgoCD's own report;
+#   * `kamerplanter`  — the workloads, to learn the APPLIED chart version
+#                       (`helm.sh/chart`) and whether the rollout finished.
+#
+# Both are namespaced Roles rather than a ClusterRole: nothing here needs to see
+# another tenant's namespace, and a read-only check is exactly the kind of thing
+# that quietly grows cluster-wide read if given the chance.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kamerplanter-delivery-check
+  namespace: kamerplanter
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  # `get` on a single named Application. No `list`, so this cannot enumerate
+  # what else ArgoCD manages on this cluster.
+  name: kamerplanter-delivery-check-argocd-read
+  namespace: argocd
+rules:
+  - apiGroups: ["argoproj.io"]
+    resources: ["applications"]
+    resourceNames: ["kamerplanter"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kamerplanter-delivery-check-argocd-read
+  namespace: argocd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kamerplanter-delivery-check-argocd-read
+subjects:
+  - kind: ServiceAccount
+    name: kamerplanter-delivery-check
+    namespace: kamerplanter
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kamerplanter-delivery-check-workload-read
+  namespace: kamerplanter
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets"]
+    verbs: ["list"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kamerplanter-delivery-check-workload-read
+  namespace: kamerplanter
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kamerplanter-delivery-check-workload-read
+subjects:
+  - kind: ServiceAccount
+    name: kamerplanter-delivery-check
+    namespace: kamerplanter
