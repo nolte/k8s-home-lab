@@ -131,7 +131,7 @@ spec:
                   image:
                     # https://www.music-assistant.io/installation/#docker-image
                     repository: ghcr.io/music-assistant/server
-                    tag: 2.10.7
+                    tag: 2.10.9
                   probes:
                     liveness:
                       enabled: true
