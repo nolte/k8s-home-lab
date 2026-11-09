@@ -37,7 +37,7 @@ spec:
         valuesObject:
           image:
             repository: "pihole/pihole"
-            tag: "2026.10.0"
+            tag: "2026.10.1"
             pullPolicy: IfNotPresent
           persistentVolumeClaim:
             enabled: false
